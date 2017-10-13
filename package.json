@@ -10,6 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "koa": "^2.3.0",
-    "koa-router": "^7.2.1"
+    "koa-bodyparser": "^4.2.0",
+    "koa-mysql-session": "0.0.2",
+    "koa-router": "^7.2.1",
+    "koa-session-minimal": "^3.0.4"
   }
 }
