@@ -7,7 +7,7 @@ let _Page = Router
         let html = await render('index.html');
         ctx.body = html;
     })
-    .get('/index', async (ctx, next) => {
+    .get('index', async (ctx, next) => {
         let html = await render('index.html');
 
         ctx.session = {

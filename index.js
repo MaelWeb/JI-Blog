@@ -1,18 +1,23 @@
 const koa = require('koa');
 const bodyParser = require('koa-bodyparser');
-const session = require('koa-session-minimal')
-const MysqlSession = require('koa-mysql-session')
+const session = require('koa-session-minimal');
+const mySqlSession = require('koa-mysql-session');
+const koaStatic = require('koa-static');
+const views = require('koa-views');
+const path = require('path');
+
+const _Config = require('./config');
 
 const Router = require('./router/index');
 
 const App = new koa();
 
 // 配置存储session信息的mysql
-let store = new MysqlSession({
-    user: 'root',
-    password: 'abc123',
-    database: 'koa_demo',
-    host: '127.0.0.1',
+let store = new mySqlSession({
+    user: _Config.database.USERNAME,
+    password: _Config.database.PASSWORD,
+    database: _Config.database.DATABASE,
+    host: _Config.database.HOST,
 });
 
 // 存放sessionId的cookie配置
@@ -31,9 +36,19 @@ let cookie = {
 
 // 使用session中间件
 App.use(session({
-    key: 'SESSION_ID',
+    key: 'USER_SID',
     store: store,
     cookie: cookie
+}));
+
+// 配置静态资源加载中间件
+App.use(koaStatic(
+    path.join(__dirname, './public')
+));
+
+// 配置服务端模板渲染引擎中间件
+App.use(views(path.join(__dirname, './views'), {
+    extension: 'html'
 }))
 
 // 使用ctx.body解析中间件
@@ -46,7 +61,7 @@ App.use(Router.routes())
 // 404
 App.use(pageNotFound());
 
-App.listen(8080, () => {
+App.listen(_Config.port, () => {
     console.log('\n[node-koa-test] start-quick is starting at port 8080');
 });
 
