@@ -1,4 +1,6 @@
-const router = require('koa-router');
+import router from 'koa-router';
+import { singUp } from '../server/controllers/user-info';
+
 const Router = new router();
 
 let _Api = Router.get('/get/helloword', (ctx, next) => {
@@ -18,9 +20,7 @@ let _Api = Router.get('/get/helloword', (ctx, next) => {
             }
         };
     })
-    .post('/post/helloword', (ctx, next) => {
-        let postData = ctx.request.body;
-        ctx.body = postData;
-    })
+    .post('/singup', singUp)
 
-module.exports = _Api;
+// module.exports = _Api;
+export default _Api;

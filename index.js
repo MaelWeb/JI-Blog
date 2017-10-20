@@ -6,9 +6,8 @@ const koaStatic = require('koa-static');
 const views = require('koa-views');
 const path = require('path');
 
-const _Config = require('./config');
-
-const Router = require('./router/index');
+import _Config from './config';
+import Router from './router';
 
 const App = new koa();
 
@@ -48,7 +47,8 @@ App.use(koaStatic(
 
 // 配置服务端模板渲染引擎中间件
 App.use(views(path.join(__dirname, './views'), {
-    extension: 'html'
+    extension: 'html',
+    map: {html: 'ejs'}
 }))
 
 // 使用ctx.body解析中间件
@@ -70,7 +70,7 @@ function pageNotFound() {
     return async (ctx, next) => {
         let response = ctx.response;
         if (response.status == 404) {
-            ctx.body = await render('404.html');
+            ctx.render('404');
         }
     };
 }

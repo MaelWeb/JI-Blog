@@ -4,17 +4,30 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node index.js",
+    "init_sql": "babel-node ./lib/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "ejs": "^2.5.7",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-mysql-session": "0.0.2",
     "koa-router": "^7.2.1",
     "koa-session-minimal": "^3.0.4",
     "koa-static": "^4.0.1",
-    "koa-views": "^6.1.1"
+    "koa-views": "^6.1.1",
+    "validator": "^9.0.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
   }
 }

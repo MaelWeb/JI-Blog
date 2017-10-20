@@ -1,0 +1,53 @@
+<% include header.html %>
+    <div class="container">
+        <form class="form create" method="post">
+            <div>
+                <label>用户名：</label>
+                <input placeholder="用户名" type="text" name="userName">
+            </div>
+            <div>
+                <label>邮箱：</label>
+                <input class="email" type="email" name="email">
+            </div>
+            <div>
+                <label>密码：</label>
+                <input class="password" type="password" name="password">
+            </div>
+            <div>
+                <label>重复密码：</label>
+                <input class="confirmPassword" type="password" name="confirmPassword">
+            </div>
+            <div class="submit">注册</div>
+        </form>
+    </div>
+    <script>
+    $('.submit').click(() => {
+        console.log($('.form').serialize())
+        $.ajax({
+            url: "/api/singup",
+            data: $('.form').serialize(),
+            type: "POST",
+            cache: false,
+            dataType: 'json',
+            success: function(res) {
+                if (res.code != 200) {
+
+                    $('.error').text(res.message);
+                    fade('.message');
+                } else {
+                    $('.success').text('注册成功')
+                    fade('.message')
+                    // setTimeout(() => {
+                    //     window.location.href = "/signin"
+
+                    // }, 1000)
+                }
+                //console.log($('.ui.error.message').text);
+            },
+            error: function() {
+                alert('异常');
+            }
+        })
+    })
+    </script>
+<% include footer.html %>
