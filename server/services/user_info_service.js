@@ -1,4 +1,4 @@
-import * as userModel from '../models/user-info';
+import * as UserModel from '../models/user_info_model';
 import validator from 'validator';
 /**
  * 检验用户注册数据
@@ -40,7 +40,7 @@ export function validatorSignUp(userInfo) {
  * @return {object|null}  查找结果
  */
 export async function getExistOne(formData) {
-    let resultData = await userModel.getExistOne({
+    let resultData = await UserModel.getExistOne({
         'email': formData.email,
         'name': formData.userName
     })
@@ -53,6 +53,20 @@ export async function getExistOne(formData) {
  * @return {object} 创建结果
  */
 export async function createUser(user) {
-    let result = await userModel.createUser(user)
+    let result = await UserModel.createUser(user)
     return result;
+}
+
+/**
+ * 登录业务操作
+ * @param  {object} formData 登录表单信息
+ * @return {object} 登录业务操作结果
+ */
+export async function signIn(formData) {
+    let resultData = await UserModel.getUserByNameAndPassword({
+        'password': formData.password,
+        'name': formData.userName
+    });
+
+    return resultData
 }

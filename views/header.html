@@ -22,10 +22,10 @@
     <header>
         <div class="user_name">
             user：
-            <% if(session.user){ %>
-                <%= session.user %>
+            <% if(session.userName){ %>
+                <%= session.userName %>
             <% } %>
-            <% if(!session.user){ %>
+            <% if(!session.userName){ %>
                 未登录
             <% } %>
         </div>
@@ -34,14 +34,14 @@
             <div class="success"></div>
         </div>
         <div class="user_right">
-            <%  if(session.user){ %>
+            <%  if(session.userName){ %>
                 <div class="has_user">
                     <a href="/posts">全部文章</a>
-                    <a href="/create">发表文章</a>
+                    <a href="/addarticle">发表文章</a>
                     <span class="signout">登出</span>
                 </div>
             <% } %>
-            <% if(!session.user){ %>
+            <% if(!session.userName){ %>
                 <div class="none_user">
                     <a href="/posts">全部文章</a>
                     <a href="/signup">注册</a>

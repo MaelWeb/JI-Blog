@@ -4,18 +4,27 @@ const Router = new router();
 
 let _Page = Router
     .get('/', async (ctx, next) => {
-        await ctx.render('index', {});
+        await ctx.render('index', {
+            session: ctx.session
+        });
     })
     .get('index', async (ctx, next) => {
-        ctx.session = {
-            user_id: Math.random().toString(36).substr(2),
-            count: 0
-        };
-
-        await ctx.render('index', {});
+        await ctx.render('index', {
+            session: ctx.session
+        });
     })
     .get('signup', async (ctx, next) => {
         await ctx.render('signup', {
+            session: ctx.session
+        });
+    })
+    .get('signin', async (ctx, next) => {
+        await ctx.render('signin', {
+            session: ctx.session
+        });
+    })
+    .get('addarticle', async (ctx, next) => {
+        await ctx.render('add_article', {
             session: ctx.session
         });
     });

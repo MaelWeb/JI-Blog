@@ -1,5 +1,6 @@
 import router from 'koa-router';
-import { singUp } from '../server/controllers/user-info';
+import { singUp, signIn } from '../server/controllers/user_info_ctr';
+import { createNewArticle } from '../server/controllers/article_ctr';
 
 const Router = new router();
 
@@ -20,7 +21,16 @@ let _Api = Router.get('/get/helloword', (ctx, next) => {
             }
         };
     })
+    .get('/signout', (ctx) => {
+        ctx.session = null;
+        ctx.body = {
+            code: 200,
+            message: '登出成功'
+        };
+    })
     .post('/singup', singUp)
+    .post('/signin', signIn)
+    .post('/create/article', createNewArticle)
 
 // module.exports = _Api;
 export default _Api;

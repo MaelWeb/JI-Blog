@@ -1,46 +1,37 @@
 <% include header.html %>
     <div class="container">
-        <form class="form create" method="post">
+        <form class="form create" method="post ">
             <div>
                 <label>用户名：</label>
                 <input placeholder="用户名" type="text" name="userName">
             </div>
             <div>
-                <label>邮箱：</label>
-                <input class="email" type="email" name="email">
-            </div>
-            <div>
                 <label>密码：</label>
-                <input class="password" type="password" name="password">
+                <input placeholder="密码" type="password" name="password">
             </div>
-            <div>
-                <label>重复密码：</label>
-                <input class="confirmPassword" type="password" name="confirmPassword">
-            </div>
-            <div class="submit">注册</div>
+            <div class="submit">登录</div>
         </form>
     </div>
     <script>
     $('.submit').click(() => {
         $.ajax({
-            url: "/api/singup",
+            url: "/api/signin",
             data: $('.form').serialize(),
             type: "POST",
             cache: false,
             dataType: 'json',
             success: function(res) {
                 if (res.code != 200) {
-                    $('.success').text('');
                     $('.error').text(res.message);
-                    fade('.message');
-                } else {
-                    $('.error').text('');
-                    $('.success').text('注册成功');
+                    $('.success').text('');
                     fade('.message')
-                    // setTimeout(() => {
-                    //     window.location.href = "/signin"
-
-                    // }, 1000)
+                } else {
+                	$('.error').text('');
+                    $('.success').text('登录成功');
+                    fade('.message');
+                    setTimeout(() => {
+                        window.location.href = "/index"
+                    }, 1000)
                 }
                 //console.log($('.ui.error.message').text);
             },
@@ -48,6 +39,7 @@
                 alert('异常');
             }
         })
+
     })
     </script>
 <% include footer.html %>
