@@ -15,21 +15,21 @@
     <script>
     $('.submit').click(() => {
         $.ajax({
-            url: "/create",
+            url: "/api/create/article",
             data: $('.form').serialize(),
             type: "POST",
             cache: false,
             dataType: 'json',
-            success: function(msg) {
-                if (msg) {
-                    $('.success').text('发表成功')
-                    fade('.success')
+            success: function(res) {
+                if (res.code != 200) {
+                    $('.success').text(res.message)
+                    fade('.message')
                     setTimeout(() => {
-                        window.location.href = "/posts"
+                        window.location.href = "/posts";
                     }, 1000)
                 } else {
-                    $('.success').text('发表失败')
-                    fade('.success')
+                    $('.success').text('发表成功')
+                    fade('.message')
                     setTimeout(() => {
                         window.location.reload()
                     }, 1000)

@@ -8,7 +8,6 @@ $('.signout').click(() => {
         success: function(msg) {
             if (msg) {
                 $('.success').text('登出成功');
-                $('.error').text('登出成功');
                 fade('.message');
                 setTimeout(() => {
                     window.location.href = "/index"

@@ -29,9 +29,10 @@
                 	$('.error').text('');
                     $('.success').text('登录成功');
                     fade('.message');
+                    console.log(res);
                     setTimeout(() => {
                         window.location.href = "/index"
-                    }, 1000)
+                    }, 1000);
                 }
                 //console.log($('.ui.error.message').text);
             },

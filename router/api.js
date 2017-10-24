@@ -30,7 +30,7 @@ let _Api = Router.get('/get/helloword', (ctx, next) => {
     })
     .post('/singup', singUp)
     .post('/signin', signIn)
-    .post('/create/article', createNewArticle)
+    .post('/create/article', createNewArticle);
 
 // module.exports = _Api;
 export default _Api;

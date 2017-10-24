@@ -4,9 +4,10 @@ const Router = new router();
 
 let _Page = Router
     .get('/', async (ctx, next) => {
-        await ctx.render('index', {
-            session: ctx.session
-        });
+        // await ctx.render('index', {
+        //     session: ctx.session
+        // });
+        ctx.redirect('/index');
     })
     .get('index', async (ctx, next) => {
         await ctx.render('index', {

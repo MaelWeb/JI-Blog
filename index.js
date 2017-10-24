@@ -37,7 +37,6 @@ let cookie = {
 App.use(session({
     key: 'USER_SID',
     store: store,
-    cookie: cookie
 }));
 
 // 配置静态资源加载中间件

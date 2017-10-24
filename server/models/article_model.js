@@ -7,6 +7,6 @@ import { INSERT_POST_DATA } from '../../lib/sql';
  * @return {object} mysql执行结果
  */
 export async function createNewArticle(model) {
-    let result = await sqlQuery(INSERT_POST_DATA, [model.name, model.password, model.email, model.create_time]);
+    let result = await sqlQuery(INSERT_POST_DATA, [model.uid, model.userName, model.title, model.content, model.creatTime]);
     return result
 };

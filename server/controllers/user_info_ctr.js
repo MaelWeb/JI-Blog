@@ -58,41 +58,34 @@ export async function singUp(ctx) {
  * @param  {obejct} ctx 上下文对象
  */
 export async function signIn(ctx) {
-    let formData = ctx.request.body
+    let formData = ctx.request.body;
+
     let result = {
         message: '登录成功',
         data: null,
         code: 200
-    }
+    };
 
     let userResult = await UserService.signIn(formData);
 
     if (userResult) {
-        if (formData.userName === userResult.name) {
-            result.code = 200
-        } else {
-            result.message = '用户名或登录密码错误';
-            result.code = 5001;
-        }
+        result.code = 200;
+
+        result.data = {
+            userName: userResult.name,
+            userId: userResult.id
+        };
+
+        ctx.session = {
+            userName: userResult.name,
+            userId: userResult.id,
+            isLogin: true
+        };
+
     } else {
-        result.code = 5004;
-        result.message = '用户不存在';
+        result.code = 5001;
+        result.message = '用户名或登录密码错误';
     }
 
-    result.data = {
-        userName: userResult.name,
-        userId: userResult.id
-    };
-
-    let session = ctx.session;
-    session.isLogin = true;
-    session.userName = userResult.name;
-    session.userId = userResult.id;
-
-
-    if (formData.source === 'form' && result.code === 200) {
-        ctx.redirect('/index');
-    } else {
-        ctx.body = result
-    }
+    ctx.body = result;
 };
