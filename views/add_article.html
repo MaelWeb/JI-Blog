@@ -24,16 +24,13 @@
                 if (res.code != 200) {
                     $('.success').text(res.message)
                     fade('.message')
-                    setTimeout(() => {
-                        window.location.href = "/posts";
-                    }, 1000)
                 } else {
                     $('.success').text('发表成功')
                     fade('.message')
-                    setTimeout(() => {
-                        window.location.reload()
-                    }, 1000)
                 }
+                setTimeout(() => {
+                    window.location.href = "/";
+                }, 1000)
             },
             error: function() {
                 alert('异常');

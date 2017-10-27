@@ -36,14 +36,14 @@
         <div class="user_right">
             <%  if(session.userName){ %>
                 <div class="has_user">
-                    <a href="/posts">全部文章</a>
+                    <a href="/">全部文章</a>
                     <a href="/addarticle">发表文章</a>
                     <span class="signout">登出</span>
                 </div>
             <% } %>
             <% if(!session.userName){ %>
                 <div class="none_user">
-                    <a href="/posts">全部文章</a>
+                    <a href="/">全部文章</a>
                     <a href="/signup">注册</a>
                     <a href="/signin">登录</a>
                 </div>

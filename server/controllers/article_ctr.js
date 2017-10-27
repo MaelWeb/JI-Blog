@@ -29,3 +29,60 @@ export async function createNewArticle(ctx) {
 
     ctx.body = result;
 }
+
+/**
+ * 获取文章
+ * @param   {obejct} query
+ */
+export async function getArticles(query) {
+    let requestQuery = query,
+        articles = [];
+
+    let result = {
+        code: 200,
+        articles: [],
+        message: ''
+    };
+
+    if (requestQuery.author) {
+        articles = await ArticleService.selectArticleByAuthor(decodeURIComponent(requestQuery.author));
+        try{
+            result.articles = JSON.parse(JSON.stringify(articles));
+        } catch(err) {
+
+        }
+    } else {
+        articles = await ArticleService.selectAllArticle();
+
+        try{
+            result.articles = JSON.parse(JSON.stringify(articles));
+        } catch(err) {
+
+        }
+    }
+    return result;
+}
+
+/**
+ * 获取单篇文章
+ * @param   {obejct} query
+ */
+export async function getSingleArticle(query) {
+    let requestQuery = query;
+
+    let result = {
+        code: 200,
+        article: {},
+        comments: [],
+        message: ''
+    };
+
+    let article = await ArticleService.selectArticleById(decodeURIComponent(requestQuery.aid));
+
+    try{
+        result.article = JSON.parse(JSON.stringify(article));
+
+    } catch(err) {}
+
+    return result;
+}
