@@ -1,17 +1,51 @@
 .homg-layout {
-	padding: 20px;
-	background-color: #6e85ef;
-	.home-wrap {
-		background-color: #fff;
-	}
-	.home-sider {
-		position: fixed;
-		left: 0;
-		height: 100vh;
-		background-color: #fff;
-	}
+    height: 100vh;
+    padding: 20px;
+    background-color: #6e85ef;
+    .home-wrap {
+        position: relative;
+        height: 100%;
+        background-color: #ececec;
+    }
+    .home-sider {
+        position: absolute;
+        left: 0;
+        height: 100%;
+        background-color: #fff;
+    }
 
-	.home-content-layout {
-		transition: all .2s;
-	}
+    .home-user {
+    	padding: 40px 0 30px;
+    	border-bottom: 1px solid #eee;
+    }
+
+    .home-user-avatar {
+        width: 70px;
+        height: 70px;
+        line-height: 70px;
+        border-radius: 35px;
+    }
+
+    .ant-layout-sider-collapsed .home-user-avatar {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+    }
+
+    .ant-menu-item {
+    	border-bottom: 1px solid #eee;
+
+    	&:after {
+    		right: auto;
+    		left: 0;
+    	}
+    }
+
+    .ant-layout-sider-trigger {
+        bottom: 20px;
+    }
+
+    .home-content-layout {
+        transition: all .2s;
+    }
 }

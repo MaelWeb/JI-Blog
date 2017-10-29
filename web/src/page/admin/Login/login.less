@@ -1,22 +1,110 @@
 .login-layout {
+    position: relative;
+    height: 100vh;
     padding: 1px;
-    background-color: #ebecf1;
-
-    & .login-wrap {
-        margin: -10% auto 0 auto;
-        width: 70%;
-        max-width: 1200px;
-        background-color: #fff;
-        box-shadow: 0 0 10px #d0d0d1;
-        transform: translateY(50%);
+    overflow: hidden;
+    &:after {
+        position: absolute;
+        top: -1%;
+        left: -1%;
+        width: 102%;
+        height: 102%;
+        background: #ebecf1 url(http://oyfapuy1b.bkt.clouddn.com/image/32607796.jpg) no-repeat;
+        background-size: cover;
+        content: '';
+        z-index: -1;
+        filter: blur(5px);
     }
 
-    & .login-form {
-        width: 35%;
-        display: inline-block;
-        vertical-align: middle;
+    .jitang {
+        margin-bottom: 20px;
+        font-size: .22rem;
+        color: #dad0ce;
 
-        & h1 {
+        span {
+            margin-right: 20px;
+            font-size: .6rem;
+        }
+    }
+
+    & .login-wrap {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 600px; // box-shadow: 0 0 10px #d0d0d1;
+        display: inline-block;
+        transform: translate(-50%,-70%);
+    }
+
+    .ant-tabs {
+        width: 90%;
+        margin-left: 10%;
+        display: flex;
+    }
+
+    .ant-tabs-left {
+        .ant-tabs-content {
+            padding-right: 24px;
+            background-color: rgba(234, 234, 234, 0.6);
+            flex: 1;
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            border-left: 0;
+        }
+
+        .ant-tabs-nav-container {
+            margin-right: 0;
+        }
+
+        .ant-tabs-tabpane {
+            flex: 1;
+        }
+
+        .ant-tabs-bar {
+            margin-right: 0;
+            border-right: 0;
+            .ant-tabs-nav-scroll {
+                padding-left: 5px;
+            }
+            .ant-tabs-tab {
+                padding: 50px 14px;
+                width: 45px;
+                font-size: .14rem;
+                color: #bdb7b7;
+                background-color: rgba(61, 61, 61, .5);
+                white-space: normal;
+                margin-bottom: 0;
+            }
+
+            .ant-tabs-tab-active {
+                background-color: rgba(240, 240, 240, .3);
+                color: #000;
+            }
+
+            // .ant-tabs-ink-bar {
+            //     width: 5px;
+            //     left: -5px;
+            //     right: auto !important;
+            //     background-color: rgba(240, 240, 240, .3);
+            // }
+        }
+    }
+
+    .btn {
+        width: 100%;
+        max-width: 240px;
+        color: #fff;
+        background: #504c65;
+        border-radius: 0;
+        border: none;
+    }
+
+    .login-form {
+        padding-top: 24px;
+        display: block;
+
+        h1 {
             margin-bottom: 80px;
             font-size: 40px;
             font-weight: bolder;
@@ -24,29 +112,26 @@
             line-height: 1;
         }
 
-        & .ant-row {
+        .ant-row {
             margin-left: auto;
             margin-right: auto;
             width: 75%;
         }
 
-        & input {
+        input {
             padding: 0 20px;
-            border-radius: 20px;
-            // border-color: #f3f3f3;
-            background-color: #f3f3f3;
+            border-radius: 0; // border-color: #f3f3f3;
+            background-color: #fff;
+        }
+    }
+
+    .register-form {
+        .ant-row {
+            margin-bottom: 18px;
         }
 
-
-        & .login-btn {
-        	// margin: 30px auto;
-            // height: 35px;
-            width: 100%;
-            max-width: 240px;
-            color: #fff;
-            background: linear-gradient(to right, #5e5cff 0%, #705ffd 20%, #725efb 20%, #7460fd 22%, #7760f9 25%, #7b61fa 29%, #8261f6 33%, #8764f6 39%, #8e64f4 43%, #af6ae9 75%, #b86de4 89%, #bb6de7 90%, #bf6ee4 100%);
-            border-radius: 20px;
-            border: none;
+        .ant-form-item-with-help {
+            margin-bottom: 0;
         }
     }
 

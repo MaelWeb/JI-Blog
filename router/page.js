@@ -43,15 +43,25 @@ let _Page = Router
         });
     })
     .get('admin', async(ctx, next) => {
+        // 未登录
+        if (!ctx.session || !ctx.session.isLogin )
+            ctx.redirect('admin/login');
+
         await ctx.render('admin', {
             session: ctx.session,
-            title: '登录注册'
+            title: '博客后台'
         });
     })
     .get('admin/*', async(ctx, next) => {
+        let loginReg = /login|registe/g;
+
+        // 未登录,且访问非登陆注册页
+        if ( !loginReg.test(ctx.params['0']) && (!ctx.session || !ctx.session.isLogin) ){
+            ctx.redirect('admin/login');
+        }
         await ctx.render('admin', {
             session: ctx.session,
-            title: '登录注册'
+            title: '博客后台'
         });
     });
 

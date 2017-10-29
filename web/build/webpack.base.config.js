@@ -41,6 +41,20 @@ module.exports = {
                 fallback: "style-loader",
                 use: ['css-loader', 'less-loader']
             })
+        }, {
+            test: /.(gif|jpg|png)$/,
+            use: [{
+                loader: 'url-loader',
+                options: {
+                    limit: 8192,
+                    name: 'images/[name].[hash:8].[ext]'
+                }
+            }]
+        }, {
+            test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
+            use: [
+                'file-loader'
+            ]
         }]
     },
     resolve: {

@@ -9,6 +9,7 @@ const App = (props) => (
     <BasePage>
         <Route exact path="/" component={Home}/>
         <Route path="/login" component={Login}/>
+        <Route path="/registe" component={Login}/>
     </BasePage>
 )
 

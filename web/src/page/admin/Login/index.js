@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Form, Icon, Input, Button } from 'antd';
+import { Icon, Tabs } from 'antd';
 import Axios from 'axios';
+import RegisteForm from './resigte-form';
+import LoginForm from './login-form';
 import './login.less';
 
-const FormItem = Form.Item;
+const TabPane = Tabs.TabPane;
 
-class Login extends Component {
+export default class Login extends Component {
     constructor(props) {
         super(props);
 
@@ -18,9 +20,9 @@ class Login extends Component {
         showMessage: PropTypes.func
     };
 
-    handleSubmit = (e) => {
+    handleSubmit = e => {
         e.preventDefault();
-        this.props.form.validateFields((err, values) => {
+        this.refs.loginForm.validateFields((err, values) => {
             if (!err) {
                 Axios.post('/api/signin', values)
                     .then((res)=> {
@@ -39,30 +41,45 @@ class Login extends Component {
         });
     }
 
+
+
+    handleRegisterSubmit = e => {
+        e.preventDefault();
+         this.refs.registeForm.validateFields((err, values) => {
+            if (!err) {
+                Axios.post('/api/singup', values)
+                    .then((res)=> {
+                        let result = res.data;
+
+                        if (result.code != 200) {
+                            this.context.showMessage(result.message);
+                        } else {
+                            this.props.history.push('/login');
+                        }
+                    })
+                    .catch( (error) => {
+                        this.context.showMessage('系统错误，请稍后再试');
+                    });
+            }
+        });
+    }
+
     render() {
-        const {getFieldDecorator} = this.props.form;
+        const {match} = this.props;
         return (
             <div className="login-layout" style={{minHeight: document.body.clientHeight,}} >
                 <div className="login-wrap">
-                    <div className="login-form tc">
-                        <h1>M&Q</h1>
-                        <Form onSubmit={this.handleSubmit}>
-                            <FormItem>
-                                {getFieldDecorator('userName', { rules: [{required: true, message: '请输入用户名'}],})(<Input  placeholder="用户名" />)}
-                            </FormItem>
-                            <FormItem>
-                                {getFieldDecorator('password', {rules: [{required: true,message: '请输入密码'}],})(<Input type="password" placeholder="密码" />)}
-                            </FormItem>
-                            <FormItem>
-                              <Button type="primary" htmlType="submit" className="login-btn">登录</Button>
-                            </FormItem>
-                          </Form>
-                    </div>
-                    <img src="http://oyfapuy1b.bkt.clouddn.com/image/login.jpg" alt="" className="login-banner"/>
+                    <p className="jitang tl"><span>M</span>给自己一次文艺的机会</p>
+                    <Tabs tabPosition='left' defaultActiveKey={match.path || '/login'} >
+                        <TabPane tab="登录" key="/login">
+                            <LoginForm handleSubmit={ this.handleSubmit } ref='loginForm' />
+                        </TabPane>
+                        <TabPane tab="注册" key="/registe">
+                            <RegisteForm handleRegisterSubmit={ this.handleRegisterSubmit } ref='registeForm' />
+                        </TabPane>
+                    </Tabs>
                 </div>
             </div>
         )
     }
 }
-
-export default Form.create()(Login)
