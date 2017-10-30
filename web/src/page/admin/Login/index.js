@@ -4,6 +4,7 @@ import { Icon, Tabs } from 'antd';
 import Axios from 'axios';
 import RegisteForm from './resigte-form';
 import LoginForm from './login-form';
+import Funy from './funy';
 import './login.less';
 
 const TabPane = Tabs.TabPane;
@@ -73,9 +74,11 @@ export default class Login extends Component {
                     <Tabs tabPosition='left' defaultActiveKey={match.path || '/login'} >
                         <TabPane tab="登录" key="/login">
                             <LoginForm handleSubmit={ this.handleSubmit } ref='loginForm' />
+                            <Funy />
                         </TabPane>
                         <TabPane tab="注册" key="/registe">
                             <RegisteForm handleRegisterSubmit={ this.handleRegisterSubmit } ref='registeForm' />
+                            <Funy />
                         </TabPane>
                     </Tabs>
                 </div>
