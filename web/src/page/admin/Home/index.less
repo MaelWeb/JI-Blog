@@ -1,11 +1,27 @@
 .homg-layout {
+    position: relative;
     height: 100vh;
     padding: 20px;
     background-color: #6e85ef;
+    overflow: hidden;
+    &:after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 61.8vh;
+        content: '';
+        border-top: 25vh solid #6e85ef;
+        border-left: 50vw solid #fff;
+        border-right: 50vw solid #fff;
+    }
+
     .home-wrap {
         position: relative;
         height: 100%;
         background-color: #ececec;
+        z-index: 1;
+        box-shadow: -1px 10px 20px 2px #6e85ef;
     }
     .home-sider {
         position: absolute;
