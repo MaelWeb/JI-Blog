@@ -1,6 +1,7 @@
 import router from 'koa-router';
 import { singUp, signIn } from '../server/controllers/user_info_ctr';
 import { createNewArticle, getArticles } from '../server/controllers/article_ctr';
+import { getOneContent } from '../server/controllers/common_ctr';
 
 const Router = new router();
 
@@ -16,6 +17,7 @@ let _Api = Router.get('/signout', (ctx) => {
 
         ctx.body = result;
     })
+    .get("/one", getOneContent)
     .post('/singup', singUp)
     .post('/signin', signIn)
     .post('/create/article', createNewArticle);

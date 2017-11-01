@@ -13,13 +13,25 @@ export default class Login extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {
+            one: []
+        };
 
     }
 
     static contextTypes = {
         showMessage: PropTypes.func
     };
+
+
+    componentDidMount() {
+        Axios.get('/api/one')
+            .then( res => {
+                this.setState({
+                    one: res.data.data
+                })
+            })
+    }
 
     handleSubmit = e => {
         e.preventDefault();
@@ -67,6 +79,7 @@ export default class Login extends Component {
 
     render() {
         const {match} = this.props;
+        const {one} = this.state;
         return (
             <div className="login-layout" style={{minHeight: document.body.clientHeight,}} >
                 <div className="login-wrap">
@@ -74,11 +87,11 @@ export default class Login extends Component {
                     <Tabs tabPosition='left' defaultActiveKey={match.path || '/login'} >
                         <TabPane tab="登录" key="/login">
                             <LoginForm handleSubmit={ this.handleSubmit } ref='loginForm' />
-                            <Funy />
+                            <Funy data={ one } />
                         </TabPane>
                         <TabPane tab="注册" key="/registe">
                             <RegisteForm handleRegisterSubmit={ this.handleRegisterSubmit } ref='registeForm' />
-                            <Funy />
+                            <Funy data={ one }/>
                         </TabPane>
                     </Tabs>
                 </div>

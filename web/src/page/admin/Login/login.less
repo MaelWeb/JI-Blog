@@ -33,7 +33,7 @@
         left: 50%;
         width: 720px; // box-shadow: 0 0 10px #d0d0d1;
         display: inline-block;
-        transform: translate(-50%,-70%);
+        transform: translate(-55%, -70%);
     }
 
     .ant-tabs {
@@ -80,9 +80,7 @@
             .ant-tabs-tab-active {
                 background-color: rgba(240, 240, 240, .3);
                 color: #000;
-            }
-
-            // .ant-tabs-ink-bar {
+            } // .ant-tabs-ink-bar {
             //     width: 5px;
             //     left: -5px;
             //     right: auto !important;
@@ -131,10 +129,26 @@
 
     .login-funy {
         width: 32%;
-        height: 290px;
-        // border: 1px solid #7a7a7a;
+        padding: 15px 10px;
+        max-height: 290px;
+        border: 1px solid #7a7a7a;
         display: inline-block;
         vertical-align: middle;
+        font-size: 12px;
+        overflow: hidden;
+
+        p {
+            margin-top: 10px;
+            text-indent: 24px;
+        }
+
+        .test {
+            display: -webkit-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+        }
     }
 
     .register-form {
