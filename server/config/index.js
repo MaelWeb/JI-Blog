@@ -1,0 +1,64 @@
+// const config = {
+//     // 启动端口
+//     port: 8080,
+
+//     // 数据库配置
+//     database: {
+//         DATABASE: 'node_koa_test',
+//         USERNAME: 'root',
+//         PASSWORD: "1123",
+//         PORT: 3306,
+//         HOST: 'localhost'
+//     }
+// };
+
+// // module.exports = config;
+// export default config;
+
+import fs from 'fs'
+let config = {
+    app: {
+        port: process.env.PORT || 8889,
+        baseApi: '/api'
+    },
+    mongodb: {
+        url: 'mongodb://localhost:27017/koa-blog'
+    },
+    jwt: {
+        secret: 'me' //默认
+    },
+    mongodbSecret: { //mongodb用户和密码
+        user: '',
+        pass: ''
+    },
+    admin: { //后台初始化的用户名密码
+        user: 'admin',
+        pwd: 'password'
+    },
+    port: 8080,
+    database: {
+        DATABASE: 'node_koa_test',
+        USERNAME: 'root',
+        PASSWORD: "1123",
+        PORT: 3306,
+        HOST: 'localhost'
+    }
+}
+// 可在private.js定义自己私有的配置
+// module.exports = {
+//   mongodbSecret: {
+//     user: '',
+//     pass: ''
+//   },
+//   jwt: {
+//     secret: 'xxx'
+//   },
+//   admin: {
+//       user: '',
+//       pwd: ''
+//   }
+// }
+if (fs.existsSync(__dirname + '/private.js')) {
+    config = Object.assign(config, require('./private.js'));
+}
+export default config;

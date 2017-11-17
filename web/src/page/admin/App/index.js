@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import BasePage from 'Components/BasePage';
 import Login from '../Login';
 import Home from '../Home';
@@ -7,9 +7,11 @@ import './index.less';
 
 const App = (props) => (
     <BasePage>
-        <Route exact path="/" component={Home}/>
-        <Route path="/login" component={Login}/>
-        <Route path="/registe" component={Login}/>
+        <Switch>
+            <Route exact path="/login" component={Login}/>
+            <Route exact path="/registe" component={Login}/>
+            <Route path="/" component={Home}/>
+        </Switch>
     </BasePage>
 )
 

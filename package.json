@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "babel-node index.js NODE_ENV=development",
+    "start": "nodemon --ignore web/ --exec babel-node ./server/index.js NODE_ENV=development",
     "init_sql": "babel-node ./lib/index.js"
   },
   "author": "",
@@ -19,6 +19,7 @@
     "editor.md": "^1.5.0",
     "ejs": "^2.5.7",
     "jquery": "^3.2.1",
+    "jsonwebtoken": "^8.1.0",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-mysql-session": "0.0.2",
@@ -27,7 +28,9 @@
     "koa-static": "^4.0.1",
     "koa-views": "^6.1.1",
     "less": "^2.7.3",
+    "md5": "^2.2.1",
     "moment": "^2.19.1",
+    "mongoose": "^4.13.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router-dom": "^4.2.2",

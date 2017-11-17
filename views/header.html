@@ -22,10 +22,10 @@
     <header>
         <div class="user_name">
             user：
-            <% if(session.userName){ %>
+            <% if(session && session.userName){ %>
                 <%= session.userName %>
             <% } %>
-            <% if(!session.userName){ %>
+            <% if(!session || !session.userName){ %>
                 未登录
             <% } %>
         </div>

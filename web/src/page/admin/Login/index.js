@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Md5 from "md5";
 import PropTypes from 'prop-types';
 import { Icon, Tabs } from 'antd';
 import Axios from 'axios';
@@ -37,11 +38,11 @@ export default class Login extends Component {
         e.preventDefault();
         this.refs.loginForm.validateFields((err, values) => {
             if (!err) {
+                values.password = Md5(values.password).toUpperCase();
                 Axios.post('/api/signin', values)
                     .then((res)=> {
                         let result = res.data;
-
-                        if (result.code != 200) {
+                        if (result.code !== 200) {
                             this.context.showMessage(result.message);
                         } else {
                             this.props.history.push('/');
