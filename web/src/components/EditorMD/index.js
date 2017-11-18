@@ -81,7 +81,7 @@ class Editor extends Component {
             console.warn('Editor warning: Static resource address has changed, if you know exactly what you\'re doing, ignore this warning');
         }
 
-        let editor = editormd(id, {
+        this.editor = editormd(id, {
             width: width,
             height: height,
             path: path,
@@ -112,10 +112,18 @@ class Editor extends Component {
             imageFormats: imageFormats,
             imageUploadURL: imageUploadURL,
             onload: function(){
-                onload(editor, this);
+                onload(this.editor, this);
             }
         });
 
+    }
+
+    getMarkdown() {
+        return this.editor.getMarkdown()
+    }
+
+    getHTML() {
+        return this.editor.getHTML()
     }
 
     render(){

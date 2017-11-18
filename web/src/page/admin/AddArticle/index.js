@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Button, Icon, Tag, Input  } from 'antd';
+import { Layout, Button, Icon, Tag, Input, Modal } from 'antd';
 import EditorMD from 'Components/EditorMd';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
@@ -7,6 +7,8 @@ import './index.less';
 
 const { Header, Content, Sider } = Layout;
 const CheckableTag = Tag.CheckableTag;
+const { TextArea } = Input;
+const ModalConfirm = Modal.confirm;
 
 export default class AddArticle extends Component {
     constructor(props) {
@@ -14,7 +16,10 @@ export default class AddArticle extends Component {
         this.state = {
             selectedTags: [],
             inputVisible: false,
-            tags: []
+            tags: [],
+            articleTitle: '',
+            articleAbstract: '',
+            modalVisible: false
         };
     }
 
@@ -46,10 +51,64 @@ export default class AddArticle extends Component {
 
     saveInputRef = input => this.input = input
 
+    saveEditorRef = editor => this.editor = editor
+
+    saveTextAreaRef = textArea => this.textArea = textArea
+
     handleInputChange = (e) => {
         this.setState({ inputValue: e.target.value });
     }
 
+    saveArticle = () => {
+        const { articleTitle, selectedTags } = this.state;
+
+        let articleMarkdown = this.editor.getMarkdown(),
+            articleHtml = this.editor.getHTML(),
+            articleAbstract = this.state.articleAbstract;
+
+        if (articleMarkdown.indexOf("<!--more-->") !== -1) {
+            articleAbstract = articleMarkdown.split("<!--more-->")[0];
+        }
+
+        let params = {
+            title: articleTitle,
+            content: articleMarkdown,
+            htmlContent: articleHtml,
+            abstract: articleAbstract,
+            tags: selectedTags,
+            publish: false
+        };
+
+        if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
+
+        if (!articleAbstract) {
+           return ModalConfirm({
+                title: '尚未添加文章摘要，是否添加?',
+                okText: "添加",
+                cancelText: "不添加",
+                onOk: () => {
+                    this.showModal();
+                },
+                onCancel: () => {
+                    this.createArticle(params)
+                },
+            });
+        }
+        this.createArticle(params);
+    }
+
+    createArticle(params) {
+        Axios.post('/api/create/article', params)
+        .then( res => {
+            this.context.showMessage(res.data.message);
+            if (res.code == 200) {
+
+            }
+        })
+        .catch( err => {
+            this.context.showMessage(err);
+        })
+    }
 
     handleInputConfirm = () => {
         const { inputValue } = this.state;
@@ -91,18 +150,46 @@ export default class AddArticle extends Component {
                     inputValue: ''
                 })
             })
+            .catch( err => {
+                this.context.showMessage(err);
+            })
+    }
+
+    titleInputChange = (e) => {
+        this.setState({
+            articleTitle: e.target.value
+        });
+    }
+
+    showModal = () => {
+        this.setState({
+            modalVisible: true
+        });
+    }
+
+    modalOk = () => {
+        this.setState({
+            modalVisible: false,
+            articleAbstract: this.textArea.textAreaRef.value
+        })
+    }
+
+    modalCancel = () => {
+        this.setState({
+            modalVisible: false
+        })
     }
 
 
     render() {
-        const { selectedTags, inputVisible, inputValue, tags } = this.state;
+        const { selectedTags, inputVisible, inputValue, tags, modalVisible, articleAbstract } = this.state;
         return(
             <Layout className="add-article-layout">
                 <Header className='add-article-header' >
                     <h2>文章编辑</h2>
-                    <div className="article-title tc"><input type="text" defaultValue='新增文章标题' className="article-title-input tc"/></div>
+                    <div className="article-title tc"><input type="text" placeholder='新增文章标题' className="article-title-input tc" onChange={ this.titleInputChange } /></div>
                     <Button.Group size={'large'}>
-                        <Button>
+                        <Button onClick={ this.saveArticle } >
                             <Icon type="save" />保存
                         </Button>
                         <Button>
@@ -132,9 +219,18 @@ export default class AddArticle extends Component {
                                 onPressEnter={this.handleInputConfirm}/>
                         )}
                         {!inputVisible && <Button size="small" type="dashed" onClick={this.showInput}>+ New Tag</Button>}
+                         <Button className="fr" type="primary" size="small" icon="pushpin-o" ghost onClick={ this.showModal }>添加摘要</Button>
                     </div>
-                    <EditorMD config={{markdown: '## 文章内容', height: '100%'}}/>
+                    <EditorMD config={{markdown: '###文章内容', height: '100%'}} ref={ this.saveEditorRef } />
                 </Content>
+                <Modal
+                    title="添加摘要"
+                    visible={modalVisible}
+                    onOk={this.modalOk}
+                    mask={ false }
+                    onCancel={this.modalCancel}>
+                    <TextArea placeholder="这里添加文章的摘要;确认才保存，取消不保存当次更改" autosize={{ minRows: 4,}} ref={ this.saveTextAreaRef }  defaultValue={articleAbstract} />
+                </Modal>
             </Layout>
         )
     }

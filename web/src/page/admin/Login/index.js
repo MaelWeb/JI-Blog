@@ -13,9 +13,10 @@ const TabPane = Tabs.TabPane;
 export default class Login extends Component {
     constructor(props) {
         super(props);
-
+        const {match} = props;
         this.state = {
-            one: []
+            one: [],
+            activeKey: match.path
         };
 
     }
@@ -32,6 +33,13 @@ export default class Login extends Component {
                     one: res.data.data
                 })
             })
+    }
+
+    componentWillReceiveProps(nextprops) {
+        const { match:{path} } = nextprops;
+        this.setState({
+            activeKey: path
+        });
     }
 
     handleSubmit = e => {
@@ -59,7 +67,7 @@ export default class Login extends Component {
 
     handleRegisterSubmit = e => {
         e.preventDefault();
-         this.refs.registeForm.validateFields((err, values) => {
+        this.refs.registeForm.validateFields((err, values) => {
             if (!err) {
                 Axios.post('/api/singup', values)
                     .then((res)=> {
@@ -68,6 +76,7 @@ export default class Login extends Component {
                         if (result.code != 200) {
                             this.context.showMessage(result.message);
                         } else {
+                            this.context.showMessage(result.message);
                             this.props.history.push('/login');
                         }
                     })
@@ -78,14 +87,18 @@ export default class Login extends Component {
         });
     }
 
+    tabClick = key => {
+        this.props.history.push(key);
+    }
+
     render() {
-        const {match} = this.props;
-        const {one} = this.state;
+
+        const {one, activeKey} = this.state;
         return (
             <div className="login-layout" style={{minHeight: document.body.clientHeight,}} >
                 <div className="login-wrap">
                     <p className="jitang tl"><span>M</span>给自己一次文艺的机会</p>
-                    <Tabs tabPosition='left' defaultActiveKey={match.path || '/login'} >
+                    <Tabs tabPosition='left' activeKey={ activeKey || '/login'} onTabClick={ this.tabClick } >
                         <TabPane tab="登录" key="/login">
                             <LoginForm handleSubmit={ this.handleSubmit } ref='loginForm' />
                             <Funy data={ one } />

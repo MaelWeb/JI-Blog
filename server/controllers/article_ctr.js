@@ -1,88 +1,249 @@
-import * as ArticleService from '../services/article_service';
-import Moment from 'moment';
-/**
- * 新增文章
- * @param   {obejct} ctx 上下文对象
- */
-export async function createNewArticle(ctx) {
-    let postBody = ctx.request.body;
-    const userSession = ctx.session;
+import Article from '../models/article_model';
 
-    let result = {
-        code: 200,
-        message: '发表成功'
-    };
-
-    let articleResule = await ArticleService.createArticle({
-        uid: userSession.userId,
-        userName: userSession.userName,
-        title: postBody.title,
-        content: postBody.content,
-        creatTime: Moment().format('YYYY-MM-DD HH:mm')
+export async function createArticle(ctx) {
+    const formData = ctx.request.body;
+    const createTime = new Date();
+    const lastEditTime = new Date();
+    if (formData.title == '') {
+        return ctx.body = {
+            code: 400,
+            message: "标题不能为空"
+        }
+    }
+    if (formData.content == '') {
+        return ctx.body = {
+            code: 400,
+            message: "文章内容不能为空"
+        }
+    }
+    if (formData.htmlContent == '') {
+        return ctx.body = {
+            code: 400,
+            message: "HTML文本为空"
+        };
+    }
+    const article = new Article({
+        ...formData,
+        createTime,
+        lastEditTime
     });
+    let createResult = await article.save().catch(err => {
+        ctx.throw(500, '服务器内部错误')
+    });
+    await Article.populate(createResult, { path: 'tags' }, function(err, result) {
+        createResult = result;
+        // console.log(result)
 
-
-    if (!articleResule) {
-        result.code = 500;
-        result.message = '发表文章失败';
+    });
+    console.log('文章创建成功');
+    ctx.body = {
+        code: 200,
+        article: createResult,
+        message: "文章保存成功"
     }
 
-    ctx.body = result;
 }
 
-/**
- * 获取文章
- * @param   {obejct} query
- */
-export async function getArticles(query) {
-    let requestQuery = query,
-        articles = [];
+export async function getAllArticles(ctx) {
+    const tag = ctx.query.tag;
+    const page = +ctx.query.page;
+    const limit = +ctx.query.limit || 4;
+    let skip = 0;
+    let articleArr;
+    let allPage;
+    let allNum;
 
-    let result = {
-        code: 200,
-        articles: [],
-        message: ''
-    };
+    if (page !== 0) {
+        skip = limit * (page - 1)
+    }
 
-    if (requestQuery.author) {
-        articles = await ArticleService.selectArticleByAuthor(decodeURIComponent(requestQuery.author));
-        try{
-            result.articles = JSON.parse(JSON.stringify(articles));
-        } catch(err) {
-
-        }
+    if (tag == '') {
+        articleArr = await Article.find()
+            .populate("tags")
+            .sort({ createTime: -1 })
+            .limit(limit)
+            .skip(skip).catch(err => {
+                ctx.throw(500, '服务器内部错误')
+            });
+        allNum = await Article.count().catch(err => {
+            this.throw(500, '服务器内部错误')
+        })
     } else {
-        articles = await ArticleService.selectAllArticle();
-
-        try{
-            result.articles = JSON.parse(JSON.stringify(articles));
-        } catch(err) {
-
-        }
+        let tagArr = tag.split(',')
+        // console.log(tagArr)
+        articleArr = await Article.find({
+                tags: { "$in": tagArr },
+            })
+            .populate("tags")
+            .sort({ createTime: -1 })
+            .limit(limit)
+            .skip(skip).catch(err => {
+                ctx.throw(500, '服务器内部错误')
+            });
+        allNum = await Article.find({
+            tags: { "$in": tagArr }
+        }).count().catch(err => {
+            ctx.throw(500, '服务器内部错误')
+        })
     }
-    return result;
+    allPage = Math.ceil(allNum / limit)
+    ctx.body = {
+        success: true,
+        articleArr,
+        allPage: allPage
+    }
 }
 
-/**
- * 获取单篇文章
- * @param   {obejct} query
- */
-export async function getSingleArticle(query) {
-    let requestQuery = query;
+export async function getAllPublishArticles(ctx) {
+    const tag = ctx.query.tag;
+    const page = +ctx.query.page;
+    const limit = +ctx.query.limit || 4;
+    let skip = 0;
+    let articleArr;
+    let allPage;
+    let allNum;
 
-    let result = {
-        code: 200,
-        article: {},
-        comments: [],
-        message: ''
-    };
+    if (page !== 0) {
+        skip = limit * (page - 1)
+    }
 
-    let article = await ArticleService.selectArticleById(decodeURIComponent(requestQuery.aid));
+    if (tag == '') {
+        articleArr = await Article.find({
+                publish: true
+            })
+            .populate("tags")
+            .sort({ createTime: -1 })
+            .limit(limit)
+            .skip(skip).catch(err => {
+                ctx.throw(500, '服务器内部错误')
+            });
+        allNum = await Article.find({
+            publish: true
+        }).count().catch(err => {
+            this.throw(500, '服务器内部错误')
+        })
+    } else {
+        let tagArr = tag.split(',')
+        // console.log(tagArr)
+        articleArr = await Article.find({
+                tags: { "$in": tagArr },
+                publish: true
+            })
+            .populate("tags")
+            .sort({ createTime: -1 })
+            .limit(limit)
+            .skip(skip).catch(err => {
+                ctx.throw(500, '服务器内部错误')
+            });
+        allNum = await Article.find({
+            tags: { "$in": tagArr }
+        }).count().catch(err => {
+            ctx.throw(500, '服务器内部错误')
+        })
+    }
 
-    try{
-        result.article = JSON.parse(JSON.stringify(article));
+    allPage = Math.ceil(allNum / limit)
 
-    } catch(err) {}
 
-    return result;
+
+    ctx.body = {
+        success: true,
+        articleArr,
+        allPage: allPage
+    }
+}
+
+
+export async function modifyArticle(ctx) {
+    // console.log(ctx.request.body)
+    const id = ctx.params.id;
+    const title = ctx.request.body.title;
+    const content = ctx.request.body.content;
+    const abstract = ctx.request.body.abstract;
+    const tags = ctx.request.body.tags;
+    if (title == '') {
+        ctx.throw(400, '标题不能为空')
+    }
+    if (content == '') {
+        ctx.throw(400, '文章内容不能为空')
+    }
+    if (abstract == '') {
+        ctx.throw(400, '摘要不能为空')
+    }
+    /*if (tags.length === 0) {
+      ctx.throw(400, '标签不能为空')
+    }*/
+    const article = await Article.findByIdAndUpdate(id, { $set: ctx.request.body }).catch(err => {
+        if (err.name === 'CastError') {
+            ctx.throw(400, 'id不存在');
+        } else {
+            ctx.throw(500, '服务器内部错误')
+        }
+    });
+    ctx.body = {
+        success: true
+    }
+}
+
+export async function getArticle(ctx) {
+    const id = ctx.params.id;
+    if (id == '') {
+        ctx.throw(400, 'id不能为空')
+    }
+    /*if (tags.length === 0) {
+      ctx.throw(400, '标签不能为空')
+    }*/
+    const article = await Article.findById(id).catch(err => {
+        if (err.name === 'CastError') {
+            ctx.throw(400, 'id不存在');
+        } else {
+            ctx.throw(500, '服务器内部错误')
+        }
+    });
+    ctx.body = {
+        success: true,
+        article: article
+    }
+}
+
+export async function deleteArticle(ctx) {
+    const id = ctx.params.id;
+    const article = await Article.findByIdAndRemove(id).catch(err => {
+        if (err.name === 'CastError') {
+            this.throw(400, 'id不存在');
+        } else {
+            this.throw(500, '服务器内部错误')
+        }
+    });
+    ctx.body = {
+        success: true
+    }
+}
+
+export async function publishArticle(ctx) {
+    const id = ctx.params.id;
+    const article = await Article.findByIdAndUpdate(id, { $set: { publish: true } }).catch(err => {
+        if (err.name === 'CastError') {
+            this.throw(400, 'id不存在');
+        } else {
+            this.throw(500, '服务器内部错误')
+        }
+    });
+    ctx.body = {
+        success: true
+    }
+}
+
+export async function notPublishArticle(ctx) {
+    const id = ctx.params.id;
+    const article = await Article.findByIdAndUpdate(id, { $set: { publish: false } }).catch(err => {
+        if (err.name === 'CastError') {
+            this.throw(400, 'id不存在');
+        } else {
+            this.throw(500, '服务器内部错误')
+        }
+    });
+    ctx.body = {
+        success: true
+    }
 }
