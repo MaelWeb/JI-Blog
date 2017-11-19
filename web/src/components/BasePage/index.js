@@ -13,16 +13,17 @@ export default class BasePage extends Component {
         message.config({
             top: 50,
         });
-
     }
 
     static childContextTypes = {
-        showMessage: PropTypes.func
+        showMessage: PropTypes.func,
+        query: PropTypes.object
     };
 
     getChildContext() {
         return {
-            showMessage: this.showMessage
+            showMessage: this.showMessage,
+            query: this.getQuery()
         }
     }
 
@@ -44,6 +45,35 @@ export default class BasePage extends Component {
             default:
                 message.info( options.content, options.duration || 3, onClose);
         }
+    }
+
+    getQuery = () => {
+        let search = window.location.search,
+            ret = Object.create(null);
+
+        if (typeof search !== 'string') {
+            return ret;
+        }
+
+        search = search.trim().replace(/^[?#&]/, '');
+
+        if (!search) {
+            return ret;
+        }
+
+        search.split('&').forEach(function (param) {
+            let parts = param.replace(/\+/g, ' ').split('=');
+            let key = parts.shift();
+            let val = parts.length > 0 ? parts.join('=') : undefined;
+
+            val = val === undefined ? null : decodeURIComponent(val);
+
+            ret[decodeURIComponent(key)] = val;
+        });
+
+
+        return ret;
+
     }
 
     render() {

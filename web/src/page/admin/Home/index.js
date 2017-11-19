@@ -6,23 +6,25 @@ import {
 import { Layout, Menu, Icon, Avatar } from 'antd';
 const { Sider } = Layout;
 import './index.less';
-import AddArticle from '../AddArticle';
+import ArticleEdite from '../ArticleEdite';
+import ArticleManage from '../ArticleManage';
 
 const routes = [
     {
         path: '/',
-        navText: '发表博客',
         exact: true,
-        iconType: 'plus-square-o',
-        component: AddArticle
+        iconType: 'home',
+        navText: '文章管理',
+        component: ArticleManage
     },
     {
-        path: '/book',
-        iconType: 'book',
-        navText: '新增书籍',
-        component: () => <h2>新增书籍</h2>
+        path: '/edit',
+        navText: '添加/编辑',
+        iconType: 'plus-square-o',
+        component: ArticleEdite
     }
 ];
+
 export default class Home extends Component {
     constructor(props) {
         super(props);
@@ -30,11 +32,24 @@ export default class Home extends Component {
         this.state = {
             collapsed: false
         };
-
+        console.log(this.props);
     }
 
     onCollapse = (collapsed) => {
         this.setState({ collapsed });
+    }
+
+    getSelectedKeys = () => {
+        const { location: {pathname} } = this.props;
+
+        switch (pathname) {
+            case "/":
+            case "/edit":
+                return '/';
+                break;
+            default:
+                return pathname;
+        }
     }
 
     render() {
@@ -44,9 +59,9 @@ export default class Home extends Component {
                     <Avatar size="large" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" className='home-user-avatar'/>
                     <p>User Name</p>
                 </div>
-                <Menu mode="inline" defaultSelectedKeys={['0']}>
+                <Menu mode="inline" selectedKeys={[this.getSelectedKeys()]}>
                     {routes.map((route, index) => (
-                        <Menu.Item key={index}><Link to={route.path}>
+                        (route.path != '/edit') && <Menu.Item key={route.path}><Link to={route.path}>
                             <Icon type={route.iconType} />
                             <span className="nav-text">{route.navText}</span>
                         </Link></Menu.Item>

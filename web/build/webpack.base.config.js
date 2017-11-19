@@ -64,8 +64,7 @@ module.exports = {
             'node_modules'
         ],
         alias: {
-            Components: path.join(__dirname, '../src/components/'),
-            CommonLess: path.join(__dirname, '../src/commonless/')
+            Components: path.join(__dirname, '../src/components/')
         }
     },
     plugins: [

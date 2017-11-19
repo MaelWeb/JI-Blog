@@ -47,21 +47,27 @@ export async function createArticle(ctx) {
 export async function getAllArticles(ctx) {
     const tag = ctx.query.tag;
     const page = +ctx.query.page;
-    const limit = +ctx.query.limit || 4;
+    const size = +ctx.query.size || 4;
     let skip = 0;
-    let articleArr;
+    let articles;
     let allPage;
     let allNum;
 
+    if (tag && (typeof tag != 'array'))
+        return ctx.body = {
+            code: 501,
+            message: '参数错误'
+        };
+
     if (page !== 0) {
-        skip = limit * (page - 1)
+        skip = size * (page - 1)
     }
 
-    if (tag == '') {
-        articleArr = await Article.find()
+    if (!tag || tag.l) {
+        articles = await Article.find()
             .populate("tags")
             .sort({ createTime: -1 })
-            .limit(limit)
+            .limit(size)
             .skip(skip).catch(err => {
                 ctx.throw(500, '服务器内部错误')
             });
@@ -71,12 +77,12 @@ export async function getAllArticles(ctx) {
     } else {
         let tagArr = tag.split(',')
         // console.log(tagArr)
-        articleArr = await Article.find({
+        articles = await Article.find({
                 tags: { "$in": tagArr },
             })
             .populate("tags")
             .sort({ createTime: -1 })
-            .limit(limit)
+            .limit(size)
             .skip(skip).catch(err => {
                 ctx.throw(500, '服务器内部错误')
             });
@@ -86,10 +92,10 @@ export async function getAllArticles(ctx) {
             ctx.throw(500, '服务器内部错误')
         })
     }
-    allPage = Math.ceil(allNum / limit)
+    allPage = Math.ceil(allNum / size)
     ctx.body = {
-        success: true,
-        articleArr,
+        code: 200,
+        articles,
         allPage: allPage
     }
 }
@@ -187,21 +193,30 @@ export async function modifyArticle(ctx) {
 
 export async function getArticle(ctx) {
     const id = ctx.params.id;
-    if (id == '') {
-        ctx.throw(400, 'id不能为空')
+    if (!id) {
+        return ctx.body = {
+            code: 400,
+            message: "请求参数错误"
+        }
     }
     /*if (tags.length === 0) {
       ctx.throw(400, '标签不能为空')
     }*/
     const article = await Article.findById(id).catch(err => {
         if (err.name === 'CastError') {
-            ctx.throw(400, 'id不存在');
+            return ctx.body = {
+                code: 400,
+                message: "文章不存在或已删除"
+            }
         } else {
-            ctx.throw(500, '服务器内部错误')
+            return ctx.body = {
+                code: 500,
+                message: "服务器内部错误"
+            }
         }
     });
     ctx.body = {
-        success: true,
+        code: 200,
         article: article
     }
 }

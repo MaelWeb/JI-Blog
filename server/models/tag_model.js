@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema;
-const tagSchema = new Schema({
+const TagSchema = new Schema({
     name: {
         type: String,
         default: ''
@@ -16,4 +16,4 @@ const tagSchema = new Schema({
     }
 });
 
-module.exports = mongoose.model('tag', tagSchema);
+module.exports = mongoose.model('Tag', TagSchema);

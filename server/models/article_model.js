@@ -2,14 +2,14 @@ import mongoose from 'mongoose'
 import moment from 'moment'
 moment.locale('zh-cn');
 const Schema = mongoose.Schema;
-const articleSchema = new Schema({
+const ArticleSchema = new Schema({
     title: String,
     content: String,
     htmlContent: String,
     abstract: String,
     tags: [{
         type: Schema.Types.ObjectId,
-        ref: 'tag'
+        ref: 'Tag'
     }],
     publish: {
         type: Boolean,
@@ -24,14 +24,14 @@ const articleSchema = new Schema({
     },
 });
 
-articleSchema.set('toJSON', { getters: true, virtuals: true });
-articleSchema.set('toObject', { getters: true, virtuals: true });
+ArticleSchema.set('toJSON', { getters: true, virtuals: true });
+ArticleSchema.set('toObject', { getters: true, virtuals: true });
 
-articleSchema.path('createTime').get(function(v) {
+ArticleSchema.path('createTime').get(function(v) {
     return moment(v).format('lll');
 });
-articleSchema.path('lastEditTime').get(function(v) {
+ArticleSchema.path('lastEditTime').get(function(v) {
     return moment(v).format('lll');
 });
 
-module.exports = mongoose.model('article', articleSchema);
+module.exports = mongoose.model('Article', ArticleSchema);

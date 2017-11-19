@@ -33,7 +33,7 @@ let defaultConfig = {
     // theme : "dark",
     // previewTheme : "dark",
     // editorTheme : "pastel-on-dark",
-    markdown: `## test`,
+    // markdown: `## test`,
     codeFold: true,
     // syncScrolling : false,
     saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
