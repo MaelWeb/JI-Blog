@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Button, Icon, Tag, Input, Modal, Breadcrumb } from 'antd';
+import { Layout, Button, Icon, Tag, Input, Modal, Breadcrumb, Spin} from 'antd';
 import EditorMD from 'Components/EditorMd';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
@@ -243,7 +243,7 @@ export default class AddArticle extends Component {
                         {!inputVisible && <Button size="small" type="dashed" onClick={this.showInput}>+ New Tag</Button>}
                          <Button className="fr" type="primary" size="small" icon="pushpin-o" ghost onClick={ this.showModal }>{ articleAbstract ? '修改摘要' : '添加摘要'}</Button>
                     </div>
-                    { query.aid && markdownContent ? <EditorMD config={{markdown: markdownContent, height: '100%'}} ref={ this.saveEditorRef } /> : null}
+                    { query.aid &&  ( markdownContent ? <EditorMD config={{markdown: markdownContent, height: '100%'}} ref={ this.saveEditorRef } /> : <Spin size="large" />)}
                     { !query.aid ? <EditorMD config={{ height: '100%'}} ref={ this.saveEditorRef } /> : null}
                 </Content>
                 <Modal

@@ -33,6 +33,7 @@
     "mongoose": "^4.13.2",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
+    "react-masonry-component": "^6.0.1",
     "react-router-dom": "^4.2.2",
     "superagent": "^3.8.0",
     "validator": "^9.0.0"
