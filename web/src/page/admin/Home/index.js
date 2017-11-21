@@ -8,6 +8,7 @@ const { Sider } = Layout;
 import './index.less';
 import ArticleEdite from '../ArticleEdite';
 import ArticleManage from '../ArticleManage';
+import PhotoManage from '../PhotoManage';
 
 const routes = [
     {
@@ -22,6 +23,12 @@ const routes = [
         navText: '添加/编辑',
         iconType: 'plus-square-o',
         component: ArticleEdite
+    },
+    {
+        path: '/photo',
+        navText: '图集管理',
+        iconType: 'picture',
+        component: PhotoManage
     }
 ];
 

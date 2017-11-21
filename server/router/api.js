@@ -4,6 +4,7 @@ import { singUp, signIn } from '../controllers/user_ctr';
 import { createArticle, getAllArticles, getArticle, deleteArticle } from '../controllers/article_ctr';
 import { getOneContent } from '../controllers/common_ctr';
 import { createTag, getAllTags } from '../controllers/tags_ctr';
+import { fileUpload } from '../controllers/qiniu_ctrl';
 
 const Router = new router();
 
@@ -27,7 +28,8 @@ let _Api = Router.get('/signout', (ctx) => {
     .post('/singup', singUp)
     .post('/signin', signIn)
     .post('/create/tag', apiVerify, createTag)
-    .post('/create/article', apiVerify, createArticle);
+    .post('/create/article', apiVerify, createArticle)
+    .post('/fileupload', apiVerify, fileUpload);;
 
 // module.exports = _Api;
 export default _Api;

@@ -42,6 +42,10 @@ let config = {
         PASSWORD: "1123",
         PORT: 3306,
         HOST: 'localhost'
+    },
+    upload: {
+        ACCESS_KEY: 'ARA9LIvdx3JFZyADmwohmEMyjVLmNSIjVxgpzIA4',
+        SECRET_KEY: 'aK19LEtOfStwsvn501Pl_h_wTqkVFnbzxlI5FNU7'
     }
 }
 // 可在private.js定义自己私有的配置
