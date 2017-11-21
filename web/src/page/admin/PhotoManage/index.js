@@ -25,7 +25,6 @@ export default class ArticleManege extends Component {
     componentWillMount() {
         Axios.get('/api/get/photoes')
             .then(res => {
-                console.log(res);
                 let resData = res.data;
                 let fileList = resData.data.items.map(img => {
                     return {
@@ -54,37 +53,25 @@ export default class ArticleManege extends Component {
     render() {
         const { previewVisible, previewImage, fileList } = this.state;
 
-        console.log(fileList)
-        const uploadButton = ( <
-            div >
-            <
-            Icon type = "plus" / >
-            <
-            div className = "ant-upload-text" > Upload < /div> <
-            /div>);
-            return ( <
-                Layout className = "photo-manage-layout" >
-                <
-                Header className = 'article-manage-header clearfix' >
-                <
-                h2 > 图集 < /h2> <
-                /Header> <
-                Content className = "article-manage-content" >
-                <
-                Upload accept = "image/*"
-                action = "/api/fileupload"
-                listType = "picture-card"
-                data = { { prefix: 'photo/' } } fileList = { fileList } withCredentials onPreview = { this.handlePreview } onChange = { this.handleChange } >
-                { uploadButton } <
-                /Upload> <
-                /Content> <
-                Modal visible = { previewVisible } footer = { null } onCancel = { this.handleCancel } >
-                <
-                img alt = "example"
-                style = { { width: '100%' } } src = { previewImage }
-                /> <
-                /Modal> <
-                /Layout>
-            )
+        const uploadButton = ( <div >
+            <Icon type = "plus" />
+            <div className = "ant-upload-text" > Upload</div>
+        </div>);
+        return ( <Layout className = "photo-manage-layout" >
+                <Header className = 'article-manage-header clearfix' >
+                    <h2 > 图集 </h2>
+                </Header>
+                <Content className = "article-manage-content" >
+                    <Upload accept = "image/*"
+                        action = "/api/fileupload"
+                        listType = "picture-card"
+                        data = { { prefix: 'photo/' } } fileList = { fileList } withCredentials onPreview = { this.handlePreview } onChange = { this.handleChange } >
+                        { uploadButton }
+                    </Upload>
+                </Content>
+                <Modal visible = { previewVisible } footer = { null } onCancel = { this.handleCancel } >
+                    <img alt = "example" style = { { width: '100%' } } src = { previewImage }/>
+                </Modal>
+            </Layout>)
         }
     }
