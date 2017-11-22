@@ -1,12 +1,63 @@
 .photo-manage-layout {
-    .ant-upload-select-picture-card i {
-        font-size: 28px;
-        color: #999;
+    .article-manage-content {
+        padding: 0 15px;
+    }
+}
+
+.upload-modal-content {
+    margin: 25px 0;
+    button {
+        width: 100%;
     }
 
-    .ant-upload-select-picture-card .ant-upload-text {
-        margin-top: 8px;
-        font-size: 12px;
-        color: #666;
+    textarea {
+        margin: 15px 0;
+    }
+
+    .uploader {
+        height: 74px;
+    }
+
+    .ant-upload-select {
+        width: 100%;
+        height: auto;
+        i {
+            font-size: 48px;
+            color: #aaa;
+            vertical-align: middle;
+        }
+
+        .ant-upload-text {
+            margin-top: 8px;
+            padding-left: 20px;
+            font-size: 12px;
+            color: #666;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .upload-plus {
+            position: relative;
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #d9d9d9;
+            height: 66px;
+            cursor: pointer;
+        }
+
+        .ant-upload-list-item {
+            width: 100%;
+        }
+    }
+
+    .ant-upload-disabled .upload-plus {
+        border: 1px dashed #ccc;
+        cursor: not-allowed;
+        border-color: #ccc;
+        color: #ccc;
+
+        & i {
+        	color: inherit;
+        }
     }
 }

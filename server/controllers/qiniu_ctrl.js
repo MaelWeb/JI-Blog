@@ -2,7 +2,8 @@ import QiNiu from 'qiniu';
 import Busboy from 'busboy';
 import Config from '../config';
 import Util from 'util';
-import fs from 'fs';
+import md5 from "md5";
+import { addPhoto } from './photo_ctrl';
 
 const { ACCESS_KEY, SECRET_KEY } = Config.upload;
 
@@ -26,7 +27,7 @@ function getToken(bucket) {
     return uploadToken;
 }
 
-function uploadToQiniu(ctx) {
+export async function uploadToQiniu(ctx) {
     let req = ctx.req,
         res = ctx.res;
 
@@ -56,7 +57,8 @@ function uploadToQiniu(ctx) {
 
             file.on('end', function() {
                 console.log('File [' + fieldname + '] Finished');
-                let key = params.prefix ? `${params.prefix}${filename}` : filename;
+                let time = +new Date();
+                let key = params.prefix ? `${params.prefix}${md5(time )}` : md5(time);
                 // 获取上传token
                 let UPLOAD_TOKEN = getToken(params.bucket || null);
 
