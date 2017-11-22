@@ -12,11 +12,6 @@ let _Page = Router
             posts: result.articles
         });
     })
-    .get('addarticle', async(ctx, next) => {
-        await ctx.render('add_article', {
-            session: ctx.session
-        });
-    })
     .get('admin', pageVerify, async(ctx, next) => {
         await ctx.render('admin', {
             title: '博客后台'
