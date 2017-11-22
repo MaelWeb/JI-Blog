@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Icon, Upload, Modal, Input, Button } from 'antd';
+import { Layout, Icon, Upload, Modal, Input, Button, Card, Col } from 'antd';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import Masonry from 'react-masonry-component';
@@ -21,6 +21,7 @@ export default class ArticleManege extends Component {
             file: null,
             desc: '',
             photoes: [],
+            one:[],
             uploadRvent: null,
             addPhotoStatus: false
         };
@@ -31,24 +32,38 @@ export default class ArticleManege extends Component {
     };
 
     componentWillMount() {
-        Axios.get('/api/get/photoes')
-            .then(res => {
-                let resData = res.data;
-                let photoes = resData.photoes.map(img => {
-                    return {
-                        url: `${IMG_URL}${img.key}?${IMG_QUERY}`,
-                        name: img.key,
-                        uid: img.hash
-                    }
-                });
-                this.setState({photoes})
-            })
+        this.getPhotoes();
+        this.getOne();
     }
 
     showAddPhoto = () => {
         this.setState({
             addPhotoStatus: true
         })
+    }
+
+    getPhotoes() {
+        Axios.get('/api/get/photoes')
+            .then(res => {
+                let resData = res.data;
+                let photoes = resData.photoes.map(img => {
+                    return {
+                        imgUrl: `${IMG_URL}${img.key}?${IMG_QUERY}`,
+                        key: img.key,
+                        text: img.desc
+                    }
+                });
+                this.setState({photoes})
+            })
+    }
+
+    getOne() {
+        Axios.get('/api/one')
+            .then( res => {
+                this.setState({
+                    one: res.data.data
+                })
+            });
     }
 
     closeAddPhoto = () => {
@@ -106,14 +121,25 @@ export default class ArticleManege extends Component {
     }
 
     render() {
-        const { previewVisible, previewImage, addPhotoStatus, fileList } = this.state;
-
+        const { previewVisible, previewImage, addPhotoStatus, fileList, photoes, one } = this.state;
+        let data = photoes.length ? photoes : one;
         return ( <Layout className = "photo-manage-layout" >
-                <Header className = 'article-manage-header clearfix' >
-                    <h2 > 图集 </h2><Button icon='plus' className='fr' onClick={ this.showAddPhoto } >添加图片</Button>
+                <Header className = 'photo-manage-header clearfix' >
+                    <h2 > 图集 </h2>
+                    <div  className='fr'><Button icon='plus' onClick={ this.showAddPhoto } >添加图片</Button></div>
                 </Header>
-                <Content className = "article-manage-content" >
-
+                <Content className = "photo-manage-content" >
+                    <Masonry className="photo-list">
+                        { data.length ? data.map( (item, i) =>  <Col span={8} key={i} >
+                            <Card bodyStyle={{ padding: 0 }}>
+                                <div className="one-image">
+                                  <img src={item.imgUrl} />
+                                </div>
+                                <div className="one-card">
+                                  <p>{item.text}</p>
+                                </div>
+                            </Card></Col>) : null }
+                    </Masonry>
                 </Content>
                 <Modal visible = { previewVisible } footer = { null } onCancel = { this.handleCancelPreview } >
                     <img alt = "example" style = { { width: '100%' } } src = { previewImage }/>
