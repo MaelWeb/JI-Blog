@@ -3,6 +3,12 @@
 <% if (article) { %>
     <article>
         <h2 class="article-title"><p><em><%= article.title %></em></p></h2>
+        <p class="article-desc">
+            <span>发布时间: <%= article.createTime %></span>
+            <% if ( article.tags && article.tags.length ) {%>
+                <span class="ml">标签：<% article.tags.forEach(function(tag) { %><%= tag.name %> <% }) %></span>
+            <% } %>
+        </p>
         <div class="article-content">
             <%- article.htmlContent %>
         </div>

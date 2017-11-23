@@ -1,7 +1,8 @@
 .blog-article {
+    margin: 0 auto;
     padding: .3rem 0;
     article {
-        width: 80%;
+        width: 60%;
         padding: .1rem;
         margin: 0 auto;
         line-height: 1.6;
@@ -27,6 +28,14 @@
         p {
             display: inline-block;
             text-align: center;
+        }
+    }
+
+    .article-desc {
+        color: #999;
+
+        .ml {
+            margin-left: .1rem;
         }
     }
 
@@ -360,17 +369,11 @@
         margin-top: 0;
         margin-bottom: 16px;
     }
-    /*
-hr {
-  height: 4px;
-  padding: 0;
-  margin: 16px 0;
-  background-color: #e7e7e7;
-  border: 0 none;
-}*/
+
     ul,
     ol {
         padding-left: 2em;
+        list-style-type: decimal;
     }
 
     ul ul,
@@ -675,8 +678,7 @@ hr {
         border-color: #4183c4;
     }
 
-    blockquote,
-    .editormd-html-preview blockquote {
+    blockquote {
         color: #666;
         border-left: 4px solid #ddd;
         padding-left: 20px;
@@ -685,27 +687,23 @@ hr {
         font-style: italic;
     }
 
-    p code,
-    .editormd-html-preview p code {
+    p code {
         margin-left: 5px;
         margin-right: 4px;
     }
 
-    abbr,
-    .editormd-html-preview abbr {
+    abbr {
         background: #ffffdd;
     }
 
-    hr,
-    .editormd-html-preview hr {
+    hr {
         height: 1px;
         border: none;
         border-top: 1px solid #ddd;
         background: none;
     }
 
-    code,
-    .editormd-html-preview code {
+    code {
         border: 1px solid #ddd;
         background: #f6f6f6;
         padding: 3px;
@@ -713,8 +711,7 @@ hr {
         font-size: 14px;
     }
 
-    pre,
-    .editormd-html-preview pre {
+    pre {
         border: 1px solid #ddd;
         background: #f6f6f6;
         padding: 10px;
@@ -725,8 +722,7 @@ hr {
         border-radius: 3px;
     }
 
-    pre code,
-    .editormd-html-preview pre code {
+    pre code {
         padding: 0;
     }
 
@@ -753,31 +749,175 @@ hr {
         height: 24px;
     }
 
-    .katex,
-    .editormd-html-preview .katex {
+    .katex {
         font-size: 1.4em;
     }
 
+    .pln {
+        color: #000;
+    }
+
+    /* plain text */
+    @media screen {
+        .str {
+            color: #080;
+        }
+
+        /* string content */
+        .kwd {
+            color: #008;
+        }
+
+        /* a keyword */
+        .com {
+            color: #800;
+        }
+
+        /* a comment */
+        .typ {
+            color: #606;
+        }
+
+        /* a type name */
+        .lit {
+            color: #066;
+        }
+
+        /* a literal value */
+        /* punctuation, lisp open bracket, lisp close bracket */
+        .pun,
+        .opn,
+        .clo {
+            color: #660;
+        }
+
+        .tag {
+            color: #008;
+        }
+
+        /* a markup tag name */
+        .atn {
+            color: #606;
+        }
+
+        /* a markup attribute name */
+        .atv {
+            color: #080;
+        }
+
+        /* a markup attribute value */
+        .dec,
+        .var {
+            color: #606;
+        }
+
+        /* a declaration; a variable name */
+        .fun {
+            color: red;
+        }
+
+        /* a function name */
+    }
+    /* Use higher contrast and text-weight for printable form. */
+    @media print,
+    projection {
+        .str {
+            color: #060;
+        }
+
+        .kwd {
+            color: #006;
+            font-weight: bold;
+        }
+
+        .com {
+            color: #600;
+            font-style: italic;
+        }
+
+        .typ {
+            color: #404;
+            font-weight: bold;
+        }
+
+        .lit {
+            color: #044;
+        }
+
+        .pun,
+        .opn,
+        .clo {
+            color: #440;
+        }
+
+        .tag {
+            color: #006;
+            font-weight: bold;
+        }
+
+        .atn {
+            color: #404;
+        }
+
+        .atv {
+            color: #060;
+        }
+    }
+    /* Put a border around prettyprinted code snippets. */
+    pre.prettyprint {
+        padding: 10px;
+        border: 1px solid #ddd;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+    }
+    /* Specify class=linenums on a pre to get line numbering */
+    ol.linenums {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    /* IE indents via margin-left */
+    li.L0,
+    li.L1,
+    li.L2,
+    li.L3,
+    li.L5,
+    li.L6,
+    li.L7,
+    li.L8 {
+        list-style-type: none;
+    }
+    /* Alternate shading for lines */
+    li.L1,
+    li.L3,
+    li.L5,
+    li.L7,
+    li.L9 {
+        background: #eee;
+    }
+
     .sequence-diagram,
-    .flowchart,
-    .editormd-html-preview .sequence-diagram,
-    .editormd-html-preview .flowchart {
+    .flowchart {
         margin: 0 auto;
         text-align: center;
     }
 
     .sequence-diagram svg,
-    .flowchart svg,
-    .editormd-html-preview .sequence-diagram svg,
-    .editormd-html-preview .flowchart svg {
+    .flowchart svg {
         margin: 0 auto;
     }
 
     .sequence-diagram text,
-    .flowchart text,
-    .editormd-html-preview .sequence-diagram text,
-    .editormd-html-preview .flowchart text {
+    .flowchart text {
         font-size: 15px !important;
         font-family: "YaHei Consolas Hybrid", Consolas, "Microsoft YaHei", "Malgun Gothic", "Segoe UI", Helvetica, Arial !important;
+    }
+
+    ol.linenums {
+        color: #999;
+        padding-left: 2.5em;
+
+        li {
+            list-style: decimal;
+        }
     }
 }
