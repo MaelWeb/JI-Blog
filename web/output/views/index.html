@@ -1,24 +1,24 @@
 <% include header.html %>
-    <ul class="posts">
-		<% posts.forEach(function(res){ %>
-			<li>
-				<div class="post_3">
-					<p class="post_user"><a href="/articles?author=<%= res['name'] %>">作者: <%= res['name'] %></a></p>
-					<p class="post_comments">评论数：<%= res['comments'] %></p>
-					<p class="post_pv">浏览数：<%= res['pv'] %></p>
-				</div>
-				<a href="/article/<%= res['id'] %>">
-					<div class="post_title">
-						<h3>title</h3>
-						<p><%= res['title'] %></p>
-					</div>
-					<div class="post_content">
-						<h3>content</h3>
-						<p><%= res['content'] %></p>
-					</div>
-				</a>
-				<p class="post_time">发表时间：<%= res['create_time'] %></p>
-			</li>
+<div class="blog-articles-layout">
+	<div class="one">
+		<img src="http://image.wufazhuce.com/FoBEubfSGAroMoMdI_jx0nH0gh7y">
+		<p class='text'>长大了一些的我们，开始懂得不能再这样轻易哭泣，也拥有了更复杂的情感，学着在各种说不清原因的行为里作出抉择。那一天，我们也陷入了选择的困境，但我们对这种迷失毫无察觉。</p>
+	</div>
+	<div class="blog-tags J-blog-tag">
+		<a href="javascript:void(0);" class="tag tag-active">所有文章</a>
+		<% tags && tags.forEach(function(tag) { %>
+			<a href="javascript:void(0);" class="tag" data-tag="<%= tag %>" ><%= tag.name %></a>
 		<% }) %>
-	</ul>
+	</div>
+	<div class="blog-articles-list">
+		<ul>
+		<% articles && articles.forEach(function(article, index) { %>
+			<li class="article-tiem"><a href="/article/<%= article.id %>" >
+				<span class="article-num"><%= ( index + 1) %></span>
+				<h3><%= article.title %></h3>
+			</a></li>
+		<% }) %>
+		</ul>
+	</div>
+</div>
 <% include footer.html %>

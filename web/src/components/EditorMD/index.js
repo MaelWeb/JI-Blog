@@ -3,7 +3,6 @@ import jQuery from 'jquery';
 // import editormd from './editormd';
 // import EditorMD from 'editor.md/editormd';
 import './editormd.css';
-window.jQuery = window.$ = jQuery;
 
 let loadEditorMD = () => {
     return new Promise((resolve, reject) => {
@@ -25,7 +24,7 @@ let loadEditorMD = () => {
 };
 let defaultConfig = {
     // 组件接入方，并不需要知道具体ID
-    id: 'EditorID' + new Date().getTime(),
+    id: 'EditorID' + (+ new Date()),
     width: "100%",
     height: 740,
     // 静态资源路径
@@ -33,7 +32,7 @@ let defaultConfig = {
     // theme : "dark",
     // previewTheme : "dark",
     // editorTheme : "pastel-on-dark",
-    // markdown: `## test`,
+    markdown: `### 请开始你的表演`,
     codeFold: true,
     // syncScrolling : false,
     saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
@@ -60,6 +59,12 @@ let defaultConfig = {
 };
 
 class Editor extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {};
+    }
+
     static defaultProps = {
         config: {}
     };
@@ -123,7 +128,7 @@ class Editor extends Component {
     }
 
     getHTML() {
-        return this.editor.getHTML()
+        return this.editor.getPreviewedHTML()
     }
 
     render(){

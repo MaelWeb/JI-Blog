@@ -42,4 +42,6 @@ export async function getAllTags(ctx) {
         code: 200,
         tags
     }
+
+    return tags;
 }

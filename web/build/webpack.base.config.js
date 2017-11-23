@@ -11,6 +11,7 @@ module.exports = {
             'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
             './web/src/page/admin/index.js',
         ],
+        blog: ['./web/src/page/blog/index.js'],
         vendor: ['react', 'react-dom', 'axios', 'classnames', 'antd']
     },
     output: {
@@ -55,6 +56,15 @@ module.exports = {
             use: [
                 'file-loader'
             ]
+        }, {
+            test: require.resolve('jquery'),
+            use: [{
+                loader: 'expose-loader',
+                options: '$'
+            }, {
+                loader: 'expose-loader',
+                options: 'Zepto'
+            }]
         }]
     },
     resolve: {
@@ -72,7 +82,8 @@ module.exports = {
         new webpack.optimize.CommonsChunkPlugin({
             names: ['vendor'],
             minChunks: Infinity,
-            filename: 'js/[name].js'
+            filename: 'js/[name].js',
+            chunks: ["admin"],
         })
     ]
 };

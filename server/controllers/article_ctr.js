@@ -35,7 +35,7 @@ export async function createArticle(ctx) {
         // console.log(result)
 
     });
-    console.log('文章创建成功');
+
     ctx.body = {
         code: 200,
         article: createResult,
@@ -47,7 +47,7 @@ export async function createArticle(ctx) {
 export async function getAllArticles(ctx) {
     const tag = ctx.query.tag;
     const page = +ctx.query.page;
-    const size = +ctx.query.size || 4;
+    const size = +ctx.query.size || 10;
     let skip = 0;
     let articles;
     let allPage;
@@ -63,7 +63,7 @@ export async function getAllArticles(ctx) {
         skip = size * (page - 1)
     }
 
-    if (!tag || tag.l) {
+    if (!tag || tag.length) {
         articles = await Article.find()
             .populate("tags")
             .sort({ createTime: -1 })
@@ -75,10 +75,9 @@ export async function getAllArticles(ctx) {
             this.throw(500, '服务器内部错误')
         })
     } else {
-        let tagArr = tag.split(',')
         // console.log(tagArr)
         articles = await Article.find({
-                tags: { "$in": tagArr },
+                tags: { "$in": tag },
             })
             .populate("tags")
             .sort({ createTime: -1 })
@@ -92,29 +91,38 @@ export async function getAllArticles(ctx) {
             ctx.throw(500, '服务器内部错误')
         })
     }
-    allPage = Math.ceil(allNum / size)
+    allPage = Math.ceil(allNum / size);
+
     ctx.body = {
         code: 200,
         articles,
         allPage: allPage
     }
+
+    return { articles, allPage};
 }
 
 export async function getAllPublishArticles(ctx) {
     const tag = ctx.query.tag;
     const page = +ctx.query.page;
-    const limit = +ctx.query.limit || 4;
+    const limit = +ctx.query.limit || 10;
     let skip = 0;
-    let articleArr;
+    let articles;
     let allPage;
     let allNum;
+
+    if (tag && (typeof tag != 'array'))
+        return ctx.body = {
+            code: 501,
+            message: '参数错误'
+        };
 
     if (page !== 0) {
         skip = limit * (page - 1)
     }
 
-    if (tag == '') {
-        articleArr = await Article.find({
+    if (!tag || tag.length) {
+        articles = await Article.find({
                 publish: true
             })
             .populate("tags")
@@ -131,7 +139,7 @@ export async function getAllPublishArticles(ctx) {
     } else {
         let tagArr = tag.split(',')
         // console.log(tagArr)
-        articleArr = await Article.find({
+        articles = await Article.find({
                 tags: { "$in": tagArr },
                 publish: true
             })
@@ -150,13 +158,13 @@ export async function getAllPublishArticles(ctx) {
 
     allPage = Math.ceil(allNum / limit)
 
-
-
     ctx.body = {
         success: true,
-        articleArr,
-        allPage: allPage
+        articles,
+        allPage
     }
+
+    return { articles, allPage};
 }
 
 
@@ -223,6 +231,8 @@ export async function getArticle(ctx) {
         code: 200,
         article: article
     }
+
+    return ctx.body;
 }
 
 export async function deleteArticle(ctx) {
