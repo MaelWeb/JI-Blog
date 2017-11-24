@@ -53,17 +53,11 @@ export async function getAllArticles(ctx) {
     let allPage;
     let allNum;
 
-    if (tag && (typeof tag != 'array'))
-        return ctx.body = {
-            code: 501,
-            message: '参数错误'
-        };
-
     if (page !== 0) {
         skip = size * (page - 1)
     }
 
-    if (!tag || tag.length) {
+    if (!tag) {
         articles = await Article.find()
             .populate("tags")
             .sort({ createTime: -1 })
@@ -76,8 +70,9 @@ export async function getAllArticles(ctx) {
         })
     } else {
         // console.log(tagArr)
+        let _tag = tag.split(';');
         articles = await Article.find({
-                tags: { "$in": tag },
+                tags: { "$in": _tag },
             })
             .populate("tags")
             .sort({ createTime: -1 })
@@ -86,7 +81,7 @@ export async function getAllArticles(ctx) {
                 ctx.throw(500, '服务器内部错误')
             });
         allNum = await Article.find({
-            tags: { "$in": tagArr }
+            tags: { "$in": _tag }
         }).count().catch(err => {
             ctx.throw(500, '服务器内部错误')
         })
@@ -171,31 +166,40 @@ export async function getAllPublishArticles(ctx) {
 export async function modifyArticle(ctx) {
     // console.log(ctx.request.body)
     const id = ctx.params.id;
-    const title = ctx.request.body.title;
-    const content = ctx.request.body.content;
-    const abstract = ctx.request.body.abstract;
-    const tags = ctx.request.body.tags;
-    if (title == '') {
-        ctx.throw(400, '标题不能为空')
+    const postData = ctx.request.body;
+
+    if (postData.title == '') {
+        return ctx.body = {
+            code: 400,
+            message: "标题不能为空"
+        }
     }
-    if (content == '') {
-        ctx.throw(400, '文章内容不能为空')
+    if (postData.content == '') {
+        return ctx.body = {
+            code: 400,
+            message: "文章内容不能为空"
+        }
     }
-    if (abstract == '') {
-        ctx.throw(400, '摘要不能为空')
+    if (postData.htmlContent == '') {
+        return ctx.body = {
+            code: 400,
+            message: "HTML文本为空"
+        };
     }
-    /*if (tags.length === 0) {
+    /*if (postData.tags.length === 0) {
       ctx.throw(400, '标签不能为空')
     }*/
-    const article = await Article.findByIdAndUpdate(id, { $set: ctx.request.body }).catch(err => {
+
+    const article = await Article.findByIdAndUpdate(id, { $set: postData }).catch(err => {
         if (err.name === 'CastError') {
-            ctx.throw(400, 'id不存在');
+            ctx.throw(400, '文章不存在');
         } else {
             ctx.throw(500, '服务器内部错误')
         }
     });
     ctx.body = {
-        success: true
+        code: 200,
+        message: '保存成功'
     }
 }
 

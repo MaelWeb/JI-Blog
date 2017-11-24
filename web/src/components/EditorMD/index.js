@@ -128,14 +128,19 @@ class Editor extends Component {
     }
 
     getHTML() {
-        return this.editor.getPreviewedHTML()
+        let {config} = this.props;
+        config = Object.assign({}, defaultConfig, config);
+        if ( config.watch ) {
+            return this.editor.getPreviewedHTML();
+        }
+        return editormd.markdownToHTML('_previewHtml', {markdown: this.editor.getMarkdown()}).html();
     }
 
     render(){
         let {config} = this.props;
         config = Object.assign({}, defaultConfig, config);
 
-        return (<div id={config.id}></div>);
+        return (<div style={{ width: config.width, height: config.height}}><div id={config.id}></div><div id='_previewHtml' style={{display: 'none'}}></div></div>);
     }
 }
 

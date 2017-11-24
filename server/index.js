@@ -72,8 +72,8 @@ App.use(hotMiddleware(compile, {
 
 // 配置服务端模板渲染引擎中间件
 App.use(views(path.join(__dirname, '../web/output/views'), {
-    extension: 'html',
-    map: { html: 'ejs' }
+    extension: 'jade',
+    map: { html: 'jade' }
 }))
 
 // 配置静态资源加载中间件

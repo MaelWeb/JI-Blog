@@ -1,0 +1,17 @@
+doctype html
+html(lang="zh-cmn-Hans")
+	head
+		meta(charset="UTF-8")
+		link(rel='stylesheet', href='/web/output/dist/css/blog.css')
+		title= title || '浮生记'
+
+	body
+		header.blog-header.clearfix
+			span.logo 浮生记
+			span.menu.fr.J-menu
+
+		.blog-body#blog_content
+			block content
+
+		footer.blog-footer.tc 2017 Fushengji, All rights reserved | #[a.github Github]
+		script(src='/web/output/dist/js/blog.js')

@@ -11,7 +11,7 @@ let _Page = Router
         let tags = await getAllTags(ctx);
         let { articles, allPage} = await getAllArticles(ctx);
 
-        await ctx.render('index', {
+        await ctx.render('articles', {
             tags,
             articles,
             allPage

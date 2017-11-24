@@ -1,0 +1,22 @@
+extends ./blog_layout.jade
+
+block content
+	.blog-article
+		if article
+			article
+				h2.article-title
+					p
+						em= article.title
+
+				p.article-desc
+					span 发布时间: #{article.createTime}
+					if article.tags && article.tags.length
+						span.ml 标签：
+							- each tag in article.tags
+								| #{tag.name}
+
+				.article-content!= article.htmlContent
+
+		else
+			.no-article
+				p 文章不存在或已删除

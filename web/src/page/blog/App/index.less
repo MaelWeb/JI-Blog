@@ -1,4 +1,4 @@
-@import '../../commonless/app.less';
+@import '../../../commonless/app.less';
 
 .blog-header {
     position: fixed;
@@ -29,19 +29,34 @@
 }
 
 .blog-body {
-	min-height: 100%;
+    min-height: 100%;
     color: #212121;
+    opacity: 0;
 }
 
 .blog-footer {
-	padding: .1rem;
-	line-height: 1;
-	font-size: .12rem;
-	background-color: #13161b;
-	color: #999;
+    padding: .1rem;
+    line-height: 1;
+    font-size: .12rem;
+    background-color: #13161b;
+    color: #999;
 
-	& a {
-		color: inherit;
-		text-decoration: underline;
-	}
+    & a {
+        color: inherit;
+        text-decoration: underline;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation: fadeIn .8s both;
 }
