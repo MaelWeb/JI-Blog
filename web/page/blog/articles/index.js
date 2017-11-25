@@ -26,7 +26,7 @@ export default class Articles extends Component {
 
     getArticles = (tagid)=> {
         if ( !this.state.curTagId || (tagid != this.state.curTagId))
-            Axios.get('/api/get/all/articles', {
+            Axios.get('/api/get/publish/articles', {
                 params: {
                     tag: tagid || ''
                 }

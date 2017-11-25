@@ -1,7 +1,7 @@
 import router from 'koa-router';
 import { apiVerify } from '../middleware/verify';
 import { singUp, signIn } from '../controllers/user_ctr';
-import { createArticle, getAllArticles, getArticle, deleteArticle, modifyArticle } from '../controllers/article_ctr';
+import { createArticle, getAllArticles, getArticle, deleteArticle, modifyArticle, getAllPublishArticles } from '../controllers/article_ctr';
 import { getOneContent } from '../controllers/common_ctr';
 import { createTag, getAllTags } from '../controllers/tags_ctr';
 import { fileUpload } from '../controllers/qiniu_ctrl';
@@ -23,6 +23,7 @@ let _Api = Router.get('/signout', (ctx) => {
     })
     .get("/get/alltags", getAllTags)
     .get("/get/all/articles", getAllArticles)
+    .get("/get/publish/articles", getAllPublishArticles)
     .get('/get/article/:id', getArticle)
     .get("/one", getOneContent)
     .get("/get/photoes", getPhotoes)
