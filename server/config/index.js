@@ -1,20 +1,3 @@
-// const config = {
-//     // 启动端口
-//     port: 8080,
-
-//     // 数据库配置
-//     database: {
-//         DATABASE: 'node_koa_test',
-//         USERNAME: 'root',
-//         PASSWORD: "1123",
-//         PORT: 3306,
-//         HOST: 'localhost'
-//     }
-// };
-
-// // module.exports = config;
-// export default config;
-
 import fs from 'fs'
 let config = {
     app: {
@@ -62,7 +45,8 @@ let config = {
 //       pwd: ''
 //   }
 // }
-if (fs.existsSync(__dirname + '/private.js')) {
-    config = Object.assign(config, require('./private.js'));
-}
+// if (fs.existsSync(__dirname + '/private.js')) {
+//     console.log(111);
+//     config = Object.assign(config, require('./private.js'));
+// }
 export default config;

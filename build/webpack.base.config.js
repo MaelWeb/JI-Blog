@@ -1,22 +1,27 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const sourcePath = path.join(__dirname, '../src');
+const sourcePath = path.join(__dirname, '../web');
 const outputPath = path.join(__dirname, '../output/dist/');
 
 module.exports = {
+    context: sourcePath,
     entry: {
         admin: [
             'eventsource-polyfill',
             'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-            './web/src/page/admin/index.js',
+            '../web/page/admin/index.js',
         ],
-        blog: ['./web/src/page/blog/index.js'],
+        blog: [
+            'eventsource-polyfill',
+            'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+            '../web/page/blog/index.js',
+        ],
         vendor: ['react', 'react-dom', 'axios', 'classnames', 'antd']
     },
     output: {
         path: outputPath,
-        publicPath: '/web/output/dist/',
+        publicPath: '/output/dist/',
         filename: 'js/[name].js',
     },
     module: {
@@ -53,8 +58,14 @@ module.exports = {
             }]
         }, {
             test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
-            use: [
-                'file-loader'
+            use: [{
+                    loader: 'file-loader',
+                    options: {
+                        limit: 8192,
+                        name: 'font/[name].[hash:8].[ext]'
+                    }
+                }
+
             ]
         }, {
             test: require.resolve('jquery'),
@@ -74,7 +85,7 @@ module.exports = {
             'node_modules'
         ],
         alias: {
-            Components: path.join(__dirname, '../src/components/')
+            Components: path.join(__dirname, '../web/components/')
         }
     },
     plugins: [
@@ -83,7 +94,6 @@ module.exports = {
             names: ['vendor'],
             minChunks: Infinity,
             filename: 'js/[name].js',
-            chunks: ["admin"],
         })
     ]
 };

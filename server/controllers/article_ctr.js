@@ -46,7 +46,7 @@ export async function createArticle(ctx) {
 
 export async function getAllArticles(ctx) {
     const tag = ctx.query.tag;
-    const page = +ctx.query.page;
+    const page = +ctx.query.page || 0;
     const size = +ctx.query.size || 10;
     let skip = 0;
     let articles;
@@ -58,7 +58,7 @@ export async function getAllArticles(ctx) {
     }
 
     if (!tag) {
-        articles = await Article.find()
+        articles = await Article.find({}, {title: 1})
             .populate("tags")
             .sort({ createTime: -1 })
             .limit(size)

@@ -3,6 +3,10 @@ import fs from 'fs';
 import { pageVerify } from '../middleware/verify';
 import { getAllTags } from '../controllers/tags_ctr';
 import { getAllArticles, getArticle } from '../controllers/article_ctr';
+import ReactDOMServer from 'react-dom/server';
+import React from 'react';
+import { StaticRouter } from 'react-router';
+import App from '../../web/page/blog/App';
 
 const Router = new router();
 
@@ -11,20 +15,34 @@ let _Page = Router
         let tags = await getAllTags(ctx);
         let { articles, allPage} = await getAllArticles(ctx);
 
-        await ctx.render('articles', {
-            tags,
-            articles,
-            allPage
+        let ServerData = {tags, articles, allPage, curTagId: ctx.query.tag};
+
+        const html = ReactDOMServer.renderToString(
+            <StaticRouter context={{}} location={ctx.request.url}>
+                <App InitData={ServerData} />
+            </StaticRouter>
+        )
+
+        await ctx.render('blog', {
+            html,
+            ServerData
         });
     })
     .get('article/:id', async(ctx, next) => {
 
         if (!ctx.params.id) ctx.redirect('/');
 
-        let result = await getArticle(ctx);
+        let ServerData = await getArticle(ctx);
 
-        await ctx.render('article', {
-           ...result
+        const html = ReactDOMServer.renderToString(
+            <StaticRouter context={{}} location={ctx.request.url}>
+                <App InitData={{...ServerData}} />
+            </StaticRouter>
+        )
+
+        await ctx.render('blog', {
+            html,
+            ServerData
         });
     })
     .get('admin', pageVerify, async(ctx, next) => {

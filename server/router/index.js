@@ -5,7 +5,7 @@ import _Page from './page';
 const Router = new router();
 
 Router.use('/api', _Api.routes(), _Api.allowedMethods());
-Router.use('/', _Page.routes(), _Page.allowedMethods());
+Router.use('/', _Page.routes());
 
 
 // module.exports = Router;

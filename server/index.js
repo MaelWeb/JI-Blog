@@ -8,7 +8,8 @@ import views from 'koa-views';
 import path from 'path';
 import webpack from 'webpack';
 import { devMiddleware, hotMiddleware } from 'koa-webpack-middleware';
-import devConfig from '../web/build/webpack.dev.config';
+import devConfig from '../build/webpack.dev.config';
+import BaseConfig from '../build/webpack.base.config.js';
 
 import _Config from './config';
 import Router from './router';
@@ -56,7 +57,7 @@ App.use(devMiddleware(compile, {
     },
     // public path to bind the middleware to
     // use the same as in webpack
-    publicPath: devConfig.output.publicPath,
+    publicPath: BaseConfig.output.publicPath,
 
     // options for formating the statistics
     stats: {
@@ -71,14 +72,14 @@ App.use(hotMiddleware(compile, {
 }))
 
 // 配置服务端模板渲染引擎中间件
-App.use(views(path.join(__dirname, '../web/output/views'), {
-    extension: 'jade',
-    map: { html: 'jade' }
+App.use(views(path.join(__dirname, '../output/views'), {
+    extension: 'html',
+    map: { html: 'ejs' }
 }))
 
 // 配置静态资源加载中间件
 App.use(koaStatic(
-    path.join(__dirname, '../web/output/')
+    path.join(__dirname, '../output/')
 ));
 
 // 使用ctx.body解析中间件

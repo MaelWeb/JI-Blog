@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon --ignore web/ --exec babel-node ./server/index.js NODE_ENV=development",
-    "init_sql": "babel-node ./lib/index.js"
+    "dev:start": "nodemon --ignore web/ --exec babel-node ./server/index.js NODE_ENV=development"
   },
   "author": "",
   "license": "ISC",
@@ -40,7 +39,8 @@
     "react-masonry-component": "^6.0.1",
     "react-router-dom": "^4.2.2",
     "superagent": "^3.8.0",
-    "validator": "^9.0.0"
+    "validator": "^9.0.0",
+    "webpack-node-externals": "^1.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -64,7 +64,8 @@
   "babel": {
     "presets": [
       "env",
-      "stage-0"
+      "stage-0",
+      "react"
     ],
     "plugins": [
       "transform-runtime",
