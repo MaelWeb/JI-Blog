@@ -5,7 +5,7 @@ import { createArticle, getAllArticles, getArticle, deleteArticle, modifyArticle
 import { getOneContent } from '../controllers/common_ctr';
 import { createTag, getAllTags } from '../controllers/tags_ctr';
 import { fileUpload } from '../controllers/qiniu_ctrl';
-import { addPhoto, getPhotoes } from '../controllers/photo_ctrl';
+import { addPhoto, getPhotoes, updatePhoto } from '../controllers/photo_ctrl';
 
 const Router = new router();
 
@@ -32,6 +32,7 @@ let _Api = Router.get('/signout', (ctx) => {
     .post('/create/tag', apiVerify, createTag)
     .post('/create/article', apiVerify, createArticle)
     .post('/update/article/:id', apiVerify, modifyArticle)
+    .post('/update/photo/:id', apiVerify, updatePhoto)
     .post('/fileupload', apiVerify, fileUpload)
     .post('/add/photo', apiVerify, addPhoto);
 

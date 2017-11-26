@@ -3,6 +3,7 @@ import fs from 'fs';
 import { pageVerify } from '../middleware/verify';
 import { getAllTags } from '../controllers/tags_ctr';
 import { getAllArticles, getArticle } from '../controllers/article_ctr';
+import { getPhotoes } from '../controllers/photo_ctrl';
 import ReactDOMServer from 'react-dom/server';
 import React from 'react';
 import { StaticRouter } from 'react-router';
@@ -33,6 +34,21 @@ let _Page = Router
         if (!ctx.params.id) ctx.redirect('/');
 
         let ServerData = await getArticle(ctx);
+
+        const html = ReactDOMServer.renderToString(
+            <StaticRouter context={{}} location={ctx.request.url}>
+                <App InitData={{...ServerData}} />
+            </StaticRouter>
+        )
+
+        await ctx.render('blog', {
+            html,
+            ServerData
+        });
+    })
+    .get('photoes', async(ctx, next) => {
+
+        let ServerData = await getPhotoes(ctx);
 
         const html = ReactDOMServer.renderToString(
             <StaticRouter context={{}} location={ctx.request.url}>

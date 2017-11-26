@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import Articles from '../Articles';
 import Article from '../Article';
+import Photoes from '../Photoes';
 import Header from '../Header';
 import Footer from '../Footer';
 
@@ -14,7 +15,8 @@ export default class App extends Component {
     constructor(props) {
         super();
         this.state = {
-            minHeight: '100%'
+            minHeight: '100%',
+            headeClass: ''
         };
     }
 
@@ -22,6 +24,10 @@ export default class App extends Component {
         this.setState({
             minHeight: window.document && document.documentElement.clientHeight
         })
+    }
+
+    componentWillReceiveProps(nextProps) {
+        console.log(nextProps);
     }
 
     getQuery = (key) => {
@@ -54,13 +60,14 @@ export default class App extends Component {
     }
 
     render() {
-        const { minHeight } = this.state;
+        const { minHeight, headeClass } = this.state;
         const { InitData } = this.props;
         return (
             <div className="blog-layout" style={{minHeight: minHeight}}>
-                <Header />
+                <Header className={ headeClass } />
                     <FadingRoute path="/" component={Articles} {...InitData} getQuery={ this.getQuery } />
                     <FadingRoute path="/article/:id" component={Article} {...InitData} getQuery={ this.getQuery } />
+                    <FadingRoute path="/photoes" component={Photoes} {...InitData} getQuery={ this.getQuery } />
                 <Footer />
             </div>
         )

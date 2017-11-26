@@ -33,5 +33,5 @@ export async function getOneContent(ctx) {
         });
 
     ctx.body = result;
-
+    return result;
 }

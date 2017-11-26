@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Layout, Icon, Upload, Modal, Input, Button, Card, Col } from 'antd';
+import { Layout, Icon, Upload, Modal, Input, Button, Card, Col, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import Masonry from 'react-masonry-component';
@@ -50,7 +50,9 @@ export default class ArticleManege extends Component {
                     return {
                         imgUrl: `${IMG_URL}${img.key}?${IMG_QUERY}`,
                         key: img.key,
-                        text: img.desc
+                        text: img.desc,
+                        id: img.id,
+                        isBanner: img.isBanner || false
                     }
                 });
                 this.setState({photoes})
@@ -101,6 +103,8 @@ export default class ArticleManege extends Component {
                 return {
                     name: response.data.filename,
                     key: response.data.key,
+                    width: response.data.w,
+                    height: response.data.h,
                     desc: desc
                 }
         })
@@ -110,7 +114,6 @@ export default class ArticleManege extends Component {
 
         Axios.post('/api/add/photo', photoes)
             .then( res => {
-                console.log(res);
                 let resData = res.data;
                 if (resData.code == 200) {
                     this.setState({
@@ -118,6 +121,24 @@ export default class ArticleManege extends Component {
                     })
                 }
             })
+    }
+
+    setToBanner = (photoIndex) => {
+        const { photoes } = this.state;
+        let photo = photoes[photoIndex],
+            isBanner = photo.isBanner;
+        console.log(photo);
+        if (photo.id)
+            Axios.post(`/api/update/photo/${photo.id}`, {isBanner: !isBanner})
+                .then( res => {
+                    let resData = res.data;
+                    if ( resData.code == 200) {
+                        photoes[photoIndex].isBanner = !isBanner;
+                        this.setState({photoes});
+                    } else {
+                        this.context.showMessage(resData.message);
+                    }
+                })
     }
 
     render() {
@@ -131,12 +152,19 @@ export default class ArticleManege extends Component {
                 <Content className = "photo-manage-content" >
                     <Masonry className="photo-list">
                         { data.length ? data.map( (item, i) =>  <Col span={8} key={i} >
-                            <Card bodyStyle={{ padding: 0 }}>
+                            <Card bodyStyle={{ padding: 0 }} >
                                 <div className="one-image">
-                                  <img src={item.imgUrl} />
+                                    <img src={item.imgUrl} />
                                 </div>
                                 <div className="one-card">
-                                  <p>{item.text}</p>
+                                    <div className="text">
+                                        <p>{item.text}</p>
+                                    </div>
+                                    <div className="banner-setting" onClick={ () => {this.setToBanner(i)} }>
+                                    <Tooltip placement="top" title={item.isBanner ? '点击取消设置为Banner' : '点击设置为Banner'}>
+                                        <Icon type={ item.isBanner ? "heart" :"heart-o" }  />
+                                    </Tooltip>
+                                    </div>
                                 </div>
                             </Card></Col>) : null }
                     </Masonry>

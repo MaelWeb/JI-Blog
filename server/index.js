@@ -1,7 +1,5 @@
 import koa from 'koa';
 import bodyParser from 'koa-bodyparser';
-// import session from 'koa-session-minimal';
-// import mySqlSession from 'koa-mysql-session';
 import mongoose from 'mongoose';
 import koaStatic from 'koa-static';
 import views from 'koa-views';
@@ -10,40 +8,15 @@ import webpack from 'webpack';
 import { devMiddleware, hotMiddleware } from 'koa-webpack-middleware';
 import devConfig from '../build/webpack.dev.config';
 import BaseConfig from '../build/webpack.base.config.js';
+import SourceMapSupport from 'source-map-support';
 
 import _Config from './config';
 import Router from './router';
 
+// SourceMapSupport.install();
+
 const App = new koa();
 const compile = webpack(devConfig);
-
-// // 配置存储session信息的mysql
-// let store = new mySqlSession({
-//     user: _Config.database.USERNAME,
-//     password: _Config.database.PASSWORD,
-//     database: _Config.database.DATABASE,
-//     host: _Config.database.HOST,
-// });
-
-// // 存放sessionId的cookie配置
-// let cookie = {
-//     maxAge: '', // cookie有效时长
-//     expires: '', // cookie失效时间
-//     path: '', // 写cookie所在的路径
-//     domain: '', // 写cookie所在的域名
-//     httpOnly: '', // 是否只用于http请求中获取
-//     overwrite: '', // 是否允许重写
-//     secure: '',
-//     sameSite: '',
-//     signed: '',
-
-// };
-
-// // 使用session中间件
-// App.use(session({
-//     key: 'USER_SID',
-//     store: store,
-// }));
 
 mongoose.Promise = Promise;
 mongoose.connect(_Config.mongodb.url, _Config.mongodbSecret);

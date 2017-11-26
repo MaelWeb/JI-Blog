@@ -12,7 +12,8 @@ function getToken(bucket) {
 
     const options = {
         scope: _bucket,
-        expires: 120 * 60 // 秒
+        expires: 120 * 60, // 秒
+        returnBody: '{"key": "$(key)", "hash": "$(etag)", "w": "$(imageInfo.width)", "h": "$(imageInfo.height)"}'
     };
 
     const mac = new QiNiu.auth.digest.Mac(ACCESS_KEY, SECRET_KEY);
@@ -84,11 +85,8 @@ export async function uploadToQiniu(ctx) {
                         console.log('respInfo', respInfo.statusCode);
                         console.log('respBody', respBody);
                         resolve({
-                            code: 200,
-                            data: {
-                                filename,
-                                ...respBody
-                            }
+                            code: respInfo.statusCode,
+                            ...respBody
                         })
                     }
                 });

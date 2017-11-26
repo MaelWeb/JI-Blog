@@ -58,7 +58,7 @@ export async function getAllArticles(ctx) {
     }
 
     if (!tag) {
-        articles = await Article.find({}, {title: 1})
+        articles = await Article.find()
             .populate("tags")
             .sort({ createTime: -1 })
             .limit(size)
@@ -116,10 +116,10 @@ export async function getAllPublishArticles(ctx) {
         skip = limit * (page - 1)
     }
 
-    if (!tag || tag.length) {
+    if (!tag) {
         articles = await Article.find({
-                publish: true
-            })
+                // publish: true
+            }, {title: 1})
             .populate("tags")
             .sort({ createTime: -1 })
             .limit(limit)
@@ -132,12 +132,12 @@ export async function getAllPublishArticles(ctx) {
             this.throw(500, '服务器内部错误')
         })
     } else {
-        let tagArr = tag.split(',')
+        let tagArr = tag.split(';')
         // console.log(tagArr)
         articles = await Article.find({
                 tags: { "$in": tagArr },
-                publish: true
-            })
+                // publish: true
+            }, {title: 1})
             .populate("tags")
             .sort({ createTime: -1 })
             .limit(limit)
