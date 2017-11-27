@@ -19,7 +19,7 @@ let _Page = Router
         let ServerData = {tags, articles, allPage, curTagId: ctx.query.tag};
 
         const html = ReactDOMServer.renderToString(
-            <StaticRouter context={{}} location={ctx.request.url}>
+            <StaticRouter context={{}} location={ctx.req.url}>
                 <App InitData={ServerData} />
             </StaticRouter>
         )
@@ -36,7 +36,7 @@ let _Page = Router
         let ServerData = await getArticle(ctx);
 
         const html = ReactDOMServer.renderToString(
-            <StaticRouter context={{}} location={ctx.request.url}>
+            <StaticRouter context={{}} location={ctx.req.url}>
                 <App InitData={{...ServerData}} />
             </StaticRouter>
         )
@@ -51,8 +51,23 @@ let _Page = Router
         let ServerData = await getPhotoes(ctx);
 
         const html = ReactDOMServer.renderToString(
-            <StaticRouter context={{}} location={ctx.request.url}>
+            <StaticRouter context={{}} location={ctx.req.url}>
                 <App InitData={{...ServerData}} />
+            </StaticRouter>
+        )
+
+        await ctx.render('blog', {
+            html,
+            ServerData
+        });
+    })
+    .get('about', async(ctx, next) => {
+
+        let ServerData = {};
+
+        const html = ReactDOMServer.renderToString(
+            <StaticRouter context={{}} location={ctx.req.url}>
+                <App />
             </StaticRouter>
         )
 

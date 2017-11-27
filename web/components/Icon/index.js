@@ -21,7 +21,7 @@ class Icon extends React.Component {
     render() {
         const {type, size, className, ...others} = this.props;
 
-        const cls = classNames({
+        const cls = classNames('iconfont', {
             ['icon-' + type]: type !== 'loading',
             'icon-small': size === 'small',
             'icon-large': size === 'large',

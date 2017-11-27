@@ -24,7 +24,7 @@ export default class Header extends Component {
             <header className={ ClassNames("blog-header", {'show-nav': showNav})}>
                 <p className="clearfix">
                     <span className="logo">浮生记</span>
-                    <Icon type="menu" className='menu fr' onClick={ this.showNacBox } />
+                    <Icon type={ showNav ? "close" : "menu" } className='menu fr' onClick={ this.showNacBox } />
                 </p>
                 { showNav ? <nav className="nav-wrap tc" onClick={ this.showNacBox } >
                     <Link to='/'><span>文记</span></Link>

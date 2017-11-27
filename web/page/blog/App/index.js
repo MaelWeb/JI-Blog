@@ -3,6 +3,7 @@ import { Route, Link, Switch } from 'react-router-dom';
 import Articles from '../Articles';
 import Article from '../Article';
 import Photoes from '../Photoes';
+import About from '../About';
 import Header from '../Header';
 import Footer from '../Footer';
 
@@ -68,6 +69,7 @@ export default class App extends Component {
                     <FadingRoute path="/" component={Articles} {...InitData} getQuery={ this.getQuery } />
                     <FadingRoute path="/article/:id" component={Article} {...InitData} getQuery={ this.getQuery } />
                     <FadingRoute path="/photoes" component={Photoes} {...InitData} getQuery={ this.getQuery } />
+                    <FadingRoute path="/about" component={About} />
                 <Footer />
             </div>
         )

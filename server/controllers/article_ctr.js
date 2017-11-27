@@ -106,12 +106,6 @@ export async function getAllPublishArticles(ctx) {
     let allPage;
     let allNum;
 
-    if (tag && (typeof tag != 'array'))
-        return ctx.body = {
-            code: 501,
-            message: '参数错误'
-        };
-
     if (page !== 0) {
         skip = limit * (page - 1)
     }

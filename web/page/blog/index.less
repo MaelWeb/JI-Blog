@@ -1,9 +1,9 @@
 @import '../../commonless/app.less';
-@import '../../components/Icon/iconfont.less';
-
+@import url(//at.alicdn.com/t/font_456468_ffv7ut18i9221emi.css);
 @import './articles/articles.less';
 @import './article/index.less';
 @import './Photoes/index.less';
+@import './About/index.less';
 
 .blog-layout {
     min-height: 100%;
@@ -23,8 +23,10 @@
     z-index: 1;
     border: .1rem solid transparent;
     transition: all .5s;
+    background-color: #fff;
 
     &.show-nav {
+        padding: .2rem;
         height: 100%;
         background-color: #000;
         color: #fff;
@@ -34,13 +36,21 @@
     .menu {
         width: .3rem;
         height: .3rem;
-        padding: .05rem;
-        border-radius: 50%;
         color: #fff;
-        background-color: #212121;
         font-size: .18rem;
-        line-height: .2rem;
         cursor: pointer;
+        border-radius: 100%;
+        border: 1px solid #212121;
+        background-color: #212121;
+        text-align: center;
+        line-height: .28rem;
+        overflow: hidden;
+    }
+
+    .icon-close {
+        font-size: .3rem;
+        background-color: transparent;
+        border: none;
     }
 
     .logo {
