@@ -9,7 +9,7 @@ export default class About extends Component {
         return (
             <div className="blog-about">
                 <img src="http://ozrrmt7n9.bkt.clouddn.com/image/about_banner2.jpg" alt="about me"/>
-                <div className="about-me tc">
+                <div className="middle-text tc">
                     <h1>关于 记</h1>
                     <p>记是一个码农，因为喜欢浪，所以想要一个博客记是一个码农，因为喜欢浪，所以想要一个博客记是一个码农，
                     因为喜欢浪，所以想要一个博客记是一个码农，因为喜欢浪，所以想要一个博客记是一个码农，因为喜欢浪，所以想要一个博客记

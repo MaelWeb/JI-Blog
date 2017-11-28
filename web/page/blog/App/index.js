@@ -4,6 +4,7 @@ import Articles from '../Articles';
 import Article from '../Article';
 import Photoes from '../Photoes';
 import About from '../About';
+import Travel from '../Travel';
 import Header from '../Header';
 import Footer from '../Footer';
 
@@ -70,6 +71,7 @@ export default class App extends Component {
                     <FadingRoute path="/article/:id" component={Article} {...InitData} getQuery={ this.getQuery } />
                     <FadingRoute path="/photoes" component={Photoes} {...InitData} getQuery={ this.getQuery } />
                     <FadingRoute path="/about" component={About} />
+                    <FadingRoute path="/travel" component={Travel} {...InitData} />
                 <Footer />
             </div>
         )

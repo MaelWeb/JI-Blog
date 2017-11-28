@@ -76,6 +76,21 @@ let _Page = Router
             ServerData
         });
     })
+    .get('travel', async(ctx, next) => {
+
+        let ServerData = {};
+
+        const html = ReactDOMServer.renderToString(
+            <StaticRouter context={{}} location={ctx.req.url}>
+                <App />
+            </StaticRouter>
+        )
+
+        await ctx.render('blog', {
+            html,
+            ServerData
+        });
+    })
     .get('admin', pageVerify, async(ctx, next) => {
         await ctx.render('admin', {
             title: '博客后台'
