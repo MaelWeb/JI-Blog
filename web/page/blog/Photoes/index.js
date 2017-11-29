@@ -61,7 +61,7 @@ export default class Photo extends Component {
         return(
             <div className="blog-photo-layout">
                 <div className="photo-banner">
-                    { banner.length || photoes.length ? <img src={ banner[0].src || photoes[0].src } alt=""/> : null}
+                    { banner.length || photoes.length ? <img src={ banner.length && banner[0].src || photoes[0].src } alt=""/> : null}
                 </div>
                 <div className="middle-text tc">
                     <h2>我以一种笨拙的方式拍照</h2>

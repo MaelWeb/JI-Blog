@@ -25,7 +25,8 @@ export async function createArticle(ctx) {
     const article = new Article({
         ...formData,
         createTime,
-        lastEditTime
+        lastEditTime,
+        author: ctx.cookies.get('uid')
     });
     let createResult = await article.save().catch(err => {
         ctx.throw(500, '服务器内部错误')
@@ -209,7 +210,7 @@ export async function getArticle(ctx) {
       ctx.throw(400, '标签不能为空')
     }*/
     const article = await Article
-        .findById(id)
+        .findByIdAndUpdate(id, {$inc: { visited: 1} })
         .populate("tags")
         .catch(err => {
             if (err.name === 'CastError') {

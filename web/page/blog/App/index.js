@@ -8,9 +8,9 @@ import Travel from '../Travel';
 import Header from '../Header';
 import Footer from '../Footer';
 
-const FadingRoute = ({ component: Component, path, ...other }) => (
+const FadingRoute = ({ component: Component, path, ...others }) => (
     <Route exact path={path} render={props => (
-        <Component {...other} {...props}/>
+        <Component {...others} {...props} />
     )}/>
 )
 export default class App extends Component {
@@ -30,6 +30,10 @@ export default class App extends Component {
 
     componentWillReceiveProps(nextProps) {
         console.log(nextProps);
+    }
+
+    setHeaderClass = (headeClass) => {
+        this.setState({headeClass});
     }
 
     getQuery = (key) => {
@@ -67,11 +71,11 @@ export default class App extends Component {
         return (
             <div className="blog-layout" style={{minHeight: minHeight}}>
                 <Header className={ headeClass } />
-                    <FadingRoute path="/" component={Articles} {...InitData} getQuery={ this.getQuery } />
-                    <FadingRoute path="/article/:id" component={Article} {...InitData} getQuery={ this.getQuery } />
-                    <FadingRoute path="/photoes" component={Photoes} {...InitData} getQuery={ this.getQuery } />
-                    <FadingRoute path="/about" component={About} />
-                    <FadingRoute path="/travel" component={Travel} {...InitData} />
+                <FadingRoute path="/" component={Articles} {...InitData} getQuery={ this.getQuery } setHeaderClass={ this.setHeaderClass } />
+                <FadingRoute path="/article/:id" component={Article} {...InitData} getQuery={ this.getQuery } setHeaderClass={ this.setHeaderClass } />
+                <FadingRoute path="/photoes" component={Photoes} {...InitData} getQuery={ this.getQuery } setHeaderClass={ this.setHeaderClass } />
+                <FadingRoute path="/about" component={About} setHeaderClass={ this.setHeaderClass } />
+                <FadingRoute path="/travel" component={Travel} {...InitData} setHeaderClass={ this.setHeaderClass } />
                 <Footer />
             </div>
         )

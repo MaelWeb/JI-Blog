@@ -14,9 +14,17 @@ const ArticleSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Tag'
     }],
+    author: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+    },
     publish: {
         type: Boolean,
         default: false
+    },
+    visited: {
+        type: Number,
+        default: 0
     },
     createTime: {
         type: Date

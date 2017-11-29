@@ -56,7 +56,7 @@ export default class Articles extends Component {
             <div className="blog-articles-layout">
                 <div className="one">
                     <img src="http://image.wufazhuce.com/FoBEubfSGAroMoMdI_jx0nH0gh7y" />
-                    <p className='text'>长大了一些的我们，开始懂得不能再这样轻易哭泣，也拥有了更复杂的情感，学着在各种说不清原因的行为里作出抉择。那一天，我们也陷入了选择的困境，但我们对这种迷失毫无察觉。</p>
+                    <div className="text"><p className='nowrapmulti'>长大了一些的我们，开始懂得不能再这样轻易哭泣，也拥有了更复杂的情感，学着在各种说不清原因的行为里作出抉择。那一天，我们也陷入了选择的困境，但我们对这种迷失毫无察觉。</p></div>
                 </div>
                 <div className="blog-tags">
                     <Link to={{pathname: '/'}} onClick={ () => { this.getArticles() } } className={ classNames("tag", {'tag-active': !curTagId}) } >所有文章</Link>
@@ -66,7 +66,7 @@ export default class Articles extends Component {
                     <ul>
                         {articles && articles.length ? articles.map( (article, index)=> <li className="article-tiem" key={article.id}><Link to={`/article/${article.id}`} >
                             <span className="article-num">{( index + 1)}</span>
-                            <h3>{article.title}</h3>
+                            <h3 className='nowrapmulti'>{article.title}</h3>
                         </Link></li>) : null}
                     </ul>
                 </div>

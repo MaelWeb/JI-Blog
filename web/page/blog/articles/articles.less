@@ -1,7 +1,7 @@
 .blog-articles-layout {
     margin: 0 auto;
-    max-width: 70%;
-    padding-top: .7rem;
+    width: 70%;
+    padding-top: .65rem;
     .one {
         position: relative;
         img {
@@ -20,7 +20,8 @@
     .blog-tags {
         margin-top: .2rem;
         min-height: .45rem;
-        color: #212121;
+        border-bottom: 1px solid rgba(19, 22, 27, .5);
+
 
         .tag {
             margin-right: .1rem;
@@ -30,6 +31,7 @@
             border-bottom: 1px solid transparent;
             display: inline-block;
             cursor: pointer;
+            color: #555;
 
             &:hover {
                 border-color: #212121;
@@ -38,7 +40,6 @@
 
         .tag-active {
             font-size: .16rem;
-            border-bottom: 1px solid #212121;
         }
     }
 
@@ -64,13 +65,12 @@
             margin-top: .1rem;
             padding-right: .1rem;
             font-size: .16rem;
-            display: inline-block;
             word-break: break-all;
             flex: 1;
         }
 
         .article-num {
-        	margin-right: .08rem;
+            margin-right: .08rem;
             color: #d1a47d;
             font-size: .3rem;
             line-height: 1;

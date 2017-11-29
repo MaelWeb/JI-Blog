@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>浮生记</title>
+    <meta charset="UTF-8">
+    <title>记 - 一个码农的博客</title>
+    <meta name="keywords" content="记,Maelweb,前端工程师,nodeJS">
+    <meta name="description" content="记是一个码农，因为喜欢浪，所以想要一个博客!">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <base target="_blank">
+    <link href="/favicon.ico" rel="shortcut icon">
+    <link rel="apple-touch-icon" href="/touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/touch-icon-ipad-retina.png">
     <link rel="stylesheet" href="/output/dist/css/blog.css">
     <script src="/output/dist/js/vendor.js"></script>
 </head>
+
 <body>
     <div id="app"><%- html %></div>
     <script type="text/javascript">
-        var _SERVER_DATA = <%- JSON.stringify(ServerData) %>;
+    var _SERVER_DATA = <%- JSON.stringify(ServerData) %>;
     </script>
     <script src="/output/dist/js/blog.js"></script>
 </body>
+
 </html>

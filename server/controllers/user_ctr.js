@@ -75,6 +75,13 @@ export async function signIn(ctx) {
                 overwrite: false // 是否允许重写
             });
 
+            ctx.cookies.set('uid', user.id, {
+                maxAge: 24 * 60 * 60 * 1000,
+                expires: exp,
+                httpOnly: false, // 是否只用于http请求中获取
+                overwrite: false // 是否允许重写
+            });
+
             ctx.body = {
                 code: 200,
                 uid: user._id,
