@@ -3,6 +3,23 @@
     .traverl-header {
         position: relative;
 
+        &:after {
+            position: absolute;
+            left: 50%;
+            bottom: -.15rem;
+            padding: .05rem .1rem;
+            transform: translateX(-50%);
+            font-family: "iconfont" !important;
+            font-size: .3rem;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            content: "\e600";
+            background-color: #fff;
+            border-radius: .4rem .4rem 0 0;
+            line-height: 1;
+        }
+
         .aticle-info {
             position: absolute;
             top: 61.8%;
@@ -15,18 +32,18 @@
         }
 
         .small {
-        	margin-bottom: .1rem;
+            margin-bottom: .1rem;
 
             span {
-            	padding-bottom: .04rem;
-            	border-bottom: .02rem solid #fff;
+                padding-bottom: .04rem;
+                border-bottom: .02rem solid #fff;
             }
         }
 
         h2 {
-        	padding-bottom: .05rem;
-        	font-size: .2rem;
-        	font-weight: 600;
+            padding-bottom: .05rem;
+            font-size: .2rem;
+            font-weight: 600;
         }
     }
 }

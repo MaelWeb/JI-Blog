@@ -11,14 +11,6 @@ export default class Travel extends Component {
         }
     }
 
-    componentWillMount() {
-        this.props.setHeaderClass('blog-travel-header');
-    }
-
-    componentWillUnmount() {
-        this.props.setHeaderClass(null);
-    }
-
     render() {
 
         return(

@@ -21,13 +21,6 @@ export default class Article extends Component {
                 })
             })
         }
-
-        this.props.setHeaderClass('blog-article-header');
-
-    }
-
-    componentWillUnmount() {
-        this.props.setHeaderClass(null);
     }
 
     render() {

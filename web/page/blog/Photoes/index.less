@@ -1,11 +1,29 @@
 .blog-photo-layout {
 
     .photo-banner {
+        position: relative;
         img {
             margin: 0 auto;
             width: auto;
             max-width: 100%;
             display: block;
+        }
+
+        &:after {
+            position: absolute;
+            left: 50%;
+            bottom: -.15rem;
+            padding: .05rem .1rem;
+            transform: translateX(-50%);
+            font-family: "iconfont" !important;
+            font-size: .3rem;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            content: "\e600";
+            background-color: #fff;
+            border-radius: .4rem .4rem 0 0;
+            line-height: 1;
         }
     }
 
@@ -22,7 +40,7 @@
 
         img {
             display: block;
-            transition: transform .135s cubic-bezier(0.0,0.0,0.2,1),opacity linear .15s;
+            transition: transform .135s cubic-bezier(0.0, 0.0, 0.2, 1), opacity linear .15s;
         }
     }
 }

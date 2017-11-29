@@ -19,7 +19,6 @@ export default class Photo extends Component {
 
     componentWillMount() {
         const { photoes } = this.state;
-
         if (!photoes.length)
             Axios.get('/api/get/photoes')
                 .then( res => {

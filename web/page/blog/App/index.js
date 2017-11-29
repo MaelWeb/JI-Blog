@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import Articles from '../Articles';
 import Article from '../Article';
 import Photoes from '../Photoes';
@@ -8,17 +9,29 @@ import Travel from '../Travel';
 import Header from '../Header';
 import Footer from '../Footer';
 
-const FadingRoute = ({ component: Component, path, ...others }) => (
-    <Route exact path={path} render={props => (
+const Fade = ({ children, ...props }) => (
+  <CSSTransition
+    {...props}
+    timeout={1000}
+    classNames="fade"
+  >
+    {children}
+  </CSSTransition>
+);
+
+const FadingRoute = ({ component: Component, path, headeClass, exact, ...others }) => (
+    <Route  exact={exact} path={path} render={props => (
+        <Fade>
         <Component {...others} {...props} />
+        </Fade>
     )}/>
 )
+
 export default class App extends Component {
     constructor(props) {
         super();
         this.state = {
-            minHeight: '100%',
-            headeClass: ''
+            minHeight: '100%'
         };
     }
 
@@ -30,10 +43,6 @@ export default class App extends Component {
 
     componentWillReceiveProps(nextProps) {
         console.log(nextProps);
-    }
-
-    setHeaderClass = (headeClass) => {
-        this.setState({headeClass});
     }
 
     getQuery = (key) => {
@@ -66,18 +75,22 @@ export default class App extends Component {
     }
 
     render() {
-        const { minHeight, headeClass } = this.state;
+        const { minHeight } = this.state;
         const { InitData } = this.props;
         return (
-            <div className="blog-layout" style={{minHeight: minHeight}}>
-                <Header className={ headeClass } />
-                <FadingRoute path="/" component={Articles} {...InitData} getQuery={ this.getQuery } setHeaderClass={ this.setHeaderClass } />
-                <FadingRoute path="/article/:id" component={Article} {...InitData} getQuery={ this.getQuery } setHeaderClass={ this.setHeaderClass } />
-                <FadingRoute path="/photoes" component={Photoes} {...InitData} getQuery={ this.getQuery } setHeaderClass={ this.setHeaderClass } />
-                <FadingRoute path="/about" component={About} setHeaderClass={ this.setHeaderClass } />
-                <FadingRoute path="/travel" component={Travel} {...InitData} setHeaderClass={ this.setHeaderClass } />
-                <Footer />
-            </div>
+            <div className="blog-layout">
+            <Header />
+            <TransitionGroup className='test'>
+            <Switch>
+                <FadingRoute path="/" exact={true} component={Articles} {...InitData} getQuery={ this.getQuery }  />
+                <FadingRoute path="/article/:id" component={Article} {...InitData} getQuery={ this.getQuery }  headeClass='blog-article-header' />
+                <FadingRoute path="/photoes" component={Photoes} {...InitData} getQuery={ this.getQuery } headeClass='blog-photo-header' />
+                <FadingRoute path="/about" component={About}  />
+                <FadingRoute path="/travel" component={Travel} {...InitData} headeClass='blog-travel-header' />
+            </Switch>
+            </TransitionGroup>
+            <Footer />
+        </div>
         )
     }
 }
