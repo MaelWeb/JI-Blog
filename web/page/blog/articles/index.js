@@ -6,13 +6,15 @@ import classNames from 'classnames';
 export default class Articles extends Component {
     constructor(props) {
         super(props);
-        let _SERVER_DATA = (typeof window !== "undefined") ? window._SERVER_DATA : {};
+        const { articles, tags, curTagId } = this.props;
         this.state = {
-            ..._SERVER_DATA
+            articles,
+            tags,
+            curTagId
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         const { articles, tags } = this.state;
 
         if (!articles || !tags) {

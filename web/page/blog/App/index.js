@@ -54,16 +54,16 @@ class App extends Component {
 
     render() {
         const { minHeight } = this.state;
-        const { InitData, location } = this.props;
+        const { location, match, InitData } = this.props;
         const currentKey = location.pathname.split('/')[1] || '/';
         const timeout = { enter: 400, exit: 350 };
         return (
             <div className="blog-layout">
-            <Header />
+            <Header location={location} />
             <TransitionGroup className="page-main">
                 <CSSTransition key={currentKey} timeout={timeout} classNames="slide" appear>
                     <Switch location={location}>
-                        <Route path="/" exact={true} component={Articles}   />
+                        <Route path="/" exact={true} render={ props=> (<Articles {...props} {...InitData} />) } />
                         <Route path="/article/:id" component={Article}   />
                         <Route path="/photoes" component={Photoes}  />
                         <Route path="/about" component={About}  />

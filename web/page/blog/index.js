@@ -6,6 +6,6 @@ import './index.less';
 
 ReactDOM.hydrate((
   <BrowserRouter >
-        <App />
+        <App InitData={window._SERVER_DATA} />
   </BrowserRouter>
 ), document.getElementById('app'))

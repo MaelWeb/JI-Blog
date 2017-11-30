@@ -16,11 +16,6 @@ let _Api = Router.get('/signout', (ctx) => {
             message: '登出成功'
         };
     })
-    .get('/get/article', async (ctx) => {
-        let result = await getArticles(ctx.request.query);
-
-        ctx.body = result;
-    })
     .get("/get/alltags", getAllTags)
     .get("/get/all/articles", getAllArticles)
     .get("/get/publish/articles", getAllPublishArticles)
