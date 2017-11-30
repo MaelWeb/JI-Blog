@@ -4,9 +4,9 @@ import Axios from 'axios';
 export default class Article extends Component {
     constructor(props) {
         super(props);
-        const { article } = props;
+        let _SERVER_DATA = (typeof window !== "undefined") ? window._SERVER_DATA : {};
         this.state = {
-            article
+            ..._SERVER_DATA
         };
     }
 

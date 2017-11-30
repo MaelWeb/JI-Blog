@@ -10,8 +10,8 @@ const IMG_QUERY = 'imageView2/0/interlace/1/q/75|imageslim';
 export default class Photo extends Component {
     constructor(props) {
         super(props)
-        const { photoes }  = props;
-        let state = this.addSrc(photoes);
+        let _SERVER_DATA = (typeof window !== "undefined") ? window._SERVER_DATA : {};
+        let state = this.addSrc(_SERVER_DATA.photoes);
         this.state = {
            ...state
         };
@@ -66,7 +66,7 @@ export default class Photo extends Component {
                     <h2>我以一种笨拙的方式拍照</h2>
                     <p>摄影是一种神奇的记录：照片记录了时间、风景、人物；可回放照片时才发现，原来它还记录了按下快门时的感触、思绪、心事……也许这就是为什么明明看到的是一张风景，却会让你想起谁</p>
                 </div>
-                <Measure bounds onResize={(contentRect) => this.setState({ width: contentRect.bounds.width  })}>
+               <Measure bounds onResize={(contentRect) => this.setState({ width: contentRect.bounds.width  })}>
                     {
                         ({ measureRef  }) => {
                             let columns = 1;

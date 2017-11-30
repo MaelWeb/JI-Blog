@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
+import { Route, Link, Switch, withRouter } from 'react-router-dom';
+import { CSSTransition, TransitionGroup, CSSTransitionGroup } from 'react-transition-group'
 import Articles from '../Articles';
 import Article from '../Article';
 import Photoes from '../Photoes';
@@ -9,25 +9,7 @@ import Travel from '../Travel';
 import Header from '../Header';
 import Footer from '../Footer';
 
-const Fade = ({ children, ...props }) => (
-  <CSSTransition
-    {...props}
-    timeout={1000}
-    classNames="fade"
-  >
-    {children}
-  </CSSTransition>
-);
-
-const FadingRoute = ({ component: Component, path, headeClass, exact, ...others }) => (
-    <Route  exact={exact} path={path} render={props => (
-        <Fade>
-        <Component {...others} {...props} />
-        </Fade>
-    )}/>
-)
-
-export default class App extends Component {
+class App extends Component {
     constructor(props) {
         super();
         this.state = {
@@ -36,13 +18,9 @@ export default class App extends Component {
     }
 
     componentDidMount() {
-        this.setState({
-            minHeight: window.document && document.documentElement.clientHeight
-        })
-    }
-
-    componentWillReceiveProps(nextProps) {
-        console.log(nextProps);
+        // this.setState({
+        //     minHeight: window.document && document.documentElement.clientHeight
+        // })
     }
 
     getQuery = (key) => {
@@ -76,21 +54,27 @@ export default class App extends Component {
 
     render() {
         const { minHeight } = this.state;
-        const { InitData } = this.props;
+        const { InitData, location } = this.props;
+        const currentKey = location.pathname.split('/')[1] || '/';
+        const timeout = { enter: 400, exit: 350 };
         return (
             <div className="blog-layout">
             <Header />
-            <TransitionGroup className='test'>
-            <Switch>
-                <FadingRoute path="/" exact={true} component={Articles} {...InitData} getQuery={ this.getQuery }  />
-                <FadingRoute path="/article/:id" component={Article} {...InitData} getQuery={ this.getQuery }  headeClass='blog-article-header' />
-                <FadingRoute path="/photoes" component={Photoes} {...InitData} getQuery={ this.getQuery } headeClass='blog-photo-header' />
-                <FadingRoute path="/about" component={About}  />
-                <FadingRoute path="/travel" component={Travel} {...InitData} headeClass='blog-travel-header' />
-            </Switch>
+            <TransitionGroup className="page-main">
+                <CSSTransition key={currentKey} timeout={timeout} classNames="slide" appear>
+                    <Switch location={location}>
+                        <Route path="/" exact={true} component={Articles}   />
+                        <Route path="/article/:id" component={Article}   />
+                        <Route path="/photoes" component={Photoes}  />
+                        <Route path="/about" component={About}  />
+                        <Route path="/travel" component={Travel} />
+                    </Switch>
+                </CSSTransition>
             </TransitionGroup>
             <Footer />
         </div>
         )
     }
 }
+
+export default withRouter(App);
