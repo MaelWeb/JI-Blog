@@ -6,7 +6,7 @@ import classNames from 'classnames';
 export default class Articles extends Component {
     constructor(props) {
         super(props);
-        const { articles, tags, curTagId } = this.props;
+        const { articles, tags, curTagId } = props;
         this.state = {
             articles,
             tags,

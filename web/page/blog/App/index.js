@@ -11,16 +11,18 @@ import Footer from '../Footer';
 
 class App extends Component {
     constructor(props) {
-        super();
+        super(props);
+        const { InitData } = props;
         this.state = {
-            minHeight: '100%'
+            minHeight: '100%',
+            InitData
         };
     }
 
     componentDidMount() {
-        // this.setState({
-        //     minHeight: window.document && document.documentElement.clientHeight
-        // })
+        this.setState({
+            minHeight: document.documentElement.clientHeight
+        })
     }
 
     getQuery = (key) => {
@@ -53,21 +55,21 @@ class App extends Component {
     }
 
     render() {
-        const { minHeight } = this.state;
-        const { location, match, InitData } = this.props;
+        const { minHeight, InitData } = this.state;
+        const { location, match } = this.props;
         const currentKey = location.pathname.split('/')[1] || '/';
         const timeout = { enter: 400, exit: 350 };
         return (
-            <div className="blog-layout">
+            <div className="blog-layout" style={{ minHeight}}>
             <Header location={location} />
             <TransitionGroup className="page-main">
                 <CSSTransition key={currentKey} timeout={timeout} classNames="slide" appear>
                     <Switch location={location}>
                         <Route path="/" exact={true} render={ props=> (<Articles {...props} {...InitData} />) } />
-                        <Route path="/article/:id" component={Article}   />
-                        <Route path="/photoes" component={Photoes}  />
-                        <Route path="/about" component={About}  />
-                        <Route path="/travel" component={Travel} />
+                        <Route path="/article/:id" render={ props=> (<Article {...props} {...InitData} />) } />
+                        <Route path="/photoes" render={ props=> (<Photoes {...props} {...InitData} />) }  />
+                        <Route path="/about" render={ props=> (<About {...props} />) }  />
+                        <Route path="/travel" render={ props=> (<Travel {...props} {...InitData} />) } />
                     </Switch>
                 </CSSTransition>
             </TransitionGroup>

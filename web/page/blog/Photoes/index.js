@@ -10,8 +10,8 @@ const IMG_QUERY = 'imageView2/0/interlace/1/q/75|imageslim';
 export default class Photo extends Component {
     constructor(props) {
         super(props)
-        let _SERVER_DATA = (typeof window !== "undefined") ? window._SERVER_DATA : {};
-        let state = this.addSrc(_SERVER_DATA.photoes);
+        const { photoes } = props;
+        let state = this.addSrc(photoes);
         this.state = {
            ...state
         };
