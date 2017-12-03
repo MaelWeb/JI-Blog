@@ -1,5 +1,6 @@
 @import '../../commonless/app.less';
-@import url(//at.alicdn.com/t/font_456468_9jthfl16ksmxi529.css);
+@import '../../components/ImageGallery/index.less';
+@import '../../components/Icon/iconfont.less';
 @import './articles/articles.less';
 @import './article/index.less';
 @import './Photoes/index.less';
@@ -7,7 +8,7 @@
 @import './Travel/index.less';
 
 .blog-layout {
-    min-height: 100%;
+    min-height: 100vh;
     padding-bottom: .4rem;
     color: #212121;
 }
@@ -16,6 +17,7 @@
     position: fixed;
     top: 0;
     width: 100%;
+    height: .44rem;
     padding: .07rem 4% .07rem 4%;
     font-size: .14rem;
     color: #212121;
@@ -23,8 +25,9 @@
     background-color: #fff;
     border-bottom: 1px solid #666;
     box-shadow: -2px 2px 6px #ccc;
-    transition: height 1s;
+    transition: all .8s;
     line-height: .26rem;
+    overflow: hidden;
 
     .nav-list a {
         display: inline-block;
@@ -36,7 +39,7 @@
     }
 
     &.blog-travel-header,
-    &.blog-photo-header {
+    &.blog-photoes-header {
         background-color: transparent;
         box-shadow: none;
         border-bottom: none;
@@ -45,18 +48,17 @@
             color: #fff;
         }
 
-        .menu {
-            background-color: transparent;
-            border-color: #fff;
-            display: none;
-        }
-
         .black {
             display: none;
         }
 
         .white {
             display: inline-block;
+        }
+
+        .menu {
+            background-color: transparent;
+            border-color: #fff;
         }
     }
 
@@ -93,7 +95,7 @@
     }
 
     .menu {
-        margin-top: .07rem;
+        // margin-top: .07rem;
         width: .3rem;
         height: .3rem;
         color: #fff;
@@ -128,6 +130,9 @@
         width: 40%;
         height: 80%;
         padding: .1rem;
+        overflow: hidden;
+        // opacity: 0;
+        // transition: all 1s;
         a {
             width: 100%;
             height: 20%;
@@ -172,10 +177,10 @@
 }
 
 .blog-footer {
-    // position: absolute;
-    // bottom: 0;
-    // left: 0;
-    // width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     padding: .1rem;
     line-height: 1;
     font-size: .12rem;
@@ -211,8 +216,7 @@
     transition: all 400ms linear;
 
     &.slide-appear-active {
-        opacity: 1;
-        // transform: translate3D(0, 0, 0);
+        opacity: 1; // transform: translate3D(0, 0, 0);
     }
 }
 
@@ -222,8 +226,7 @@
     transition: all 400ms linear;
 
     &.slide-enter-active {
-        opacity: 1;
-        // transform: translate3D(0, 0, 0);
+        opacity: 1; // transform: translate3D(0, 0, 0);
     }
 }
 
@@ -253,7 +256,7 @@
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
 
     .blog-header {
         .nav-list {
@@ -264,19 +267,98 @@
             display: block;
         }
     }
+
+    .blog-travel-layout {
+        .traverl-header:after {
+            bottom: -0.11rem;
+            padding: .03rem .06rem;
+            font-size: .2rem;
+        }
+    }
+
+    .blog-photo-layout {
+        .photo-banner:after {
+            bottom: -0.11rem;
+            padding: .03rem .06rem;
+            font-size: .2rem;
+        }
+    }
+
+    .blog-about {
+        .about-module {
+            width: 90%;
+        }
+    }
 }
 
 @media screen and (max-width: 420px) {
     .blog-header {
         height: .5rem;
         line-height: 1;
-
-        .menu {
-            margin-top: 0;
-        }
     }
 
     .blog-articles-layout {
         width: 90%;
+    }
+
+    .blog-article article {
+        width: 90%;
+    }
+
+    .blog-travel-layout {
+        .traverl-header {
+            .aticle-info {
+                padding: .05rem .1rem;
+                width: 80%;
+                font-size: .12rem;
+            }
+
+            h2 {
+                font-size: .14rem;
+                .nowrapmulti;
+            }
+
+            .sub-title {
+                .nowrapmulti;
+            }
+
+            .small {
+                margin-bottom: .05rem;
+            }
+
+            &:after {
+                bottom: -0.11rem;
+                padding: .03rem .06rem;
+                font-size: .2rem;
+            }
+        }
+    }
+
+    .blog-about {
+        .about-module {
+            margin-bottom: .4rem;
+            width: 100%;
+            font-size: .1rem;
+
+            h2 {
+                margin-bottom: .05rem;
+                font-size: .14rem;
+            }
+        }
+    }
+
+    .blog-photo-layout {
+        .photo-list {
+            padding: 0 5%;
+        }
+    }
+
+    .middle-text {
+        padding: .2rem 8% .4rem;
+
+        h2 {
+            font-size: .18rem;
+            line-height: 2.5;
+        }
     }
 }

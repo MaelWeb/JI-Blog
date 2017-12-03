@@ -1,5 +1,4 @@
 .blog-photo-layout {
-
     .photo-banner {
         position: relative;
         img {
@@ -25,6 +24,37 @@
             border-radius: .4rem .4rem 0 0;
             line-height: 1;
         }
+
+        .photo-banner-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            padding: .05rem 0 .1rem 0;
+            width: 100%;
+            color: #fff; // background-color: rgba(0, 0, 0, .2);
+            font-size: .14rem;
+        }
+
+        .small,
+        h2 {
+            max-width: 100%;
+            padding: 0 .3rem;
+            margin: 0 auto;
+        }
+        .small {
+            margin-bottom: .1rem;
+            font-size: .1rem;
+            span {
+                padding-bottom: .04rem;
+                border-bottom: .02rem solid #fff;
+            }
+        }
+
+        h2 {
+            padding-bottom: .05rem;
+            font-size: .16rem;
+            font-weight: 600;
+        }
     }
 
     .photo-list {
@@ -41,6 +71,29 @@
         img {
             display: block;
             transition: transform .135s cubic-bezier(0.0, 0.0, 0.2, 1), opacity linear .15s;
+        }
+
+        &:hover .photo-item-desc {
+            opacity: 1;
+        }
+
+        .photo-item-desc {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .3);
+            color: #fff;
+            opacity: 0;
+            transition: all .8s;
+
+            p {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+            }
         }
     }
 }

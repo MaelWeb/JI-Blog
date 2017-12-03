@@ -1,22 +1,18 @@
-@font-face {
-    font-family: "iconfont";
-    src: url('./font/iconfont.eot?t=1511582424340');
-    /* IE9*/
-    src: url('./font/iconfont.eot?t=1511582424340#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('data:application/x-font-woff;charset=utf-8;base64,d09GRgABAAAAAAVAAAsAAAAAB+wAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAABHU1VCAAABCAAAADMAAABCsP6z7U9TLzIAAAE8AAAARAAAAFZW7kh+Y21hcAAAAYAAAABeAAABhpuIBr5nbHlmAAAB4AAAAXMAAAHYkMkzYWhlYWQAAANUAAAALwAAADYPnVuuaGhlYQAAA4QAAAAcAAAAJAfeA4RobXR4AAADoAAAAAwAAAAMC+kAAGxvY2EAAAOsAAAACAAAAAgAdgDsbWF4cAAAA7QAAAAfAAAAIAEUAF1uYW1lAAAD1AAAAUUAAAJtPlT+fXBvc3QAAAUcAAAAIQAAADJueOh/eJxjYGRgYOBikGPQYWB0cfMJYeBgYGGAAJAMY05meiJQDMoDyrGAaQ4gZoOIAgCKIwNPAHicY2Bk/sE4gYGVgYOpk+kMAwNDP4RmfM1gxMjBwMDEwMrMgBUEpLmmMDgwVDybwtzwv4EhhrmBoQEozAiSAwAuWA0AeJzFkMENgDAMAy9t6QMxCA8G4sUcHaQzdo1iQnkwQS05VhxLiQIsQBQPMYFdGA9OueZ+ZHU/eSZLjUBptXf1nyqiWXYNKplpsHmr/9i87qPTVyiDOrHVl4QbzK4N3wAAeJx1j79Kw1AUxs+XmKTVNrHJzU2bNknT2kZRC8ZYB7Gl4KI4CE5O4uigaxcHF8HBwckHEME3aBFK9VVEH8NGb3US8XD+/Dic88FHCtHnqzySi2TRIq3RDh0QQV1GTZc8hFHSkpZhh4rtMF2O6lGo1WsteRtOTWU8bidNR9VUAzp8rIdxO2pJETaSjrSFmHtAqewemo2KKd9ithj5V+medA87qFeMzmq6u9JlcdXK9HOmWTLNm4yqKBlJmjF0nDk8q2Rn1fRBMVx7FCxJAXKlyN0/ylfL5sl1cu41nCxweQmrXNUfuwW3IPLC5ZZZ0ubzmaKbry8w9N/nilbOa76RCE14fZFf5B7NESOPmhRTh/aEXx2aD6eDzRZQaybtmDM1+gMIp7QZ+hDLPyzsT28+xxNFmYy/e3pscB7Y9vyvgaf02WDMQM+wmP4Pyz0h8vzxIzU5nf4FfChK0MCuisHTO+YxQLQB8y3A8tlQlGCiL/+1UrEAeJxjYGRgYADiIH+NPfH8Nl8ZuFkYQOCaPfcNBP3/AAsDsyOQy8HABBIFAAXUCTcAeJxjYGRgYG7438AQw8IAAkCSkQEVMAMARwkCbAQAAAAD6QAABAAAAAAAAAAAdgDseJxjYGRgYGBmCGRgZwABJiDmAkIGhv9gPgMAESUBcgB4nGWPTU7DMBCFX/oHpBKqqGCH5AViASj9EatuWFRq911036ZOmyqJI8et1ANwHo7ACTgC3IA78EgnmzaWx9+8eWNPANzgBx6O3y33kT1cMjtyDRe4F65TfxBukF+Em2jjVbhF/U3YxzOmwm10YXmD17hi9oR3YQ8dfAjXcI1P4Tr1L+EG+Vu4iTv8CrfQ8erCPuZeV7iNRy/2x1YvnF6p5UHFockikzm/gple75KFrdLqnGtbxCZTg6BfSVOdaVvdU+zXQ+ciFVmTqgmrOkmMyq3Z6tAFG+fyUa8XiR6EJuVYY/62xgKOcQWFJQ6MMUIYZIjK6Og7VWb0r7FDwl57Vj3N53RbFNT/c4UBAvTPXFO6stJ5Ok+BPV8bUnV0K27LnpQ0kV7NSRKyQl7WtlRC6gE2ZVeOEXpc0Yk/KGdI/wAJWm7IAAAAeJxjYGKAAC4G7ICZkYmRmZGFgbGCJTc1r5SBAQAOfwJOAAAA') format('woff'),
-    url('./font/iconfont.ttf?t=1511582424340') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
-    url('./font/iconfont.svg?t=1511582424340#iconfont') format('svg');
-    /* iOS 4.1- */
+// http://iconfont.cn/manage/index?manage_type=myprojects&projectId=456468
+@import url(//at.alicdn.com/t/font_456468_xp93nxnnib2o6r.css);
+
+@keyframes loadingCircle {
+    0% {
+        transform-origin: 50% 50%;
+        transform: rotate(0deg)
+    }
+    to {
+        transform-origin: 50% 50%;
+        transform: rotate(1turn)
+    }
 }
 
-.iconfont {
-    font-family: "iconfont" !important;
-    font-size: 16px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
-
-.icon-menu:before {
-    content: "\e694";
+.icon-spin:before {
+    display: inline-block;
+    animation: loadingCircle 1s infinite linear;
 }

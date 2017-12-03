@@ -1,7 +1,7 @@
-import Alert from './Alert';
 import Icon from './Icon';
+import Toucher from './Toucher';
 
 export {
-    Alert,
-    Icon
+    Icon,
+    Toucher
 }

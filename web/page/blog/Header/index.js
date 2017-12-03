@@ -15,6 +15,7 @@ export default class Header extends Component {
 
     componentDidMount() {
         this.dom = ReactDOM.findDOMNode(this.refs.blogHeader);
+        this.dom.addEventListener('touchmove', this.preventDefault);
         // window && (window.onscroll = (e) => {
         //     e = e || window.event;
 
@@ -25,6 +26,9 @@ export default class Header extends Component {
         //         this.dom.classList.remove('header-hide');
         //     }
         // })
+    }
+    preventDefault = (e) => {
+         e.preventDefault();
     }
 
     showNacBox = () => {
@@ -42,7 +46,7 @@ export default class Header extends Component {
             [`blog-${path[1]}-header`]: path[1]
         });
         return (
-            <header className={ hCls } ref="blogHeader" >
+            <header className={ hCls } ref="blogHeader" id='IdNav'>
                 <div className="nav-pc clearfix">
                      <Link to='/'>
                         <img className='logo black' src="//ozrrmt7n9.bkt.clouddn.com/image/logo.png" alt="Logo"/>
@@ -56,12 +60,12 @@ export default class Header extends Component {
                     </nav>
                     <Icon type={ showNav ? "close" : "menu" } className='menu fr' onClick={ this.showNacBox } />
                 </div>
-                { showNav ? <nav className="nav-min tc" onClick={ this.showNacBox } >
-                    <NavLink to='/'><span>文记</span></NavLink>
+                <nav className="nav-min tc" onClick={ this.showNacBox } >
+                    <NavLink exact to='/'><span>文记</span></NavLink>
                     <NavLink to='/travel'><span>游记</span></NavLink>
                     <NavLink to='/photoes'><span>图记</span></NavLink>
                     <NavLink to='/about'><span>关于</span></NavLink>
-                </nav> : null}
+                </nav>
             </header>
         )
     }

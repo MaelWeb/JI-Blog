@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import Axios from 'axios';
-
 
 export default class Travel extends Component {
     constructor(props) {
@@ -11,11 +11,39 @@ export default class Travel extends Component {
         }
     }
 
+    componentDidMount() {
+        let headerDom = ReactDOM.findDOMNode(this.refs.travelHeader),
+            blogNavDom = document.getElementById('IdNav');
+        window.onscroll = (e) => {
+            e = e || window.event;
+
+            let _scroll = document.documentElement.scrollTop || document.body.scrollTop;
+            if (_scroll >= (headerDom.offsetHeight - blogNavDom.offsetHeight) )  {
+                blogNavDom.classList.remove('blog-travel-header');
+            } else {
+                blogNavDom.classList.add('blog-travel-header');
+            }
+        }
+        // const { photoes } = this.state;
+        // if (!photoes.length)
+        //     Axios.get('/api/get/photoes')
+        //         .then( res => {
+        //             let state = this.addSrc(res.data.photoes);
+        //             this.setState({
+        //                 ...state
+        //             })
+        //         })
+    }
+
+    componentWillUnmount() {
+        window.onscroll = null;
+    }
+
     render() {
 
         return(
             <div className="blog-travel-layout">
-                <div className="traverl-header">
+                <div className="traverl-header" ref='travelHeader' >
                     <img src="//photo.tuchong.com/1595218/f/12027196.jpg" alt=""/>
                     <div className="aticle-info">
                         <p className="small"><span>游记</span></p>

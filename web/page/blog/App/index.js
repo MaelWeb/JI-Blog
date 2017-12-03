@@ -14,15 +14,8 @@ class App extends Component {
         super(props);
         const { InitData } = props;
         this.state = {
-            minHeight: '100%',
             InitData
         };
-    }
-
-    componentDidMount() {
-        this.setState({
-            minHeight: document.documentElement.clientHeight
-        })
     }
 
     getQuery = (key) => {
@@ -60,7 +53,7 @@ class App extends Component {
         const currentKey = location.pathname.split('/')[1] || '/';
         const timeout = { enter: 400, exit: 350 };
         return (
-            <div className="blog-layout" style={{ minHeight}}>
+            <div className="blog-layout">
             <Header location={location} />
             <TransitionGroup className="page-main">
                 <CSSTransition key={currentKey} timeout={timeout} classNames="slide" appear>

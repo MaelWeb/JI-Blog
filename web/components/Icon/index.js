@@ -22,10 +22,10 @@ class Icon extends React.Component {
         const {type, size, className, ...others} = this.props;
 
         const cls = classNames('iconfont', {
-            ['icon-' + type]: type !== 'loading',
+            ['icon-' + type]: type,
             'icon-small': size === 'small',
             'icon-large': size === 'large',
-            'icon-spin': type === 'loading',
+            'icon-spin': type === 'loading' || type === 'load-dot',
             [className]: className
         });
 

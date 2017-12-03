@@ -2,7 +2,14 @@
 
 html {
     font-size: 100px;
+    overflow-y: scroll;
 }
+
+:root {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
 
 @media screen and (max-width: 319px) {
     html {
@@ -47,16 +54,23 @@ html {
 }
 
 body {
-    position: relative;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0; // min-width: 320px;
+    // position: relative;
+    // top: 0;
+    // bottom: 0;
+    // left: 0;
+    // right: 0;
+    // min-width: 320px;
+    width: 100vw;
     font: .14rem/1.5 "Lucida Grande", "Lucida Sans Unicode", "Hiragino Sans GB", "WenQuanYi Micro Hei", Verdana, Aril, "sans-serif";
     color: #000;
     background: #fff;
     -webkit-backface-visibility: hidden;
     -webkit-font-smoothing: antialiased;
+    overflow: hidden;
+}
+
+:root body {
+    position: absolute;
 }
 
 html,

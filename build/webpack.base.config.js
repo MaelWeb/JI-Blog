@@ -37,15 +37,31 @@ module.exports = {
             }, ],
         }, {
             test: /\.css$/,
+            exclude: /node_modules/,
             use: ExtractTextPlugin.extract({
                 fallback: "style-loader",
-                use: ['css-loader']
+                use: ['css-loader', {
+                    loader: 'postcss-loader',
+                    options: {
+                        config: {
+                            path: path.join(__dirname, './postcss.config.js')
+                        }
+                    }
+                }]
             }),
         }, {
             test: /\.less$/,
+            exclude: /node_modules/,
             use: ExtractTextPlugin.extract({
                 fallback: "style-loader",
-                use: ['css-loader', 'less-loader']
+                use: ['css-loader', {
+                    loader: 'postcss-loader',
+                    options: {
+                        config: {
+                            path: path.join(__dirname, './postcss.config.js')
+                        }
+                    }
+                }, 'less-loader']
             })
         }, {
             test: /.(gif|jpg|png)$/,
