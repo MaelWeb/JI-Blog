@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Axios from 'axios';
 import Moment from 'moment';
+import Icon from '../../../components/Icon';
 
 Moment.locale('zh-cn');
 
@@ -43,6 +44,15 @@ export default class Article extends Component {
                     <div className="comment-input clearfix">
                         <textarea name="" rows="4"></textarea>
                         <button>发布</button>
+                    </div>
+
+                    <div className="comment-item clearfix">
+                        <div className="comment-avatar fl"><Icon type='avatar-code' /></div>
+                        <div className="comment-body fl">
+                            <h6>浮生记<small>34分钟前</small></h6>
+                            <blockquote>@mael: 你到时过来试一试呀</blockquote>
+                            <p>我就是试试</p>
+                        </div>
                     </div>
                 </article>
             </div>

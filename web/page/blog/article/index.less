@@ -926,25 +926,25 @@
 .blog-comment {
     position: relative;
     margin: .5rem auto 0 auto;
-    height: 1rem;
+    width: 60%;
     border-top: 1px solid #212121;
 
     &:before,
     &:after {
         position: absolute;
-        top: -.2rem;
+        top: -20px;
         left: 50%;
-        margin-left: -.6rem;
+        margin-left: -60px;
         width: 0;
         height: 0;
         content: '';
         border-style: solid;
         border-color: transparent transparent #212121;
-        border-width: 0 .6rem .2rem;
+        border-width: 0 60px 20px;
     }
 
     &:after {
-        top: -.19rem;
+        top: -19px;
         border-color: transparent transparent #fff;
     }
 
@@ -970,6 +970,56 @@
             color: #fff;
             float: right;
             border-radius: 0;
+            outline: none;
+            border: none;
+        }
+    }
+
+    .comment-item {
+        margin-top: .1rem;
+        // margin: 0 -.1rem;
+        padding: .1rem;
+        &:hover {
+            background-color: #f3f3f3;
+        }
+    }
+
+    .comment-avatar,
+    .comment-body {
+        display: inline-block;
+    }
+
+    .comment-avatar {
+        padding-right: .1rem;
+        color: #DEECFF;
+        i {
+            font-size: .4rem;
+            line-height: 1;
+        }
+    }
+
+    .comment-body {
+        margin-right: -.6rem;
+        width: 100%;
+
+        h6 {
+            margin: 0;
+        }
+
+        small {
+            margin-left: .2rem;
+            font-weight: normal;
+        }
+
+        blockquote {
+            margin: .05rem 0;
+            padding-left: .1rem;
+            color: #999;
+            border-color: #999;
+        }
+
+        p {
+            margin-bottom: 0;
         }
     }
 }
