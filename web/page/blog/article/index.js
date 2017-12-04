@@ -46,12 +46,22 @@ export default class Article extends Component {
                         <button>发布</button>
                     </div>
 
-                    <div className="comment-item clearfix">
-                        <div className="comment-avatar fl"><Icon type='avatar-code' /></div>
-                        <div className="comment-body fl">
-                            <h6>浮生记<small>34分钟前</small></h6>
-                            <blockquote>@mael: 你到时过来试一试呀</blockquote>
-                            <p>我就是试试</p>
+                    <div className="comment-list">
+                        <div className="comment-item clearfix">
+                            <div className="comment-avatar fl"><Icon type='avatar-code' /></div>
+                            <div className="comment-body fl">
+                                <h6>浮生记<small>34分钟前</small></h6>
+                                <blockquote>@mael: 你到时过来试一试呀</blockquote>
+                                <p>我就是试试</p>
+                            </div>
+                        </div>
+                        <div className="comment-item clearfix">
+                            <div className="comment-avatar fl"><Icon type='avatar-code' /></div>
+                            <div className="comment-body fl">
+                                <h6>浮生记<small>34分钟前</small></h6>
+                                <blockquote>@mael: 你到时过来试一试呀</blockquote>
+                                <p>我就是试试</p>
+                            </div>
                         </div>
                     </div>
                 </article>
