@@ -8,6 +8,7 @@ const CommentSchema = new Schema({
     user: {
         name: String,
         avatar: String,
+        site: String,
         email: {
             validate: {
                 validator: function(v) {

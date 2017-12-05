@@ -116,4 +116,57 @@
             max-height: 100vh;
         }
     }
+
+    .comment-user-modal {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, .7);
+        z-index: 2;
+
+        .comment-user-modal-form {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin: -1.5rem 0 0 -1.75rem;
+            width: 2.5rem;
+            background-color: #fff;
+            text-align: center;
+
+            img {
+                width: 60%;
+                margin: .15rem 0;
+            }
+
+            input {
+                margin: .1rem auto;
+                width: 80%;
+                display: block;
+                border-color: #d8d8d8;
+                border-width: 0 0 1px 0;
+                text-align: center;
+            }
+
+            button {
+                width: 50%;
+                padding: .05rem;
+                background-color: #fff;
+                border: none;
+                outline: none;
+                color: #333;
+
+                &:first-child {
+                    border-right: 1px solid #212121;
+                }
+            }
+
+            .btns {
+                margin-top: .2rem;
+                border-top: 1px solid #212121;
+                text-align: center;
+            }
+        }
+    }
 }

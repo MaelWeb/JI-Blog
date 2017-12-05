@@ -9,7 +9,8 @@ export default class Comments extends Component {
         super(props);
 
         this.state = {
-            showEmoji: false
+            showEmoji: false,
+            showUserInfo: false
         };
 
         this.caretIndex = 0;
@@ -17,12 +18,19 @@ export default class Comments extends Component {
 
     exportComment = () => {
         const commentCont = this.refs.commentText.value;
+        if (this.user && commentCont) {
+
+        } else if (commentCont) {
+            this.setState({
+                showUserInfo: true
+            });
+        }
     }
 
     addEmoji = (event) => {
+        this.caretIndex = this.getCaretPosition();
         this.setCaretPosition(this.caretIndex);
         this.insertText(event.target.title);
-        this.caretIndex = this.getCaretPosition();
     }
 
     toggleEmoji = () => {
@@ -84,10 +92,30 @@ export default class Comments extends Component {
         } else {
             textarea.value += str;
         }
+        this.caretIndex = this.getCaretPosition();
+    }
+
+    commentSubmit = () => {
+        const name = this.refs.userName.value,
+            email = this.refs.userEamil.value,
+            site = this.refs.userSite.value,
+            commentCont = this.refs.commentText.value;
+
+        if (!email || !name ) return;
+
+        this.user = {name, email, site};
+
+        console.log(this.user, commentCont);
+    }
+
+    commentCancle = () => {
+        this.setState({
+            showUserInfo: false
+        })
     }
 
     render() {
-        const { showEmoji } = this.state;
+        const { showEmoji, showUserInfo } = this.state;
         return (
             <article className="blog-comment">
                 <div className="comment-input">
@@ -121,6 +149,19 @@ export default class Comments extends Component {
                             <blockquote>@mael: 你到时过来试一试呀</blockquote>
                             <p>我就是试试</p>
                         </div>
+                    </div>
+                </div>
+
+                <div className="comment-user-modal" hidden={!showUserInfo} >
+                    <div className="comment-user-modal-form">
+                            <img src="//ozrrmt7n9.bkt.clouddn.com/image/logo.png" alt=""/>
+                            <input type="text" name="name" placeholder='昵称(必填)' ref='userName' />
+                            <input type="text" name="email" placeholder='xxxx@qq.com(必填)' ref='userEamil' />
+                            <input type="text" name="site" placeholder='www.yourblog.com' ref='userSite' />
+                            <div className="btns">
+                                <button onClick={ this.commentCancle }>取消</button>
+                                <button onClick={ this.commentSubmit } >确认</button>
+                            </div>
                     </div>
                 </div>
             </article>
