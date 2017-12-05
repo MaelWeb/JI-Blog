@@ -34,7 +34,6 @@ export async function createArticle(ctx) {
     await Article.populate(createResult, { path: 'tags' }, function(err, result) {
         createResult = result;
         // console.log(result)
-
     });
 
     ctx.body = {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Axios from 'axios';
 import Moment from 'moment';
 import Icon from '../../../components/Icon';
+import Comments from '../Comments';
 
 Moment.locale('zh-cn');
 
@@ -40,31 +41,7 @@ export default class Article extends Component {
                     </p>
                     <div className="article-content" dangerouslySetInnerHTML={ {__html: _article.htmlContent} } />
                 </article>
-                <article className="blog-comment">
-                    <div className="comment-input clearfix">
-                        <textarea name="" rows="4"></textarea>
-                        <button>发布</button>
-                    </div>
-
-                    <div className="comment-list">
-                        <div className="comment-item clearfix">
-                            <div className="comment-avatar fl"><Icon type='avatar-code' /></div>
-                            <div className="comment-body fl">
-                                <h6>浮生记<small>34分钟前</small></h6>
-                                <blockquote>@mael: 你到时过来试一试呀</blockquote>
-                                <p>我就是试试</p>
-                            </div>
-                        </div>
-                        <div className="comment-item clearfix">
-                            <div className="comment-avatar fl"><Icon type='avatar-code' /></div>
-                            <div className="comment-body fl">
-                                <h6>浮生记<small>34分钟前</small></h6>
-                                <blockquote>@mael: 你到时过来试一试呀</blockquote>
-                                <p>我就是试试</p>
-                            </div>
-                        </div>
-                    </div>
-                </article>
+                <Comments />
             </div>
         )
     }

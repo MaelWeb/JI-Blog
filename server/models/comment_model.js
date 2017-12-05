@@ -18,7 +18,10 @@ const CommentSchema = new Schema({
             required: [true, 'User Email required']
         }
     },
-    replyName: String,
+    reply: {
+        type: Schema.Types.ObjectId,
+        ref: 'Comment'
+    },
     commentCont: String,
     isRemove: {
         type: Boolean,
