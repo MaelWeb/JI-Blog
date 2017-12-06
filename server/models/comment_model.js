@@ -10,6 +10,7 @@ const CommentSchema = new Schema({
         avatar: String,
         site: String,
         email: {
+            type: String,
             validate: {
                 validator: function(v) {
                     return /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(v);
@@ -24,6 +25,7 @@ const CommentSchema = new Schema({
         ref: 'Comment'
     },
     commentCont: String,
+    articleid: String,
     isRemove: {
         type: Boolean,
         default: false

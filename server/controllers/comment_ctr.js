@@ -4,6 +4,7 @@ export async function creactComment(ctx) {
     const postData = ctx.request.body;
     const createTime = new Date();
     const { user, commentCont } = postData;
+    const emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/g;
 
     if ( !user ) {
         return ctx.body = {
@@ -12,10 +13,10 @@ export async function creactComment(ctx) {
         };
     }
 
-    if ( !user.email ) {
+    if ( !user.email || !emailReg.test(user.email) ) {
         return ctx.body = {
             code: 400,
-            message: '缺少用户邮箱'
+            message: '缺少用户邮箱或邮箱格式不正确'
         };
     }
 
@@ -33,7 +34,7 @@ export async function creactComment(ctx) {
 
     let result = await newComment.save()
         .catch( err => {
-            ctx.throw(500, err);
+            ctx.throw(500, err.message);
         })
 
     await Comment.populate(result, {path: 'reply'}, function(err, res) {
@@ -45,4 +46,41 @@ export async function creactComment(ctx) {
         comment: result,
         message: "发布成功"
     };
+}
+
+export async function getComments(ctx) {
+    const query = ctx.query;
+    const page = +query.page || 0;
+    const size = +query.size || 10;
+
+    let skip = 0;
+
+    if (page !== 0) {
+        skip = size * (page - 1)
+    }
+
+    let filter =  query.articleid ? {articleid: query.articleid} : {};
+    let comments = await Comment.find(filter)
+            .populate("reply")
+            .sort({ createTime: -1 })
+            .limit(size)
+            .skip(skip).catch(err => {
+                ctx.throw(500, '服务器内部错误')
+            });
+
+    let allNum = await Comment.find(filter)
+            .count()
+            .catch(err => {
+                ctx.throw(500, '服务器内部错误')
+            });
+
+    let allPage = Math.ceil(allNum / size);
+
+    ctx.body = {
+        code: 200,
+        comments,
+        allPage: allPage
+    }
+
+    return { comments, allPage};
 }

@@ -1,111 +1,80 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ClassNames from 'classnames';
 import Icon from '../../../components/Icon';
 import Emojify from 'react-emojione';
-import EmojiData from './EmojiData';
+import CommentInput from './commentInput';
+import Axios from 'axios';
+import { message } from 'antd';
 
+const emojiStyle = {
+    height: 20,
+    backgroundImage: 'url("http://ozrrmt7n9.bkt.clouddn.com/image/emojione-3.1.2-32x32.png")'
+};
 export default class Comments extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            showEmoji: false,
-            showUserInfo: false
+            showUserInfo: false,
+            isShowReplyModal: false,
+            reply: null,
+            comments: props.comments,
+            commentCont: null
         };
 
         this.caretIndex = 0;
     }
 
-    exportComment = () => {
-        const commentCont = this.refs.commentText.value;
-        if (this.user && commentCont) {
+    static defaultProps = {
+        articleid: '',
+        comments: []
+    };
 
-        } else if (commentCont) {
-            this.setState({
-                showUserInfo: true
-            });
-        }
-    }
+    static defaultPropTypes = {
+        comments: PropTypes.array
+    };
 
-    addEmoji = (event) => {
-        this.caretIndex = this.getCaretPosition();
-        this.setCaretPosition(this.caretIndex);
-        this.insertText(event.target.title);
-    }
-
-    toggleEmoji = () => {
-        this.caretIndex = this.getCaretPosition();
-        this.setState(preState => {
-            return { showEmoji: !preState.showEmoji }
-        }, () => {
-            this.setCaretPosition(this.caretIndex);
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            comments: nextProps.comments
         })
     }
 
-    //获取光标位置
-    getCaretPosition () {
-        let textarea = document.getElementById('idTextarea');
-        let CaretPos = 0;
-        if (document.selection) {
-            // IE Support
-            textarea.focus ();
-            let Sel = document.selection.createRange ();
-            Sel.moveStart ('character', -textarea.value.length);
-            CaretPos = Sel.text.length;
-        } else if (textarea.selectionStart || textarea.selectionStart == '0') {
-            // Firefox support
-            CaretPos = textarea.selectionStart;
+    exportComment = commentCont => {
+        const { reply } = this.state;
+        if (this.user && commentCont) {
+            this.saveComment({
+                user: this.user,
+                reply: reply ? reply.id : null,
+                commentCont
+            });
+        } else if (commentCont) {
+            this.setState({
+                showUserInfo: true,
+                commentCont
+            });
         }
-
-        return CaretPos;
-    }
-
-    //设置光标位置函数
-    setCaretPosition(pos){
-        let textarea = document.getElementById('idTextarea');
-        if(textarea.setSelectionRange) {
-            textarea.focus();
-            textarea.setSelectionRange(pos,pos);
-        } else if (textarea.createTextRange) {
-            var range = textarea.createTextRange();
-            range.collapse(true);
-            range.moveEnd('character', pos);
-            range.moveStart('character', pos);
-            range.select();
-        }
-    }
-
-    insertText(str) {
-        let textarea = document.getElementById('idTextarea');
-        if (document.selection) {
-            textarea.focus();
-            var sel = document.selection.createRange();
-            sel.text = str;
-        } else if (typeof textarea.selectionStart === 'number' && typeof textarea.selectionEnd === 'number') {
-            var startPos = textarea.selectionStart,
-                endPos = textarea.selectionEnd,
-                cursorPos = startPos,
-                tmpStr = textarea.value;
-            textarea.value = tmpStr.substring(0, startPos) + str + tmpStr.substring(endPos, tmpStr.length);
-            cursorPos += str.length;
-            textarea.selectionStart = textarea.selectionEnd = cursorPos;
-        } else {
-            textarea.value += str;
-        }
-        this.caretIndex = this.getCaretPosition();
     }
 
     commentSubmit = () => {
         const name = this.refs.userName.value,
             email = this.refs.userEamil.value,
             site = this.refs.userSite.value,
-            commentCont = this.refs.commentText.value;
+            emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/g;
+        const { reply, commentCont } = this.state;
 
-        if (!email || !name ) return;
+        if (!email || !name ) return message.info('填一下昵称和邮箱呗！');
+
+        if (!emailReg.test(email)) return message.info('邮箱格式不正确呀！');
 
         this.user = {name, email, site};
 
-        console.log(this.user, commentCont);
+        this.saveComment({
+            user: this.user,
+            reply: reply ? reply.id : null,
+            commentCont
+        });
     }
 
     commentCancle = () => {
@@ -114,45 +83,64 @@ export default class Comments extends Component {
         })
     }
 
+    saveComment(data) {
+        const { articleid } = this.props;
+        let comments = this.state.comments;
+        Axios.post('/api/create/comment', {...data, articleid})
+            .then( res => {
+                let resdata = res.data;
+                if (resdata.code  == 200) {
+                    comments.unshift(resdata.comment);
+                    this.setState({
+                        showUserInfo: false,
+                        isShowReplyModal: false,
+                        reply: null,
+                        comments: comments,
+                        commentCont: null
+                    });
+                } else {
+                    message.warning(resdata.message);
+                }
+            })
+            .catch( err => {
+                message.warning('发布失败');
+            })
+    }
+
+    showReplyModal = (comment) => {
+        this.setState({
+            isShowReplyModal: true,
+            reply: comment
+        })
+    }
+
+    closeReplyModal = () => {
+        this.setState({
+            isShowReplyModal: false
+        })
+    }
+
     render() {
-        const { showEmoji, showUserInfo } = this.state;
+        const { showUserInfo, isShowReplyModal, reply, comments } = this.state;
         return (
             <article className="blog-comment">
-                <div className="comment-input">
-                    <textarea rows="4" ref="commentText" id="idTextarea" ></textarea>
-                    <div className="btn clearfix">
-                        <Icon type='emoji' className='fl' onClick={ this.toggleEmoji } />
-                        <button onClick={ this.exportComment } >发布</button>
-                    </div>
-                    <div className={ ClassNames("emoji-box", { show: showEmoji}) } id='CommentEmoji' >
-                        <Emojify style={{height: 20, cursor: 'pointer',  backgroundImage: 'url("http://ozrrmt7n9.bkt.clouddn.com/image/emojione-3.1.2-32x32.png")',}} onClick={ this.addEmoji }>
-                            <div className='emoji-wrap'>
-                                {EmojiData}
-                            </div>
-                        </Emojify>
-                    </div>
-                </div>
+                <CommentInput exportComment={ this.exportComment } />
 
                 <div className="comment-list">
-                    <div className="comment-item clearfix">
+                    { comments.length ? comments.map((comment, index) => (<div className="comment-item clearfix border-b" key={index} >
                         <div className="comment-avatar fl"><Icon type='avatar' /></div>
                         <div className="comment-body fl">
-                            <h6>浮生记<small>34分钟前</small></h6>
-                            <blockquote>@mael: 你到时过来试一试呀</blockquote>
-                            <p>我就是试试</p>
+                            <h6>{comment.user.name}<small>34分钟前</small></h6>
+                            { comment.reply ? <Emojify style={emojiStyle}><blockquote>@{comment.reply.user.name}: {comment.reply.commentCont}</blockquote></Emojify> : null}
+                            <Emojify style={emojiStyle} ><p>{comment.commentCont}</p></Emojify>
+                            <div className="comment-reply">
+                                <Icon type='reply' onClick={ e => {this.showReplyModal(comment)} } />
+                            </div>
                         </div>
-                    </div>
-                    <div className="comment-item clearfix">
-                        <div className="comment-avatar fl"><Icon type='avatar' /></div>
-                        <div className="comment-body fl">
-                            <h6>浮生记<small>34分钟前</small></h6>
-                            <blockquote>@mael: 你到时过来试一试呀</blockquote>
-                            <p>我就是试试</p>
-                        </div>
-                    </div>
+                    </div>)) : null}
                 </div>
 
-                <div className="comment-user-modal" hidden={!showUserInfo} >
+                <div className="comment-modal" hidden={!showUserInfo} style={{zIndex: 5}}>
                     <div className="comment-user-modal-form">
                             <img src="//ozrrmt7n9.bkt.clouddn.com/image/logo.png" alt=""/>
                             <input type="text" name="name" placeholder='昵称(必填)' ref='userName' />
@@ -162,6 +150,13 @@ export default class Comments extends Component {
                                 <button onClick={ this.commentCancle }>取消</button>
                                 <button onClick={ this.commentSubmit } >确认</button>
                             </div>
+                    </div>
+                </div>
+
+                <div className="comment-modal" hidden={!isShowReplyModal} >
+                    <div className="comment-reply-from">
+                        <h6 className='tl'>回复：{ reply && reply.user.name} <Icon type='close-x comment-close' onClick={ this.closeReplyModal } /></h6>
+                        <CommentInput exportComment={ this.exportComment } />
                     </div>
                 </div>
             </article>

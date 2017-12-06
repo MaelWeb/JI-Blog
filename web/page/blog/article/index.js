@@ -9,9 +9,10 @@ Moment.locale('zh-cn');
 export default class Article extends Component {
     constructor(props) {
         super(props);
-        const { article } = props;
+        const { article, comments } = props;
         this.state = {
-            article
+            article,
+            comments
         };
     }
 
@@ -19,17 +20,26 @@ export default class Article extends Component {
         const { match: {params} } = this.props;
         if (!this.state.article) {
             Axios.get(`/api/get/article/${params.id}`)
-            .then( res => {
-                let resData = res.data;
-                this.setState({
-                    article: resData.article
+                .then( res => {
+                    let resData = res.data;
+                    this.setState({
+                        article: resData.article
+                    })
                 })
-            })
+
+            Axios.get(`/api/get/comments?articleid=${params.id}`)
+                .then( res => {
+                    let resData = res.data;
+                    this.setState({
+                        comments: resData.comments
+                    })
+                })
         }
     }
 
     render() {
-        const { article } = this.state;
+        const { article, comments } = this.state;
+        const { match: {params} } = this.props;
         let _article = article || {};
         return (
             <div className="blog-article">
@@ -41,7 +51,7 @@ export default class Article extends Component {
                     </p>
                     <div className="article-content" dangerouslySetInnerHTML={ {__html: _article.htmlContent} } />
                 </article>
-                <Comments />
+                <Comments articleid={params.id} comments={comments} />
             </div>
         )
     }

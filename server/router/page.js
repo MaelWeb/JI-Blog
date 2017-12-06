@@ -4,6 +4,7 @@ import { pageVerify } from '../middleware/verify';
 import { getAllTags } from '../controllers/tags_ctr';
 import { getAllArticles, getArticle } from '../controllers/article_ctr';
 import { getPhotoes } from '../controllers/photo_ctrl';
+import { getComments } from '../controllers/comment_ctr';
 import ReactDOMServer from 'react-dom/server';
 import React from 'react';
 import { StaticRouter } from 'react-router';
@@ -33,7 +34,13 @@ let _Page = Router
 
         if (!ctx.params.id) ctx.redirect('/');
 
-        let ServerData = await getArticle(ctx);
+        let articleData = await getArticle(ctx);
+        let commentsData = await getComments(ctx);
+
+        let ServerData = {
+            article: articleData.article,
+            comments: commentsData.comments
+        }
 
         const html = ReactDOMServer.renderToString(
             <StaticRouter context={{}} location={ctx.req.url}>

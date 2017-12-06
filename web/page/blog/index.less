@@ -7,6 +7,47 @@
 @import './About/index.less';
 @import './Travel/index.less';
 @import './Comments/index.less';
+@import '~antd/lib/message/style/index.less';
+
+
+
+/** antd **/
+
+.anticon {
+    font-family: "iconfont" !important;
+    display: inline-block;
+    font-style: normal;
+    vertical-align: baseline;
+    text-align: center;
+    text-transform: none;
+    line-height: 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.anticon:before {
+    display: block;
+}
+
+.anticon-info-circle:before {
+    content: "\e7c2";
+}
+
+.anticon-exclamation-circle:before {
+    content: "\e750";
+}
+
+.anticon-check-circle:before {
+    content: "\ebd5";
+}
+
+.anticon-cross-circle:before {
+    content: "\e655";
+}
+
+
+/** antd **/
 
 .blog-layout {
     min-height: 100vh;
@@ -131,8 +172,7 @@
         width: 40%;
         height: 80%;
         padding: .1rem;
-        overflow: hidden;
-        // opacity: 0;
+        overflow: hidden; // opacity: 0;
         // transition: all 1s;
         a {
             width: 100%;
