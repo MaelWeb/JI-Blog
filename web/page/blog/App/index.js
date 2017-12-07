@@ -53,9 +53,9 @@ class App extends Component {
         const currentKey = location.pathname.split('/')[1] || '/';
         const timeout = { enter: 400, exit: 350 };
         return (
-            <div className="blog-layout">
+        <div className="blog-layout">
             <Header location={location} />
-            <TransitionGroup className="page-main">
+            <TransitionGroup className="page-main" component='main'>
                 <CSSTransition key={currentKey} timeout={timeout} classNames="slide" appear>
                     <Switch location={location}>
                         <Route path="/" exact={true} render={ props=> (<Articles {...props} {...InitData} />) } />

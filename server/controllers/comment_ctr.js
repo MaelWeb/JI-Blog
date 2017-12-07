@@ -52,6 +52,7 @@ export async function getComments(ctx) {
     const query = ctx.query;
     const page = +query.page || 0;
     const size = +query.size || 10;
+    const articleid = ctx.params.id || query.articleid;
 
     let skip = 0;
 
@@ -59,7 +60,7 @@ export async function getComments(ctx) {
         skip = size * (page - 1)
     }
 
-    let filter =  query.articleid ? {articleid: query.articleid} : {};
+    let filter =  articleid ? {articleid: articleid} : {};
     let comments = await Comment.find(filter)
             .populate("reply")
             .sort({ createTime: -1 })

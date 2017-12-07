@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import Moment from 'moment';
 import ClassNames from 'classnames';
 import Icon from '../../../components/Icon';
 import Emojify from 'react-emojione';
@@ -11,6 +12,9 @@ const emojiStyle = {
     height: 20,
     backgroundImage: 'url("http://ozrrmt7n9.bkt.clouddn.com/image/emojione-3.1.2-32x32.png")'
 };
+
+Moment.locale('zh-cn');
+
 export default class Comments extends Component {
     constructor(props) {
         super(props);
@@ -38,7 +42,11 @@ export default class Comments extends Component {
     componentWillReceiveProps(nextProps) {
         this.setState({
             comments: nextProps.comments
-        })
+        });
+    }
+
+    preventDefault = (e) => {
+         e.preventDefault();
     }
 
     exportComment = commentCont => {
@@ -91,6 +99,7 @@ export default class Comments extends Component {
                 let resdata = res.data;
                 if (resdata.code  == 200) {
                     comments.unshift(resdata.comment);
+                    data.reply ? this.refs.replyInput.clearTextarea() : this.refs.commentInput.clearTextarea();
                     this.setState({
                         showUserInfo: false,
                         isShowReplyModal: false,
@@ -120,17 +129,39 @@ export default class Comments extends Component {
         })
     }
 
+    getTimeString = (date) => {
+        let now = new Date(),
+            nowDate = now.getDate(),
+            createTime = new Date(date),
+            createDate = createTime.getDate(),
+            diff = now.getTime() - date;
+        // 1分钟内
+        if (diff < 1000 * 60 ) {
+            return '刚刚';
+        } else if (diff < 1000 * 60 * 60) {
+            // 1小时内
+            return `${Math.ceil(diff / (1000 * 60))}分钟前`;
+        } else if ( (diff < 1000 * 60 * 60 * 24) && (nowDate == createDate) ) {
+            // 当天内
+            return `今天 ${Moment(date).format('HH:mm')}`;
+        } else if (now.getYear() == createTime.getYear() ) {
+            return Moment(date).format('MM-DD HH:mm');
+        } else {
+            return Moment(date).format('lll');
+        }
+    }
+
     render() {
         const { showUserInfo, isShowReplyModal, reply, comments } = this.state;
         return (
             <article className="blog-comment">
-                <CommentInput exportComment={ this.exportComment } />
+                <CommentInput exportComment={ this.exportComment } ref='commentInput' />
 
                 <div className="comment-list">
                     { comments.length ? comments.map((comment, index) => (<div className="comment-item clearfix border-b" key={index} >
                         <div className="comment-avatar fl"><Icon type='avatar' /></div>
                         <div className="comment-body fl">
-                            <h6>{comment.user.name}<small>34分钟前</small></h6>
+                            <h6>{comment.user.name}<small>{this.getTimeString(comment.createTime)}</small></h6>
                             { comment.reply ? <Emojify style={emojiStyle}><blockquote>@{comment.reply.user.name}: {comment.reply.commentCont}</blockquote></Emojify> : null}
                             <Emojify style={emojiStyle} ><p>{comment.commentCont}</p></Emojify>
                             <div className="comment-reply">
@@ -140,7 +171,7 @@ export default class Comments extends Component {
                     </div>)) : null}
                 </div>
 
-                <div className="comment-modal" hidden={!showUserInfo} style={{zIndex: 5}}>
+                <div className="comment-modal" hidden={!showUserInfo} style={{zIndex: 5}} ref='UserModal'>
                     <div className="comment-user-modal-form">
                             <img src="//ozrrmt7n9.bkt.clouddn.com/image/logo.png" alt=""/>
                             <input type="text" name="name" placeholder='昵称(必填)' ref='userName' />
@@ -153,10 +184,10 @@ export default class Comments extends Component {
                     </div>
                 </div>
 
-                <div className="comment-modal" hidden={!isShowReplyModal} >
+                <div className="comment-modal" hidden={!isShowReplyModal} ref='ReplyModal'>
                     <div className="comment-reply-from">
                         <h6 className='tl'>回复：{ reply && reply.user.name} <Icon type='close-x comment-close' onClick={ this.closeReplyModal } /></h6>
-                        <CommentInput exportComment={ this.exportComment } />
+                        <CommentInput exportComment={ this.exportComment } ref='replyInput' />
                     </div>
                 </div>
             </article>

@@ -18,7 +18,8 @@ export default class Article extends Component {
 
     componentDidMount() {
         const { match: {params} } = this.props;
-        if (!this.state.article) {
+        const { article } = this.state;
+        if (!article || article.id != params.id) {
             Axios.get(`/api/get/article/${params.id}`)
                 .then( res => {
                     let resData = res.data;

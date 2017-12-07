@@ -5,7 +5,7 @@ import App from './App';
 import './index.less';
 
 ReactDOM.hydrate((
-  <BrowserRouter >
+    <BrowserRouter >
         <App InitData={window._SERVER_DATA} />
   </BrowserRouter>
-), document.getElementById('app'))
+    ), document.getElementById('app'))
