@@ -47,8 +47,9 @@ export default class Article extends Component {
                 <article className='blog-article-body'>
                     <h2 className="article-title"><p><em>{_article.title}</em></p></h2>
                     <p className="article-desc">
-                        <span>发布时间: {Moment(_article.createTime).format('LL')}</span>
-                        { _article.tags && _article.tags.length ? <span className="ml">标签：{_article.tags.map( tag => tag.name + ' ')}</span> : null }
+                        <span><Icon type='date' /> {Moment(_article.createTime).format('LL')}</span>
+                        { _article.tags && _article.tags.length ? <span className="ml"><Icon type='cc-tag' /> {_article.tags.map( tag => tag.name + ' ')}</span> : null }
+                        <span className="ml"><Icon type='visit' /> {_article.visited || 0}</span>
                     </p>
                     <div className="article-content" dangerouslySetInnerHTML={ {__html: _article.htmlContent} } />
                 </article>
