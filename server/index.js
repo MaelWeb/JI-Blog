@@ -19,7 +19,7 @@ const App = new koa();
 const compile = webpack(devConfig);
 
 mongoose.Promise = Promise;
-mongoose.connect(_Config.mongodb.url, _Config.mongodbSecret);
+mongoose.connect(_Config.mongodb.url, _Config.mongodbSOptions);
 mongoose.connection.on('error', console.error);
 
 App.use(devMiddleware(compile, {

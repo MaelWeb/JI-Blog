@@ -91,23 +91,25 @@ export async function getAllArticles(ctx) {
     ctx.body = {
         code: 200,
         articles,
-        allPage: allPage
+        allPage,
+        allNum,
+        page
     }
 
-    return { articles, allPage};
+    return { articles, allPage, page, allNum};
 }
 
 export async function getAllPublishArticles(ctx) {
     const tag = ctx.query.tag;
-    const page = +ctx.query.page;
-    const limit = +ctx.query.limit || 10;
+    const page = +ctx.query.page || 0;
+    const limit = +ctx.query.limit || 1;
     let skip = 0;
     let articles;
     let allPage;
     let allNum;
 
     if (page !== 0) {
-        skip = limit * (page - 1)
+        skip = limit * page
     }
 
     if (!tag) {
@@ -121,7 +123,7 @@ export async function getAllPublishArticles(ctx) {
                 ctx.throw(500, '服务器内部错误')
             });
         allNum = await Article.find({
-            publish: true
+            // publish: true
         }).count().catch(err => {
             this.throw(500, '服务器内部错误')
         })
@@ -144,16 +146,17 @@ export async function getAllPublishArticles(ctx) {
             ctx.throw(500, '服务器内部错误')
         })
     }
-
     allPage = Math.ceil(allNum / limit)
 
     ctx.body = {
-        success: true,
+        code: 200,
         articles,
-        allPage
+        allPage,
+        allNum,
+        page
     }
 
-    return { articles, allPage};
+    return { articles, allPage, page, allNum};
 }
 
 

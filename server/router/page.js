@@ -2,7 +2,7 @@ import router from 'koa-router';
 import fs from 'fs';
 import { pageVerify } from '../middleware/verify';
 import { getAllTags } from '../controllers/tags_ctr';
-import { getAllArticles, getArticle } from '../controllers/article_ctr';
+import { getAllPublishArticles, getArticle } from '../controllers/article_ctr';
 import { getPhotoes } from '../controllers/photo_ctrl';
 import { getComments } from '../controllers/comment_ctr';
 import ReactDOMServer from 'react-dom/server';
@@ -15,9 +15,9 @@ const Router = new router();
 let _Page = Router
     .get('/', async(ctx, next) => {
         let tags = await getAllTags(ctx);
-        let { articles, allPage} = await getAllArticles(ctx);
+        let articleData = await getAllPublishArticles(ctx);
 
-        let ServerData = {tags, articles, allPage, curTagId: ctx.query.tag};
+        let ServerData = {tags, curTagId: ctx.query.tag, ...articleData};
 
         const html = ReactDOMServer.renderToString(
             <StaticRouter context={{}} location={ctx.req.url}>

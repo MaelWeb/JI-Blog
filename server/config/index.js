@@ -10,9 +10,10 @@ let config = {
     jwt: {
         secret: 'me' //默认
     },
-    mongodbSecret: { //mongodb用户和密码
+    mongodbSOptions: { //mongodb用户和密码
         user: '',
-        pass: ''
+        pass: '',
+        useMongoClient: true
     },
     admin: { //后台初始化的用户名密码
         user: 'admin',

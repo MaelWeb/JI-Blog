@@ -13,6 +13,7 @@
 
 
 
+
 /** antd **/
 
 .anticon {
@@ -48,6 +49,37 @@
     content: "\e655";
 }
 
+.ant-pagination {
+    font-size: .12rem;
+    text-align: center;
+
+    .ant-pagination-item {
+        margin: 0 .05rem;
+        width: .28rem;
+        height: .28rem;
+        cursor: pointer;
+        border-radius: 4px;
+        user-select: none;
+        text-align: center;
+        list-style: none;
+        background-color: #e6e6e6;
+        font-family: Arial;
+        outline: 0;
+        color: #999;
+        border-radius: .28rem;
+        line-height: .28rem;
+        display: inline-block;
+
+        a {
+            color: inherit;
+        }
+    }
+
+    .ant-pagination-item-active {
+        background-color: #d1a47d;
+        color: #fff;
+    }
+}
 
 
 
@@ -150,9 +182,7 @@
         }
 
         .nav-min {
-            height: 80%;
-            // opacity: 1;
-
+            height: 80%; // opacity: 1;
             &:after {
                 display: block;
             }
@@ -197,10 +227,8 @@
         position: relative;
         margin: 0 auto;
         width: 40%;
-        height: 0;
-        // padding: .1rem;
-        overflow: hidden;
-        // opacity: 0;
+        height: 0; // padding: .1rem;
+        overflow: hidden; // opacity: 0;
         transition: height 1s;
         a {
             width: 100%;

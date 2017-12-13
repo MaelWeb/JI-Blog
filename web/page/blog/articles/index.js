@@ -1,16 +1,19 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { Pagination } from 'antd';
 import Axios from 'axios';
 import classNames from 'classnames';
 
 export default class Articles extends Component {
     constructor(props) {
         super(props);
-        const { articles, tags, curTagId } = props;
+        const { articles, tags, curTagId, allNum, page } = props;
         this.state = {
             articles,
             tags,
-            curTagId
+            curTagId,
+            allNum,
+            page
         };
     }
 
@@ -34,7 +37,9 @@ export default class Articles extends Component {
                 let resData = res.data;
                 this.setState({
                     articles: resData.articles,
-                    curTagId: tagid
+                    curTagId: tagid,
+                    allNum: resData.allNum,
+                    page: resData.page
                 })
             })
     }
@@ -49,8 +54,24 @@ export default class Articles extends Component {
             })
     }
 
+    changePage = (page, pageSize) => {
+        Axios.get('/api/get/publish/articles', {
+            params: {
+                tag: this.state.curTagId,
+                page: page - 1
+            }
+        })
+        .then( res => {
+            let resData = res.data;
+            this.setState({
+                articles: resData.articles,
+                page: resData.page
+            })
+        })
+    }
+
     render() {
-        const { articles, tags, curTagId } = this.state;
+        const { articles, tags, curTagId, allNum, page } = this.state;
         return (
             <div className="blog-articles-layout">
                 <div className="one">
@@ -69,6 +90,7 @@ export default class Articles extends Component {
                         </Link></li>) : null}
                     </ul>
                 </div>
+                <Pagination size="small" total={allNum} current={(page + 1)} pageSize={1} onChange={ this.changePage } />
             </div>
         )
     }
