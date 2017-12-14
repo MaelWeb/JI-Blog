@@ -13,7 +13,6 @@
 
 
 
-
 /** antd **/
 
 .anticon {
@@ -53,7 +52,7 @@
     font-size: .12rem;
     text-align: center;
 
-    .ant-pagination-item {
+    li {
         margin: 0 .05rem;
         width: .28rem;
         height: .28rem;
@@ -69,6 +68,7 @@
         border-radius: .28rem;
         line-height: .28rem;
         display: inline-block;
+        vertical-align: middle;
 
         a {
             color: inherit;
@@ -79,7 +79,42 @@
         background-color: #d1a47d;
         color: #fff;
     }
+
+    .ant-pagination-next,
+    .ant-pagination-prev {
+        display: none;
+    }
+
+    .ant-pagination-jump-next,
+    .ant-pagination-jump-prev {
+        background-color: inherit;
+        &:after {
+            font-family: "iconfont" !important;
+            font-size: .16rem;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            content: "\e65e";
+            color: rgba(0, 0, 0, .25);
+        }
+
+        &:hover:after {
+            color: #333;
+            font-size: .14rem;
+        }
+    }
+
+    .ant-pagination-jump-next:hover:after {
+        content: "\e66a";
+    }
+
+    .ant-pagination-jump-prev:hover:after {
+        content: "\e616";
+    }
 }
+
+
+
 
 
 
