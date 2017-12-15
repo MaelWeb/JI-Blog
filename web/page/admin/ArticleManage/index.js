@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Icon, Card, Col, Button, Modal} from 'antd';
+import { Layout, Icon, Card, Col, Button, Modal, Pagination} from 'antd';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import Masonry from 'react-masonry-component';
 import './index.less';
 
-const { Header, Content } = Layout;
+const { Header, Content, Footer } = Layout;
 const ButtonGroup = Button.Group;
 
 export default class ArticleManege extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            pageSize: 10,
+            pageSize: 12,
             articles: [],
-            one: []
+            one: [],
+            page: 1,
+            allNum: 0
         };
 
         this.hasLoad = false;
@@ -27,7 +29,7 @@ export default class ArticleManege extends Component {
 
     componentWillMount() {
         this.getOne();
-        this.getArticles();
+        this.getArticles(1);
     }
 
     goEdit(article) {
@@ -46,11 +48,11 @@ export default class ArticleManege extends Component {
             });
     }
 
-    getArticles() {
+    getArticles(page) {
         const { pageSize } = this.state;
         Axios.get('/api/get/all/articles', {
             params: {
-                page: 1,
+                page: page,
                 tag: '',
                 size: pageSize
             }
@@ -58,7 +60,9 @@ export default class ArticleManege extends Component {
         .then( res => {
             this.hasLoad = true;
             this.setState({
-                articles: res.data.articles || []
+                articles: res.data.articles || [],
+                page: page,
+                allNum: res.data.allNum
             })
         });
     }
@@ -104,6 +108,10 @@ export default class ArticleManege extends Component {
 
     }
 
+    changePage = page => {
+        this.getArticles(page);
+    }
+
     showArticles() {
         const { articles } = this.state;
         const bodyStyle = { padding: '15px' };
@@ -131,7 +139,7 @@ export default class ArticleManege extends Component {
     }
 
     render() {
-        const { articles } = this.state;
+        const { articles, page, allNum, pageSize } = this.state;
         return(
             <Layout className="article-manage-layout">
                 <Header className='article-manage-header clearfix' >
@@ -142,6 +150,7 @@ export default class ArticleManege extends Component {
                         {  articles.length ? this.showArticles() : this.showOne() }
                     </Masonry>
                 </Content>
+                { articles.length ? <Footer><Pagination className='article-pn' showQuickJumper current={ page }  total={allNum} onChange={ this.changePage } pageSize={pageSize} /></Footer> : null}
             </Layout>
         )
     }

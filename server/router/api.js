@@ -1,12 +1,12 @@
 import router from 'koa-router';
 import { apiVerify } from '../middleware/verify';
-import { singUp, signIn } from '../controllers/user_ctr';
+import { singUp, signIn, getUserInfo, updateUserInfo } from '../controllers/user_ctr';
 import { createArticle, getAllArticles, getArticle, deleteArticle, modifyArticle, getAllPublishArticles } from '../controllers/article_ctr';
 import { getOneContent } from '../controllers/common_ctr';
 import { createTag, getAllTags } from '../controllers/tags_ctr';
 import { fileUpload } from '../controllers/qiniu_ctrl';
 import { addPhoto, getPhotoes, updatePhoto } from '../controllers/photo_ctrl';
-import { creactComment, getComments } from '../controllers/comment_ctr';
+import { creactComment, getComments, showAndHideComent, deleteComment } from '../controllers/comment_ctr';
 
 const Router = new router();
 
@@ -24,12 +24,16 @@ let _Api = Router.get('/signout', (ctx) => {
     .get('/get/article/:id', getArticle)
     .get("/one", getOneContent)
     .get("/get/photoes", getPhotoes)
+    .get("/get/userinfo", apiVerify, getUserInfo)
     .delete('/article/:id', apiVerify, deleteArticle)
     .post('/singup', singUp)
     .post('/signin', signIn)
+    .post('/update/userinfo', apiVerify, updateUserInfo)
     .post('/create/tag', apiVerify, createTag)
     .post('/create/article', apiVerify, createArticle)
     .post('/create/comment', creactComment)
+    .post('/toggle/comment', apiVerify, showAndHideComent)
+    .delete('/comment/:id', apiVerify, deleteComment)
     .post('/update/article/:id', apiVerify, modifyArticle)
     .post('/update/photo/:id', apiVerify, updatePhoto)
     .post('/fileupload', apiVerify, fileUpload)

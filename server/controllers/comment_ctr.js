@@ -6,14 +6,14 @@ export async function creactComment(ctx) {
     const { user, commentCont } = postData;
     const emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/g;
 
-    if ( !user ) {
+    if (!user) {
         return ctx.body = {
             code: 400,
             message: '缺少用户信息'
         };
     }
 
-    if ( !user.email || !emailReg.test(user.email) ) {
+    if (!user.email || !emailReg.test(user.email)) {
         return ctx.body = {
             code: 400,
             message: '缺少用户邮箱或邮箱格式不正确'
@@ -33,11 +33,11 @@ export async function creactComment(ctx) {
     });
 
     let result = await newComment.save()
-        .catch( err => {
+        .catch(err => {
             ctx.throw(500, err.message);
         })
 
-    await Comment.populate(result, {path: 'reply'}, function(err, res) {
+    await Comment.populate(result, { path: 'reply' }, function(err, res) {
         result = res;
     });
 
@@ -50,38 +50,91 @@ export async function creactComment(ctx) {
 
 export async function getComments(ctx) {
     const query = ctx.query;
-    const page = +query.page || 0;
+    const page = +query.page || 1;
     const size = +query.size || 10;
     const articleid = ctx.params.id || query.articleid;
 
-    let skip = 0;
+    let skip = 0,
+        allNum = 0,
+        allPage = 0,
+        comments = [],
+        filter = {};
 
-    if (page !== 0) {
+    if (page !== 1) {
         skip = size * (page - 1)
     }
 
-    let filter =  articleid ? {articleid: articleid} : {};
-    let comments = await Comment.find(filter)
-            .populate("reply")
-            .sort({ createTime: -1 })
-            .limit(size)
-            .skip(skip).catch(err => {
-                ctx.throw(500, '服务器内部错误')
-            });
+    if (articleid) {
+        filter.articleid = articleid
+    }
 
-    let allNum = await Comment.find(filter)
-            .count()
-            .catch(err => {
-                ctx.throw(500, '服务器内部错误')
-            });
+    if (query.isRemove) {
+        filter.isRemove = query.isRemove;
+    }
 
-    let allPage = Math.ceil(allNum / size);
+    comments = await Comment.find(filter)
+        .populate("reply")
+        .sort({ createTime: -1 })
+        .limit(size)
+        .skip(skip).catch(err => {
+            ctx.throw(500, '服务器内部错误')
+        });
+
+    allNum = await Comment.find(filter)
+        .count()
+        .catch(err => {
+            ctx.throw(500, '服务器内部错误')
+        });
+
+    allPage = Math.ceil(allNum / size);
 
     ctx.body = {
         code: 200,
         comments,
-        allPage: allPage
+        allPage,
+        allNum,
+        page
     }
 
-    return { comments, allPage};
+    return { comments, allPage, allNum };
+}
+
+export async function showAndHideComent(ctx) {
+    const postData = ctx.request.body;
+
+    let result = {
+        code: 200,
+        message: '修改成功'
+    };
+    const comment = await Comment.findByIdAndUpdate(postData.id, { isRemove: postData.isRemove })
+        .catch(err => {
+            if (err.name === 'CastError') {
+                result.code = 400;
+                result.message = "评论不存在";
+            } else {
+                result.code = 500;
+                result.message = "服务器内部错误";
+            }
+        });
+
+    // result.comment = comment;
+    ctx.body = result;
+}
+
+export async function deleteComment(ctx) {
+    const id = ctx.params.id;
+    let result = {
+        code: 200,
+        message: '删除成功'
+    };
+    const article = await Comment.findByIdAndRemove(id).catch(err => {
+        if (err.name === 'CastError') {
+            result.code = 400;
+            result.message = "评论不存在";
+        } else {
+            result.code = 500;
+            result.message = "服务器内部错误";
+        }
+    });
+    ctx.body = result;
 }

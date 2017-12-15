@@ -46,14 +46,14 @@ export async function createArticle(ctx) {
 
 export async function getAllArticles(ctx) {
     const tag = ctx.query.tag;
-    const page = +ctx.query.page || 0;
+    const page = +ctx.query.page || 1;
     const size = +ctx.query.size || 10;
     let skip = 0;
     let articles;
     let allPage;
     let allNum;
 
-    if (page !== 0) {
+    if (page !== 1) {
         skip = size * (page - 1)
     }
 
@@ -101,14 +101,14 @@ export async function getAllArticles(ctx) {
 
 export async function getAllPublishArticles(ctx) {
     const tag = ctx.query.tag;
-    const page = +ctx.query.page || 0;
+    const page = +ctx.query.page || 1;
     const limit = +ctx.query.limit || 1;
     let skip = 0;
     let articles;
     let allPage;
     let allNum;
 
-    if (page !== 0) {
+    if (page !== 1) {
         skip = limit * page
     }
 

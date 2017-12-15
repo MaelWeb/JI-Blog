@@ -9,6 +9,8 @@ import './index.less';
 import ArticleEdite from '../ArticleEdite';
 import ArticleManage from '../ArticleManage';
 import PhotoManage from '../PhotoManage';
+import CommentsManage from '../CommentsManage';
+import UserInfo from '../UserInfo';
 
 const routes = [
     {
@@ -29,6 +31,18 @@ const routes = [
         navText: '图集管理',
         iconType: 'picture',
         component: PhotoManage
+    },
+    {
+        path: '/comments',
+        navText: '评论管理',
+        iconType: 'message',
+        component: CommentsManage
+    },
+    {
+        path: '/user',
+        navText: '账号设置',
+        iconType: 'setting',
+        component: UserInfo
     }
 ];
 
@@ -39,7 +53,6 @@ export default class Home extends Component {
         this.state = {
             collapsed: false
         };
-        console.log(this.props);
     }
 
     onCollapse = (collapsed) => {
@@ -63,8 +76,7 @@ export default class Home extends Component {
         return(<div className="homg-layout"><Layout className='home-wrap'>
             <Sider collapsible  collapsed={this.state.collapsed} onCollapse={this.onCollapse} className='home-sider' >
                 <div className="home-user tc">
-                    <Avatar size="large" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" className='home-user-avatar'/>
-                    <p>User Name</p>
+                    <Avatar size="large" src="http://ozrrmt7n9.bkt.clouddn.com/image/logo_col.png" className='home-user-avatar'/>
                 </div>
                 <Menu mode="inline" selectedKeys={[this.getSelectedKeys()]}>
                     {routes.map((route, index) => (

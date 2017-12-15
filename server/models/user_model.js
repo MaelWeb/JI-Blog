@@ -8,6 +8,15 @@ const UserSchema = new Schema({
     avatar: String,
     email: String,
     createTime: String
+}, {
+    toJSON: {
+        getters: true,
+        virtuals: true
+    },
+    toObject: {
+        getters: true,
+        virtuals: true
+    }
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -6,6 +6,7 @@ import Axios from 'axios';
 import RegisteForm from './resigte-form';
 import LoginForm from './login-form';
 import Funy from './funy';
+import Cookies from 'js-cookie';
 import './login.less';
 
 const TabPane = Tabs.TabPane;
@@ -53,6 +54,7 @@ export default class Login extends Component {
                         if (result.code !== 200) {
                             this.context.showMessage(result.message);
                         } else {
+                            Cookies.set('_UserName', result.name);
                             this.props.history.push('/');
                         }
                     })
