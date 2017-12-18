@@ -2,36 +2,19 @@ const webpack = require('webpack');
 const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const sourcePath = path.join(__dirname, '../web');
-const outputPath = path.join(__dirname, '../output/dist/');
+const nodeModules = path.resolve(__dirname, '../node_modules');
 
 module.exports = {
     context: sourcePath,
-    entry: {
-        admin: [
-            'eventsource-polyfill',
-            'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-            '../web/page/admin/index.js',
-        ],
-        blog: [
-            'eventsource-polyfill',
-            'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
-            '../web/page/blog/index.js',
-        ],
-        vendor: ['react', 'react-dom', 'axios', 'classnames', 'antd']
-    },
-    output: {
-        path: outputPath,
-        publicPath: '/output/dist/',
-        filename: 'js/[name].js',
-    },
     module: {
         rules: [{
             test: /\.(js|jsx)$/,
             exclude: /node_modules/,
+            include: sourcePath,
             use: [{
                 loader: 'babel-loader',
                 options: {
-                    presets: ['react-hmre', 'react'],
+                    // presets: ['react-hmre', 'react'],
                     cacheDirectory: true
                 }
             }, ],
@@ -40,7 +23,12 @@ module.exports = {
             exclude: /node_modules/,
             use: ExtractTextPlugin.extract({
                 fallback: "style-loader",
-                use: ['css-loader', {
+                use: [{
+                    loader: 'css-loader',
+                    options: {
+                        minimize: true
+                    }
+                }, {
                     loader: 'postcss-loader',
                     options: {
                         config: {
@@ -53,7 +41,12 @@ module.exports = {
             test: /\.less$/,
             use: ExtractTextPlugin.extract({
                 fallback: "style-loader",
-                use: ['css-loader', {
+                use: [{
+                    loader: 'css-loader',
+                    options: {
+                        minimize: true
+                    }
+                }, {
                     loader: 'postcss-loader',
                     options: {
                         config: {
@@ -91,24 +84,21 @@ module.exports = {
                 loader: 'expose-loader',
                 options: 'Zepto'
             }]
-        }]
+        }],
+        noParse: /node_modules\/(jquey|js-cookie\.js)/
     },
     resolve: {
         extensions: ['.js', '.jsx'],
         modules: [
             sourcePath,
-            'node_modules'
+            nodeModules
         ],
         alias: {
             Components: path.join(__dirname, '../web/components/')
-        }
+        },
     },
     plugins: [
         new ExtractTextPlugin('css/[name].css'),
-        new webpack.optimize.CommonsChunkPlugin({
-            names: ['vendor'],
-            minChunks: Infinity,
-            filename: 'js/[name].js',
-        })
+        new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'js/[name].js' })
     ]
 };
