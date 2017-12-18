@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>记</title>
+    <% if ( htmlWebpackPlugin.options.env == "development" ) { %>
+    <link rel="stylesheet" href="/output/client/css/admin.css">
+    <script src="/output/client/js/vendor.js"></script>
+    <% } %>
+</head>
+<body>
+    <div id="app"></div>
+    <% if ( htmlWebpackPlugin.options.env == "development" ) { %>
+    <script src="/output/client/js/admin.js"></script>
+    <% } %>
+</body>
+</html>
