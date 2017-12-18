@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Icon, Card, Col, Button, Modal, Pagination} from 'antd';
+import { Layout, Icon, Card, Col, Button, Modal, Pagination, Radio} from 'antd';
+import Moment from 'moment';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import Masonry from 'react-masonry-component';
@@ -8,6 +9,7 @@ import './index.less';
 
 const { Header, Content, Footer } = Layout;
 const ButtonGroup = Button.Group;
+const RadioGroup = Radio.Group;
 
 export default class ArticleManege extends Component {
     constructor(props) {
@@ -17,7 +19,10 @@ export default class ArticleManege extends Component {
             articles: [],
             one: [],
             page: 1,
-            allNum: 0
+            allNum: 0,
+            isCategoryModalShow: false,
+            articleToExport: {},
+            category: 'DEFAULT'
         };
 
         this.hasLoad = false;
@@ -48,11 +53,11 @@ export default class ArticleManege extends Component {
             });
     }
 
-    getArticles(page) {
-        const { pageSize } = this.state;
+    getArticles(_page) {
+        const { pageSize, page } = this.state;
         Axios.get('/api/get/all/articles', {
             params: {
-                page: page,
+                page: _page || page,
                 tag: '',
                 size: pageSize
             }
@@ -112,6 +117,78 @@ export default class ArticleManege extends Component {
         this.getArticles(page);
     }
 
+    getTimeString = (date) => {
+        let now = new Date(),
+            nowDate = now.getDate(),
+            createTime = new Date(date),
+            createDate = createTime.getDate(),
+            diff = now.getTime() - date;
+        // 1分钟内
+        if (diff < 1000 * 60 ) {
+            return '刚刚';
+        } else if (diff < 1000 * 60 * 60) {
+            // 1小时内
+            return `${Math.ceil(diff / (1000 * 60))}分钟前`;
+        } else if ( (diff < 1000 * 60 * 60 * 24) && (nowDate == createDate) ) {
+            // 当天内
+            return `今天 ${Moment(date).format('HH:mm')}`;
+        } else if (now.getYear() == createTime.getYear() ) {
+            return Moment(date).format('MM-DD HH:mm');
+        } else {
+            return Moment(date).format('lll');
+        }
+    }
+
+    exportOrRecallArticle = (article) => {
+        if (article.publish) {
+            this.recallArticle(article.id)
+        } else {
+            this.setState({
+                isCategoryModalShow: true,
+                category: article.category,
+                articleToExport: article
+            });
+        }
+    }
+
+    exportModalOk = () => {
+        const { articleToExport, category } = this.state;
+        Axios.post(`/api/publish/article/${articleToExport.id}`, {category})
+            .then( res => {
+                this.context.showMessage(res.data.message);
+                this.setState({
+                    isCategoryModalShow: false,
+                });
+                this.getArticles();
+            })
+            .catch( err => {
+                this.context.showMessage('服务器错误');
+            })
+    }
+
+    recallArticle = (aid) => {
+        Axios.post(`/api/recall/article/${aid}`)
+            .then( res => {
+                this.context.showMessage(res.data.message);
+                this.getArticles();
+            })
+            .catch( err => {
+                this.context.showMessage('服务器错误');
+            })
+    }
+
+    exportModalCancle = () => {
+        this.setState({
+            isCategoryModalShow: false
+        });
+    }
+
+    onRadioChange = e => {
+        this.setState({
+            category: e.target.value
+        })
+    }
+
     showArticles() {
         const { articles } = this.state;
         const bodyStyle = { padding: '15px' };
@@ -123,9 +200,9 @@ export default class ArticleManege extends Component {
                             {article.abstract || article.content.substr(0, 100)}
                         </div>
                         <div className="article-footer clearfix">
-                            <span>{article.createTime}</span>
+                            <span>{ this.getTimeString(article.createTime) }</span>
                             <ButtonGroup className="fr">
-                              <Button ghost type="primary" size="small">
+                              <Button ghost type="primary" size="small" onClick={ e => { this.exportOrRecallArticle(article) } } >
                                 {article.publish ? <span><Icon type="rollback" />撤回</span> : <span><Icon type="export" />发布</span>}
                               </Button>
                               <Button ghost type="primary" size="small" onClick={ () => { this.goEdit(article) } } >
@@ -139,7 +216,7 @@ export default class ArticleManege extends Component {
     }
 
     render() {
-        const { articles, page, allNum, pageSize } = this.state;
+        const { articles, page, allNum, pageSize, isCategoryModalShow, articleToExport, category } = this.state;
         return(
             <Layout className="article-manage-layout">
                 <Header className='article-manage-header clearfix' >
@@ -151,6 +228,17 @@ export default class ArticleManege extends Component {
                     </Masonry>
                 </Content>
                 { articles.length ? <Footer><Pagination className='article-pn' showQuickJumper current={ page }  total={allNum} onChange={ this.changePage } pageSize={pageSize} /></Footer> : null}
+                <Modal
+                    title="选择发布板块"
+                    visible={isCategoryModalShow}
+                    onOk={this.exportModalOk}
+                    mask={ false }
+                    onCancel={this.exportModalCancle}>
+                    <RadioGroup onChange={this.onRadioChange} value={ category }>
+                        <Radio value='DEFAULT'>首页</Radio>
+                        <Radio value='TRAVEL' >游记</Radio>
+                    </RadioGroup>
+                </Modal>
             </Layout>
         )
     }

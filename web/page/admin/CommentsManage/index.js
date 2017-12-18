@@ -127,9 +127,9 @@ export default class ComponentsManege extends Component {
                     <h2>评论管理</h2>
                 </Header>
                 <Content className="comments-manage-content">
-                    <Masonry className="comments-list">
-                        { comments.length ? this.showComments() : null }
-                    </Masonry>
+                    { comments.length ? <Masonry className="comments-list">
+                        { this.showComments() }
+                    </Masonry> : <p className="tc" style={{ fontSize: '.2rem', padding: '.4rem 0'}} >~~ 暂无评论 ~~</p> }
                 </Content>
                 { comments.length ? <Footer><Pagination className='tc' showQuickJumper current={ page }  total={allNum} onChange={ this.changePage } pageSize={pageSize} /></Footer> : null}
             </Layout>

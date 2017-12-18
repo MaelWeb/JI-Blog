@@ -58,7 +58,7 @@ export default class Articles extends Component {
         Axios.get('/api/get/publish/articles', {
             params: {
                 tag: this.state.curTagId,
-                page: page - 1
+                page: page
             }
         })
         .then( res => {
@@ -90,7 +90,7 @@ export default class Articles extends Component {
                         </Link></li>) : null}
                     </ul>
                 </div>
-                <Pagination size="small" total={allNum} current={(page + 1)} pageSize={1} onChange={ this.changePage } />
+                <Pagination size="small" total={allNum} current={page} pageSize={1} onChange={ this.changePage } />
             </div>
         )
     }

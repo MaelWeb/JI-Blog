@@ -49,9 +49,9 @@ const routes = [
 export default class Home extends Component {
     constructor(props) {
         super(props);
-
+        let screenWidth = document.body.offsetWidth;
         this.state = {
-            collapsed: false
+            collapsed: screenWidth <= 1024 ? true : false
         };
     }
 
@@ -74,7 +74,11 @@ export default class Home extends Component {
 
     render() {
         return(<div className="homg-layout"><Layout className='home-wrap'>
-            <Sider collapsible  collapsed={this.state.collapsed} onCollapse={this.onCollapse} className='home-sider' >
+            <Sider
+                collapsible
+                collapsed={this.state.collapsed}
+                onCollapse={this.onCollapse}
+                className='home-sider' >
                 <div className="home-user tc">
                     <Avatar size="large" src="http://ozrrmt7n9.bkt.clouddn.com/image/logo_col.png" className='home-user-avatar'/>
                 </div>
@@ -87,7 +91,7 @@ export default class Home extends Component {
                     ))}
                 </Menu>
             </Sider>
-            <Layout style={{ marginLeft: this.state.collapsed ? 75 : 200 }} className='home-content-layout'>
+            <Layout style={{ marginLeft: this.state.collapsed ? 65 : 200 }} className='home-content-layout'>
                 {routes.map((route, index) => (
                   <Route
                     key={index}

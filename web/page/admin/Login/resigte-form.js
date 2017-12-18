@@ -29,7 +29,10 @@ class RegisteForm extends Component {
                 {getFieldDecorator('userName', { rules: [{required: true, message: '请输入用户名'}],})(<Input  placeholder="用户名" />)}
             </FormItem>
             <FormItem hasFeedback>
-                {getFieldDecorator('email', { rules: [{type: 'email', message: 'The input is not valid E-mail!', }, { required: true, message: '请输入邮箱',}], })(<Input placeholder="E-mail" />) }
+                {getFieldDecorator('email', { rules: [{type: 'email', message: '邮箱格式错误', }, { required: true, message: '请输入邮箱',}], })(<Input placeholder="E-mail" />) }
+            </FormItem>
+             <FormItem hasFeedback>
+                {getFieldDecorator('code', { rules: [{ required: true, message: '请输入邀请码',}], })(<Input type="number" placeholder="邀请码" />) }
             </FormItem>
             <FormItem hasFeedback>
                 {getFieldDecorator('password', {rules: [{required: true,message: '请输入密码'}],})(<Input type="password" placeholder="密码" />)}

@@ -1,10 +1,10 @@
 import router from 'koa-router';
 import { apiVerify } from '../middleware/verify';
 import { singUp, signIn, getUserInfo, updateUserInfo } from '../controllers/user_ctr';
-import { createArticle, getAllArticles, getArticle, deleteArticle, modifyArticle, getAllPublishArticles } from '../controllers/article_ctr';
+import { createArticle, getAllArticles, getArticle, deleteArticle, modifyArticle, getAllPublishArticles, publishArticle, notPublishArticle } from '../controllers/article_ctr';
 import { getOneContent } from '../controllers/common_ctr';
 import { createTag, getAllTags } from '../controllers/tags_ctr';
-import { fileUpload } from '../controllers/qiniu_ctrl';
+import { fileUpload, articleImageUpload } from '../controllers/qiniu_ctrl';
 import { addPhoto, getPhotoes, updatePhoto } from '../controllers/photo_ctrl';
 import { creactComment, getComments, showAndHideComent, deleteComment } from '../controllers/comment_ctr';
 
@@ -31,12 +31,15 @@ let _Api = Router.get('/signout', (ctx) => {
     .post('/update/userinfo', apiVerify, updateUserInfo)
     .post('/create/tag', apiVerify, createTag)
     .post('/create/article', apiVerify, createArticle)
+    .post("/publish/article/:id", apiVerify, publishArticle)
+    .post("/recall/article/:id", apiVerify, notPublishArticle)
     .post('/create/comment', creactComment)
     .post('/toggle/comment', apiVerify, showAndHideComent)
     .delete('/comment/:id', apiVerify, deleteComment)
     .post('/update/article/:id', apiVerify, modifyArticle)
     .post('/update/photo/:id', apiVerify, updatePhoto)
     .post('/fileupload', apiVerify, fileUpload)
+    .post('/article/image/upload', apiVerify, articleImageUpload)
     .post('/add/photo', apiVerify, addPhoto);
 
 // module.exports = _Api;

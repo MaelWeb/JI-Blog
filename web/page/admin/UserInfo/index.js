@@ -62,12 +62,18 @@ export default class UserInfo extends Component {
         })
     }
 
+    logout = () => {
+        Cookies.remove('access_token');
+        Cookies.remove('uid');
+        this.props.history.push('/login');
+    }
+
     render() {
         const { userInfo, showModal } = this.state;
         return (
             <Layout className ="userinfo-layout" >
                 <Header className = 'userinfo-header clearfix' >
-                    <h2 >账号设置</h2>
+                    <h2 >账号设置</h2><Button className='fr logout' onClick={ this.logout } >退出登录</Button>
                 </Header>
                 <Content className = "userinfo-manage-content" >
                     <div className="userinfo-body">

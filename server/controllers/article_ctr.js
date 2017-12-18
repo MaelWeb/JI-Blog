@@ -96,7 +96,7 @@ export async function getAllArticles(ctx) {
         page
     }
 
-    return { articles, allPage, page, allNum};
+    return { articles, allPage, page, allNum };
 }
 
 export async function getAllPublishArticles(ctx) {
@@ -109,13 +109,13 @@ export async function getAllPublishArticles(ctx) {
     let allNum;
 
     if (page !== 1) {
-        skip = limit * page
+        skip = limit * (page - 1)
     }
 
     if (!tag) {
         articles = await Article.find({
                 // publish: true
-            }, {title: 1})
+            }, { title: 1 })
             .populate("tags")
             .sort({ createTime: -1 })
             .limit(limit)
@@ -133,7 +133,7 @@ export async function getAllPublishArticles(ctx) {
         articles = await Article.find({
                 tags: { "$in": tagArr },
                 // publish: true
-            }, {title: 1})
+            }, { title: 1 })
             .populate("tags")
             .sort({ createTime: -1 })
             .limit(limit)
@@ -156,7 +156,7 @@ export async function getAllPublishArticles(ctx) {
         page
     }
 
-    return { articles, allPage, page, allNum};
+    return { articles, allPage, page, allNum };
 }
 
 
@@ -212,7 +212,7 @@ export async function getArticle(ctx) {
       ctx.throw(400, '标签不能为空')
     }*/
     const article = await Article
-        .findByIdAndUpdate(id, {$inc: { visited: 1} })
+        .findByIdAndUpdate(id, { $inc: { visited: 1 } })
         .populate("tags")
         .catch(err => {
             if (err.name === 'CastError') {
@@ -240,9 +240,15 @@ export async function deleteArticle(ctx) {
     const id = ctx.params.id;
     const article = await Article.findByIdAndRemove(id).catch(err => {
         if (err.name === 'CastError') {
-            ctx.throw(400, 'id不存在');
+            return ctx.body = {
+                code: 400,
+                message: "文章不存在或已删除"
+            }
         } else {
-            ctx.throw(500, '服务器内部错误')
+            return ctx.body = {
+                code: 500,
+                message: "服务器内部错误"
+            }
         }
     });
     ctx.body = {
@@ -253,15 +259,24 @@ export async function deleteArticle(ctx) {
 
 export async function publishArticle(ctx) {
     const id = ctx.params.id;
-    const article = await Article.findByIdAndUpdate(id, { $set: { publish: true } }).catch(err => {
+    const postData = ctx.request.body;
+    const article = await Article.findByIdAndUpdate(id, { $set: { publish: true, ...postData } }).catch(err => {
         if (err.name === 'CastError') {
-            this.throw(400, 'id不存在');
+            return ctx.body = {
+                code: 400,
+                message: "文章不存在或已删除"
+            }
         } else {
-            this.throw(500, '服务器内部错误')
+            return ctx.body = {
+                code: 500,
+                message: "服务器内部错误"
+            }
         }
     });
+
     ctx.body = {
-        success: true
+        code: 200,
+        message: '发布成功'
     }
 }
 
@@ -269,12 +284,20 @@ export async function notPublishArticle(ctx) {
     const id = ctx.params.id;
     const article = await Article.findByIdAndUpdate(id, { $set: { publish: false } }).catch(err => {
         if (err.name === 'CastError') {
-            this.throw(400, 'id不存在');
+            return ctx.body = {
+                code: 400,
+                message: "文章不存在或已删除"
+            }
         } else {
-            this.throw(500, '服务器内部错误')
+            return ctx.body = {
+                code: 500,
+                message: "服务器内部错误"
+            }
         }
     });
+
     ctx.body = {
-        success: true
-    }
+        code: 200,
+        message: '撤回成功'
+    };
 }

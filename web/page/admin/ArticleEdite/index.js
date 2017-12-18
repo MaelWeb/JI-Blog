@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Button, Icon, Tag, Input, Modal, Breadcrumb, Spin} from 'antd';
+import { Layout, Button, Icon, Tag, Input, Modal, Breadcrumb, Spin, Radio} from 'antd';
 import EditorMD from 'Components/EditorMd';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
@@ -10,6 +10,7 @@ import './index.less';
 const { Header, Content } = Layout;
 const CheckableTag = Tag.CheckableTag;
 const { TextArea } = Input;
+const RadioGroup = Radio.Group;
 const ModalConfirm = Modal.confirm;
 
 export default class AddArticle extends Component {
@@ -21,9 +22,12 @@ export default class AddArticle extends Component {
             tags: [],
             articleTitle: '',
             articleAbstract: '',
-            modalVisible: false,
+            isAbstractModalShow: false,
+            isCategoryModalShow: false,
             markdownContent: null,
-            aid: null
+            aid: null,
+            category: 'DEFAULT',
+            isPublish: false
         };
     }
 
@@ -54,7 +58,9 @@ export default class AddArticle extends Component {
                     articleAbstract: article.abstract,
                     articleTitle: article.title,
                     selectedTags: article.tags.map(tag => tag.id ),
-                    markdownContent: article.content
+                    markdownContent: article.content,
+                    category: article.category,
+                    isPublish: article.publish
                 })
             })
     }
@@ -223,26 +229,77 @@ export default class AddArticle extends Component {
 
     showModal = () => {
         this.setState({
-            modalVisible: true
+            isAbstractModalShow: true
         });
     }
 
-    modalOk = () => {
+    showExportModal = () => {
         this.setState({
-            modalVisible: false,
+            isCategoryModalShow: true
+        });
+    }
+
+    articleAbstractOk = () => {
+        this.setState({
+            isAbstractModalShow: false,
             articleAbstract: this.textArea.textAreaRef.value
         })
     }
 
-    modalCancel = () => {
+    articleAbstractCancle = () => {
         this.setState({
-            modalVisible: false
+            isAbstractModalShow: false
+        })
+    }
+
+    exportModalOk = () => {
+        const { query } = this.context;
+        const { aid, category } = this.state;
+        Axios.post(`/api/publish/article/${query.aid || aid}`, {category})
+            .then( res => {
+                this.context.showMessage(res.data.message);
+                this.setState({
+                    isCategoryModalShow: false,
+                    isPublish: res.data.code == 200 ? true : false
+                });
+            })
+            .catch( err => {
+                this.context.showMessage('服务器错误');
+            })
+    }
+
+    recallArticle = () => {
+        const { query } = this.context;
+        const { aid, category } = this.state;
+
+        Axios.post(`/api/recall/article/${query.aid || aid}`)
+            .then( res => {
+                this.context.showMessage(res.data.message);
+                this.setState({
+                    isPublish: res.data.code == 200 ? false : true
+                });
+            })
+            .catch( err => {
+                this.context.showMessage('服务器错误');
+            })
+    }
+
+    exportModalCancle = () => {
+        this.setState({
+            isCategoryModalShow: false
+        });
+    }
+
+
+    onRadioChange = e => {
+        this.setState({
+            category: e.target.value
         })
     }
 
 
     render() {
-        const { selectedTags, inputVisible, inputValue, tags, modalVisible, articleAbstract, articleTitle, markdownContent, aid } = this.state;
+        const { selectedTags, inputVisible, inputValue, tags, isAbstractModalShow, articleAbstract, articleTitle, markdownContent, aid, isCategoryModalShow, category, isPublish } = this.state;
         const { query } = this.context;
 
         return(
@@ -254,9 +311,11 @@ export default class AddArticle extends Component {
                         <Button onClick={ this.saveArticle } >
                             <Icon type="save" />保存
                         </Button>
-                        <Button>
+                        { isPublish ? <Button onClick={ this.recallArticle } >
+                            撤回<Icon type="rollback" />
+                        </Button> : <Button onClick={ this.showExportModal } >
                             发布<Icon type="export" />
-                        </Button>
+                        </Button>}
                     </Button.Group> : <div className="single-btn"><Button onClick={ this.createArticle } >
                             <Icon type="file" />创建
                         </Button></div>}
@@ -290,13 +349,23 @@ export default class AddArticle extends Component {
                 </Content>
                 <Modal
                     title="添加摘要"
-                    visible={modalVisible}
-                    onOk={this.modalOk}
+                    visible={isAbstractModalShow}
+                    onOk={this.articleAbstractOk}
                     mask={ false }
-                    onCancel={this.modalCancel}>
+                    onCancel={this.articleAbstractCancle}>
                     <TextArea placeholder="这里添加文章的摘要;确认才保存，取消不保存当次更改" autosize={{ minRows: 4,}} ref={ this.saveTextAreaRef }  defaultValue={articleAbstract} />
                 </Modal>
-                <div id="test"></div>
+                <Modal
+                    title="选择发布板块"
+                    visible={isCategoryModalShow}
+                    onOk={this.exportModalOk}
+                    mask={ false }
+                    onCancel={this.exportModalCancle}>
+                    <RadioGroup onChange={this.onRadioChange} value={ category }>
+                        <Radio value='DEFAULT'>首页</Radio>
+                        <Radio value='TRAVEL' >游记</Radio>
+                    </RadioGroup>
+                </Modal>
             </Layout>
         )
     }

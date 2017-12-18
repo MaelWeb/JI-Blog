@@ -18,6 +18,10 @@ const ArticleSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+    category: {
+        type: String,
+        default: 'DEFAULT'
+    },
     publish: {
         type: Boolean,
         default: false

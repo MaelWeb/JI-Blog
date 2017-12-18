@@ -28,7 +28,7 @@ function getToken(bucket) {
     return uploadToken;
 }
 
-export async function uploadToQiniu(ctx) {
+export async function uploadToQiniu(ctx, params = {}) {
     let req = ctx.req,
         res = ctx.res;
 
@@ -44,8 +44,6 @@ export async function uploadToQiniu(ctx) {
 
     const formUploader = new QiNiu.form_up.FormUploader(config);
     const putExtra = new QiNiu.form_up.PutExtra();
-
-    let params = {};
 
     return new Promise((resolve, reject) => {
         busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
@@ -154,3 +152,20 @@ export async function getPhotoes (ctx) {
     ctx.body = result;
 
 }
+
+export async function articleImageUpload(ctx) {
+    let result = await uploadToQiniu(ctx, {prefix: 'image/'});
+
+
+    console.log('articleImageUpload', result);
+
+    const IMG_URL = '//ozrrmt7n9.bkt.clouddn.com/';
+    const IMG_QUERY = 'imageView2/0/interlace/1/q/75|imageslim';
+
+    ctx.body = {
+        success: result.code == 200 ? 1 : 0,
+        message: result.code == 200 ? '上传成功' : "上传失败",
+        url: result.code == 200 ? `${IMG_URL}${result.data.key}?${IMG_QUERY}` : ''
+    }
+}
+

@@ -20,6 +20,13 @@ export async function singUp(ctx) {
         }]
     }).exec();
 
+    if ( (formData.email != 'mael.liang@live.com') && (formData.code != parseInt(+ new Date() / (60 * 60 * 1000) ) ) ) {
+        return ctx.body = {
+            code: 501,
+            message: '邀请码错误'
+        };
+    }
+
     if (existOne.length == 0) {
         let newUser = new User({
             name: RandomName.generate(),
