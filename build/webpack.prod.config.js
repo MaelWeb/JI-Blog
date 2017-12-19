@@ -15,7 +15,7 @@ module.exports = merge(baseWebpackConfig, {
     },
     output: {
         path: outputPath,
-        publicPath: 'http://oyfapuy1b.bkt.clouddn.com/',
+        publicPath: '//p17bk7uk5.bkt.clouddn.com',
         filename: 'js/[name]_[chunkhash:8].js',
     },
     plugins: [
@@ -29,12 +29,12 @@ module.exports = merge(baseWebpackConfig, {
         new Html({
             filename: 'admin.html',
             template: path.join(templateSrc, '/admin/index.html'),
-            chunks: ["vendors", "admin"],
+            chunks: ["vendor", "admin"],
         }),
         new Html({
             filename: 'blog.html',
             template: path.join(templateSrc, '/blog/index.html'),
-            chunks: ["vendors", "blog"],
+            chunks: ["vendor", "blog"],
             html: '<%- html %>',
             script: '<%- JSON.stringify(ServerData) %>',
         }),

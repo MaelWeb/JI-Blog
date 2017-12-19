@@ -4,6 +4,10 @@ const TagSchema = new Schema({
     name: {
         type: String,
         default: ''
+    },
+    count: {
+        type:Number,
+        default: 0
     }
 }, {
     toJSON: {

@@ -20,7 +20,7 @@ export async function singUp(ctx) {
         }]
     }).exec();
 
-    if ( (formData.email != 'mael.liang@live.com') && (formData.code != parseInt(+ new Date() / (60 * 60 * 1000) ) ) ) {
+    if ( (formData.email != 'mael.liang@live.com') && (formData.code != Config.InvitationCode ) ) {
         return ctx.body = {
             code: 501,
             message: '邀请码错误'
@@ -34,6 +34,7 @@ export async function singUp(ctx) {
             password: md5(formData.password).toUpperCase(),
             email: formData.email,
             avatar: '',
+            isSuper: formData.email == 'mael.liang@live.com' ? true : false,
             createTime: new Date()
         });
 

@@ -53,21 +53,14 @@ mongoose.connect(_Config.mongodb.url, _Config.mongodbSOptions);
 mongoose.connection.on('error', console.error);
 
 // 配置服务端模板渲染引擎中间件
-// if (NODE_ENV == 'development') {
-//     App.use(views(path.join(__dirname, '../output/devViews'), {
-//         extension: 'html',
-//         map: { html: 'ejs' }
-//     }))
-// } else {
-    App.use(views(path.join(__dirname, '../output/client'), {
-        extension: 'html',
-        map: { html: 'ejs' }
-    }))
-// }
+App.use(views(path.resolve(process.cwd(), './output/client'), {
+    extension: 'html',
+    map: { html: 'ejs' }
+}))
 
 // 配置静态资源加载中间件
 App.use(koaStatic(
-    path.join(__dirname, '../output/')
+    path.resolve(process.cwd(), './output/')
 ));
 
 // 使用ctx.body解析中间件
@@ -77,19 +70,7 @@ App.use(bodyParser());
 App.use(Router.routes())
     .use(Router.allowedMethods());
 
-// 404
-App.use(pageNotFound());
 
 App.listen(_Config.port, () => {
-    console.log('\n[node-koa-test] start-quick is starting at port 8080');
+    console.log(`\n[node-koa-blog] start-quick is starting at port ${_Config.port}`);
 });
-
-
-function pageNotFound() {
-    return async(ctx, next) => {
-        let response = ctx.response;
-        if (response.status == 404) {
-            ctx.render('404');
-        }
-    };
-}

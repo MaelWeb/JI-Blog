@@ -7,7 +7,11 @@ const UserSchema = new Schema({
     password: String,
     avatar: String,
     email: String,
-    createTime: String
+    createTime: String,
+    isSuper: {
+        type: Boolean,
+        default: false
+    }
 }, {
     toJSON: {
         getters: true,

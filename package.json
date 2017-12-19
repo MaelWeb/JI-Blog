@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:start": "nodemon --ignore web/ --exec NODE_ENV=development babel-node ./server/index.js",
-    "build": "NODE_ENV=production webpack --config ./build/webpack.prod.config.js"
+    "build": "NODE_ENV=production webpack --progress --config ./build/webpack.prod.config.js && webpack --progress --config ./build/webpack.server.config.js",
+    "start": "node ./output/server/server.js",
+    "upload": "node ./build/upload2qiniu"
   },
   "author": "",
   "license": "ISC",
@@ -69,6 +71,7 @@
     "html-webpack-plugin": "^2.30.1",
     "koa-webpack-middleware": "^1.0.7",
     "less-loader": "^4.0.5",
+    "lodash": "^4.17.4",
     "postcss-loader": "^2.0.9",
     "style-loader": "^0.19.0",
     "url-loader": "^0.6.2",
