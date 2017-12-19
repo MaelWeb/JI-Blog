@@ -33,6 +33,21 @@ export async function createTag(ctx) {
     }
 }
 
+export async function updateTagCount(ctx) {
+    const type = ctx.request.body.type;
+    let result = {
+        code: 200,
+        message: 'ok'
+    }
+
+    await Tag.findByIdAndUpdate(ctx.request.body.id, { $inc: { count: type } }).catch( err => {
+        result.code = 500;
+        result.message = "服务器错误";
+    })
+
+    ctx.body = result;
+}
+
 export async function getAllTags(ctx) {
     const tags = await Tag.find().catch(err => {
         ctx.throw(500, '服务器内部错误')

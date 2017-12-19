@@ -3,7 +3,7 @@ import { apiVerify } from '../middleware/verify';
 import { singUp, signIn, getUserInfo, updateUserInfo } from '../controllers/user_ctr';
 import { createArticle, getAllArticles, getArticle, deleteArticle, modifyArticle, getAllPublishArticles, publishArticle, notPublishArticle } from '../controllers/article_ctr';
 import { getOneContent } from '../controllers/common_ctr';
-import { createTag, getAllTags } from '../controllers/tags_ctr';
+import { createTag, getAllTags, updateTagCount } from '../controllers/tags_ctr';
 import { fileUpload, articleImageUpload } from '../controllers/qiniu_ctrl';
 import { addPhoto, getPhotoes, updatePhoto } from '../controllers/photo_ctrl';
 import { creactComment, getComments, showAndHideComent, deleteComment } from '../controllers/comment_ctr';
@@ -30,6 +30,7 @@ let _Api = Router.get('/signout', (ctx) => {
     .post('/signin', signIn)
     .post('/update/userinfo', apiVerify, updateUserInfo)
     .post('/create/tag', apiVerify, createTag)
+    .post('/update/tag/count', apiVerify, updateTagCount)
     .post('/create/article', apiVerify, createArticle)
     .post("/publish/article/:id", apiVerify, publishArticle)
     .post("/recall/article/:id", apiVerify, notPublishArticle)

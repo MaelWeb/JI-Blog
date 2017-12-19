@@ -1,5 +1,4 @@
 import Article from '../models/article_model';
-import Tag from '../models/tag_model';
 
 export async function createArticle(ctx) {
     const formData = ctx.request.body;
@@ -33,12 +32,6 @@ export async function createArticle(ctx) {
     let createResult = await article.save().catch(err => {
         ctx.throw(500, '服务器内部错误')
     });
-
-    if (formData.tags.length) {
-        let _tags = formData.tags.map( id => {id} );
-        console.log(_tags)
-        Tag.findOneAndUpdate(_tags, { $inc: { count: 1 } });
-    }
 
     await Article.populate(createResult, { path: 'tags' }, function(err, result) {
         createResult = result;
@@ -196,11 +189,6 @@ export async function modifyArticle(ctx) {
       ctx.throw(400, '标签不能为空')
     }*/
 
-    if (postData.tags.length) {
-        let _tags = postData.tags.map( id => {return {id}} );
-        console.log(_tags)
-        Tag.findOneAndUpdate(_tags, { $inc: { count: 1 } });
-    }
 
     const article = await Article.findByIdAndUpdate(id, { $set: postData }).catch(err => {
         if (err.name === 'CastError') {

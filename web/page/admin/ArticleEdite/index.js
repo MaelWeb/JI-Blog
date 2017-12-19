@@ -71,6 +71,7 @@ export default class AddArticle extends Component {
             [...selectedTags, tag.id] :
             selectedTags.filter(t => t !== tag);
         this.setState({ selectedTags: nextSelectedTags });
+        Axios.post('/api/update/tag/count', {id: tag.id, type: checked ? 1 : -1});
     }
 
     showInput = () => {
