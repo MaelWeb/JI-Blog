@@ -11,6 +11,7 @@ import ArticleManage from '../ArticleManage';
 import PhotoManage from '../PhotoManage';
 import CommentsManage from '../CommentsManage';
 import UserInfo from '../UserInfo';
+import BlogBanner from '../BlogBanner';
 
 const routes = [
     {
@@ -25,6 +26,12 @@ const routes = [
         navText: '添加/编辑',
         iconType: 'plus-square-o',
         component: ArticleEdite
+    },
+    {
+        path: '/banner',
+        navText: 'Banner设置',
+        iconType: 'setting',
+        component: BlogBanner
     },
     {
         path: '/photo',

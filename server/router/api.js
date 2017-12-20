@@ -7,6 +7,7 @@ import { createTag, getAllTags, updateTagCount } from '../controllers/tags_ctr';
 import { fileUpload, articleImageUpload } from '../controllers/qiniu_ctrl';
 import { addPhoto, getPhotoes, updatePhoto } from '../controllers/photo_ctrl';
 import { creactComment, getComments, showAndHideComent, deleteComment } from '../controllers/comment_ctr';
+import { createBanner, getBanners, updateBanner, deleteBanner } from '../controllers/banner_ctr';
 
 const Router = new router();
 
@@ -25,6 +26,7 @@ let _Api = Router.get('/signout', (ctx) => {
     .get("/one", getOneContent)
     .get("/get/photoes", getPhotoes)
     .get("/get/userinfo", apiVerify, getUserInfo)
+    .get('/get/banners', getBanners)
     .delete('/article/:id', apiVerify, deleteArticle)
     .post('/singup', singUp)
     .post('/signin', signIn)
@@ -41,7 +43,10 @@ let _Api = Router.get('/signout', (ctx) => {
     .post('/update/photo/:id', apiVerify, updatePhoto)
     .post('/fileupload', apiVerify, fileUpload)
     .post('/article/image/upload', apiVerify, articleImageUpload)
-    .post('/add/photo', apiVerify, addPhoto);
+    .post('/add/photo', apiVerify, addPhoto)
+    .post('/create/banner', apiVerify, createBanner)
+    .post('/update/banner/:id', apiVerify, updateBanner)
+    .delete('/banner/:id', apiVerify, deleteBanner)
 
 // module.exports = _Api;
 export default _Api;

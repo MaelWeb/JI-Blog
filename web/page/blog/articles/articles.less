@@ -2,18 +2,76 @@
     margin: 0 auto;
     width: 70%;
     padding-top: .65rem;
-    .one {
+    .banner-item {
         position: relative;
+        font-size: .2rem;
         img {
             display: block;
+
+            &[hidden] {
+                display: none;
+            }
         }
         .text {
             position: absolute;
+            left: 0;
             bottom: 0;
             width: 100%;
             padding: .1rem .15rem;
-            background-color: rgba(214, 214, 214, .8);
-            text-indent: .2rem;
+            color: #fff;
+            // background-color: rgba(214, 214, 214, .8);
+        }
+    }
+
+    .banners-two {
+        height: 3.2rem;
+        .banner-item {
+            width: 49%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+        }
+    }
+
+    .banners-three {
+        height: 4rem;
+
+        .banner-item {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .left-col,
+        .right-col {
+            height: 100%;
+            border-color: #fff;
+            border-style: solid;
+        }
+
+        .left-col {
+            width: 60%;
+            border-right-width: .03rem;
+            font-size: .18rem;
+        }
+
+        .right-col {
+            width: 40%;
+            border-left-width: .03rem;
+        }
+
+        .right-col .banner-item {
+            height: 50%;
+            border-bottom: .05rem solid #fff;
+            font-size: .16rem;
+
+            &:last-child {
+                border-bottom: 0;
+                borer-top: .05rem solid #fff;
+            }
+
+            .text {
+
+            }
         }
     }
 

@@ -7,13 +7,14 @@ import classNames from 'classnames';
 export default class Articles extends Component {
     constructor(props) {
         super(props);
-        const { articles, tags, curTagId, allNum, page } = props;
+        const { articles, tags, curTagId, allNum, page, banners } = props;
         this.state = {
             articles,
             tags,
             curTagId,
             allNum,
-            page
+            page,
+            banners
         };
     }
 
@@ -30,7 +31,8 @@ export default class Articles extends Component {
         if ( !this.state.curTagId || (tagid != this.state.curTagId))
             Axios.get('/api/get/publish/articles', {
                 params: {
-                    tag: tagid || ''
+                    tag: tagid || '',
+                    category: 'DEFAULT'
                 }
             })
             .then( res => {
@@ -70,14 +72,60 @@ export default class Articles extends Component {
         })
     }
 
+    showBanners() {
+        const { banners } = this.state;
+        let bannerDom = [];
+
+        if (banners.length == 1)
+            return (
+                <div className="banners">
+                    <div className="banner-item"><a href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
+                        <img src={banners[0].url} />
+                        <div className="text"><p className='nowrapmulti'>{banners[0].text}</p></div>
+                    </a></div>
+                </div>
+            )
+
+        if (banners.length == 2)
+            return (
+                <div className="banners banners-two clearfix">
+                    <div className="banner-item fl" style={ {backgroundImage: `url(${banners[0].url})`} } ><a href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
+                        <img src={banners[0].url} hidden/>
+                        <div className="text"><p className='nowrapmulti'>{banners[0].text}</p></div>
+                    </a></div>
+                    <div className="banner-item fr" style={ {backgroundImage: `url(${banners[1].url})`} }><a href={banners[1].href ? banners[1].href : "javascript:void(0);"} >
+                        <img src={banners[1].url} hidden/>
+                        <div className="text"><p className='nowrapmulti'>{banners[1].text}</p></div>
+                    </a></div>
+                </div>
+            )
+
+        if (banners.length == 3)
+            return (
+                <div className="banners banners-three clearfix">
+                    <div className="left-col banner-item fl" style={ {backgroundImage: `url(${banners[0].url})`} } ><a href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
+                        <img src={banners[0].url} hidden/>
+                        <div className="text"><p className='nowrapmulti'>{banners[0].text}</p></div>
+                    </a></div>
+                    <div className="right-col fr">
+                        <div className="banner-item" style={ {backgroundImage: `url(${banners[1].url})`} }><a href={banners[1].href ? banners[1].href : "javascript:void(0);"} >
+                            <img src={banners[1].url} hidden/>
+                            <div className="text"><p className='nowrapmulti'>{banners[1].text}</p></div>
+                        </a></div>
+                        <div className="banner-item" style={ {backgroundImage: `url(${banners[2].url})`} }><a href={banners[2].href ? banners[2].href : "javascript:void(0);"} >
+                            <img src={banners[2].url} hidden/>
+                            <div className="text"><p className='nowrapmulti'>{banners[2].text}</p></div>
+                        </a></div>
+                    </div>
+                </div>
+            )
+    }
+
     render() {
         const { articles, tags, curTagId, allNum, page } = this.state;
         return (
             <div className="blog-articles-layout">
-                <div className="one">
-                    <img src="http://image.wufazhuce.com/FoBEubfSGAroMoMdI_jx0nH0gh7y" />
-                    <div className="text"><p className='nowrapmulti'>长大了一些的我们，开始懂得不能再这样轻易哭泣，也拥有了更复杂的情感，学着在各种说不清原因的行为里作出抉择。那一天，我们也陷入了选择的困境，但我们对这种迷失毫无察觉。</p></div>
-                </div>
+                { this.showBanners() }
                 <div className="blog-tags">
                     <Link to={{pathname: '/'}} onClick={ () => { this.getArticles() } } className={ classNames("tag", {'tag-active': !curTagId}) } >所有文章</Link>
                     { tags && tags.length ? tags.map( tag => <Link to={{pathname: '/', search: `?tag=${tag.id}`}} onClick={ () => { this.getArticles(tag.id) } } className={ classNames("tag", {'tag-active': curTagId == tag.id}) } key={tag.id} >{tag.name}</Link>) : null}
@@ -90,7 +138,7 @@ export default class Articles extends Component {
                         </Link></li>) : null}
                     </ul>
                 </div>
-                <Pagination size="small" total={allNum} current={page} pageSize={1} onChange={ this.changePage } />
+                <Pagination size="small" total={allNum} current={page} onChange={ this.changePage } />
             </div>
         )
     }

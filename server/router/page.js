@@ -5,6 +5,7 @@ import { getAllTags } from '../controllers/tags_ctr';
 import { getAllPublishArticles, getArticle } from '../controllers/article_ctr';
 import { getPhotoes } from '../controllers/photo_ctrl';
 import { getComments } from '../controllers/comment_ctr';
+import { getBanners } from '../controllers/banner_ctr';
 import ReactDOMServer from 'react-dom/server';
 import React from 'react';
 import { StaticRouter } from 'react-router';
@@ -14,10 +15,12 @@ const Router = new router();
 
 let _Page = Router
     .get('/', async(ctx, next) => {
+        ctx.query.category = 'DEFAULT';
         let tags = await getAllTags(ctx);
         let articleData = await getAllPublishArticles(ctx);
+        let banners = await getBanners();
 
-        let ServerData = {tags, curTagId: ctx.query.tag, ...articleData};
+        let ServerData = {tags, curTagId: ctx.query.tag, ...articleData, banners};
 
         const html = ReactDOMServer.renderToString(
             <StaticRouter context={{}} location={ctx.req.url}>

@@ -66,7 +66,7 @@ export default class ArticleManege extends Component {
             this.hasLoad = true;
             this.setState({
                 articles: res.data.articles || [],
-                page: page,
+                page: res.data.page,
                 allNum: res.data.allNum
             })
         });
@@ -76,8 +76,8 @@ export default class ArticleManege extends Component {
         return Axios
             .delete(`/api/article/${id}`)
             .then( res => {
-                if (res.data.code) {
-                    this.context.showMessage(res.data.message);
+                this.context.showMessage(res.data.message);
+                if (res.data.code == 200) {
                     this.getArticles();
                 }
             })

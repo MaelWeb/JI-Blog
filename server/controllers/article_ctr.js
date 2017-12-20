@@ -104,7 +104,8 @@ export async function getAllArticles(ctx) {
 export async function getAllPublishArticles(ctx) {
     const tag = ctx.query.tag;
     const page = +ctx.query.page || 1;
-    const limit = +ctx.query.limit || 1;
+    const limit = +ctx.query.limit || 10;
+    const category = ctx.query.category || null;
     let skip = 0;
     let articles;
     let allPage;
@@ -116,7 +117,8 @@ export async function getAllPublishArticles(ctx) {
 
     if (!tag) {
         articles = await Article.find({
-                // publish: true
+                publish: true,
+                category
             }, { title: 1 })
             .populate("tags")
             .sort({ createTime: -1 })
@@ -125,16 +127,17 @@ export async function getAllPublishArticles(ctx) {
                 ctx.throw(500, '服务器内部错误')
             });
         allNum = await Article.find({
-            // publish: true
+            publish: true,
+            category
         }).count().catch(err => {
             this.throw(500, '服务器内部错误')
         })
     } else {
         let tagArr = tag.split(';')
-        // console.log(tagArr)
         articles = await Article.find({
                 tags: { "$in": tagArr },
-                // publish: true
+                publish: true,
+                category
             }, { title: 1 })
             .populate("tags")
             .sort({ createTime: -1 })
@@ -143,7 +146,8 @@ export async function getAllPublishArticles(ctx) {
                 ctx.throw(500, '服务器内部错误')
             });
         allNum = await Article.find({
-            tags: { "$in": tagArr }
+            tags: { "$in": tagArr },
+            category
         }).count().catch(err => {
             ctx.throw(500, '服务器内部错误')
         })
@@ -192,9 +196,15 @@ export async function modifyArticle(ctx) {
 
     const article = await Article.findByIdAndUpdate(id, { $set: postData }).catch(err => {
         if (err.name === 'CastError') {
-            ctx.throw(400, '文章不存在');
+            return ctx.body = {
+                code: 400,
+                message: "文章不存在或已删除"
+            }
         } else {
-            ctx.throw(500, '服务器内部错误')
+            return ctx.body = {
+                code: 500,
+                message: "服务器内部错误"
+            }
         }
     });
     ctx.body = {

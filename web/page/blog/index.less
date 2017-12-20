@@ -13,6 +13,8 @@
 
 
 
+
+
 /** antd **/
 
 .anticon {
@@ -49,6 +51,7 @@
 }
 
 .ant-pagination {
+    margin: .1rem 0;
     font-size: .12rem;
     text-align: center;
 
@@ -112,6 +115,8 @@
         content: "\e616";
     }
 }
+
+
 
 
 
@@ -377,6 +382,35 @@
     }
 }
 
+@media screen and (max-width: 1366px) {
+    .blog-articles-layout {
+        width: 80%;
+
+        .banners-two {
+            height: 2.7rem;
+            .banner-item .text {
+                padding: .08rem .1rem;
+                font-size: .16rem;
+            }
+        }
+
+        .banners-three {
+            height: 3.5rem;
+            .left-col .text {
+                padding: .08rem .1rem;
+                font-size: .16rem;
+            }
+
+            .right-col .text {
+                padding: .03rem .05rem;
+            }
+
+            .right-col .banner-item {
+                font-size: .14rem;
+            }
+        }
+    }
+}
 
 @media screen and (max-width: 1024px) {
     .blog-article .blog-article-body,
@@ -386,6 +420,30 @@
 
     .blog-articles-layout {
         width: 80%;
+
+        .banners-two {
+            height: 2.2rem;
+            .banner-item .text {
+                padding: .08rem .1rem;
+                font-size: .16rem;
+            }
+        }
+
+        .banners-three {
+            height: 3rem;
+            .left-col .text {
+                padding: .08rem .1rem;
+                font-size: .16rem;
+            }
+
+            .right-col .text {
+                padding: .03rem .05rem;
+            }
+
+            .right-col .banner-item {
+                font-size: .14rem;
+            }
+        }
     }
 }
 
@@ -398,6 +456,17 @@
 
         .menu {
             display: block;
+        }
+    }
+
+    .blog-articles-layout {
+
+        .banners-two {
+            height: 1.8rem;
+        }
+
+        .banners-three {
+            height: 2.4rem;
         }
     }
 
@@ -432,6 +501,31 @@
 
     .blog-articles-layout {
         width: 90%;
+
+
+        .banners-two {
+            height: 1.2rem;
+            .banner-item .text {
+                padding: .01rem .03rem;
+                font-size: .14rem;
+            }
+        }
+
+        .banners-three {
+            height: 1.5rem;
+            .left-col .text {
+                padding: .03rem .05rem;
+                font-size: .12rem;
+            }
+
+            .right-col .text {
+                padding: .01rem .03rem;
+            }
+
+            .right-col .banner-item {
+                font-size: .1rem;
+            }
+        }
     }
 
     .blog-article {
