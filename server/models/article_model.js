@@ -10,6 +10,7 @@ const ArticleSchema = new Schema({
     content: String,
     htmlContent: String,
     abstract: String,
+    banner: String,
     tags: [{
         type: Schema.Types.ObjectId,
         ref: 'Tag'

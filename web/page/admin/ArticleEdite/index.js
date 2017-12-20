@@ -100,13 +100,22 @@ export default class AddArticle extends Component {
             articleAbstract = articleMarkdown.split("<!--more-->")[0];
         }
 
+        let reg =  /<img[^>]+src=['"]([^'"]+)['"]+/g;
+
+        let images = [], temp;
+
+        while( (temp = reg.exec(articleHtml)) != null ) {
+            images.push(temp[1]);
+        }
+
         let params = {
             title: articleTitle,
             content: articleMarkdown,
             htmlContent: articleHtml,
             abstract: articleAbstract,
             tags: selectedTags,
-            publish: false
+            publish: false,
+            banner: images.length ? images[0] : ''
         };
 
         if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
