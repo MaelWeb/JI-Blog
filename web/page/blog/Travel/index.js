@@ -1,60 +1,116 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Masonry from 'react-masonry-component';
 import Axios from 'axios';
+import Moment from 'moment';
 
 export default class Travel extends Component {
     constructor(props) {
         super(props)
-
+        const {articles, allNum, page, allPage } = props;
         this.state = {
-
+            articles,
+            allNum,
+            page,
+            allPage,
+            isLoading: false
         }
     }
 
-    componentDidMount() {
-        let headerDom = ReactDOM.findDOMNode(this.refs.travelHeader),
-            blogNavDom = document.getElementById('IdNav');
-        window.onscroll = (e) => {
-            e = e || window.event;
+    static defaultProps = {
+        articles: [],
+        page: 0,
+        allPage: 0
+    }
 
-            let _scroll = document.documentElement.scrollTop || document.body.scrollTop;
-            if (_scroll >= (headerDom.offsetHeight - blogNavDom.offsetHeight) )  {
-                blogNavDom.classList.remove('blog-travel-header');
-            } else {
-                blogNavDom.classList.add('blog-travel-header');
-            }
+
+    componentDidMount() {
+        this.headerDom = ReactDOM.findDOMNode(this.refs.travelHeader);
+        this.traveLayoutDom = ReactDOM.findDOMNode(this);
+        this.blogNavDom = document.getElementById('IdNav');
+        this.main = document.getElementsByTagName("main")[0];
+
+        this.main.addEventListener("scroll", this.onscroll, false)
+        const {articles} = this.state;
+
+        if (!articles.length) {
+            this.getArticles(1);
         }
-        // const { photoes } = this.state;
-        // if (!photoes.length)
-        //     Axios.get('/api/get/photoes')
-        //         .then( res => {
-        //             let state = this.addSrc(res.data.photoes);
-        //             this.setState({
-        //                 ...state
-        //             })
-        //         })
+    }
+
+    onscroll = (e) => {
+        e = e || window.event;
+        let _scrollTop = this.main.scrollTop;
+
+        if (_scrollTop >= (this.headerDom.offsetHeight - this.blogNavDom.offsetHeight)) {
+            this.blogNavDom.classList.remove('blog-travel-header');
+        } else {
+            this.blogNavDom.classList.add('blog-travel-header');
+        }
+        const { page, allPage } = this.state;
+        if ( (_scrollTop + this.main.offsetHeight) > (this.traveLayoutDom.offsetHeight - 100) ) {
+            (page < allPage) && this.getArticles(page + 1);
+        }
     }
 
     componentWillUnmount() {
-        window.onscroll = null;
+        this.main.removeEventListener("scroll", this.onscroll);
     }
 
-    render() {
+    getArticles = (_page) => {
+        if ( this.state.isLoading ) return;
+        this.setState({
+            isLoading: true
+        });
+        Axios.get('/api/get/publish/articles', {
+            params: {
+                category: 'TRAVEL',
+                page: _page,
+            }
+        })
+        .then(res => {
+            let resData = res.data;
+            this.setState(preState => {
+                let articles = preState.articles.concat(resData.articles);
+                return {
+                    articles: articles,
+                    allNum: resData.allNum,
+                    page: resData.page,
+                    allPage: resData.allPage,
+                    isLoading: false
+                }
+            })
+        });
+    }
 
-        return(
+
+    render() {
+        const { articles, isLoading } = this.state;
+        return (
             <div className="blog-travel-layout">
                 <div className="traverl-header" ref='travelHeader' >
-                    <img src="//photo.tuchong.com/1595218/f/12027196.jpg" alt=""/>
+                    <img src={ articles[0] && articles[0].banner ? articles[0].banner : "//ozrrmt7n9.bkt.clouddn.com/12027196.jpg" } alt=""/>
                     <div className="aticle-info">
                         <p className="small"><span>游记</span></p>
-                        <h2>京都这家烤肉店藏在小巷子里，神秘又不高级感!</h2>
-                        <p className="sub-title">京都这家烤肉店很好吃很好吃京都这家烤肉店很好吃很好吃京都这家烤肉店很好吃很好吃京都这家烤肉店很好吃很好吃</p>
+                        <h2>{ articles[0] ? articles[0].title : ''}</h2>
+                        <p className="sub-title">{ articles[0] ? articles[0].subTitle : '' }</p>
                     </div>
                 </div>
                 <div className="middle-text tc">
                     <h2>我从旅行中获得乐趣</h2>
                     <p>摄影是一种神奇的记录：照片记录了时间、风景、人物；可回放照片时才发现，原来它还记录了按下快门时的感触、思绪、心事……也许这就是为什么明明看到的是一张风景，却会让你想起谁</p>
                 </div>
+                <Masonry className="travel-article-list">
+                    { articles.length ? articles.map( (article, index) => {
+                        return index != 0 ? (
+                                <div className="article-item"  key={article.id} >
+                                    <img src={article.banner || '//ozrrmt7n9.bkt.clouddn.com/14506926.jpg'} alt=""/>
+                                    <p className="article-title">{article.title} <small>{ Moment(article.createTime).format('MM月DD日')}</small></p>
+                                </div>
+                        ) : null
+                    }) : null }
+                </Masonry>
+                { isLoading ? <p className="loading">加载中...</p> : null}
             </div>
         )
     }

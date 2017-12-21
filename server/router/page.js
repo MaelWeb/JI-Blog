@@ -87,12 +87,13 @@ let _Page = Router
         });
     })
     .get('travel', async(ctx, next) => {
-
-        let ServerData = {};
+        ctx.query.category = 'TRAVEL';
+        let articleData = await getAllPublishArticles(ctx);
+        let ServerData = {...articleData};
 
         const html = ReactDOMServer.renderToString(
             <StaticRouter context={{}} location={ctx.req.url}>
-                <App />
+                <App InitData={{...ServerData}}/>
             </StaticRouter>
         )
 

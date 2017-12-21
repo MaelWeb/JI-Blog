@@ -17,7 +17,7 @@ module.exports = {
                     // presets: ['react-hmre', 'react'],
                     cacheDirectory: true
                 }
-            }, ],
+            }],
         }, {
             test: /\.css$/,
             exclude: /node_modules/,
@@ -99,6 +99,10 @@ module.exports = {
     },
     plugins: [
         new ExtractTextPlugin('css/[name].css'),
-        new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'js/[name].js' })
+        new webpack.DllReferencePlugin({
+            context: path.resolve(__dirname, "../"),
+            manifest: require('./vendor-manifest.json'),
+        })
+        // new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'js/[name].js' })
     ]
 };

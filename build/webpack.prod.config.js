@@ -2,16 +2,16 @@ var path = require('path');
 var merge = require('webpack-merge');
 var webpack = require('webpack');
 var baseWebpackConfig = require('./webpack.base.config');
+var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 var Html = require('html-webpack-plugin');
 const templateSrc = path.join(__dirname, '../web/page/');
 const outputPath = path.join(__dirname, '../output/client/');
 
 module.exports = merge(baseWebpackConfig, {
-    devtool: 'source-map',
+    devtool: false,
     entry: {
         admin: '../web/page/admin/index.js',
-        blog: '../web/page/blog/index.js',
-        vendor: ['react', 'react-dom', 'axios', 'classnames']
+        blog: '../web/page/blog/index.js'
     },
     output: {
         path: outputPath,
@@ -39,6 +39,8 @@ module.exports = merge(baseWebpackConfig, {
             script: '<%- JSON.stringify(ServerData) %>',
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
+        new OptimizeCSSPlugin(),
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.optimize.UglifyJsPlugin({
             // 最紧凑的输出
             beautify: false,

@@ -6,7 +6,7 @@ import Gallery from 'react-photo-gallery';
 import Measure from 'react-measure';
 import ImageGallery from '../../../components/ImageGallery';
 import ImageItem from './imageItem.js';
-import ImgLazy from '../../../components/ImgLazy';
+import Icon from '../../../components/Icon';
 
 const IMG_URL = '//ozrrmt7n9.bkt.clouddn.com/';
 const IMG_QUERY = 'imageView2/0/interlace/1/q/75|imageslim';
@@ -14,44 +14,76 @@ const IMG_QUERY = 'imageView2/0/interlace/1/q/75|imageslim';
 export default class Photo extends Component {
     constructor(props) {
         super(props)
-        const { photoes } = props;
-        let state = this.addSrc(photoes);
+        const { photoes, page, allPage } = props;
+        let photoSrcs = this.addSrc(photoes);
         this.state = {
-           ...state,
+           photoes: photoSrcs,
+           allPage,
+           page,
            showPhotoView: false,
            currentPhotoIndex: 0,
            isShowImageGallery: false,
-           imageGalleryIndex: 0
+           imageGalleryIndex: 0,
+           isLoading: false
         };
     }
 
+    static defaultProps = {
+        photoes: [],
+        page: 1,
+        allPage: 0
+    };
+
     componentDidMount() {
-        let headerDom = ReactDOM.findDOMNode(this.refs.photoHeader),
-            blogNavDom = document.getElementById('IdNav');
+        this.photoLayoutDom = ReactDOM.findDOMNode(this);
+        this.headerDom = ReactDOM.findDOMNode(this.refs.photoHeader);
+        this.blogNavDom = document.getElementById('IdNav');
+        this.main = document.getElementsByTagName("main")[0];
 
-        window.onscroll = (e) => {
-            e = e || window.event;
+        this.main.addEventListener("scroll", this.onscroll, false);
 
-            let _scroll = document.documentElement.scrollTop || document.body.scrollTop;
-            if (_scroll >= (headerDom.offsetHeight - blogNavDom.offsetHeight) ) {
-                blogNavDom.classList.remove('blog-photoes-header');
-            } else {
-                blogNavDom.classList.add('blog-photoes-header');
-            }
-        }
         const { photoes } = this.state;
         if (!photoes.length)
-            Axios.get('/api/get/photoes')
-                .then( res => {
-                    let state = this.addSrc(res.data.photoes);
-                    this.setState({
-                        ...state
-                    })
+            this.getPhotos(1);
+    }
+
+    getPhotos(page) {
+        if ( this.state.isLoading ) return;
+        this.setState({
+            isLoading: true
+        });
+        Axios.get('/api/get/photoes', {params:{page}})
+            .then( res => {
+                let photoSrcs = this.addSrc(res.data.photoes);
+                this.setState(preState => {
+                    let photoes = preState.photoes.concat(photoSrcs)
+                    return {
+                        page,
+                        photoes,
+                        isLoading: false
+                    }
                 })
+            })
+    }
+
+    onscroll = (e) => {
+        e = e || window.event;
+        let _scrollTop = this.main.scrollTop;
+
+        if (_scrollTop >= (this.headerDom.offsetHeight - this.blogNavDom.offsetHeight)) {
+            this.blogNavDom.classList.remove('blog-photoes-header');
+        } else {
+            this.blogNavDom.classList.add('blog-photoes-header');
+        }
+
+        const { page, allPage } = this.state;
+        if ( (_scrollTop + this.main.offsetHeight) > (this.photoLayoutDom.offsetHeight - 100) ) {
+            (page < allPage) && this.getPhotos(page + 1);
+        }
     }
 
     componentWillUnmount() {
-        window.onscroll = null;
+        this.main.removeEventListener("scroll", this.onscroll);
     }
 
     selectPhoto = (e, data) => {
@@ -76,25 +108,22 @@ export default class Photo extends Component {
                 };
 
                 photoes.push(newPho);
-
-                photo.isBanner && banner.push(newPho);
             })
         }
 
-        return {photoes, banner};
+        return photoes;
     }
 
 
     render() {
-        const { banner, photoes, width, showPhotoView, currentPhotoIndex, isShowImageGallery, imageGalleryIndex } = this.state;
-        let _banner = banner.length && banner[0] || photoes[0];
+        const { photoes, width, showPhotoView, currentPhotoIndex, isShowImageGallery, imageGalleryIndex, isLoading } = this.state;
         return(
             <div className="blog-photo-layout">
                 <div className="photo-banner" ref='photoHeader'>
-                    { _banner ? <img src={ _banner.src } alt=""/> : null}
-                    { _banner && _banner.desc ? <div className="photo-banner-info">
-                        <p className="small" style={{ width: _banner.width }}><span>图记</span></p>
-                        <h2 style={{ width: _banner.width }}>{_banner.desc}</h2>
+                    <img src={ photoes[0] && photoes[0].src } alt=""/>
+                    { photoes[0] && photoes[0].desc ? <div className="photo-banner-info">
+                        <p className="small" style={{ width: photoes[0].width }}><span>图记</span></p>
+                        <h2 style={{ width: photoes[0].width }}>{photoes[0].desc}</h2>
                     </div> : null}
                 </div>
                 <div className="middle-text tc">
@@ -115,12 +144,13 @@ export default class Photo extends Component {
                               columns = 5;
                             }
                             return <div ref={measureRef} className="photo-list">
-                              <Gallery photos={photoes} margin={ 4 } columns={columns} ImageComponent={ImageItem} onClick={ this.selectPhoto } />
+                              <Gallery photos={ photoes.slice(1)} margin={ 4 } columns={columns} ImageComponent={ImageItem} onClick={ this.selectPhoto } />
                             </div>
                         }
                     }
                 </Measure>
-                <ImageGallery images={ photoes } isShow={isShowImageGallery} startIndex={imageGalleryIndex} />
+                { isLoading ? <p className="loading">加载中...</p> : null}
+                <ImageGallery images={ photoes.slice(1) } isShow={isShowImageGallery} startIndex={imageGalleryIndex} />
             </div>
         )
     }

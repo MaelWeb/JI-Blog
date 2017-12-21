@@ -18,30 +18,47 @@ export default class Articles extends Component {
         };
     }
 
-    componentDidMount() {
-        const { articles, tags } = this.state;
+    static defaultProps = {
+        articles: [],
+        tags: [],
+        banners: [],
+    }
 
-        if (!articles || !tags) {
-            this.getArticles();
+    componentDidMount() {
+        const { articles, tags, banners } = this.state;
+
+        if (!articles.length || !tags.length || !banners.length) {
+            this.getArticles(1);
             this.getAllTags();
+            this.getBanners();
         }
     }
 
-    getArticles = (tagid)=> {
-        if ( !this.state.curTagId || (tagid != this.state.curTagId))
-            Axios.get('/api/get/publish/articles', {
-                params: {
-                    tag: tagid || '',
-                    category: 'DEFAULT'
-                }
+    getArticles = (page, tagid)=> {
+        Axios.get('/api/get/publish/articles', {
+            params: {
+                tag: tagid || this.state.curTagId || null,
+                category: 'DEFAULT',
+                page
+            }
+        })
+        .then( res => {
+            let resData = res.data;
+            this.setState({
+                articles: resData.articles,
+                curTagId: tagid,
+                allNum: resData.allNum,
+                page: resData.page
             })
+        })
+    }
+
+    getBanners() {
+        Axios.get('/api/get/banners')
             .then( res => {
                 let resData = res.data;
                 this.setState({
-                    articles: resData.articles,
-                    curTagId: tagid,
-                    allNum: resData.allNum,
-                    page: resData.page
+                    banners: resData.banners
                 })
             })
     }
@@ -57,19 +74,7 @@ export default class Articles extends Component {
     }
 
     changePage = (page, pageSize) => {
-        Axios.get('/api/get/publish/articles', {
-            params: {
-                tag: this.state.curTagId,
-                page: page
-            }
-        })
-        .then( res => {
-            let resData = res.data;
-            this.setState({
-                articles: resData.articles,
-                page: resData.page
-            })
-        })
+        this.getArticles(page)
     }
 
     showBanners() {

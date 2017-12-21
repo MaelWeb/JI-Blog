@@ -44,11 +44,11 @@ export async function updatePhoto(ctx) {
 
 export async function getPhotoes(ctx) {
     let query = ctx.query,
-        page = +query.page || 0,
+        page = +query.page || 1,
         size = +query.size || 10,
         skip = 0;
 
-    if (page !== 0) {
+    if (page !== 1) {
         skip = size * (page - 1);
     }
 
@@ -65,11 +65,15 @@ export async function getPhotoes(ctx) {
     ctx.body = {
         code: 200,
         photoes,
+        allNum,
+        page,
         allPage: Math.ceil(allNum / size)
     }
 
     return {
         photoes,
+        allNum,
+        page,
         allPage: Math.ceil(allNum / size)
     }
 

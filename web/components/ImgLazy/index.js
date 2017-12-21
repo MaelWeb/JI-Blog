@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import LazyLoad from 'react-lazyload';
-import Icon from '../Icon';
 
 const ImgLazy = (props) => {
-    const placeholder = props.placeholder ? props.placeholder : <Icon type='loading' />;
+    const { src, width, height, className, style, placeholder, ...others } = props;
     return (
-        <LazyLoad height='100%'  once><img src={ props.src } width={props.width} height={props.height} className={ props.className } style={ props.style } /></LazyLoad>
+        <LazyLoad height='100%'  once placeholder={placeholder} {...others} ><img src={ src } width={width} height={height} className={ className } style={ style } /></LazyLoad>
     )
 }
 

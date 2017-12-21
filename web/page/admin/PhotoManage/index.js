@@ -116,8 +116,22 @@ export default class ArticleManege extends Component {
             .then( res => {
                 let resData = res.data;
                 if (resData.code == 200) {
-                    this.setState({
-                        fileList: []
+                    this.setState(preState => {
+                        let photoes = resData.photoes.map(img => {
+                            return {
+                                imgUrl: `${IMG_URL}${img.key}?${IMG_QUERY}`,
+                                key: img.key,
+                                text: img.desc,
+                                id: img.id,
+                                isBanner: img.isBanner || false
+                            }
+                        });
+
+                        photoes = photoes.concat(preState.photoes);
+                        return {
+                            fileList: [],
+                            photoes
+                        }
                     })
                 }
             })
@@ -127,7 +141,7 @@ export default class ArticleManege extends Component {
         const { photoes } = this.state;
         let photo = photoes[photoIndex],
             isBanner = photo.isBanner;
-        console.log(photo);
+
         if (photo.id)
             Axios.post(`/api/update/photo/${photo.id}`, {isBanner: !isBanner})
                 .then( res => {

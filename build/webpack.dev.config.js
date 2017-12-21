@@ -19,8 +19,7 @@ module.exports = merge(baseWebpackConfig, {
             'eventsource-polyfill',
             'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
             '../web/page/blog/index.js',
-        ],
-        vendor: ['react', 'react-dom', 'axios', 'classnames']
+        ]
     },
     output: {
         path: outputPath,
