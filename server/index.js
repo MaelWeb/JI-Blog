@@ -24,7 +24,7 @@ if (NODE_ENV == 'development') {
         // watch options (only lazy: false)
         watchOptions: {
             aggregateTimeout: 300,
-            poll: true
+            poll: true,
         },
         // public path to bind the middleware to
         // use the same as in webpack
@@ -33,8 +33,9 @@ if (NODE_ENV == 'development') {
         // options for formating the statistics
         stats: {
             colors: true,
-            chunks: false,
+            chunks: false
         },
+        progress: true,
         debug: true,
         lazy: false,
         historyApiFallback: true
@@ -53,14 +54,14 @@ mongoose.connect(_Config.mongodb.url, _Config.mongodbSOptions);
 mongoose.connection.on('error', console.error);
 
 // 配置服务端模板渲染引擎中间件
-App.use(views(path.resolve(process.cwd(), './output/client'), {
+App.use(views(path.resolve(process.cwd(), './dist/client'), {
     extension: 'html',
     map: { html: 'ejs' }
 }))
 
 // 配置静态资源加载中间件
 App.use(koaStatic(
-    path.resolve(process.cwd(), './output/')
+    path.resolve(process.cwd(), './dist/client/')
 ));
 
 // 使用ctx.body解析中间件

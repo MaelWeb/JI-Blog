@@ -4,7 +4,7 @@ var webpack = require('webpack');
 var baseWebpackConfig = require('./webpack.base.config');
 var Html = require('html-webpack-plugin');
 var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
-const outputPath = path.join(__dirname, '../output/client/');
+const outputPath = path.join(__dirname, '../dist/client/');
 const templateSrc = path.join(__dirname, '../web/page/');
 
 module.exports = merge(baseWebpackConfig, {
@@ -23,7 +23,7 @@ module.exports = merge(baseWebpackConfig, {
     },
     output: {
         path: outputPath,
-        publicPath: '/output/client/',
+        publicPath: '/dist/client/',
         filename: 'js/[name].js',
     },
     plugins: [
@@ -37,8 +37,8 @@ module.exports = merge(baseWebpackConfig, {
             filename: 'admin.html',
             template: path.join(templateSrc, '/admin/index.html'),
             alwaysWriteToDisk: true,
-            inject: false,
-            env: "development"
+            env: "development",
+            chunks: ["admin"],
         }),
         new Html({
             filename: 'blog.html',
@@ -46,8 +46,8 @@ module.exports = merge(baseWebpackConfig, {
             html: '<%- html %>',
             script: '<%- JSON.stringify(ServerData) %>',
             alwaysWriteToDisk: true,
-            inject: false,
-            env: "development"
+            env: "development",
+            chunks: ["blog"],
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),

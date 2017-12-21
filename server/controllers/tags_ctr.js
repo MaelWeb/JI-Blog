@@ -40,7 +40,7 @@ export async function updateTagCount(ctx) {
         message: 'ok'
     }
 
-    await Tag.findByIdAndUpdate(ctx.request.body.id, { $inc: { count: type } }).catch( err => {
+    await Tag.findByIdAndUpdate(ctx.request.body.id, { $inc: { count: type } }).catch(err => {
         result.code = 500;
         result.message = "服务器错误";
     })
@@ -49,9 +49,17 @@ export async function updateTagCount(ctx) {
 }
 
 export async function getAllTags(ctx) {
-    const tags = await Tag.find().catch(err => {
-        ctx.throw(500, '服务器内部错误')
-    });
+    let result = {
+        code: 200,
+        message: 'ok'
+    };
+
+    const tags = await Tag.find()
+        .sort({ count: -1 })
+        .catch(err => {
+            result.code = 500;
+            result.message = "服务器错误";
+        });
 
     ctx.body = {
         code: 200,

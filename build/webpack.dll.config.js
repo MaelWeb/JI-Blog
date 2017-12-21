@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const outputPath = path.join(__dirname, '../output/client/');
+const outputPath = path.join(__dirname, '../dist/client/');
 
 module.exports = {
     entry: {
@@ -8,19 +8,8 @@ module.exports = {
     },
     output: {
         path: outputPath,
-        filename: 'js/[name].dll.js',
+        filename: 'lib/[name].dll.js',
         library: '[name]'
-    },
-    module: {
-        rules: [{
-            test: /\.(js|jsx)$/,
-            use: [{
-                loader: 'babel-loader',
-                options: {
-                    cacheDirectory: true
-                }
-            }]
-        }]
     },
     plugins: [
         new webpack.optimize.ModuleConcatenationPlugin(),

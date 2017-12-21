@@ -5,7 +5,7 @@ var baseWebpackConfig = require('./webpack.base.config');
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 var Html = require('html-webpack-plugin');
 const templateSrc = path.join(__dirname, '../web/page/');
-const outputPath = path.join(__dirname, '../output/client/');
+const outputPath = path.join(__dirname, '../dist/client/');
 
 module.exports = merge(baseWebpackConfig, {
     devtool: false,
@@ -29,12 +29,12 @@ module.exports = merge(baseWebpackConfig, {
         new Html({
             filename: 'admin.html',
             template: path.join(templateSrc, '/admin/index.html'),
-            chunks: ["vendor", "admin"],
+            chunks: ["admin"],
         }),
         new Html({
             filename: 'blog.html',
             template: path.join(templateSrc, '/blog/index.html'),
-            chunks: ["vendor", "blog"],
+            chunks: ["blog"],
             html: '<%- html %>',
             script: '<%- JSON.stringify(ServerData) %>',
         }),

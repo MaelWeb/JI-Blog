@@ -11,16 +11,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <base target="_blank">
-    <link href="/favicon.ico" rel="shortcut icon">
-    <link rel="apple-touch-icon" href="/touch-icon-iphone.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="/touch-icon-ipad.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="/touch-icon-iphone-retina.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="/touch-icon-ipad-retina.png">
-    
-    <link rel="stylesheet" href="/output/client/css/blog.css">
-    <script src="/output/client/js/vendor.js"></script>
-    
-</head>
+    <link href="/images/favicon.ico" rel="shortcut icon">
+    <link rel="apple-touch-icon" href="/images/touch-icon-iphone.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/images/touch-icon-ipad.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/images/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/images/touch-icon-ipad-retina.png">
+<link href="/dist/client/css/blog.css" rel="stylesheet"></head>
 
 <body>
     <div id="app"><%- html %></div>
@@ -28,8 +24,8 @@
     var _SERVER_DATA = <%- JSON.stringify(ServerData) %>;
     </script>
     
-    <script src="/output/client/js/blog.js"></script>
+    <script src="/lib/vendor.dll.js"></script>
     
-</body>
+<script type="text/javascript" src="/dist/client/js/blog.js"></script></body>
 
 </html>

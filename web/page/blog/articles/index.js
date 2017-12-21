@@ -7,14 +7,15 @@ import classNames from 'classnames';
 export default class Articles extends Component {
     constructor(props) {
         super(props);
-        const { articles, tags, curTagId, allNum, page, banners } = props;
+        const { articles, tags, curTagId, allNum, page, banners, allPage } = props;
         this.state = {
             articles,
             tags,
             curTagId,
             allNum,
             page,
-            banners
+            banners,
+            allPage
         };
     }
 
@@ -22,6 +23,7 @@ export default class Articles extends Component {
         articles: [],
         tags: [],
         banners: [],
+        allPage: 0
     }
 
     componentDidMount() {
@@ -127,7 +129,7 @@ export default class Articles extends Component {
     }
 
     render() {
-        const { articles, tags, curTagId, allNum, page } = this.state;
+        const { articles, tags, curTagId, allNum, page, allPage } = this.state;
         return (
             <div className="blog-articles-layout">
                 { this.showBanners() }
@@ -143,7 +145,7 @@ export default class Articles extends Component {
                         </Link></li>) : null}
                     </ul>
                 </div>
-                <Pagination size="small" total={allNum} current={page} onChange={ this.changePage } />
+                { allPage > 1 ? <Pagination size="small" total={allNum} current={page} onChange={ this.changePage } /> : null}
             </div>
         )
     }

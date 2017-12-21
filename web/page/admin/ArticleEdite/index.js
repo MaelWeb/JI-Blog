@@ -69,7 +69,8 @@ export default class AddArticle extends Component {
         const { selectedTags } = this.state;
         const nextSelectedTags = checked ?
             [...selectedTags, tag.id] :
-            selectedTags.filter(t => t !== tag);
+            selectedTags.filter(t => t !== tag.id);
+
         this.setState({ selectedTags: nextSelectedTags });
         Axios.post('/api/update/tag/count', {id: tag.id, type: checked ? 1 : -1});
     }
