@@ -13,42 +13,6 @@ const App = new koa();
 
 const NODE_ENV = process.env.NODE_ENV;
 
-// 开发环境启动webpack编译
-if (NODE_ENV == 'development') {
-    var webpack = require('webpack');
-    var { devMiddleware, hotMiddleware } = require('koa-webpack-middleware');
-    var devConfig = require('../build/webpack.dev.config');
-
-    const compile = webpack(devConfig);
-    App.use(devMiddleware(compile, {
-        // watch options (only lazy: false)
-        watchOptions: {
-            aggregateTimeout: 300,
-            poll: true,
-        },
-        // public path to bind the middleware to
-        // use the same as in webpack
-        publicPath: devConfig.output.publicPath,
-
-        // options for formating the statistics
-        stats: {
-            colors: true,
-            chunks: false
-        },
-        progress: true,
-        debug: true,
-        lazy: false,
-        historyApiFallback: true
-    }))
-
-    App.use(hotMiddleware(compile, {
-        // log: console.log,
-        // path: '/__webpack_hmr',
-        // heartbeat: 10 * 1000
-    }))
-}
-
-
 mongoose.Promise = Promise;
 mongoose.connect(_Config.mongodb.url, _Config.mongodbSOptions);
 mongoose.connection.on('error', console.error);
@@ -75,3 +39,39 @@ App.use(Router.routes())
 App.listen(_Config.port, () => {
     console.log(`\n[node-koa-blog] start-quick is starting at port ${_Config.port}`);
 });
+
+// 开发环境启动webpack编译
+if (NODE_ENV == 'development') {
+    var webpack = require('webpack');
+    var { devMiddleware, hotMiddleware } = require('koa-webpack-middleware');
+    var devConfig = require('../build/webpack.dev.config');
+
+    const compile = webpack(devConfig);
+    App.use(devMiddleware(compile, {
+        // display no info to console (only warnings and errors)
+        noInfo: true,
+        // watch options (only lazy: false)
+        watchOptions: {
+            aggregateTimeout: 300,
+            poll: true,
+        },
+        // public path to bind the middleware to
+        // use the same as in webpack
+        publicPath: devConfig.output.publicPath,
+
+        // options for formating the statistics
+        stats: {
+            colors: true,
+            chunks: false
+        },
+        debug: true,
+        lazy: false,
+        historyApiFallback: true
+    }))
+
+    App.use(hotMiddleware(compile, {
+        // log: console.log,
+        // path: '/__webpack_hmr',
+        // heartbeat: 10 * 1000
+    }))
+}

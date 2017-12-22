@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Icon from '../../../components/Icon';
 import ClassNames from 'classnames';
 import EmojiData from './EmojiData';
-import Emojify from 'react-emojione';
+import Emojify from '../../../components/Emoji';
 
 export default class CommentInput extends Component {
     constructor(props) {
@@ -113,7 +113,7 @@ export default class CommentInput extends Component {
                     <button onClick={ this.exportComment } >发布</button>
                 </div>
                 <div className={ ClassNames("emoji-box", { show: showEmoji}) } id='CommentEmoji' >
-                    <Emojify style={{height: 20, cursor: 'pointer',  backgroundImage: 'url("http://ozrrmt7n9.bkt.clouddn.com/image/emojione-3.1.2-32x32.png")',}} onClick={ this.addEmoji }>
+                    <Emojify style={{height: 20, cursor: 'pointer'}} onClick={ this.addEmoji }>
                         <div className='emoji-wrap'>
                             {EmojiData}
                         </div>

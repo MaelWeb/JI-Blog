@@ -4,6 +4,7 @@ var webpack = require('webpack');
 var baseWebpackConfig = require('./webpack.base.config');
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 var Html = require('html-webpack-plugin');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const templateSrc = path.join(__dirname, '../web/page/');
 const outputPath = path.join(__dirname, '../dist/client/');
 
@@ -15,7 +16,7 @@ module.exports = merge(baseWebpackConfig, {
     },
     output: {
         path: outputPath,
-        publicPath: '//p17bk7uk5.bkt.clouddn.com',
+        publicPath: '//p17bk7uk5.bkt.clouddn.com/',
         filename: 'js/[name]_[chunkhash:8].js',
     },
     plugins: [
@@ -57,6 +58,7 @@ module.exports = merge(baseWebpackConfig, {
                 // 提取出出现多次但是没有定义成变量去引用的静态值
                 reduce_vars: true,
             }
-        })
+        }),
+        new BundleAnalyzerPlugin()
     ]
 });

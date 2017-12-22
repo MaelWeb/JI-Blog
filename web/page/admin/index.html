@@ -11,10 +11,7 @@
 </head>
 <body>
     <div id="app"></div>
-    <% if ( htmlWebpackPlugin.options.env == "development" ) { %>
-    <script src="/lib/vendor.dll.js"></script>
-    <% } else { %>
-    <script  src="<%= webpackConfig.output.publicPath %>/lib/vendor.dll.js"></script>
-    <% } %>
+    <script  src="<%= webpackConfig.output.publicPath %>lib/jquery.min.js"></script>
+    <script  src="<%= webpackConfig.output.publicPath %>lib/vendor.dll.js"></script>
 </body>
 </html>

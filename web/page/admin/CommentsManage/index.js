@@ -4,13 +4,12 @@ import { Layout, Icon, Card, Col, Button, Modal, Pagination} from 'antd';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import Masonry from 'react-masonry-component';
-import Emojify from 'react-emojione';
+import Emojify from 'Components/Emoji';
 import './index.less';
 
 const { Header, Content, Footer } = Layout;
 const emojiStyle = {
     height: 20,
-    backgroundImage: 'url("http://ozrrmt7n9.bkt.clouddn.com/image/emojione-3.1.2-32x32.png")'
 };
 
 export default class ComponentsManege extends Component {

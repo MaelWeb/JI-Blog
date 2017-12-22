@@ -23,11 +23,7 @@
     <script type="text/javascript">
     var _SERVER_DATA = <%= htmlWebpackPlugin.options.script %>;
     </script>
-    <% if ( htmlWebpackPlugin.options.env == "development" ) { %>
-    <script src="/lib/vendor.dll.js"></script>
-    <% } else { %>
-    <script  src="<%= webpackConfig.output.publicPath %>/lib/vendor.dll.js"></script>
-    <% } %>
+    <script  src="<%= webpackConfig.output.publicPath %>lib/vendor.dll.js"></script>
 </body>
 
 </html>

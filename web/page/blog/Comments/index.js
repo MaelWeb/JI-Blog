@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import Moment from 'moment';
 import ClassNames from 'classnames';
 import Icon from '../../../components/Icon';
-import Emojify from 'react-emojione';
+import Emojify from '../../../components/Emoji';
 import CommentInput from './commentInput';
 import Axios from 'axios';
 import { message } from 'antd';
 
 const emojiStyle = {
-    height: 20,
-    backgroundImage: 'url("http://ozrrmt7n9.bkt.clouddn.com/image/emojione-3.1.2-32x32.png")'
+    height: 20
 };
 
 Moment.locale('zh-cn');

@@ -1,5 +1,7 @@
 const webpack = require('webpack');
 const nodeExternals = require('webpack-node-externals');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin');
+const chalk = require('chalk');
 const path = require('path');
 const sourcePath = path.join(__dirname, '../server');
 const outputPath = path.join(__dirname, '../dist/server/');
@@ -35,6 +37,10 @@ module.exports = {
                 NODE_ENV: JSON.stringify('production'),
                 DEBUG: false
             }
+        }),
+        new ProgressBarPlugin({
+            format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds) ',
+            clear: false
         }),
         new webpack.optimize.UglifyJsPlugin({
             // 最紧凑的输出

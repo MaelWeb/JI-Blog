@@ -4,7 +4,7 @@ const outputPath = path.join(__dirname, '../dist/client/');
 
 module.exports = {
     entry: {
-        vendor: ['react', 'react-dom', 'axios', 'classnames', "moment"]
+        vendor: ['react', 'react-dom', 'axios', 'classnames', "moment", "react-router-dom"]
     },
     output: {
         path: outputPath,

@@ -12,18 +12,18 @@ module.exports = merge(baseWebpackConfig, {
     entry: {
         admin: [
             'eventsource-polyfill',
-            'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+            'webpack-hot-middleware/client?path=/__webpack_hmr',
             '../web/page/admin/index.js',
         ],
         blog: [
             'eventsource-polyfill',
-            'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+            'webpack-hot-middleware/client?path=/__webpack_hmr',
             '../web/page/blog/index.js',
         ]
     },
     output: {
         path: outputPath,
-        publicPath: '/dist/client/',
+        publicPath: '/',
         filename: 'js/[name].js',
     },
     plugins: [
@@ -37,7 +37,6 @@ module.exports = merge(baseWebpackConfig, {
             filename: 'admin.html',
             template: path.join(templateSrc, '/admin/index.html'),
             alwaysWriteToDisk: true,
-            env: "development",
             chunks: ["admin"],
         }),
         new Html({
@@ -46,7 +45,6 @@ module.exports = merge(baseWebpackConfig, {
             html: '<%- html %>',
             script: '<%- JSON.stringify(ServerData) %>',
             alwaysWriteToDisk: true,
-            env: "development",
             chunks: ["blog"],
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
