@@ -39,7 +39,7 @@ module.exports = {
             }
         }),
         new ProgressBarPlugin({
-            format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds) ',
+            format: chalk.blue.bold("build  ") + chalk.cyan("[:bar]")  + chalk.green.bold(':percent') + ' (' + chalk.magenta(":elapsed") + ' seconds) ',
             clear: false
         }),
         new webpack.optimize.UglifyJsPlugin({

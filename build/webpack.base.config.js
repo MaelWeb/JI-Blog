@@ -5,6 +5,7 @@ const HappyPack = require('happypack');
 const os = require('os');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const sourcePath = path.join(__dirname, '../web');
 const nodeModules = path.resolve(__dirname, '../node_modules');
 
@@ -33,6 +34,7 @@ var lessLoader = ExtractTextPlugin.extract({
     ]
 })
 
+var babelPreset = process.env.NODE_ENV == 'development' ? {development: {presets: ['react-hmre']}} : {};
 
 module.exports = {
     context: sourcePath,
@@ -143,11 +145,7 @@ module.exports = {
             loader: 'babel-loader',
             query: {
                 cacheDirectory: true,
-                env: {
-                    'development': {
-                        'presets': ['react-hmre']
-                    }
-                }
+                env: babelPreset
             }
         }]),
         createHappyPlugin('happy-css', [{
@@ -184,9 +182,10 @@ module.exports = {
         //     }
         // }]),
         new ProgressBarPlugin({
-            format: '  build [:bar] ' + chalk.green.bold(':percent') + ' (:elapsed seconds) ',
+            format: chalk.blue.bold("build  ") + chalk.cyan("[:bar]")  + chalk.green.bold(':percent') + ' (' + chalk.magenta(":elapsed") + ' seconds) ',
             clear: false
-        })
+        }),
+        new LodashModuleReplacementPlugin(),
         // new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'js/[name].js' })
     ]
 };

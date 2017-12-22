@@ -27,11 +27,13 @@ module.exports = merge(baseWebpackConfig, {
                 DEBUG: false
             }
         }),
+
         new Html({
             filename: 'admin.html',
             template: path.join(templateSrc, '/admin/index.html'),
             chunks: ["admin"],
         }),
+
         new Html({
             filename: 'blog.html',
             template: path.join(templateSrc, '/blog/index.html'),
@@ -39,9 +41,7 @@ module.exports = merge(baseWebpackConfig, {
             html: '<%- html %>',
             script: '<%- JSON.stringify(ServerData) %>',
         }),
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new OptimizeCSSPlugin(),
-        new webpack.optimize.ModuleConcatenationPlugin(),
+
         new webpack.optimize.UglifyJsPlugin({
             // 最紧凑的输出
             beautify: false,
@@ -59,6 +59,10 @@ module.exports = merge(baseWebpackConfig, {
                 reduce_vars: true,
             }
         }),
+
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new OptimizeCSSPlugin(),
+        new webpack.optimize.ModuleConcatenationPlugin(),
         new BundleAnalyzerPlugin()
     ]
 });
