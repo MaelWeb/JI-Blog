@@ -2,14 +2,12 @@ import fs from 'fs'
 let config = {
     port: process.env.PORT || 8080,
     mongodb: {
-        url: 'mongodb://root:root@127.0.0.1:27017/koa-blog'
+        url: 'mongodb://root:root@127.0.0.1:27017/blog'
     },
     jwt: {
-        secret: 'me' //默认
+        secret: 'MAEL' //默认
     },
     mongodbSOptions: { //mongodb用户和密码
-        // user: 'test',
-        // pass: 'test',
         authSource: "admin",
         useMongoClient: true
     },
