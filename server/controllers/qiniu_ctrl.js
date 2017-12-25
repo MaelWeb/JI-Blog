@@ -6,9 +6,10 @@ import md5 from "md5";
 import { addPhoto } from './photo_ctrl';
 
 const { ACCESS_KEY, SECRET_KEY } = Config.upload;
+const DEFAULT_BUCKET = (process.env.NODE_ENV == "production") ? 'hynal-com' : 'hynal-com-test';
 
 function getToken(bucket) {
-    let _bucket = bucket || 'hynal-com';
+    let _bucket = bucket || DEFAULT_BUCKET;
 
     const options = {
         scope: _bucket,

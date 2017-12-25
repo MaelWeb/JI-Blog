@@ -16,7 +16,7 @@ export default class Article extends Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         const { match: {params} } = this.props;
         const { article } = this.state;
         if (!article || article.id != params.id) {

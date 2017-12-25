@@ -172,7 +172,6 @@ export default class AddArticle extends Component {
             htmlContent: articleHtml,
             abstract: articleAbstract,
             tags: selectedTags,
-            publish: false
         };
 
         if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
@@ -212,16 +211,19 @@ export default class AddArticle extends Component {
 
         let isCreate = tags.filter(t => t.name === inputValue);
         if (isCreate.length) {
-            return this.setState({
+            return (selectedTags.indexOf(isCreate[0].id) == -1) ? this.setState({
                 inputVisible: false,
-                selectedTags: [...selectedTags, isCreate[0]],
+                selectedTags: [...selectedTags, isCreate[0].id],
                 inputValue: ''
-            })
+            }) : this.setState({
+                inputVisible: false,
+                inputValue: ''
+            });
         }
         Axios.post('/api/create/tag', { name: inputValue })
             .then(res => {
                 this.setState({
-                    selectedTags: [...selectedTags, res.data.tag],
+                    selectedTags: [...selectedTags, res.data.tag.id],
                     tags: [...tags, res.data.tag],
                     inputVisible: false,
                     inputValue: ''
@@ -265,8 +267,27 @@ export default class AddArticle extends Component {
 
     exportModalOk = () => {
         const { query } = this.context;
-        const { aid, category } = this.state;
-        Axios.post(`/api/publish/article/${query.aid || aid}`, {category})
+        const { aid, category, selectedTags } = this.state;
+
+        let articleMarkdown = this.editor.getMarkdown(),
+            articleHtml = this.editor.getHTML(),
+            articleAbstract = this.state.articleAbstract;
+
+         if (articleMarkdown.indexOf("<!--more-->") !== -1) {
+            articleAbstract = articleMarkdown.split("<!--more-->")[0];
+        }
+
+        let params = {
+            title: articleTitle,
+            content: articleMarkdown,
+            htmlContent: articleHtml,
+            abstract: articleAbstract,
+            tags: selectedTags,
+        };
+
+        if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
+
+        Axios.post(`/api/publish/article/${query.aid || aid}`, {category, ...params})
             .then( res => {
                 this.context.showMessage(res.data.message);
                 this.setState({

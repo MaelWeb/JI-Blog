@@ -10,6 +10,10 @@
 @import '~antd/lib/message/style/index.less';
 
 
+
+
+
+
 /** antd **/
 
 .anticon {
@@ -112,6 +116,10 @@
 }
 
 
+
+
+
+
 /** antd end **/
 
 #app {
@@ -129,9 +137,27 @@
 }
 
 .page-main {
+    position: relative;
     height: 100%;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    z-index: 1;
+
+    &:before {
+        content: "";
+        width: 1px;
+        float: left;
+        height: calc(100% + 1px);
+        margin-left: -1px;
+        display: block;
+    }
+
+    &:after {
+        content: "";
+        width: 100%;
+        clear: both;
+        display: block;
+    }
 }
 
 .blog-header {
@@ -142,7 +168,7 @@
     padding: .07rem 4% .07rem 4%;
     font-size: .14rem;
     color: #212121;
-    z-index: 1;
+    z-index: 2;
     background-color: #fff;
     border-bottom: 1px solid #666;
     box-shadow: -2px 2px 6px #ccc;
@@ -468,10 +494,12 @@
     }
 
     .blog-photo-layout {
-        .photo-banner:after {
-            bottom: -0.11rem;
-            padding: .03rem .06rem;
-            font-size: .2rem;
+        .photo-banner {
+            &:after {
+                bottom: -0.11rem;
+                padding: .03rem .06rem;
+                font-size: .2rem;
+            }
         }
     }
 
@@ -489,7 +517,7 @@
     }
 
     .blog-articles-layout {
-        width: 90%;
+        width: 95%;
 
 
         .banners-two {
@@ -515,11 +543,17 @@
                 font-size: .1rem;
             }
         }
+
+        .banner-item .text {
+            padding: .05rem .1rem;
+            line-height: 1.2;
+            font-size: .12rem;
+        }
     }
 
     .blog-article {
         .comment-reply-from {
-            width: 90%;
+            width: 95%;
             margin: 0;
             transform: translate(-50%, -50%);
         }
@@ -527,14 +561,14 @@
 
     .blog-article .blog-article-body,
     .blog-comment {
-        width: 90%;
+        width: 95%;
     }
 
     .blog-travel-layout {
         .traverl-header {
             .aticle-info {
                 padding: .05rem .1rem;
-                width: 80%;
+                width: 85%;
                 font-size: .12rem;
             }
 
@@ -559,7 +593,7 @@
         }
 
         .travel-article-list {
-            width: 90%;
+            width: 98%;
         }
 
         .article-item {
@@ -574,6 +608,7 @@
     }
 
     .blog-about {
+        padding: .7rem 3%;
         .about-module {
             margin-bottom: .4rem;
             width: 100%;
@@ -587,13 +622,17 @@
     }
 
     .blog-photo-layout {
+        .photo-banner {
+            height: 3rem;
+            height: 35vh;
+        }
         .photo-list {
-            padding: 0 5%;
+            padding: 0 1%;
         }
     }
 
     .middle-text {
-        padding: .2rem 8% .4rem;
+        padding: .2rem 3% .4rem;
 
         h2 {
             font-size: .18rem;

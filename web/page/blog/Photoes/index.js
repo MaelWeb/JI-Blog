@@ -38,7 +38,7 @@ export default class Photo extends Component {
         this.photoLayoutDom = ReactDOM.findDOMNode(this);
         this.headerDom = ReactDOM.findDOMNode(this.refs.photoHeader);
         this.blogNavDom = document.getElementById('IdNav');
-        this.main = document.getElementsByTagName("main")[0];
+        this.main = document.getElementById("main");
 
         this.main.addEventListener("scroll", this.onscroll, false);
 
@@ -119,17 +119,17 @@ export default class Photo extends Component {
         const { photoes, width, showPhotoView, currentPhotoIndex, isShowImageGallery, imageGalleryIndex, isLoading } = this.state;
         return(
             <div className="blog-photo-layout">
-                <div className="photo-banner" ref='photoHeader'>
+                <section className="photo-banner" ref='photoHeader' style={{backgroundImage: `url(${ photoes[0] && photoes[0].src})`} } >
                     <img src={ photoes[0] && photoes[0].src } alt=""/>
                     { photoes[0] && photoes[0].desc ? <div className="photo-banner-info">
                         <p className="small" style={{ width: photoes[0].width }}><span>图记</span></p>
                         <h2 style={{ width: photoes[0].width }}>{photoes[0].desc}</h2>
                     </div> : null}
-                </div>
-                <div className="middle-text tc">
+                </section>
+                <section className="middle-text tc">
                     <h2>我以一种笨拙的方式拍照</h2>
                     <p>摄影是一种神奇的记录：照片记录了时间、风景、人物；可回放照片时才发现，原来它还记录了按下快门时的感触、思绪、心事……也许这就是为什么明明看到的是一张风景，却会让你想起谁</p>
-                </div>
+                </section>
                <Measure bounds onResize={(contentRect) => this.setState({ width: contentRect.bounds.width  })}>
                     {
                         ({ measureRef  }) => {

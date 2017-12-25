@@ -89,7 +89,8 @@ let _Page = Router
     .get('travel', async(ctx, next) => {
         ctx.query.category = 'TRAVEL';
         let articleData = await getAllPublishArticles(ctx);
-        let ServerData = {...articleData};
+        const { articles, ...others } = articleData;
+        let ServerData = {travels: articles, ...others};
 
         const html = ReactDOMServer.renderToString(
             <StaticRouter context={{}} location={ctx.req.url}>

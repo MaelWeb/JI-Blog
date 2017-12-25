@@ -136,7 +136,7 @@ module.exports = {
         jquery: "$"
     },
     plugins: [
-        new ExtractTextPlugin('css/[name].css'),
+        new ExtractTextPlugin('css/[name].[contenthash:8].css'),
         new webpack.DllReferencePlugin({
             context: path.resolve(__dirname, "../"),
             manifest: require('./vendor-manifest.json'),

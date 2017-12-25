@@ -14,7 +14,8 @@ class App extends Component {
         super(props);
         const { InitData } = props;
         this.state = {
-            InitData
+            InitData,
+            reflow: false
         };
     }
 
@@ -47,15 +48,30 @@ class App extends Component {
 
     }
 
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({
+                reflow: true
+            });
+        }, 200);
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if ((this.props.location !== prevProps.location) && document.getElementById("main")) {
+            document.getElementById("main").scrollTo(0, 0);
+        }
+    }
+
     render() {
-        const { minHeight, InitData } = this.state;
+        const { minHeight, InitData, reflow } = this.state;
         const { location, match } = this.props;
         const currentKey = location.pathname.split('/')[1] || '/';
         const timeout = { enter: 400, exit: 350 };
         return (
         <div className="blog-layout">
             <Header location={location} />
-            <TransitionGroup className="page-main" component='main'>
+            <TransitionGroup className="page-main" component='main' id="main" >
                 <CSSTransition key={currentKey} timeout={timeout} classNames="slide" appear>
                     <Switch location={location}>
                         <Route path="/" exact={true} render={ props=> (<Articles {...props} {...InitData} />) } />
@@ -67,6 +83,7 @@ class App extends Component {
                 </CSSTransition>
             </TransitionGroup>
             <Footer />
+            { reflow ? <span></span> : null }
         </div>
         )
     }

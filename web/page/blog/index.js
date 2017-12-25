@@ -4,7 +4,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import App from './App';
 import './index.less';
 
-document.addEventListener('DOMContentLoaded', ready, false);
+window.addEventListener('load', ready, false);
 
 document.addEventListener('touchmove', function(ev) {
     ev.preventDefault();

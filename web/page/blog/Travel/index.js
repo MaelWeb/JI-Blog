@@ -7,9 +7,9 @@ import Moment from 'moment';
 export default class Travel extends Component {
     constructor(props) {
         super(props)
-        const {articles, allNum, page, allPage } = props;
+        const {travels, allNum, page, allPage } = props;
         this.state = {
-            articles,
+            travels,
             allNum,
             page,
             allPage,
@@ -18,7 +18,7 @@ export default class Travel extends Component {
     }
 
     static defaultProps = {
-        articles: [],
+        travels: [],
         page: 0,
         allPage: 0
     }
@@ -28,12 +28,12 @@ export default class Travel extends Component {
         this.headerDom = ReactDOM.findDOMNode(this.refs.travelHeader);
         this.traveLayoutDom = ReactDOM.findDOMNode(this);
         this.blogNavDom = document.getElementById('IdNav');
-        this.main = document.getElementsByTagName("main")[0];
+        this.main = document.getElementById("main");
 
         this.main.addEventListener("scroll", this.onscroll, false)
-        const {articles} = this.state;
+        const {travels} = this.state;
 
-        if (!articles.length) {
+        if (!travels.length) {
             this.getArticles(1);
         }
     }
@@ -71,9 +71,9 @@ export default class Travel extends Component {
         .then(res => {
             let resData = res.data;
             this.setState(preState => {
-                let articles = preState.articles.concat(resData.articles);
+                let articles = preState.travels.concat(resData.articles);
                 return {
-                    articles: articles,
+                    travels: articles,
                     allNum: resData.allNum,
                     page: resData.page,
                     allPage: resData.allPage,
@@ -85,15 +85,15 @@ export default class Travel extends Component {
 
 
     render() {
-        const { articles, isLoading } = this.state;
+        const { travels, isLoading } = this.state;
         return (
             <div className="blog-travel-layout">
                 <div className="traverl-header" ref='travelHeader' >
-                    <img src={ articles[0] && articles[0].banner ? articles[0].banner : "//ozrrmt7n9.bkt.clouddn.com/12027196.jpg" } alt=""/>
+                    <img src={ travels[0] && travels[0].banner ? travels[0].banner : "//ozrrmt7n9.bkt.clouddn.com/12027196.jpg" } alt=""/>
                     <div className="aticle-info">
                         <p className="small"><span>游记</span></p>
-                        <h2>{ articles[0] ? articles[0].title : ''}</h2>
-                        <p className="sub-title">{ articles[0] ? articles[0].subTitle : '' }</p>
+                        <h2>{ travels[0] ? travels[0].title : ''}</h2>
+                        <p className="sub-title">{ travels[0] ? travels[0].subTitle : '' }</p>
                     </div>
                 </div>
                 <div className="middle-text tc">
@@ -101,7 +101,7 @@ export default class Travel extends Component {
                     <p>摄影是一种神奇的记录：照片记录了时间、风景、人物；可回放照片时才发现，原来它还记录了按下快门时的感触、思绪、心事……也许这就是为什么明明看到的是一张风景，却会让你想起谁</p>
                 </div>
                 <Masonry className="travel-article-list">
-                    { articles.length ? articles.map( (article, index) => {
+                    { travels.length ? travels.map( (article, index) => {
                         return index != 0 ? (
                                 <div className="article-item"  key={article.id} >
                                     <img src={article.banner || '//ozrrmt7n9.bkt.clouddn.com/14506926.jpg'} alt=""/>
