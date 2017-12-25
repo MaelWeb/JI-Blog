@@ -2,7 +2,7 @@ import fs from 'fs'
 let config = {
     port: process.env.PORT || 8080,
     mongodb: {
-        url: 'mongodb://root:root@127.0.0.1:27017/koa-blog'
+        url: 'mongodb://root:root@127.0.0.1:27017/blog'
     },
     jwt: {
         secret: 'test' //默认
@@ -15,7 +15,7 @@ let config = {
         ACCESS_KEY: 'ARA9LIvdx3JFZyADmwohmEMyjVLmNSIjVxgpzIA4',
         SECRET_KEY: 'aK19LEtOfStwsvn501Pl_h_wTqkVFnbzxlI5FNU7'
     },
-    InvitationCode: "111111"
+    InvitationCode: "1111"
 }
 // 可在private.js定义自己私有的配置
 // if (fs.existsSync(__dirname + '/private.js')) {

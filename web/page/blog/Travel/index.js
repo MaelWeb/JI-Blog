@@ -54,6 +54,7 @@ export default class Travel extends Component {
     }
 
     componentWillUnmount() {
+        this.blogNavDom.classList.remove('blog-travel-header');
         this.main.removeEventListener("scroll", this.onscroll);
     }
 
@@ -88,13 +89,13 @@ export default class Travel extends Component {
         const { travels, isLoading } = this.state;
         return (
             <div className="blog-travel-layout">
-                <div className="traverl-header" ref='travelHeader' >
-                    <img src={ travels[0] && travels[0].banner ? travels[0].banner : "//ozrrmt7n9.bkt.clouddn.com/12027196.jpg" } alt=""/>
-                    <div className="aticle-info">
+                <div className="traverl-header" ref='travelHeader' style={{backgroundImage: `url(${ travels[0] && travels[0].banner ? travels[0].banner : "//ozrrmt7n9.bkt.clouddn.com/12027196.jpg" })`} }>
+                    <img src={ travels[0] && travels[0].banner ? travels[0].banner : "//ozrrmt7n9.bkt.clouddn.com/12027196.jpg" } alt="" hidden />
+                    {travels[0] ? <div className="aticle-info">
                         <p className="small"><span>游记</span></p>
                         <h2>{ travels[0] ? travels[0].title : ''}</h2>
                         <p className="sub-title">{ travels[0] ? travels[0].subTitle : '' }</p>
-                    </div>
+                    </div>: null}
                 </div>
                 <div className="middle-text tc">
                     <h2>我从旅行中获得乐趣</h2>

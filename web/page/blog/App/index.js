@@ -58,7 +58,7 @@ class App extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if ((this.props.location !== prevProps.location) && document.getElementById("main")) {
+        if ((this.props.location !== prevProps.location)) {
             document.getElementById("main").scrollTo(0, 0);
         }
     }

@@ -84,6 +84,7 @@ export default class Photo extends Component {
 
     componentWillUnmount() {
         this.main.removeEventListener("scroll", this.onscroll);
+        this.blogNavDom.classList.remove('blog-photoes-header');
     }
 
     selectPhoto = (e, data) => {

@@ -20,4 +20,4 @@ ReactDOM.hydrate((
     <BrowserRouter >
         <App InitData={window._SERVER_DATA} />
   </BrowserRouter>
-    ), document.getElementById('app'))
+), document.getElementById('app'))
