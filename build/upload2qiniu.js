@@ -102,7 +102,6 @@ let uploadFile = (uptoken, key, localFile) => {
         uploadCount++;
         if (uploadCount === needUpload.length) {
             dealFileQN()
-
         }
     });
 }
@@ -158,17 +157,13 @@ let dealFileQN = () => {
                     debugFlag && console.log(respBody);
                 }
             }
-            // writeQnlog()
+            writeQnlog()
             // refreshCDN(needUpload);
         });
         // deleteKeys(qndataKeys)
     } else {
-        console.log('there is not have extra file need to delete')
-        if (initFirst) {
-            writeQnlog()
-        } else {
-            // refreshCDN(needUpload);
-        }
+        console.log('there is not have extra file need to delete');
+        writeQnlog()
     }
 
 }
