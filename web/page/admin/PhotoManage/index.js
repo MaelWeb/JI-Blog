@@ -127,7 +127,7 @@ export default class ArticleManege extends Component {
                     this.setState(preState => {
                         let photoes = resData.photoes.map(img => {
                             return {
-                                imgUrl: `${IMG_URL}${img.key}?${IMG_QUERY}`,
+                                imgUrl: `${IMG_URL}${img.key}${IMG_QUERY}`,
                                 key: img.key,
                                 text: img.desc,
                                 id: img.id,
@@ -191,11 +191,7 @@ export default class ArticleManege extends Component {
 
     doDelete(id) {
         return Axios
-            .delete(`/api/photo/${id}`, {
-                params: {
-                    bucket: (process.env.NODE_ENV == "production") ? "hynal-com" : "hynal-com-test"
-                }
-            })
+            .delete(`/api/photo/${id}`)
             .then( res => {
                 this.context.showMessage(res.data.message);
                 if (res.data.code == 200) {

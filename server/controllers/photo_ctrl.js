@@ -96,7 +96,7 @@ export async function deletePhoto(ctx) {
         }
     });
 
-    deleteFileInQiniu(ctx.query.bucket, photo.key);
+    deleteFileInQiniu(photo.key);
 
 
     return ctx.body = {

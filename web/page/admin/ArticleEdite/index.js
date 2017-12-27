@@ -336,29 +336,33 @@ export default class AddArticle extends Component {
 
     exportModalCancle = () => {
         this.setState({
-            isCategoryModalShow: false
+            isCategoryModalShow: false,
+            newBanner: null
         });
     }
 
     bannerModalCancle = () => {
-        const { newBanner } = this.state;
-
-        newBanner && Axios.post("/api/filedelete", {
-            bucket: (process.env.NODE_ENV == "production") ? "hynal-com" : "hynal-com-test",
-            key: newBanner
-        });
-
-        this.setState({
-            isBannerModalShow: false,
-            newBanner: ''
-        })
+        this.deleteNewBanner(this.state.newBanner)
+            .then(res => {
+                this.setState({
+                    isBannerModalShow: false,
+                    newBanner: ''
+                });
+            })
     }
 
     bannerModalOk = () => {
         const { newBanner } = this.state;
 
         this.setState({
-            banner: `${IMG_URL}${newBanner}${IMG_QUERY}`
+            banner: `${IMG_URL}${newBanner}`,
+            isBannerModalShow: false
+        });
+    }
+
+    deleteNewBanner(key) {
+        key && Axios.post("/api/filedelete", {
+            key: key
         });
     }
 
@@ -371,8 +375,9 @@ export default class AddArticle extends Component {
 
     uploadHandleChange = (info) => {
         if (info.file.status === 'done') {
-          let newBanner = info.file.response.data.key;
-          this.setState({ newBanner })
+            this.deleteNewBanner(this.state.newBanner);
+            let newBanner = info.file.response.data.key;
+            this.setState({ newBanner })
         }
     }
 
@@ -463,7 +468,7 @@ export default class AddArticle extends Component {
                           >
                             {
                               (banner || newBanner) ?
-                                <img src={ newBanner ? `${IMG_URL}${newBanner}${IMG_QUERY}` : banner } alt="" className="avatar" /> :
+                                <img src={ newBanner ? `${IMG_URL}${newBanner}` : banner } alt="" className="avatar" /> :
                                 <Icon type="plus" className="avatar-uploader-trigger" />
                             }
                           </Upload>

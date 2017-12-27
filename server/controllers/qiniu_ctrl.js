@@ -167,7 +167,8 @@ export async function articleImageUpload(ctx) {
     }
 }
 
-export async function deleteFileInQiniu(bucket, key) {
+export async function deleteFileInQiniu(key, bucket) {
+    let _bucket = bucket || DEFAULT_BUCKET;
     const mac = new QiNiu.auth.digest.Mac(ACCESS_KEY, SECRET_KEY);
     const config = new QiNiu.conf.Config();
     //config.useHttpsDomain = true;
@@ -175,7 +176,7 @@ export async function deleteFileInQiniu(bucket, key) {
     const bucketManager = new QiNiu.rs.BucketManager(mac, config);
 
     return new Promise((resolve, reject) => {
-        bucketManager.delete(bucket, key, function(err, respBody, respInfo) {
+        bucketManager.delete(_bucket, key, function(err, respBody, respInfo) {
             if (err) {
                 reject(err);
             } else {
@@ -188,7 +189,7 @@ export async function deleteFileInQiniu(bucket, key) {
 export async function deleteFile(ctx) {
     let postData = ctx.request.body;
 
-    let result = await deleteFileInQiniu(postData.bucket, postData.key);
+    let result = await deleteFileInQiniu(postData.key, postData.bucket);
 
     ctx.body = result;
 }

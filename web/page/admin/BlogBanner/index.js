@@ -43,8 +43,8 @@ export default class BannerSetting extends Component {
             message.success("上传成功");
             const { response } = info.file;
             this.setState({
-                imageUpUrl: `${IMG_URL}${response.data.key}${IMG_QUERY}`,
-                imageUrl: `${IMG_URL}${response.data.key}${IMG_QUERY}`
+                imageUpUrl: `${IMG_URL}${response.data.key}`,
+                imageUrl: `${IMG_URL}${response.data.key}`
             });
         }
     }
@@ -90,7 +90,7 @@ export default class BannerSetting extends Component {
             message.success("上传成功");
             const { response } = info.file;
             this.setState(preState => {
-                preState.banners[index].url = `${IMG_URL}${response.data.key}${IMG_QUERY}`;
+                preState.banners[index].url = `${IMG_URL}${response.data.key}`;
 
                 return { banners: preState.banners}
             });
