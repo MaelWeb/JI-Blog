@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Button, Icon, Tag, Input, Modal, Breadcrumb, Spin, Radio} from 'antd';
+import { Layout, Button, Icon, Tag, Input, Modal, Breadcrumb, Spin, Radio, Upload} from 'antd';
 import EditorMD from 'Components/EditorMd';
+import {IMG_URL, IMG_QUERY} from '../../../config/';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import classNames from 'classnames';
@@ -22,12 +23,15 @@ export default class AddArticle extends Component {
             tags: [],
             articleTitle: '',
             articleAbstract: '',
+            banner: '',
+            newBanner: '',
             isAbstractModalShow: false,
             isCategoryModalShow: false,
             markdownContent: null,
             aid: null,
             category: 'DEFAULT',
-            isPublish: false
+            isPublish: false,
+            isBannerModalShow: true
         };
     }
 
@@ -60,7 +64,8 @@ export default class AddArticle extends Component {
                     selectedTags: article.tags.map(tag => tag.id ),
                     markdownContent: article.content,
                     category: article.category,
-                    isPublish: article.publish
+                    isPublish: article.publish,
+                    banner: article.banner
                 })
             })
     }
@@ -90,7 +95,7 @@ export default class AddArticle extends Component {
     }
 
     createArticle = () => {
-        const { articleTitle, selectedTags } = this.state;
+        let { articleTitle, selectedTags, banner } = this.state;
 
         let articleMarkdown = this.editor.getMarkdown(),
             articleHtml = this.editor.getHTML(),
@@ -105,9 +110,14 @@ export default class AddArticle extends Component {
 
         let images = [], temp;
 
-        while( (temp = reg.exec(articleHtml)) != null ) {
-            images.push(temp[1]);
+        if (!banner) {
+            while( (temp = reg.exec(articleHtml)) != null ) {
+                images.push(temp[1]);
+            }
+
+            banner = images[0] || '';
         }
+
 
         let params = {
             title: articleTitle,
@@ -116,7 +126,7 @@ export default class AddArticle extends Component {
             abstract: articleAbstract,
             tags: selectedTags,
             publish: false,
-            banner: images.length ? images[0] : ''
+            banner
         };
 
         if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
@@ -155,7 +165,7 @@ export default class AddArticle extends Component {
     }
 
     saveArticle = ()=> {
-        const { articleTitle, selectedTags, aid } = this.state;
+        const { articleTitle, selectedTags, aid, banner } = this.state;
         const { query } = this.context;
 
         let articleMarkdown = this.editor.getMarkdown(),
@@ -172,6 +182,7 @@ export default class AddArticle extends Component {
             htmlContent: articleHtml,
             abstract: articleAbstract,
             tags: selectedTags,
+            banner
         };
 
         if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
@@ -246,6 +257,12 @@ export default class AddArticle extends Component {
         });
     }
 
+    showBannerModal = () => {
+        this.setState({
+            isBannerModalShow: true
+        });
+    }
+
     showExportModal = () => {
         this.setState({
             isCategoryModalShow: true
@@ -267,7 +284,7 @@ export default class AddArticle extends Component {
 
     exportModalOk = () => {
         const { query } = this.context;
-        const { aid, category, selectedTags } = this.state;
+        const { aid, category, selectedTags, banner } = this.state;
 
         let articleMarkdown = this.editor.getMarkdown(),
             articleHtml = this.editor.getHTML(),
@@ -283,6 +300,7 @@ export default class AddArticle extends Component {
             htmlContent: articleHtml,
             abstract: articleAbstract,
             tags: selectedTags,
+            banner
         };
 
         if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
@@ -322,6 +340,28 @@ export default class AddArticle extends Component {
         });
     }
 
+    bannerModalCancle = () => {
+        const { newBanner } = this.state;
+
+        newBanner && Axios.post("/api/filedelete", {
+            bucket: (process.env.NODE_ENV == "production") ? "hynal-com" : "hynal-com-test",
+            key: newBanner
+        });
+
+        this.setState({
+            isBannerModalShow: false,
+            newBanner: ''
+        })
+    }
+
+    bannerModalOk = () => {
+        const { newBanner } = this.state;
+
+        this.setState({
+            banner: `${IMG_URL}${newBanner}${IMG_QUERY}`
+        });
+    }
+
 
     onRadioChange = e => {
         this.setState({
@@ -329,9 +369,16 @@ export default class AddArticle extends Component {
         })
     }
 
+    uploadHandleChange = (info) => {
+        if (info.file.status === 'done') {
+          let newBanner = info.file.response.data.key;
+          this.setState({ newBanner })
+        }
+    }
+
 
     render() {
-        const { selectedTags, inputVisible, inputValue, tags, isAbstractModalShow, articleAbstract, articleTitle, markdownContent, aid, isCategoryModalShow, category, isPublish } = this.state;
+        const { selectedTags, inputVisible, inputValue, tags, isAbstractModalShow, articleAbstract, articleTitle, markdownContent, aid, isCategoryModalShow, category, isPublish, banner, isBannerModalShow, newBanner } = this.state;
         const { query } = this.context;
 
         return(
@@ -374,7 +421,8 @@ export default class AddArticle extends Component {
                                 onPressEnter={this.handleInputConfirm}/>
                         )}
                         {!inputVisible && <Button size="small" type="dashed" onClick={this.showInput}>+ New Tag</Button>}
-                         <Button className="fr" type="primary" size="small" icon="pushpin-o" ghost onClick={ this.showModal }>{ articleAbstract ? '修改摘要' : '添加摘要'}</Button>
+                        <Button className="fr" type="primary" size="small" icon="pushpin-o" ghost onClick={ this.showModal }>{ articleAbstract ? '修改摘要' : '添加摘要'}</Button>
+                        <Button className="fr add-banner" type="primary" size="small" icon="picture" ghost onClick={ this.showBannerModal }>{ banner ? '修改Banner' : '添加Banner'}</Button>
                     </div>
                     { query.aid &&  ( markdownContent ? <EditorMD config={{markdown: markdownContent, height: '100%'}} ref={ this.saveEditorRef } /> : <Spin size="large" className='spiner'/>)}
                     { !query.aid ? <EditorMD config={{ markdown: '### 请开始你的表演' ,height: '100%'}} ref={ this.saveEditorRef } /> : null}
@@ -397,6 +445,29 @@ export default class AddArticle extends Component {
                         <Radio value='DEFAULT'>首页</Radio>
                         <Radio value='TRAVEL' >游记</Radio>
                     </RadioGroup>
+                </Modal>
+                <Modal
+                    title="Banner设置"
+                    visible={isBannerModalShow}
+                    mask={ false }
+                    onOk={ this.bannerModalOk }
+                    onCancel={this.bannerModalCancle}>
+                    <div className="add-article-banner-box">
+                        <Upload
+                            className="avatar-uploader"
+                            accept = "image/*"
+                            action = "/api/fileupload"
+                            data = { { prefix: 'article/' } }
+                            showUploadList={false}
+                            onChange={ this.uploadHandleChange }
+                          >
+                            {
+                              (banner || newBanner) ?
+                                <img src={ newBanner ? `${IMG_URL}${newBanner}${IMG_QUERY}` : banner } alt="" className="avatar" /> :
+                                <Icon type="plus" className="avatar-uploader-trigger" />
+                            }
+                          </Upload>
+                    </div>
                 </Modal>
             </Layout>
         )

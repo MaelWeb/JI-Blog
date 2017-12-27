@@ -48,15 +48,15 @@ export async function uploadToQiniu(ctx, params = {}) {
 
     return new Promise((resolve, reject) => {
         busboy.on('file', function(fieldname, file, filename, encoding, mimetype) {
-            console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
+            // console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
 
             file.on('data', function(data) {
-                console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
+                // console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
                 buf = Buffer.concat([buf, data]);
             });
 
             file.on('end', function() {
-                console.log('File [' + fieldname + '] Finished');
+                // console.log('File [' + fieldname + '] Finished');
                 let time = +new Date();
                 let key = params.prefix ? `${params.prefix}${md5(time )}` : md5(time);
                 // 获取上传token
@@ -72,7 +72,7 @@ export async function uploadToQiniu(ctx, params = {}) {
                         })
                     }
                     if (respInfo.statusCode == 200) {
-                        console.log('respBody200', respBody);
+                        // console.log('respBody200', respBody);
                         resolve({
                             code: 200,
                             data: {
@@ -81,8 +81,8 @@ export async function uploadToQiniu(ctx, params = {}) {
                             }
                         })
                     } else {
-                        console.log('respInfo', respInfo.statusCode);
-                        console.log('respBody', respBody);
+                        // console.log('respInfo', respInfo.statusCode);
+                        // console.log('respBody', respBody);
                         resolve({
                             code: respInfo.statusCode,
                             ...respBody
@@ -94,7 +94,7 @@ export async function uploadToQiniu(ctx, params = {}) {
         });
 
         busboy.on('field', function(fieldname, val, fieldnameTruncated, valTruncated, encoding, mimetype) {
-            console.log('Field [' + fieldname + ']: value: ' + Util.inspect(val));
+            // console.log('Field [' + fieldname + ']: value: ' + Util.inspect(val));
             params[fieldname] = val;
         });
 
@@ -109,7 +109,7 @@ export async function fileUpload(ctx) {
     ctx.body = result;
 }
 
-export async function getPhotoes (ctx) {
+export async function getPhotoes(ctx) {
     let params = ctx.query;
 
     const bucket = params.bucket || 'hynal-com';
@@ -155,10 +155,7 @@ export async function getPhotoes (ctx) {
 }
 
 export async function articleImageUpload(ctx) {
-    let result = await uploadToQiniu(ctx, {prefix: 'image/'});
-
-
-    console.log('articleImageUpload', result);
+    let result = await uploadToQiniu(ctx, { prefix: 'image/' });
 
     const IMG_URL = '//ozrrmt7n9.bkt.clouddn.com/';
     const IMG_QUERY = 'imageView2/0/interlace/1/q/75|imageslim';
@@ -170,3 +167,28 @@ export async function articleImageUpload(ctx) {
     }
 }
 
+export async function deleteFileInQiniu(bucket, key) {
+    const mac = new QiNiu.auth.digest.Mac(ACCESS_KEY, SECRET_KEY);
+    const config = new QiNiu.conf.Config();
+    //config.useHttpsDomain = true;
+    config.zone = QiNiu.zone.Zone_z0;
+    const bucketManager = new QiNiu.rs.BucketManager(mac, config);
+
+    return new Promise((resolve, reject) => {
+        bucketManager.delete(bucket, key, function(err, respBody, respInfo) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(respInfo)
+            }
+        });
+    })
+}
+
+export async function deleteFile(ctx) {
+    let postData = ctx.request.body;
+
+    let result = await deleteFileInQiniu(postData.bucket, postData.key);
+
+    ctx.body = result;
+}

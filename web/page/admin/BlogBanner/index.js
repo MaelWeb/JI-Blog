@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom';
 import { Layout, Upload, Button, Input, Icon, message } from 'antd';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
+import {IMG_URL, IMG_QUERY} from '../../../config/';
 import './index.less';
 
 const {Header, Content, Footer} = Layout;
-const IMG_URL = '//ozrrmt7n9.bkt.clouddn.com/';
-const IMG_QUERY = '?imageView2/0/interlace/1/q/75|imageslim';
 
 export default class BannerSetting extends Component {
     constructor(props) {

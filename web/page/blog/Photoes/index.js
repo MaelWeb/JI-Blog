@@ -7,9 +7,8 @@ import Measure from 'react-measure';
 import ImageGallery from '../../../components/ImageGallery';
 import ImageItem from './imageItem.js';
 import Icon from '../../../components/Icon';
+import {IMG_URL, IMG_QUERY} from '../../../config/';
 
-const IMG_URL = '//ozrrmt7n9.bkt.clouddn.com/';
-const IMG_QUERY = 'imageView2/0/interlace/1/q/75|imageslim';
 
 export default class Photo extends Component {
     constructor(props) {
@@ -101,8 +100,8 @@ export default class Photo extends Component {
             allphoto.map( photo => {
                 let newPho = {
                     src: `${IMG_URL}${photo.key}?${IMG_QUERY}`,
-                    original: `${IMG_URL}${photo.key}?${IMG_QUERY}`,
-                    thumbnail: `${IMG_URL}${photo.key}?${IMG_QUERY}`,
+                    original: `${IMG_URL}${photo.key}${IMG_QUERY}`,
+                    thumbnail: `${IMG_URL}${photo.key}${IMG_QUERY}`,
                     width: photo.width,
                     height: photo.height,
                     desc: photo.desc

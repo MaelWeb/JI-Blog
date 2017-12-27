@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { Layout, Icon, Upload, Modal, Input, Button, Card, Col, Tooltip } from 'antd';
+import { Layout, Icon, Upload, Modal, Input, Button, Card, Col, Tooltip, Pagination } from 'antd';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import Masonry from 'react-masonry-component';
+import {IMG_URL, IMG_QUERY} from '../../../config/';
 import './index.less';
 
-const { Header, Content } = Layout;
-const IMG_URL = '//ozrrmt7n9.bkt.clouddn.com/';
-const IMG_QUERY = 'imageView2/0/interlace/1/q/75|imageslim';
-
+const { Header, Content, Footer } = Layout;
 const { TextArea } = Input;
 
 export default class ArticleManege extends Component {
@@ -23,7 +21,11 @@ export default class ArticleManege extends Component {
             photoes: [],
             one:[],
             uploadRvent: null,
-            addPhotoStatus: false
+            addPhotoStatus: false,
+            pageSize: 12,
+            page: 1,
+            allNum: 0,
+            allPage: 0
         };
     }
 
@@ -32,7 +34,7 @@ export default class ArticleManege extends Component {
     };
 
     componentWillMount() {
-        this.getPhotoes();
+        this.getPhotoes(1);
         this.getOne();
     }
 
@@ -42,21 +44,27 @@ export default class ArticleManege extends Component {
         })
     }
 
-    getPhotoes() {
-        Axios.get('/api/get/photoes')
-            .then(res => {
-                let resData = res.data;
-                let photoes = resData.photoes.map(img => {
-                    return {
-                        imgUrl: `${IMG_URL}${img.key}?${IMG_QUERY}`,
-                        key: img.key,
-                        text: img.desc,
-                        id: img.id,
-                        isBanner: img.isBanner || false
-                    }
-                });
-                this.setState({photoes})
-            })
+    getPhotoes(_page) {
+        const { pageSize, page } = this.state;
+        Axios.get('/api/get/photoes', {
+            params: {
+                page: _page || page,
+                size: pageSize
+            }
+        })
+        .then(res => {
+            let resData = res.data;
+            let photoes = resData.photoes.map(img => {
+                return {
+                    imgUrl: `${IMG_URL}${img.key}?${IMG_QUERY}`,
+                    key: img.key,
+                    text: img.desc,
+                    id: img.id,
+                    isBanner: img.isBanner || false
+                }
+            });
+            this.setState({photoes, page: _page, allPage: resData.allPage, allNum: resData.allNum})
+        })
     }
 
     getOne() {
@@ -155,8 +163,56 @@ export default class ArticleManege extends Component {
                 })
     }
 
+    changPhotoText = (event, photo) => {
+        event.target.blur();
+        Axios.post(`/api/update/photo/${photo.id}`, {desc: event.target.value})
+            .then( res => {
+                let resData = res.data;
+                if ( resData.code == 200) {
+                    this.context.showMessage("修改成功");
+                } else {
+                    this.context.showMessage(resData.message);
+                }
+            })
+    }
+
+    deletePhoto = photo => {
+        Modal.confirm({
+            title: '确定删除照片?',
+            content: '照片删除后不可恢复',
+            okText: '删除',
+            okType: 'danger',
+            cancelText: '取消',
+            onOk: () => {
+                return this.doDelete(photo.id);
+            }
+        });
+    }
+
+    doDelete(id) {
+        return Axios
+            .delete(`/api/photo/${id}`, {
+                params: {
+                    bucket: (process.env.NODE_ENV == "production") ? "hynal-com" : "hynal-com-test"
+                }
+            })
+            .then( res => {
+                this.context.showMessage(res.data.message);
+                if (res.data.code == 200) {
+                    this.getPhotoes();
+                }
+            })
+            .catch( err => {
+                this.context.showMessage(err);
+            })
+    }
+
+    changePage = page => {
+        this.getPhotoes(page);
+    }
+
     render() {
-        const { previewVisible, previewImage, addPhotoStatus, fileList, photoes, one } = this.state;
+        const { previewVisible, previewImage, addPhotoStatus, fileList, photoes, one, pageSize, page, allNum } = this.state;
         let data = photoes.length ? photoes : one;
         return ( <Layout className = "photo-manage-layout" >
                 <Header className = 'photo-manage-header clearfix' >
@@ -172,7 +228,7 @@ export default class ArticleManege extends Component {
                                 </div>
                                 <div className="one-card">
                                     <div className="text">
-                                        <p>{item.text}</p>
+                                        <Input  className='text-input' onPressEnter={ e => { this.changPhotoText(e, item) } } defaultValue={item.text} />
                                     </div>
                                     <div className="banner-setting" onClick={ () => {this.setToBanner(i)} }>
                                     <Tooltip placement="top" title={item.isBanner ? '点击取消设置为Banner' : '点击设置为Banner'}>
@@ -180,9 +236,11 @@ export default class ArticleManege extends Component {
                                     </Tooltip>
                                     </div>
                                 </div>
+                                <Icon type="delete" className="photo-delete" onClick={ e => {this.deletePhoto(item)} } />
                             </Card></Col>) : null }
                     </Masonry>
                 </Content>
+                { photoes.length ? <Footer><Pagination className='tc' showQuickJumper current={ page }  total={allNum} onChange={ this.changePage } pageSize={pageSize} /></Footer> : null}
                 <Modal visible = { previewVisible } footer = { null } onCancel = { this.handleCancelPreview } >
                     <img alt = "example" style = { { width: '100%' } } src = { previewImage }/>
                 </Modal>

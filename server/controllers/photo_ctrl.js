@@ -1,5 +1,5 @@
 import Photo from '../models/photo_model';
-import { uploadToQiniu } from './qiniu_ctrl';
+import { uploadToQiniu, deleteFileInQiniu } from './qiniu_ctrl';
 
 export async function addPhoto(ctx) {
     let postData = ctx.request.body;
@@ -77,4 +77,30 @@ export async function getPhotoes(ctx) {
         allPage: Math.ceil(allNum / size)
     }
 
+}
+
+export async function deletePhoto(ctx) {
+    let id = ctx.params.id;
+
+     const photo = await Photo.findByIdAndRemove(id).catch(err => {
+        if (err.name === 'CastError') {
+            return ctx.body = {
+                code: 400,
+                message: "图片不存在或已删除"
+            }
+        } else {
+            return ctx.body = {
+                code: 500,
+                message: "服务器内部错误"
+            }
+        }
+    });
+
+    deleteFileInQiniu(ctx.query.bucket, photo.key);
+
+
+    return ctx.body = {
+        code: 200,
+        message: '删除成功'
+    };
 }

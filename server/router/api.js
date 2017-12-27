@@ -4,8 +4,8 @@ import { singUp, signIn, getUserInfo, updateUserInfo } from '../controllers/user
 import { createArticle, getAllArticles, getArticle, deleteArticle, modifyArticle, getAllPublishArticles, publishArticle, notPublishArticle } from '../controllers/article_ctr';
 import { getOneContent } from '../controllers/common_ctr';
 import { createTag, getAllTags, updateTagCount } from '../controllers/tags_ctr';
-import { fileUpload, articleImageUpload } from '../controllers/qiniu_ctrl';
-import { addPhoto, getPhotoes, updatePhoto } from '../controllers/photo_ctrl';
+import { fileUpload, articleImageUpload, deleteFile } from '../controllers/qiniu_ctrl';
+import { addPhoto, getPhotoes, updatePhoto, deletePhoto } from '../controllers/photo_ctrl';
 import { creactComment, getComments, showAndHideComent, deleteComment } from '../controllers/comment_ctr';
 import { createBanner, getBanners, updateBanner, deleteBanner } from '../controllers/banner_ctr';
 
@@ -42,8 +42,10 @@ let _Api = Router.get('/signout', (ctx) => {
     .post('/update/article/:id', apiVerify, modifyArticle)
     .post('/update/photo/:id', apiVerify, updatePhoto)
     .post('/fileupload', apiVerify, fileUpload)
+    .post('/filedelete', apiVerify, deleteFile)
     .post('/article/image/upload', apiVerify, articleImageUpload)
     .post('/add/photo', apiVerify, addPhoto)
+    .delete('/photo/:id', apiVerify, deletePhoto)
     .post('/create/banner', apiVerify, createBanner)
     .post('/update/banner/:id', apiVerify, updateBanner)
     .delete('/banner/:id', apiVerify, deleteBanner)
