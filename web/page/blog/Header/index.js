@@ -43,7 +43,7 @@ export default class Header extends Component {
         let path = location.pathname.split('/');
         let hCls = ClassNames('blog-header', {
             'show-nav': showNav,
-            [`blog-${path[1]}-header`]: path[1]
+             [`blog-${path[1]}-header`]: path[1]
         });
         return (
             <header className={ hCls } ref="blogHeader" id='IdNav'>

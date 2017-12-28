@@ -37,9 +37,10 @@ export default class Photo extends Component {
         this.photoLayoutDom = ReactDOM.findDOMNode(this);
         this.headerDom = ReactDOM.findDOMNode(this.refs.photoHeader);
         this.blogNavDom = document.getElementById('IdNav');
-        this.main = document.getElementById("main");
 
-        this.main.addEventListener("scroll", this.onscroll, false);
+        this.blogNavDom.classList.add('blog-photo-header');
+
+        window.addEventListener("scroll", this.onscroll, false);
 
         const { photoes } = this.state;
         if (!photoes.length)
@@ -67,22 +68,24 @@ export default class Photo extends Component {
 
     onscroll = (e) => {
         e = e || window.event;
-        let _scrollTop = this.main.scrollTop;
+        let _scrollTop =  window.pageYOffset
+                || (document.documentElement && document.documentElement.scrollTop)
+                || document.body.scrollTop
+                || 0;
 
         if (_scrollTop >= (this.headerDom.offsetHeight - this.blogNavDom.offsetHeight)) {
             this.blogNavDom.classList.remove('blog-photoes-header');
         } else {
             this.blogNavDom.classList.add('blog-photoes-header');
         }
-
         const { page, allPage } = this.state;
-        if ( (_scrollTop + this.main.offsetHeight) > (this.photoLayoutDom.offsetHeight - 100) ) {
+        if ( (_scrollTop + document.documentElement.clientHeight) > (this.photoLayoutDom.offsetHeight - 100) ) {
             (page < allPage) && this.getPhotos(page + 1);
         }
     }
 
     componentWillUnmount() {
-        this.main.removeEventListener("scroll", this.onscroll);
+        window.removeEventListener("scroll", this.onscroll);
         this.blogNavDom.classList.remove('blog-photoes-header');
     }
 

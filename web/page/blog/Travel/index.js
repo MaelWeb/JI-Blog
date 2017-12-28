@@ -24,14 +24,15 @@ export default class Travel extends Component {
         allPage: 0
     }
 
-
     componentDidMount() {
         this.headerDom = ReactDOM.findDOMNode(this.refs.travelHeader);
         this.traveLayoutDom = ReactDOM.findDOMNode(this);
         this.blogNavDom = document.getElementById('IdNav');
-        this.main = document.getElementById("main");
 
-        this.main.addEventListener("scroll", this.onscroll, false)
+        this.blogNavDom.classList.add('blog-travel-header');
+
+
+        window.addEventListener("scroll", this.onscroll, false)
         const {travels} = this.state;
 
         if (!travels.length) {
@@ -41,22 +42,26 @@ export default class Travel extends Component {
 
     onscroll = (e) => {
         e = e || window.event;
-        let _scrollTop = this.main.scrollTop;
-
+        let _scrollTop = window.pageYOffset
+                || (document.documentElement && document.documentElement.scrollTop)
+                || document.body.scrollTop
+                || 0;;
         if (_scrollTop >= (this.headerDom.offsetHeight - this.blogNavDom.offsetHeight)) {
             this.blogNavDom.classList.remove('blog-travel-header');
         } else {
             this.blogNavDom.classList.add('blog-travel-header');
         }
+
+        console.log(_scrollTop);
         const { page, allPage } = this.state;
-        if ( (_scrollTop + this.main.offsetHeight) > (this.traveLayoutDom.offsetHeight - 100) ) {
+        if ( (_scrollTop + document.documentElement.clientHeight) > (this.traveLayoutDom.offsetHeight - 100) ) {
             (page < allPage) && this.getArticles(page + 1);
         }
     }
 
     componentWillUnmount() {
         this.blogNavDom.classList.remove('blog-travel-header');
-        this.main.removeEventListener("scroll", this.onscroll);
+        window.removeEventListener("scroll", this.onscroll);
     }
 
     getArticles = (_page) => {

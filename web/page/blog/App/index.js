@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch, withRouter } from 'react-router-dom';
-import { CSSTransition, TransitionGroup, CSSTransitionGroup } from 'react-transition-group'
+import { CSSTransition, TransitionGroup, CSSTransitionGroup } from 'react-transition-group';
+import ScrollToTop from '../../../components/ScrollToTop';
 import Articles from '../Articles';
 import Article from '../Article';
 import Photoes from '../Photoes';
@@ -48,18 +49,9 @@ class App extends Component {
 
     }
 
-
-    componentDidMount() {
-        setTimeout(() => {
-            this.setState({
-                reflow: true
-            });
-        }, 200);
-    }
-
     componentDidUpdate(prevProps, prevState) {
         if ((this.props.location !== prevProps.location)) {
-            document.getElementById("main").scrollTo(0, 0);
+            window.scrollTo(0, 0);
         }
     }
 
@@ -81,9 +73,9 @@ class App extends Component {
                         <Route path="/travel" render={ props=> (<Travel {...props} {...InitData} />) } />
                     </Switch>
                 </CSSTransition>
-                <Footer />
             </TransitionGroup>
-            { reflow ? <span></span> : null }
+            <ScrollToTop />
+            <Footer />
         </div>
         )
     }
