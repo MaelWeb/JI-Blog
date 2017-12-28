@@ -86,8 +86,7 @@ export default class Articles extends Component {
         if (banners.length == 1)
             return (
                 <div className="banners">
-                    <div className="banner-item"><a href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
-                        <img src={banners[0].url} />
+                    <div className="banner-item" style={ {backgroundImage: `url(${banners[0].url})`} }><a href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
                         <div className="text"><p className='nowrapmulti'>{banners[0].text}</p></div>
                     </a></div>
                 </div>

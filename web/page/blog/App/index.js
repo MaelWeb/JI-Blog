@@ -81,8 +81,8 @@ class App extends Component {
                         <Route path="/travel" render={ props=> (<Travel {...props} {...InitData} />) } />
                     </Switch>
                 </CSSTransition>
+                <Footer />
             </TransitionGroup>
-            <Footer />
             { reflow ? <span></span> : null }
         </div>
         )

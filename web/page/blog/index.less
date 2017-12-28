@@ -1,18 +1,6 @@
 @import '../../commonless/app.less';
 @import '../../components/ImageGallery/index.less';
 @import '../../components/Icon/iconfont.less';
-@import './articles/articles.less';
-@import './article/index.less';
-@import './Photoes/index.less';
-@import './About/index.less';
-@import './Travel/index.less';
-@import './Comments/index.less';
-@import '~antd/lib/message/style/index.less';
-
-
-
-
-
 
 /** antd **/
 
@@ -117,9 +105,6 @@
 
 
 
-
-
-
 /** antd end **/
 
 #app {
@@ -132,8 +117,8 @@
 
 .blog-layout {
     height: 100%;
-    padding-bottom: .32rem;
     color: #212121;
+    padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
 }
 
 .page-main {
@@ -158,6 +143,12 @@
         clear: both;
         display: block;
     }
+}
+
+[class*=layout] {
+    padding: .1px;
+    min-height: 100%;
+    min-height: calc(~"100% - .32rem");
 }
 
 .blog-header {
@@ -329,10 +320,10 @@
 }
 
 .blog-footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    // position: absolute;
+    // bottom: 0;
+    // left: 0;
+    // width: 100%;
     padding: .1rem;
     line-height: 1;
     font-size: .12rem;
@@ -397,9 +388,23 @@
     }
 }
 
+@import './articles/articles.less';
+@import './article/index.less';
+@import './Photoes/index.less';
+@import './About/index.less';
+@import './Travel/index.less';
+@import './Comments/index.less';
+@import '~antd/lib/message/style/index.less';
+
+
 @media screen and (max-width: 1366px) {
     .blog-articles-layout {
         width: 80%;
+
+        .banners {
+            height: 3.8rem;
+            height: 60vh;
+        }
 
         .banners-two {
             height: 2.7rem;
@@ -435,6 +440,10 @@
 
     .blog-articles-layout {
         width: 80%;
+
+        .banners {
+            height: 3.5rem;
+        }
 
         .banners-two {
             height: 2.2rem;
@@ -482,6 +491,9 @@
     }
 
     .blog-articles-layout {
+        .banners {
+            height: 3rem;
+        }
 
         .banners-two {
             height: 1.8rem;
@@ -526,6 +538,9 @@
     .blog-articles-layout {
         width: 95%;
 
+        .banners {
+            height: 2rem;
+        }
 
         .banners-two {
             height: 1.2rem;
