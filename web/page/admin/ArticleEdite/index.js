@@ -118,6 +118,7 @@ export default class AddArticle extends Component {
             banner = images[0] || '';
         }
 
+        if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
 
         let params = {
             title: articleTitle,
@@ -129,7 +130,6 @@ export default class AddArticle extends Component {
             banner
         };
 
-        if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
 
         if (!articleAbstract) {
            return ModalConfirm({
@@ -176,6 +176,8 @@ export default class AddArticle extends Component {
             articleAbstract = articleMarkdown.split("<!--more-->")[0];
         }
 
+        if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
+
         let params = {
             title: articleTitle,
             content: articleMarkdown,
@@ -185,7 +187,6 @@ export default class AddArticle extends Component {
             banner
         };
 
-        if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
 
         Axios.post(`/api/update/article/${query.aid || aid}`, params)
             .then( res => {
@@ -284,7 +285,7 @@ export default class AddArticle extends Component {
 
     exportModalOk = () => {
         const { query } = this.context;
-        const { aid, category, selectedTags, banner } = this.state;
+        const { aid, category, selectedTags, banner, articleTitle } = this.state;
 
         let articleMarkdown = this.editor.getMarkdown(),
             articleHtml = this.editor.getHTML(),
@@ -294,6 +295,8 @@ export default class AddArticle extends Component {
             articleAbstract = articleMarkdown.split("<!--more-->")[0];
         }
 
+        if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
+
         let params = {
             title: articleTitle,
             content: articleMarkdown,
@@ -302,8 +305,6 @@ export default class AddArticle extends Component {
             tags: selectedTags,
             banner
         };
-
-        if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
 
         Axios.post(`/api/publish/article/${query.aid || aid}`, {category, ...params})
             .then( res => {
