@@ -31,7 +31,7 @@ export default class AddArticle extends Component {
             aid: null,
             category: 'DEFAULT',
             isPublish: false,
-            isBannerModalShow: true
+            isBannerModalShow: false
         };
     }
 
@@ -342,28 +342,34 @@ export default class AddArticle extends Component {
     }
 
     bannerModalCancle = () => {
-        this.deleteNewBanner(this.state.newBanner)
-            .then(res => {
-                this.setState({
-                    isBannerModalShow: false,
-                    newBanner: ''
-                });
-            })
+        if (this.state.newBanner) {
+            this.deleteNewBanner(this.state.newBanner)
+                .then(res => {
+                    this.setState({
+                        isBannerModalShow: false,
+                        newBanner: ''
+                    });
+                })
+        } else {
+            this.setState({
+                isBannerModalShow: false
+            });
+        }
     }
 
     bannerModalOk = () => {
         const { newBanner } = this.state;
 
         this.setState({
-            banner: `${IMG_URL}${newBanner}`,
+            banner: `${IMG_URL}${newBanner}${IMG_QUERY}`,
             isBannerModalShow: false
         });
     }
 
     deleteNewBanner(key) {
-        key && Axios.post("/api/filedelete", {
+        return Axios.post("/api/filedelete", {
             key: key
-        });
+        })
     }
 
 
@@ -468,7 +474,7 @@ export default class AddArticle extends Component {
                           >
                             {
                               (banner || newBanner) ?
-                                <img src={ newBanner ? `${IMG_URL}${newBanner}` : banner } alt="" className="avatar" /> :
+                                <img src={ newBanner ? `${IMG_URL}${newBanner}${IMG_QUERY}` : banner } alt="" className="avatar" /> :
                                 <Icon type="plus" className="avatar-uploader-trigger" />
                             }
                           </Upload>

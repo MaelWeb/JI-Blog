@@ -124,23 +124,8 @@ export default class ArticleManege extends Component {
             .then( res => {
                 let resData = res.data;
                 if (resData.code == 200) {
-                    this.setState(preState => {
-                        let photoes = resData.photoes.map(img => {
-                            return {
-                                imgUrl: `${IMG_URL}${img.key}${IMG_QUERY}`,
-                                key: img.key,
-                                text: img.desc,
-                                id: img.id,
-                                isBanner: img.isBanner || false
-                            }
-                        });
-
-                        photoes = photoes.concat(preState.photoes);
-                        return {
-                            fileList: [],
-                            photoes
-                        }
-                    })
+                    this.getPhotoes()
+                    this.setState({fileList: []})
                 }
             })
     }
@@ -208,7 +193,7 @@ export default class ArticleManege extends Component {
     }
 
     render() {
-        const { previewVisible, previewImage, addPhotoStatus, fileList, photoes, one, pageSize, page, allNum } = this.state;
+        const { previewVisible, previewImage, addPhotoStatus, fileList, photoes, one, pageSize, page, allNum, allPage } = this.state;
         let data = photoes.length ? photoes : one;
         return ( <Layout className = "photo-manage-layout" >
                 <Header className = 'photo-manage-header clearfix' >
@@ -224,7 +209,7 @@ export default class ArticleManege extends Component {
                                 </div>
                                 <div className="one-card">
                                     <div className="text">
-                                        <Input  className='text-input' onPressEnter={ e => { this.changPhotoText(e, item) } } defaultValue={item.text} />
+                                        <Input  className='text-input' onPressEnter={ e => { this.changPhotoText(e, item) } } defaultValue={item.text} key={item.text}/>
                                     </div>
                                     <div className="banner-setting" onClick={ () => {this.setToBanner(i)} }>
                                     <Tooltip placement="top" title={item.isBanner ? '点击取消设置为Banner' : '点击设置为Banner'}>
@@ -236,7 +221,7 @@ export default class ArticleManege extends Component {
                             </Card></Col>) : null }
                     </Masonry>
                 </Content>
-                { photoes.length ? <Footer><Pagination className='tc' showQuickJumper current={ page }  total={allNum} onChange={ this.changePage } pageSize={pageSize} /></Footer> : null}
+                { (allPage > 1) ? <Footer><Pagination className='tc' showQuickJumper current={ page }  total={allNum} onChange={ this.changePage } pageSize={pageSize} /></Footer> : null}
                 <Modal visible = { previewVisible } footer = { null } onCancel = { this.handleCancelPreview } >
                     <img alt = "example" style = { { width: '100%' } } src = { previewImage }/>
                 </Modal>

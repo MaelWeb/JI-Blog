@@ -99,7 +99,7 @@ export default class Photo extends Component {
         if (allphoto && allphoto.length) {
             allphoto.map( photo => {
                 let newPho = {
-                    src: `${IMG_URL}${photo.key}?${IMG_QUERY}`,
+                    src: `${IMG_URL}${photo.key}${IMG_QUERY}`,
                     original: `${IMG_URL}${photo.key}${IMG_QUERY}`,
                     thumbnail: `${IMG_URL}${photo.key}${IMG_QUERY}`,
                     width: photo.width,

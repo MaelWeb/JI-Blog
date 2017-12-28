@@ -55,7 +55,7 @@ export async function getPhotoes(ctx) {
     let photoes = await Photo.find()
         .limit(size)
         .skip(skip)
-        .sort({ isBanner: -1 })
+        .sort({ isBanner: -1, createTime: -1 })
         .catch(err => ctx.throw(500, err));
 
 
