@@ -4,6 +4,9 @@
 @import '../../components/Icon/iconfont.less';
 @import '../../components/ScrollToTop/index.less';
 
+
+
+
 /** antd **/
 
 .anticon {
@@ -104,6 +107,9 @@
         content: "\e616";
     }
 }
+
+
+
 
 
 
@@ -402,9 +408,12 @@
 }
 
 @media screen and (max-width: 1024px) {
-    .blog-article .blog-article-body,
-    .blog-comment {
-        width: 80%;
+    .blog-article {
+        .blog-article-body,
+        .article-share-box,
+        .blog-comment {
+            width: 80%;
+        }
     }
 
     .blog-articles-layout {
@@ -477,7 +486,7 @@
         .traverl-header {
             height: 3.2rem;
             height: 36vh;
-            :after {
+             :after {
                 bottom: -0.11rem;
                 padding: .03rem .06rem;
                 font-size: .2rem;
@@ -547,6 +556,11 @@
     }
 
     .blog-article {
+        .blog-article-body,
+        .article-share-box,
+        .blog-comment {
+            width: 95%;
+        }
         .comment-reply-from {
             width: 95%;
             margin: 0;
@@ -554,10 +568,6 @@
         }
     }
 
-    .blog-article .blog-article-body,
-    .blog-comment {
-        width: 95%;
-    }
 
     .blog-travel-layout {
         .traverl-header {

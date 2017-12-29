@@ -6,6 +6,7 @@ import Comments from '../Comments';
 
 Moment.locale('zh-cn');
 
+const WEIBOKEY = '';
 export default class Article extends Component {
     constructor(props) {
         super(props);
@@ -53,6 +54,17 @@ export default class Article extends Component {
                     </p>
                     <div className="article-content" dangerouslySetInnerHTML={ {__html: _article.htmlContent} } />
                 </article>
+                <section className='article-share-box'>
+                    <a href={`https://service.weibo.com/share/share.php?url=${encodeURIComponent(`//hynal.com/article/${_article.id}`)}&title=${encodeURIComponent(_article.title)}&pic=${encodeURIComponent(_article.banner || '')}&appkey=${WEIBOKEY}` } className="share-icon">
+                        <Icon type="weibo" />
+                    </a>
+                    <a href={ `http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${encodeURIComponent(`//hynal.com/article/${_article.id}`)}&title=${encodeURIComponent(_article.title)}&desc=${encodeURIComponent(_article.abstract)}&summary=${encodeURIComponent(_article.abstract)}&site=${encodeURIComponent('//hynal.com')}` } className="share-icon">
+                        <Icon type="qzone" />
+                    </a>
+                    <a href={ `http://shuo.douban.com/!service/share?href=${encodeURIComponent(`//hynal.com/article/${_article.id}`)}&name=${encodeURIComponent(_article.title)}&text=${encodeURIComponent(_article.abstract)}&image=${encodeURIComponent(_article.banner || '')}&starid=0&aid=0&style=11` } className="share-icon">
+                        <Icon type="douban" />
+                    </a>
+                </section>
                 <Comments articleid={params.id} comments={comments} />
             </div>
         )

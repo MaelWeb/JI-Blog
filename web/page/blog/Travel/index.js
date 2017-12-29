@@ -52,7 +52,6 @@ export default class Travel extends Component {
             this.blogNavDom.classList.add('blog-travel-header');
         }
 
-        console.log(_scrollTop);
         const { page, allPage } = this.state;
         if ( (_scrollTop + document.documentElement.clientHeight) > (this.traveLayoutDom.offsetHeight - 100) ) {
             (page < allPage) && this.getArticles(page + 1);
