@@ -56,27 +56,31 @@
 @-webkit-keyframes fadeOutH {
     from {
         opacity: 1;
+        -webkit-transform: none;
+        transform: none;
     }
     to {
         opacity: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
     }
 }
 
 @keyframes fadeOutH {
     from {
         opacity: 1;
+        -webkit-transform: none;
+        transform: none;
     }
     to {
         opacity: 0;
+        -webkit-transform: translate3d(0, 100%, 0);
+        transform: translate3d(0, 100%, 0);
     }
 }
 
 .fadeOutH {
     .animated;
-    -webkit-animation-delay: 1.2s;
-    animation-delay: 1.2s;
-    -webkit-animation-duration: 1.9s;
-    animation-duration: 1.9s;
     -webkit-animation-name: fadeOutH;
     animation-name: fadeOutH;
 }

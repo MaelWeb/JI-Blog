@@ -10,10 +10,11 @@ export default class ScrollToTopBtn extends React.Component {
         };
 
         this.scrollTop = 0;
-
+        this.isScrolling = false;
     }
 
-    scrollToTop() {
+    scrollToTop = () => {
+        let _this = this;
         function toTop() {
                 var timer = null;
                 let winscroll =  window.pageYOffset
@@ -23,15 +24,18 @@ export default class ScrollToTopBtn extends React.Component {
                 var speed = winscroll * 20 / 100;
                 window.scrollBy(0, -speed);
                 if (winscroll > 0) {
-                        timer = setTimeout(toTop, 10);
+                    timer = setTimeout(toTop, 10);
                 } else {
-                        clearInterval(timer);
-                        timer = null;
+                    _this.isScrolling = false;
+                    _this.setState({shown: 'none'})
+                    clearInterval(timer);
+                    timer = null;
                 }
                 document.addEventListener("touchmove", function() {
                     clearInterval(timer);
                 });
         }
+        _this.isScrolling = true;
         toTop();
     }
 
@@ -60,7 +64,7 @@ export default class ScrollToTopBtn extends React.Component {
     }
 
     handleScroll () {
-
+        if (this.isScrolling) return;
         let scrollTop =  window.pageYOffset
                 || (document.documentElement && document.documentElement.scrollTop)
                 || document.body.scrollTop
@@ -79,7 +83,7 @@ export default class ScrollToTopBtn extends React.Component {
             // display: this.state.shown
         };
         return (
-            <a href="javascript:;" onClick={this.scrollToTop} className={ classNames("backTop animated", {fadeInUp: !this.state.shown, fadeOut: this.state.shown}) } style={style}><i className="iconfont icon-top"></i></a>
+            <a href="javascript:;" onClick={this.scrollToTop} className={ classNames("backTop animated", {fadeInUp: !this.state.shown, fadeOutH: this.state.shown}) } style={style}><i className="iconfont icon-top"></i></a>
         );
     }
 
