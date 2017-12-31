@@ -3,6 +3,7 @@ import Axios from 'axios';
 import Moment from 'moment';
 import Icon from '../../../components/Icon';
 import Comments from '../Comments';
+import ClassNames from 'classnames';
 
 Moment.locale('zh-cn');
 
@@ -43,10 +44,15 @@ export default class Article extends Component {
         const { article, comments } = this.state;
         const { match: {params} } = this.props;
         let _article = article || {};
+        let cls = ClassNames('blog-article-layout', { [`blog-article-${_article.category && _article.category.toLocaleLowerCase()}`]:  _article.category});
         return (
-            <div className="blog-article">
+            <div className={cls} >
+                { _article.category == "TRAVEL" ? <div className="article-banner">
+                    <div className="bg" style={{backgroundImage: `url(${ _article.banner ? _article.banner : "//ozrrmt7n9.bkt.clouddn.com/12027196.jpg" })`} } />
+                    <h2 className="article-title">{_article.title}</h2>
+                </div> : null}
                 <article className='blog-article-body'>
-                    <h2 className="article-title"><p><em>{_article.title}</em></p></h2>
+                    { _article.category != "TRAVEL" ? <h2 className="article-title"><p><em>{_article.title}</em></p></h2> : null}
                     <p className="article-desc">
                         <span><Icon type='date' /> {Moment(_article.createTime).format('LL')}</span>
                         { _article.tags && _article.tags.length ? <span className="ml"><Icon type='cc-tag' /> {_article.tags.map( tag => tag.name + ' ')}</span> : null }

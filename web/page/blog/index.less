@@ -3,10 +3,6 @@
 @import '../../components/ImageGallery/index.less';
 @import '../../components/Icon/iconfont.less';
 @import '../../components/ScrollToTop/index.less';
-
-
-
-
 /** antd **/
 
 .anticon {
@@ -107,12 +103,6 @@
         content: "\e616";
     }
 }
-
-
-
-
-
-
 /** antd end **/
 
 .blog-layout {
@@ -405,16 +395,47 @@
             }
         }
     }
+
+    .blog-photo-layout {
+        .photo-banner {
+            height: 5rem;
+        }
+    }
+
+    .blog-article-layout {
+        .article-banner {
+            height: 3.8rem;
+        }
+    }
+
+    .blog-travel-layout {
+        .traverl-header {
+            height: 5rem;
+        }
+    }
 }
 
 @media screen and (max-width: 1024px) {
-    .blog-article {
+    .blog-article-layout {
         .blog-article-body,
         .article-share-box,
         .blog-comment {
             width: 80%;
         }
+
+        &.blog-article-travel {
+
+            .article-title {
+                width: 80%;
+                margin-left: 10%;
+            }
+        }
+
+        .article-banner {
+            height: 3.5rem;
+        }
     }
+
 
     .blog-articles-layout {
         width: 80%;
@@ -451,7 +472,12 @@
     .blog-travel-layout {
         .traverl-header {
             height: 4rem;
-            height: 40vh;
+        }
+    }
+
+    .blog-photo-layout {
+        .photo-banner {
+            height: 4.5rem;
         }
     }
 }
@@ -482,10 +508,19 @@
         }
     }
 
+    .blog-article-layout {
+        .article-banner {
+            height: 3rem;
+        }
+
+        .article-title {
+            font-size: .22rem;
+        }
+    }
+
     .blog-travel-layout {
         .traverl-header {
             height: 3.2rem;
-            height: 36vh;
              :after {
                 bottom: -0.11rem;
                 padding: .03rem .06rem;
@@ -496,6 +531,7 @@
 
     .blog-photo-layout {
         .photo-banner {
+            height: 3.2rem;
             &:after {
                 bottom: -0.11rem;
                 padding: .03rem .06rem;
@@ -555,11 +591,24 @@
         }
     }
 
-    .blog-article {
+    .blog-article-layout {
+        .article-banner {
+            height: 2rem;
+        }
+
         .blog-article-body,
         .article-share-box,
         .blog-comment {
             width: 95%;
+        }
+
+        &.blog-article-travel {
+
+            .article-title {
+                width: 95%;
+                margin-left: 2.5%;
+                font-size: .18rem
+            }
         }
         .comment-reply-from {
             width: 95%;
@@ -571,8 +620,7 @@
 
     .blog-travel-layout {
         .traverl-header {
-            height: 3rem;
-            height: 35vh;
+            height: 2.5rem;
             .aticle-info {
                 padding: .05rem .1rem;
                 width: 85%;
@@ -630,8 +678,7 @@
 
     .blog-photo-layout {
         .photo-banner {
-            height: 3rem;
-            height: 35vh;
+            height: 2.5rem;
         }
         .photo-list {
             padding: 0 1%;

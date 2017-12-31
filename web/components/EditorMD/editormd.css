@@ -3322,6 +3322,7 @@ only screen and (min-device-pixel-ratio: 3) {
 
 .markdown-body img {
     border: 0;
+    width: auto;
 }
 
 .markdown-body hr {

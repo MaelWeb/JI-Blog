@@ -174,7 +174,6 @@ export async function deleteFileInQiniu(key, bucket) {
     //config.useHttpsDomain = true;
     config.zone = QiNiu.zone.Zone_z0;
     const bucketManager = new QiNiu.rs.BucketManager(mac, config);
-
     return new Promise((resolve, reject) => {
         bucketManager.delete(_bucket, key, function(err, respBody, respInfo) {
             if (err) {

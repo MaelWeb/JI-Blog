@@ -1,6 +1,7 @@
-.blog-article {
+.blog-article-layout {
     margin: 0 auto;
     padding: .5rem 0;
+
     .blog-article-body {
         width: 60%;
         min-height: 70vh;
@@ -8,6 +9,20 @@
         margin: 0 auto;
         line-height: 1.6;
         word-wrap: break-word;
+    }
+
+    .article-banner {
+        position: relative;
+        height: 4.5rem;
+        height: 68vh;
+
+        .bg {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(3px);
+        }
+        background-color: #ccc;
     }
 
     .article-title {
@@ -32,6 +47,29 @@
             margin-bottom: 0;
             display: inline-block;
             text-align: center;
+        }
+    }
+
+    .article-content {
+        margin-top: .3rem;
+    }
+
+    &.blog-article-travel {
+
+        .article-title {
+            position: absolute;
+            bottom: .1rem;
+            margin: 0 0 0 20%;
+            padding: 0 .1rem;
+            width: 60%;
+            text-align: left;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .article-desc {
+            border-bottom: 1px solid #d7d7d7;
+            box-shadow: 0 2px 0 rgba(0, 0, 0, 0.05);
         }
     }
 
@@ -87,6 +125,7 @@
 
     img {
         border: 0;
+        width: auto;
     }
 
     hr {

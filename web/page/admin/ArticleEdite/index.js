@@ -101,11 +101,6 @@ export default class AddArticle extends Component {
             articleHtml = this.editor.getHTML(),
             articleAbstract = this.state.articleAbstract;
 
-
-        if (articleMarkdown.indexOf("<!--more-->") !== -1) {
-            articleAbstract = articleMarkdown.split("<!--more-->")[0];
-        }
-
         let reg =  /<img[^>]+src=['"]([^'"]+)['"]+/g;
 
         let images = [], temp;
@@ -171,10 +166,6 @@ export default class AddArticle extends Component {
         let articleMarkdown = this.editor.getMarkdown(),
             articleHtml = this.editor.getHTML(),
             articleAbstract = this.state.articleAbstract;
-
-         if (articleMarkdown.indexOf("<!--more-->") !== -1) {
-            articleAbstract = articleMarkdown.split("<!--more-->")[0];
-        }
 
         if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
 
@@ -291,10 +282,6 @@ export default class AddArticle extends Component {
             articleHtml = this.editor.getHTML(),
             articleAbstract = this.state.articleAbstract;
 
-         if (articleMarkdown.indexOf("<!--more-->") !== -1) {
-            articleAbstract = articleMarkdown.split("<!--more-->")[0];
-        }
-
         if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
 
         let params = {
@@ -359,12 +346,23 @@ export default class AddArticle extends Component {
     }
 
     bannerModalOk = () => {
-        const { newBanner } = this.state;
-
-        this.setState({
-            banner: `${IMG_URL}${newBanner}${IMG_QUERY}`,
-            isBannerModalShow: false
-        });
+        const { newBanner, banner } = this.state;
+        if (banner) {
+            let key = banner.split(IMG_URL)[1];
+            key = key.split(IMG_QUERY)[0];
+            this.deleteNewBanner(key)
+                .then(res => {
+                    this.setState({
+                        isBannerModalShow: false,
+                        banner: `${IMG_URL}${newBanner}${IMG_QUERY}`,
+                    });
+                });
+        } else {
+            this.setState({
+                banner: newBanner ? `${IMG_URL}${newBanner}${IMG_QUERY}` : null,
+                isBannerModalShow: false
+            });
+        }
     }
 
     deleteNewBanner(key) {
@@ -382,7 +380,7 @@ export default class AddArticle extends Component {
 
     uploadHandleChange = (info) => {
         if (info.file.status === 'done') {
-            this.deleteNewBanner(this.state.newBanner);
+            this.state.newBanner && this.deleteNewBanner(this.state.newBanner);
             let newBanner = info.file.response.data.key;
             this.setState({ newBanner })
         }
@@ -434,7 +432,7 @@ export default class AddArticle extends Component {
                         )}
                         {!inputVisible && <Button size="small" type="dashed" onClick={this.showInput}>+ New Tag</Button>}
                         <Button className="fr" type="primary" size="small" icon="pushpin-o" ghost onClick={ this.showModal }>{ articleAbstract ? '修改摘要' : '添加摘要'}</Button>
-                        <Button className="fr add-banner" type="primary" size="small" icon="picture" ghost onClick={ this.showBannerModal }>{ banner ? '修改Banner' : '添加Banner'}</Button>
+                        <Button className="fr add-banner" type="primary" size="small" icon="picture" ghost onClick={ this.showBannerModal }>{ banner ? '修改头图' : '添加头图'}</Button>
                     </div>
                     { query.aid &&  ( markdownContent ? <EditorMD config={{markdown: markdownContent, height: '100%'}} ref={ this.saveEditorRef } /> : <Spin size="large" className='spiner'/>)}
                     { !query.aid ? <EditorMD config={{ markdown: '### 请开始你的表演' ,height: '100%'}} ref={ this.saveEditorRef } /> : null}

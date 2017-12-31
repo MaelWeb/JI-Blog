@@ -125,8 +125,8 @@ export default class Photo extends Component {
                 <section className="photo-banner" ref='photoHeader' style={{backgroundImage: `url(${ photoes[0] && photoes[0].src})`} } >
                     <img src={ photoes[0] && photoes[0].src } alt=""/>
                     { photoes[0] && photoes[0].desc ? <div className="photo-banner-info">
-                        <p className="small" style={{ width: photoes[0].width }}><span>图记</span></p>
-                        <h2 style={{ width: photoes[0].width }}>{photoes[0].desc}</h2>
+                        <p className="small" ><span>图记</span></p>
+                        <h2>{photoes[0].desc}</h2>
                     </div> : null}
                 </section>
                 <section className="middle-text tc">
