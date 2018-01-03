@@ -12,6 +12,7 @@ import PhotoManage from '../PhotoManage';
 import CommentsManage from '../CommentsManage';
 import UserInfo from '../UserInfo';
 import BlogBanner from '../BlogBanner';
+import BooksManage from '../BooksManage';
 
 const routes = [
     {
@@ -38,6 +39,12 @@ const routes = [
         navText: '图集管理',
         iconType: 'picture',
         component: PhotoManage
+    },
+    {
+        path: '/book',
+        navText: '图书管理',
+        iconType: 'picture',
+        component: BooksManage
     },
     {
         path: '/comments',

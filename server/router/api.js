@@ -8,6 +8,7 @@ import { fileUpload, articleImageUpload, deleteFile } from '../controllers/qiniu
 import { addPhoto, getPhotoes, updatePhoto, deletePhoto } from '../controllers/photo_ctrl';
 import { creactComment, getComments, showAndHideComent, deleteComment } from '../controllers/comment_ctr';
 import { createBanner, getBanners, updateBanner, deleteBanner } from '../controllers/banner_ctr';
+import { createBook, getBooks, updateBook, deleteBook } from '../controllers/book_ctr';
 
 const Router = new router();
 
@@ -27,6 +28,7 @@ let _Api = Router.get('/signout', (ctx) => {
     .get("/get/photoes", getPhotoes)
     .get("/get/userinfo", apiVerify, getUserInfo)
     .get('/get/banners', getBanners)
+    .get('/get/books', getBooks)
     .delete('/article/:id', apiVerify, deleteArticle)
     .post('/singup', singUp)
     .post('/signin', signIn)
@@ -49,6 +51,9 @@ let _Api = Router.get('/signout', (ctx) => {
     .post('/create/banner', apiVerify, createBanner)
     .post('/update/banner/:id', apiVerify, updateBanner)
     .delete('/banner/:id', apiVerify, deleteBanner)
+    .post('/create/book', apiVerify, createBook)
+    .post('/update/book/:id', apiVerify, updateBook)
+    .delete('/book/:id', apiVerify, deleteBook)
 
 // module.exports = _Api;
 export default _Api;
