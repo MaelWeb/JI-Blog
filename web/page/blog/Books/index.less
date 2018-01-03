@@ -1,0 +1,84 @@
+.blog-books-layout {
+    padding-top: .6rem;
+    background: #fffff9;
+
+    .blog-books-item {
+        padding: .13rem;
+        width: 33.3%;
+        float: left;
+
+        .cover {
+            float: left;
+            margin-right: 13px;
+            width: 1.1rem;
+            height: 100%;
+            background: url('https://img3.doubanio.com/f/ark/fcf839063281097eb229b77eddfdbb03d0ec8a5e/pics/app/default-cover.png') center center/100% auto;
+            box-shadow: 1px 1px 2px #aaa;
+            overflow: hidden;
+        }
+
+        .title {
+            font-size: .15rem;
+            font-weight: bold;
+            margin-bottom: .05rem;
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            max-height: .42rem;
+            color: #825d5b;
+        }
+
+        .info {
+            position: relative;
+            color: #666;
+            font-size: .12rem;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        .author {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            _width: 100%;
+            color: #afafaf;
+        }
+        .intro {
+            margin: 7px 0;
+            display: -webkit-box;
+            overflow: hidden;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 4;
+            max-height: 72px;
+        }
+        .btn {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            text-align: right;
+        }
+
+        .read-btn {
+            display: inline-block;
+            font-size: .13rem;
+            color: #fff;
+            padding: .04rem .12rem;
+            margin-bottom: 0;
+            line-height: 1.1;
+            background-color: #825d5b;
+            border: 1px solid #825d5b;
+            border-radius: .02rem;
+            cursor: pointer;
+            vertical-align: middle;
+            text-decoration: none;
+        }
+    }
+
+    .books-wrap {
+        height: 1.9rem;
+        padding: .12rem;
+        background-color: #fff;
+        border: 1px solid #f2f2eb;
+    }
+}

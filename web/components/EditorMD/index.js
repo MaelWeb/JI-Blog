@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 // import jQuery from 'jquery';
 // import editormd from './editormd';
 // import EditorMD from 'editor.md/editormd';
-import './editormd.css';
+import './editormd.less';
 
 let loadEditorMD = () => {
     return new Promise((resolve, reject) => {

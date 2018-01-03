@@ -7,6 +7,7 @@ import Article from '../Article';
 import Photoes from '../Photoes';
 import About from '../About';
 import Travel from '../Travel';
+import Books from '../Books';
 import Header from '../Header';
 import Footer from '../Footer';
 
@@ -71,6 +72,7 @@ class App extends Component {
                         <Route path="/photoes" render={ props=> (<Photoes {...props} {...InitData} />) }  />
                         <Route path="/about" render={ props=> (<About {...props} />) }  />
                         <Route path="/travel" render={ props=> (<Travel {...props} {...InitData} />) } />
+                        <Route path="/books" render={ props=> (<Books {...props} {...InitData} />) } />
                     </Switch>
                 </CSSTransition>
             </TransitionGroup>

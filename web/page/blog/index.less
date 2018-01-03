@@ -126,8 +126,9 @@
     color: #212121;
     z-index: 2;
     background-color: #fff;
-    border-bottom: 1px solid #666;
-    box-shadow: -2px 2px 6px #ccc;
+    border-top: .04rem solid #212121;
+    border-bottom: .01rem solid #ccc;
+    // box-shadow: -2px 2px 6px #ccc;
     transition: all .8s;
     line-height: .26rem;
     overflow: hidden;
@@ -145,7 +146,7 @@
     &.blog-photoes-header {
         background-color: transparent;
         box-shadow: none;
-        border-bottom: none;
+        border-color: transparent;
 
         a {
             color: #fff;
@@ -358,6 +359,7 @@
 @import './Photoes/index.less';
 @import './About/index.less';
 @import './Travel/index.less';
+@import './Books/index.less';
 @import './Comments/index.less';
 @import '~antd/lib/message/style/index.less';
 

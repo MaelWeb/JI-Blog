@@ -56,6 +56,7 @@ export default class Header extends Component {
                         <NavLink exact to='/'><span>文记</span></NavLink>
                         <NavLink to='/travel'><span>游记</span></NavLink>
                         <NavLink to='/photoes'><span>图记</span></NavLink>
+                        <NavLink to='/books'><span>阅记</span></NavLink>
                         <NavLink to='/about'><span>关于</span></NavLink>
                     </nav>
                     <Icon type={ showNav ? "close" : "menu" } className='menu fr' onClick={ this.showNacBox } />
@@ -64,6 +65,7 @@ export default class Header extends Component {
                     <NavLink exact to='/'><span>文记</span></NavLink>
                     <NavLink to='/travel'><span>游记</span></NavLink>
                     <NavLink to='/photoes'><span>图记</span></NavLink>
+                    <NavLink to='/books'><span>阅记</span></NavLink>
                     <NavLink to='/about'><span>关于</span></NavLink>
                 </nav>
             </header>
