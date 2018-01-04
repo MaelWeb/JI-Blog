@@ -7,6 +7,7 @@ import {IMG_URL, IMG_QUERY} from '../../../config/';
 import './index.less';
 
 const {Header, Content, Footer} = Layout;
+const { TextArea } = Input;
 
 export default class BannerSetting extends Component {
     constructor(props) {
@@ -67,10 +68,10 @@ export default class BannerSetting extends Component {
         })
     }
 
-    addBanner = e => {
+    addBanner = type => {
         const { imageUrl, text, href } = this.state;
 
-        Axios.post('/api/create/banner', {url: imageUrl, text, href})
+        Axios.post('/api/create/banner', {url: imageUrl, text: [text], href, type})
             .then( res => {
                 if (res.data.code == 200) {
                     message.success("添加成功");
@@ -152,6 +153,7 @@ export default class BannerSetting extends Component {
                     <h2>Banner设置</h2>
                 </Header>
                 <Content className="banner-setting-content">
+                <h2>博客首页</h2>
                  { banners.length ? banners.map( (banner, index) => <div className="banner-box" key={banner.id} >
                         <div className="banner-img">
                             { banner.url ? <img src={banner.url} alt=""/> : <Icon type="picture" />}
@@ -216,9 +218,15 @@ export default class BannerSetting extends Component {
                             </label>
                         </div>
                         <div className="btn">
-                            <Button onClick={ this.addBanner } >添加</Button>
+                            <Button onClick={ () => { this.addBanner("HOME") } } >添加</Button>
                         </div>
                     </div> : null}
+                    <h2>图书首页</h2>
+                    <div className="banner-box book-banner">
+                        <TextArea ref="bookText" value={}  className="book-text" placeholder="图书首页文案，分两部分；以回车键分隔" autosize={{ minRows: 2, maxRows: 6 }} />
+                        <Input ref="bookName" placeholder="书名" />
+                        <Button onClick={ () => { this.addBanner("BOOK") } } >添加</Button>
+                    </div>
                 </Content>
             </Layout>
         )

@@ -21,22 +21,49 @@ export async function createBook(ctx) {
 }
 
 export async function getBooks(ctx) {
+    let query = ctx.query,
+        page = +query.page || 1,
+        size = +query.size || 10,
+        skip = 0;
+
+    if (page !== 1) {
+        skip = size * (page - 1);
+    }
+
     let result = {
         code: 200,
         message: 'ok'
     };
 
-    let books = await Book.find().sort({ createTime: -1 }).catch(err => {
-        result.code = 500;
-        result.message = "服务器错误";
-    });
+    let books = await Book.find()
+        .limit(size)
+        .skip(skip)
+        .sort({ isReading: -1, createTime: -1 })
+        .catch(err => {
+            result.code = 500;
+            result.message = "服务器错误";
+        });
+
+    let allNum = await Book.count()
+        .catch(err => {
+            result.code = 500;
+            result.message = "服务器错误";
+        });
 
     result.books = books || [];
+    result.page = page;
+    result.page = Math.ceil(allNum / size);
+    result.allNum = allNum;
 
     if (ctx)
         ctx.body = result;
 
-    return books;
+    return {
+        books,
+        allNum,
+        page,
+        allPage: Math.ceil(allNum / size)
+    };
 }
 
 export async function deleteBook(ctx) {

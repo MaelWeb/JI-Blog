@@ -363,6 +363,19 @@
 @import './Comments/index.less';
 @import '~antd/lib/message/style/index.less';
 
+@media screen and (min-width: 1800px) {
+    .blog-books-layout {
+
+        .books-list {
+            width: 80%;
+
+            .blog-books-item {
+                width: 25%;
+            }
+        }
+
+    }
+}
 
 @media screen and (max-width: 1366px) {
     .blog-articles-layout {
@@ -413,6 +426,13 @@
     .blog-travel-layout {
         .traverl-header {
             height: 5rem;
+        }
+    }
+
+    .blog-books-layout {
+
+        .blog-books-header .text-wrap {
+            line-height: 2.2;
         }
     }
 }
@@ -482,6 +502,22 @@
             height: 4.5rem;
         }
     }
+
+    .blog-books-layout {
+
+        .blog-books-header .text-wrap {
+            font-size: .12rem;
+            line-height: 1.8;
+        }
+
+        .books-list {
+
+            .blog-books-item {
+                width: 50%;
+            }
+        }
+
+    }
 }
 
 @media screen and (max-width: 800px) {
@@ -546,6 +582,22 @@
         .about-module {
             width: 90%;
         }
+    }
+
+    .blog-books-layout {
+
+        .blog-books-header .text-wrap {
+            font-size: .1rem;
+            line-height: 1.8;
+        }
+
+        .books-list {
+            width: 90%;
+            .blog-books-item {
+                width: 50%;
+            }
+        }
+
     }
 }
 
@@ -685,6 +737,38 @@
         .photo-list {
             padding: 0 1%;
         }
+    }
+
+    .blog-books-layout {
+
+        .blog-books-header {
+            background-image: url("http://ozrrmt7n9.bkt.clouddn.com/image/books_banner.jpg");
+            height: 5rem;
+            height: 80vh;
+            overflow: hidden;
+            background-color: #ccc;
+            background-size: cover;
+            background-position: 49%;
+
+            img {
+                display: none;
+            }
+
+            .text-wrap {
+                top: 19%;
+                left: 29%;
+                width: 52%;
+                line-height: 2.6;
+            }
+        }
+
+        .books-list {
+            width: 95%;
+            .blog-books-item {
+                width: 100%;
+            }
+        }
+
     }
 
     .middle-text {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Upload, Button, Input, Icon, message } from 'antd';
+import { Layout, Upload, Button, Input, Icon, message, Switch } from 'antd';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import {IMG_URL, IMG_QUERY} from '../../../config/';
@@ -182,6 +182,14 @@ export default class BooksManage extends Component {
             })
     }
 
+    changeReadingStatus = (checked, index) => {
+        this.setState(preState => {
+            preState.books[index].isReading = checked;
+
+            return { books: preState.books}
+        })
+    }
+
 
     render() {
         const {imageUrl, imageUpUrl, desc, href, books, title, author} = this.state;
@@ -195,6 +203,7 @@ export default class BooksManage extends Component {
                     <div className="books-wrap">
                         <div className="book-img">
                             { book.img ? <img src={book.img} alt=""/> : <Icon type="picture" />}
+                            <Switch checkedChildren="在读" unCheckedChildren="读完" defaultChecked={ book.isReading } onChange={ checked => { this.changeReadingStatus(checked, index) } } />
                         </div>
                         <div className="book-info">
                             <label htmlFor="">

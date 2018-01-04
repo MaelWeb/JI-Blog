@@ -6,6 +6,7 @@ import { getAllPublishArticles, getArticle } from '../controllers/article_ctr';
 import { getPhotoes } from '../controllers/photo_ctrl';
 import { getComments } from '../controllers/comment_ctr';
 import { getBanners } from '../controllers/banner_ctr';
+import { getBooks } from '../controllers/book_ctr';
 import ReactDOMServer from 'react-dom/server';
 import React from 'react';
 import { StaticRouter } from 'react-router';
@@ -104,9 +105,8 @@ let _Page = Router
         });
     })
     .get('books', async(ctx, next) => {
-        // let articleData = await getAllPublishArticles(ctx);
-        // const { articles, ...others } = articleData;
-        let ServerData = {};
+        let booksData = await getBooks(ctx);
+        let ServerData = booksData;
 
         const html = ReactDOMServer.renderToString(
             <StaticRouter context={{}} location={ctx.req.url}>

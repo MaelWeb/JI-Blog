@@ -5,11 +5,16 @@ const BannerSchema = new Schema({
         type: String,
         default: ''
     },
-    text: {
+    text: [{
         type: String,
         default: ''
-    },
+    }],
     href: String,
+    page: {
+        type: String,
+        default: "HOME"
+    },
+    author: String,
     createTime: {
         type: Date
     },

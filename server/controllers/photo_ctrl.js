@@ -5,8 +5,10 @@ export async function addPhoto(ctx) {
     let postData = ctx.request.body;
 
     const result = await Photo.create(postData).catch(err => {
-        console.log('[Server ERROR]', err);
-        ctx.throw(500, '服务器错误')
+        return  ctx.body = {
+            code: 500,
+            message: '服务器内部错误'
+        };
     });
 
     ctx.body = {

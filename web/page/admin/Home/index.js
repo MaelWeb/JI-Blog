@@ -43,7 +43,7 @@ const routes = [
     {
         path: '/book',
         navText: '图书管理',
-        iconType: 'picture',
+        iconType: 'book',
         component: BooksManage
     },
     {
