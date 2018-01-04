@@ -17,9 +17,10 @@ const Router = new router();
 let _Page = Router
     .get('/', async(ctx, next) => {
         ctx.query.category = 'DEFAULT';
+        ctx.query.page = 'HOME';
         let tags = await getAllTags(ctx);
         let articleData = await getAllPublishArticles(ctx);
-        let banners = await getBanners();
+        let banners = await getBanners(ctx);
 
         let ServerData = {tags, curTagId: ctx.query.tag, ...articleData, banners};
 
@@ -106,7 +107,9 @@ let _Page = Router
     })
     .get('books', async(ctx, next) => {
         let booksData = await getBooks(ctx);
-        let ServerData = booksData;
+        ctx.query.page = 'BOOK';
+        let banners = await getBanners(ctx);
+        let ServerData = { ...booksData, banner: banners[0]};
 
         const html = ReactDOMServer.renderToString(
             <StaticRouter context={{}} location={ctx.req.url}>

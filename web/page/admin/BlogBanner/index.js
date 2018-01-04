@@ -17,7 +17,11 @@ export default class BannerSetting extends Component {
             imageUpUrl: '',
             text: '',
             href: '',
-            banners: []
+            banners: [],
+            book: {
+                text: [],
+                author: ''
+            }
         };
 
     }
@@ -33,8 +37,16 @@ export default class BannerSetting extends Component {
     getBanners() {
         Axios.get("/api/get/banners")
             .then( res => {
+                let { banners, book } = this.state;
+
+                res.data.banners.map( banner => {
+                    (banner.page == 'HOME') && banners.push(banner);
+                    (banner.page == 'BOOK') && (book = banner);
+                });
+
                 this.setState({
-                    banners: res.data.banners
+                    banners,
+                    book
                 })
             })
     }
@@ -68,18 +80,34 @@ export default class BannerSetting extends Component {
         })
     }
 
-    addBanner = type => {
-        const { imageUrl, text, href } = this.state;
+    bookNameChange = e => {
+        let { book } = this.state;
+        book.author = e.target.value;
 
-        Axios.post('/api/create/banner', {url: imageUrl, text: [text], href, type})
+        this.setState({book});
+    }
+
+    bookTextChange = e => {
+        let { book } = this.state;
+        book.text = e.target.value.split('||');
+        this.setState({book});
+    }
+
+    addBanner = page => {
+        const { imageUrl, text, href, book } = this.state;
+        let params = {};
+
+        if (page == 'HOME') {
+            params = {url: imageUrl, text: [text], href, page};
+        } else {
+            params = {...book, page};
+        }
+
+        Axios.post('/api/create/banner', params)
             .then( res => {
                 if (res.data.code == 200) {
                     message.success("添加成功");
-                    this.setState( preState => {
-                        preState.banners.push(res.data.banner);
-
-                        return {banners: preState.banners};
-                    })
+                    this.getBanners();
                 } else {
                     message.error("添加失败")
                 }
@@ -146,7 +174,7 @@ export default class BannerSetting extends Component {
 
 
     render() {
-        const {imageUrl, imageUpUrl, text, href, banners} = this.state;
+        const {imageUrl, imageUpUrl, text, href, banners, book} = this.state;
         return (
             <Layout className="banner-setting-layout">
                 <Header className='banner-setting-header clearfix' >
@@ -223,9 +251,9 @@ export default class BannerSetting extends Component {
                     </div> : null}
                     <h2>图书首页</h2>
                     <div className="banner-box book-banner">
-                        <TextArea ref="bookText" value={}  className="book-text" placeholder="图书首页文案，分两部分；以回车键分隔" autosize={{ minRows: 2, maxRows: 6 }} />
-                        <Input ref="bookName" placeholder="书名" />
-                        <Button onClick={ () => { this.addBanner("BOOK") } } >添加</Button>
+                        <TextArea ref="bookText" value={ book.text.join("||") }  onChange={ this.bookTextChange } className="book-text" placeholder="图书首页文案，分两部分；以'||'分隔" autosize={{ minRows: 2, maxRows: 6 }} />
+                        <Input ref="bookName" value={ book.author } onChange={ this.bookNameChange } placeholder="书名" />
+                        { !book.id ? <Button onClick={ () => { this.addBanner("BOOK") } } >添加</Button> : <Button onClick={ () => { this.updateBanner(book) } } >保存</Button>}
                     </div>
                 </Content>
             </Layout>

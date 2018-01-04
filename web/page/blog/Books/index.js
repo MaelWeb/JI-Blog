@@ -7,20 +7,25 @@ import Measure from 'react-measure';
 export default class Books extends Component {
     constructor(props) {
         super(props)
-        const {books, allNum, page, allPage } = props;
+        const {books, allNum, page, allPage, banner } = props;
         this.state = {
             books,
             allNum,
             page,
             allPage,
-            isLoading: false
+            banner,
+            isLoading: false,
         }
     }
 
     static defaultProps = {
         books: [],
         page: 0,
-        allPage: 0
+        allPage: 0,
+        banner: {
+            text: ['这个世界上的每样东西都生死未定，都充满了风险，那些不接受风险的人，那些不了解命运的人，在角落里日渐衰落。', '我忽然明白为什么我没能拥有尼诺，而莉拉能够拥有他。我不能追随那些真实的感情，我无法使自己打破陈规旧矩，我没有莉拉那么强烈的情感，她可以不顾一切去享受那一天一夜。'],
+            author: '新名字的故事'
+        }
     }
 
     componentDidMount() {
@@ -79,14 +84,14 @@ export default class Books extends Component {
 
 
     render() {
-        const { books, isLoading } = this.state;
+        const { books, isLoading, banner } = this.state;
         return (
             <div className="blog-books-layout clearfix">
                 <div className="blog-books-header">
                     <img src="http://ozrrmt7n9.bkt.clouddn.com/image/books_banner.jpg" alt=""/>
                     <div className="text-wrap">
-                        <p><span style={{background: "#B6BABD"}} >这个世界上的每样东西都生死未定，都充满了风险，那些不接受风险的人，那些不了解命运的人，在角落里日渐衰落。</span>我忽然明白为什么我没能拥有尼诺，而莉拉能够拥有他。我不能追随那些真实的感情，我无法使自己打破陈规旧矩，我没有莉拉那么强烈的情感，她可以不顾一切去享受那一天一夜。</p>
-                        <div className='tr'><a href="https://book.douban.com/subject/26986954/" target="_blank">—— 《新名字的故事》</a></div>
+                        <p><span style={{background: "#B6BABD"}} >{banner.text[0]}</span>{banner.text[1]}</p>
+                        <div className='tr'><a href="https://book.douban.com/subject/26986954/" target="_blank">—— 《baner.author》</a></div>
                     </div>
                 </div>
 
