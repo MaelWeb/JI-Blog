@@ -21,13 +21,13 @@ export async function createBanner(ctx) {
 }
 
 export async function getBanners(ctx) {
-    let page = ctx.query.page || 'HOME';
+    let filter = ctx.query.page ? {page: ctx.query.page} : {};
     let result = {
         code: 200,
         message: 'ok'
     };
 
-    let banners = await Banner.find({page}).sort({ createTime: -1 }).catch(err => {
+    let banners = await Banner.find(filter).sort({ createTime: -1 }).catch(err => {
         result.code = 500;
         result.message = "服务器错误";
     });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Upload, Button, Input, Icon, message } from 'antd';
+import { Layout, Upload, Button, Input, Icon, message, Tooltip } from 'antd';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import {IMG_URL, IMG_QUERY} from '../../../config/';
@@ -37,13 +37,13 @@ export default class BannerSetting extends Component {
     getBanners() {
         Axios.get("/api/get/banners")
             .then( res => {
-                let { banners, book } = this.state;
+                let { book } = this.state;
+                let banners = [];
 
                 res.data.banners.map( banner => {
                     (banner.page == 'HOME') && banners.push(banner);
                     (banner.page == 'BOOK') && (book = banner);
                 });
-
                 this.setState({
                     banners,
                     book
@@ -174,7 +174,7 @@ export default class BannerSetting extends Component {
 
 
     render() {
-        const {imageUrl, imageUpUrl, text, href, banners, book} = this.state;
+        const {imageUrl, imageUpUrl, text, href, banners, book, title} = this.state;
         return (
             <Layout className="banner-setting-layout">
                 <Header className='banner-setting-header clearfix' >
@@ -251,7 +251,14 @@ export default class BannerSetting extends Component {
                     </div> : null}
                     <h2>图书首页</h2>
                     <div className="banner-box book-banner">
+                        <Tooltip
+                            trigger={['focus']}
+                            title={`建议输入150个以内字符，已经输入${book.text.join("||").length}个`}
+                            placement="topLeft"
+                            overlayClassName="numeric-input"
+                        >
                         <TextArea ref="bookText" value={ book.text.join("||") }  onChange={ this.bookTextChange } className="book-text" placeholder="图书首页文案，分两部分；以'||'分隔" autosize={{ minRows: 2, maxRows: 6 }} />
+                        </Tooltip>
                         <Input ref="bookName" value={ book.author } onChange={ this.bookNameChange } placeholder="书名" />
                         { !book.id ? <Button onClick={ () => { this.addBanner("BOOK") } } >添加</Button> : <Button onClick={ () => { this.updateBanner(book) } } >保存</Button>}
                     </div>

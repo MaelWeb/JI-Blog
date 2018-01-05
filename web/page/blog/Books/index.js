@@ -29,12 +29,16 @@ export default class Books extends Component {
     }
 
     componentDidMount() {
+        this.bookLayoutDom = ReactDOM.findDOMNode(this);
+        this.headerDom = ReactDOM.findDOMNode(this.refs.bookHeader);
+        this.blogNavDom = document.getElementById('IdNav');
 
         window.addEventListener("scroll", this.onscroll, false)
         const {books} = this.state;
 
         if (!books.length) {
             this.getBooks(1);
+            this.getBanners();
         }
     }
 
@@ -45,11 +49,10 @@ export default class Books extends Component {
                 || document.body.scrollTop
                 || 0;
 
-        // if (_scrollTop >= (this.headerDom.offsetHeight - this.blogNavDom.offsetHeight)) {
-        //     this.blogNavDom.classList.remove('blog-travel-header');
-        // } else {
-        //     this.blogNavDom.classList.add('blog-travel-header');
-        // }
+        const { page, allPage } = this.state;
+        if ( (_scrollTop + document.documentElement.clientHeight) > (this.bookLayoutDom.offsetHeight - 100) ) {
+            (page < allPage) && this.getBooks(page + 1);
+        }
 
     }
 
@@ -72,7 +75,7 @@ export default class Books extends Component {
             this.setState(preState => {
                 let books = preState.books.concat(resData.books);
                 return {
-                    Books: books,
+                    books,
                     allNum: resData.allNum,
                     page: resData.page,
                     allPage: resData.allPage,
@@ -82,16 +85,26 @@ export default class Books extends Component {
         });
     }
 
+    getBanners() {
+        Axios.get('/api/get/banners', {page: 'BOOK'})
+            .then( res => {
+                let resData = res.data;
+                this.setState({
+                    banner: resData.banners[0]
+                })
+            })
+    }
+
 
     render() {
         const { books, isLoading, banner } = this.state;
         return (
             <div className="blog-books-layout clearfix">
-                <div className="blog-books-header">
+                <div className="blog-books-header" ref='bookHeader' >
                     <img src="http://ozrrmt7n9.bkt.clouddn.com/image/books_banner.jpg" alt=""/>
                     <div className="text-wrap">
                         <p><span style={{background: "#B6BABD"}} >{banner.text[0]}</span>{banner.text[1]}</p>
-                        <div className='tr'><a href="https://book.douban.com/subject/26986954/" target="_blank">—— 《baner.author》</a></div>
+                        <div className='tr'><a href="https://book.douban.com/subject/26986954/" target="_blank">—— 《 {banner.author} 》</a></div>
                     </div>
                 </div>
 

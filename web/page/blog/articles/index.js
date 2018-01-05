@@ -56,7 +56,7 @@ export default class Articles extends Component {
     }
 
     getBanners() {
-        Axios.get('/api/get/banners')
+        Axios.get('/api/get/banners', {page: 'HOME'})
             .then( res => {
                 let resData = res.data;
                 this.setState({
