@@ -19,6 +19,10 @@ export default class BooksManage extends Component {
             href: '',
             title: '',
             author: '',
+            allPage: 0,
+            allNum: 0,
+            page: 1,
+            pageSize: 10,
             books: []
         };
 
@@ -32,13 +36,19 @@ export default class BooksManage extends Component {
         this.getBooks();
     }
 
-    getBooks() {
-        Axios.get("/api/get/books")
-            .then( res => {
-                this.setState({
-                    books: res.data.books
-                })
+    getBooks(_page) {
+        const { pageSize, page } = this.state;
+        Axios.get("/api/get/books", {
+            params: {
+                page: _page || page,
+                size: pageSize
+            }
+        })
+        .then( res => {
+            this.setState({
+                books: res.data.books
             })
+        })
     }
 
     uploadereChange = (info) => {
@@ -202,9 +212,12 @@ export default class BooksManage extends Component {
         })
     }
 
+    changePage = page => {
+        this.getBooks(page);
+    }
 
     render() {
-        const {imageUrl, imageUpUrl, desc, href, books, title, author} = this.state;
+        const {imageUrl, imageUpUrl, desc, href, books, title, author, allPage, allNum, page, pageSize} = this.state;
         return (
             <Layout className="books-manage-layout">
                 <Header className='books-manage-header clearfix' >
@@ -287,6 +300,7 @@ export default class BooksManage extends Component {
                         </div>
                     </div></div>
                 </Content>
+                { (allPage > 1) ? <Footer><Pagination className='tc' showQuickJumper current={ page }  total={allNum} onChange={ this.changePage } pageSize={pageSize} /></Footer> : null}
             </Layout>
         )
     }
