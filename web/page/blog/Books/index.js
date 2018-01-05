@@ -85,13 +85,17 @@ export default class Books extends Component {
     }
 
     getBanners() {
-        Axios.get('/api/get/banners', {page: 'BOOK'})
-            .then( res => {
-                let resData = res.data;
-                this.setState({
-                    banner: resData.banners[0]
-                })
+        Axios.get('/api/get/banners', {
+            params: {
+                page: 'BOOK'
+            }
+        })
+        .then( res => {
+            let resData = res.data;
+            this.setState({
+                banner: resData.banners[0]
             })
+        })
     }
 
 
