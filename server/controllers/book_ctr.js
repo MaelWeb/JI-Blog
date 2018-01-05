@@ -52,7 +52,7 @@ export async function getBooks(ctx) {
 
     result.books = books || [];
     result.page = page;
-    result.page = Math.ceil(allNum / size);
+    result.allPage = Math.ceil(allNum / size);
     result.allNum = allNum;
 
     if (ctx)

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Upload, Button, Input, Icon, message, Switch } from 'antd';
+import { Layout, Upload, Button, Input, Icon, message, Switch, Pagination } from 'antd';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import {IMG_URL, IMG_QUERY} from '../../../config/';
@@ -46,7 +46,10 @@ export default class BooksManage extends Component {
         })
         .then( res => {
             this.setState({
-                books: res.data.books
+                books: res.data.books,
+                page: res.data.page,
+                allPage: res.data.allPage,
+                allNum: res.data.allNum
             })
         })
     }
@@ -105,11 +108,7 @@ export default class BooksManage extends Component {
             .then( res => {
                 if (res.data.code == 200) {
                     message.success("添加成功");
-                    this.setState( preState => {
-                        preState.books.push(res.data.book);
-
-                        return {books: preState.books};
-                    })
+                    this.getBooks();
                 } else {
                     message.error("添加失败")
                 }
@@ -121,7 +120,7 @@ export default class BooksManage extends Component {
             message.success("上传成功");
             const { response } = info.file;
             this.setState(preState => {
-                preState.books[index].url = `${IMG_URL}${response.data.key}`;
+                preState.books[index].img = `${IMG_URL}${response.data.key}`;
 
                 return { books: preState.books}
             });
