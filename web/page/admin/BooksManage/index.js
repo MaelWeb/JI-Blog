@@ -171,15 +171,27 @@ export default class BooksManage extends Component {
             })
     }
 
-    deleteBook = book => {
+    delete = book => {
+        let key = book.img.split(IMG_URL)[1];
+        this.deleteBookPic(key);
+        this.deleteBook(book.id);
+    }
+
+    deleteBook(id) {
         Axios
-            .delete(`/api/book/${book.id}`)
+            .delete(`/api/book/${id}`)
             .then( res => {
                 message.success(res.data.message)
                 if (res.data.code == 200) {
                     this.getBooks();
                 }
-            })
+            });
+    }
+
+    deleteBookPic(key) {
+        return Axios.post("/api/filedelete", {
+            key: key
+        })
     }
 
     changeReadingStatus = (checked, index) => {
@@ -234,7 +246,7 @@ export default class BooksManage extends Component {
                             </label>
                              <div className="btn">
                                 <Button onClick={ () => { this.updateBook(book) } } >保存</Button>
-                                <Button onClick={ () => { this.deleteBook(book) } } >删除</Button>
+                                <Button onClick={ () => { this.delete(book) } } >删除</Button>
                             </div>
                         </div>
                      </div></div>) : null }
