@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
-import Measure from 'react-measure';
 
 export default class Books extends Component {
     constructor(props) {
@@ -110,7 +109,7 @@ export default class Books extends Component {
 
                 <div className="middle-text tc">
                     <h2>杂而不精的读者</h2>
-                    <p>当我需要安静的时候，我想要一本；当我安静的时候，我更想要一本书。不喜欢任何香水味，却惟独喜欢书香味。一本书，就是一个世界。躲进这个世界之中，就可以和当下的一切烦恼与琐碎隔离开来。</p>
+                    <p>当我需要安静的时候，我想要一本书；当我安静的时候，我更想要一本书。不喜欢任何香水味，却惟独喜欢书香味。一本书，就是一个世界。躲进这个世界之中，就可以和当下的一切烦恼与琐碎隔离开来。</p>
                 </div>
 
                 <div className="books-list clearfix">
@@ -128,6 +127,7 @@ export default class Books extends Component {
                                     <a href={ book.href } className="read-btn">试读</a>
                                 </div> : null}
                             </div>
+                            {book.isReading ? <span className='reading'>Reading</span> : null}
                         </div>
                     </div>
                     ) : null}
