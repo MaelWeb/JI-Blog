@@ -213,7 +213,7 @@ export default class BooksManage extends Component {
                                 <Input className="author" placeholder="作者" value={book.author} onChange={ e => { this.bookAuthorChange(e, index) } } />
                             </label>
                              <label htmlFor="">
-                                <TextArea className="info" placeholder="导言" row="4" value={book.desc} onChange={ e => { this.bookTextChange(e, index) } } autosize={{ minRows: 2, maxRows: 6 }} />
+                                <TextArea className="info" placeholder="导言" row="4" value={book.desc} onChange={ e => { this.bookTextChange(e, index) } } />
                             </label>
                             <label htmlFor="">
                                 <Input placeholder="试读链接" value={book.href} onChange={ e => { this.bookHrefChange(e, index) } }/>
