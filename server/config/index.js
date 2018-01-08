@@ -15,7 +15,7 @@ let config = {
         ACCESS_KEY: 'ARA9LIvdx3JFZyADmwohmEMyjVLmNSIjVxgpzIA4',
         SECRET_KEY: 'aK19LEtOfStwsvn501Pl_h_wTqkVFnbzxlI5FNU7'
     },
-    InvitationCode: "111111"
+    InvitationCode: "11111"
 }
 // 可在private.js定义自己私有的配置
 // if (fs.existsSync(__dirname + '/private.js')) {

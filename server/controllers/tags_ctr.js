@@ -1,15 +1,15 @@
 import Tag from '../models/tag_model';
 
 export async function createTag(ctx) {
-    const tagName = ctx.request.body.name;
-    if (tagName == "") {
+    const postData = ctx.request.body;
+    if (postData.name == "") {
         return ctx.body = {
             code: 400,
             message: "标签名不能为空"
         }
     }
 
-    const tag = await Tag.findOne({ name: tagName }).catch(err => {
+    const tag = await Tag.findOne({ name: postData.name }).catch(err => {
         ctx.throw(500, '服务器错误')
     });
 
@@ -20,7 +20,7 @@ export async function createTag(ctx) {
         }
     }
     const newTag = new Tag({
-        name: tagName
+        ...postData
     });
 
     const result = await newTag.save().catch(err => {

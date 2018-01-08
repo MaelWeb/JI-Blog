@@ -49,7 +49,7 @@ export default class Books extends Component {
                 || 0;
 
         const { page, allPage } = this.state;
-        if ( (_scrollTop + document.documentElement.clientHeight) > (this.bookLayoutDom.offsetHeight - 100) ) {
+        if ( (_scrollTop + document.documentElement.clientHeight) > (this.bookLayoutDom.offsetHeight - 200) ) {
             (page < allPage) && this.getBooks(page + 1);
         }
 
@@ -107,7 +107,7 @@ export default class Books extends Component {
                     <img src="http://ozrrmt7n9.bkt.clouddn.com/image/books_banner.jpg" alt=""/>
                     <div className="text-wrap">
                         <p><span style={{background: "#B6BABD"}} >{banner.text[0]}</span>{banner.text[1]}</p>
-                        <div className='tr'><a href="https://book.douban.com/subject/26986954/" target="_blank">—— 《 {banner.author} 》</a></div>
+                        <div className='tr'><a href={ banner.href || "javascript:void(0);"} target="_blank">—— 《 {banner.author} 》</a></div>
                     </div>
                 </div>
 

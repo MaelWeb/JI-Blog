@@ -20,7 +20,8 @@ export default class BannerSetting extends Component {
             banners: [],
             book: {
                 text: [],
-                author: ''
+                author: '',
+                href: ''
             }
         };
 
@@ -90,6 +91,13 @@ export default class BannerSetting extends Component {
     bookTextChange = e => {
         let { book } = this.state;
         book.text = e.target.value.split('||');
+        this.setState({book});
+    }
+
+
+    bookHrefChange = e => {
+        let { book } = this.state;
+        book.href = e.target.value.split('||');
         this.setState({book});
     }
 
@@ -259,6 +267,7 @@ export default class BannerSetting extends Component {
                         >
                         <TextArea ref="bookText" value={ book.text.join("||") }  onChange={ this.bookTextChange } className="book-text" placeholder="图书首页文案，分两部分；以'||'分隔" autosize={{ minRows: 2, maxRows: 6 }} />
                         </Tooltip>
+                        <Input ref="bookHref" value={ book.href } onChange={ this.bookHrefChange } placeholder="相关链接" />
                         <Input ref="bookName" value={ book.author } onChange={ this.bookNameChange } placeholder="书名" />
                         { !book.id ? <Button onClick={ () => { this.addBanner("BOOK") } } >添加</Button> : <Button onClick={ () => { this.updateBanner(book) } } >保存</Button>}
                     </div>

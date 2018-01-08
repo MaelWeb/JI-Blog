@@ -214,22 +214,30 @@ export default class AddArticle extends Component {
 
         let isCreate = tags.filter(t => t.name === inputValue);
         if (isCreate.length) {
-            return (selectedTags.indexOf(isCreate[0].id) == -1) ? this.setState({
-                inputVisible: false,
-                selectedTags: [...selectedTags, isCreate[0].id],
-                inputValue: ''
-            }) : this.setState({
-                inputVisible: false,
-                inputValue: ''
-            });
+
+            if ( selectedTags.indexOf(isCreate[0].id) == -1 ) {
+                Axios.post('/api/update/tag/count', {id: tag.id, type: 1});
+                this.setState({
+                    inputVisible: false,
+                    selectedTags: [...selectedTags, isCreate[0].id],
+                    inputValue: ''
+                })
+            } else {
+                this.setState({
+                    inputVisible: false,
+                    inputValue: ''
+                })
+            }
+
+            return false;
         }
-        Axios.post('/api/create/tag', { name: inputValue })
+        Axios.post('/api/create/tag', { name: inputValue, count: 1 })
             .then(res => {
                 this.setState({
                     selectedTags: [...selectedTags, res.data.tag.id],
                     tags: [...tags, res.data.tag],
                     inputVisible: false,
-                    inputValue: ''
+                    inputValue: '',
                 })
             })
             .catch( err => {

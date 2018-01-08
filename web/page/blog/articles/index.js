@@ -137,8 +137,8 @@ export default class Articles extends Component {
             <div className="blog-articles-layout">
                 { this.showBanners() }
                 <div className="blog-tags">
-                    <Link to={{pathname: '/'}} onClick={ () => { this.getArticles() } } className={ classNames("tag", {'tag-active': !curTagId}) } >所有文章</Link>
-                    { tags && tags.length ? tags.map( tag => (tag.count > 0) && <Link to={{pathname: '/', search: `?tag=${tag.id}`}} onClick={ () => { this.getArticles(tag.id) } } className={ classNames("tag", {'tag-active': curTagId == tag.id}) } key={tag.id} >{tag.name}</Link>) : null}
+                    <Link to={{pathname: '/'}} onClick={ () => { this.getArticles(1) } } className={ classNames("tag", {'tag-active': !curTagId}) } >所有文章</Link>
+                    { tags && tags.length ? tags.map( tag => (tag.count > 0) && <Link to={{pathname: '/', search: `?tag=${tag.id}`}} onClick={ () => { this.getArticles(1, tag.id) } } className={ classNames("tag", {'tag-active': curTagId == tag.id}) } key={tag.id} >{tag.name}</Link>) : null}
                 </div>
                 <div className="blog-articles-list">
                     <ul>
