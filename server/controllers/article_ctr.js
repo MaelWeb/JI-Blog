@@ -119,7 +119,7 @@ export async function getAllPublishArticles(ctx) {
         articles = await Article.find({
                 publish: true,
                 category
-            }, { title: 1, banner: 1, abstract: 1 })
+            }, { title: 1, banner: 1, abstract: 1, createTime: 1, lastEditTime: -1 })
             .populate("tags")
             .sort({ createTime: -1 })
             .limit(limit)
@@ -138,7 +138,7 @@ export async function getAllPublishArticles(ctx) {
                 tags: { "$in": tagArr },
                 publish: true,
                 category
-            }, { title: 1, banner: 1, abstract: 1 })
+            }, { title: 1, banner: 1, abstract: 1, createTime: 1, lastEditTime: -1 })
             .populate("tags")
             .sort({ createTime: -1 })
             .limit(limit)
@@ -152,6 +152,7 @@ export async function getAllPublishArticles(ctx) {
             ctx.throw(500, '服务器内部错误')
         })
     }
+
     allPage = Math.ceil(allNum / limit)
 
     ctx.body = {

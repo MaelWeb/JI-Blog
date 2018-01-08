@@ -1,8 +1,6 @@
 import mongoose from 'mongoose';
 import moment from 'moment';
 
-moment.locale('zh-cn');
-
 const Schema = mongoose.Schema;
 
 const ArticleSchema = new Schema({
