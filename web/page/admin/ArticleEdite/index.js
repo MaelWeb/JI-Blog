@@ -101,17 +101,17 @@ export default class AddArticle extends Component {
             articleHtml = this.editor.getHTML(),
             articleAbstract = this.state.articleAbstract;
 
-        let reg =  /<img[^>]+src=['"]([^'"]+)['"]+/g;
+        // let reg =  /<img[^>]+src=['"]([^'"]+)['"]+/g;
 
-        let images = [], temp;
+        // let images = [], temp;
 
-        if (!banner) {
-            while( (temp = reg.exec(articleHtml)) != null ) {
-                images.push(temp[1]);
-            }
+        // if (!banner) {
+        //     while( (temp = reg.exec(articleHtml)) != null ) {
+        //         images.push(temp[1]);
+        //     }
 
-            banner = images[0] || '';
-        }
+        //     banner = images[0] || '';
+        // }
 
         if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
 
@@ -362,12 +362,12 @@ export default class AddArticle extends Component {
                 .then(res => {
                     this.setState({
                         isBannerModalShow: false,
-                        banner: `${IMG_URL}${newBanner}${IMG_QUERY}`,
+                        banner: `${IMG_URL}${newBanner}`,
                     });
                 });
         } else {
             this.setState({
-                banner: newBanner ? `${IMG_URL}${newBanner}${IMG_QUERY}` : null,
+                banner: newBanner ? `${IMG_URL}${newBanner}` : null,
                 isBannerModalShow: false
             });
         }
@@ -481,7 +481,7 @@ export default class AddArticle extends Component {
                           >
                             {
                               (banner || newBanner) ?
-                                <img src={ newBanner ? `${IMG_URL}${newBanner}${IMG_QUERY}` : banner } alt="" className="avatar" /> :
+                                <img src={ newBanner ? `${IMG_URL}${newBanner}` : banner } alt="" className="avatar" /> :
                                 <Icon type="plus" className="avatar-uploader-trigger" />
                             }
                           </Upload>
