@@ -23,14 +23,15 @@ export default class Articles extends Component {
         articles: [],
         tags: [],
         banners: [],
-        allPage: 0
+        allPage: 0,
+        curTagId: null
     }
 
     componentDidMount() {
         const { articles, tags, banners } = this.state;
 
         if (!articles.length || !tags.length || !banners.length) {
-            this.getArticles(1);
+            this.getArticles(1, null);
             this.getAllTags();
             this.getBanners();
         }
@@ -39,7 +40,7 @@ export default class Articles extends Component {
     getArticles = (page, tagid)=> {
         Axios.get('/api/get/publish/articles', {
             params: {
-                tag: tagid || this.state.curTagId || null,
+                tag: tagid || null,
                 category: 'DEFAULT',
                 page
             }
@@ -80,7 +81,7 @@ export default class Articles extends Component {
     }
 
     changePage = (page, pageSize) => {
-        this.getArticles(page)
+        this.getArticles(page, this.state.curTagId)
     }
 
     showBanners() {
@@ -137,7 +138,7 @@ export default class Articles extends Component {
             <div className="blog-articles-layout">
                 { this.showBanners() }
                 <div className="blog-tags">
-                    <Link to={{pathname: '/'}} onClick={ () => { this.getArticles(1) } } className={ classNames("tag", {'tag-active': !curTagId}) } >所有文章</Link>
+                    <Link to={{pathname: '/'}} onClick={ () => { this.getArticles(1, null) } } className={ classNames("tag", {'tag-active': !curTagId}) } >所有文章</Link>
                     { tags && tags.length ? tags.map( tag => (tag.count > 0) && <Link to={{pathname: '/', search: `?tag=${tag.id}`}} onClick={ () => { this.getArticles(1, tag.id) } } className={ classNames("tag", {'tag-active': curTagId == tag.id}) } key={tag.id} >{tag.name}</Link>) : null}
                 </div>
                 <div className="blog-articles-list">
