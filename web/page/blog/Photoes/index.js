@@ -33,6 +33,12 @@ export default class Photo extends Component {
         allPage: 0
     };
 
+    componentWillMount() {
+        const { photoes } = this.state;
+        if (!photoes.length)
+            this.getPhotos(1);
+    }
+
     componentDidMount() {
         this.photoLayoutDom = ReactDOM.findDOMNode(this);
         this.headerDom = ReactDOM.findDOMNode(this.refs.photoHeader);
@@ -41,10 +47,6 @@ export default class Photo extends Component {
         this.blogNavDom.classList.add('blog-photo-header');
 
         window.addEventListener("scroll", this.onscroll, false);
-
-        const { photoes } = this.state;
-        if (!photoes.length)
-            this.getPhotos(1);
     }
 
     getPhotos(page) {
@@ -60,6 +62,7 @@ export default class Photo extends Component {
                     return {
                         page,
                         photoes,
+                        allPage: res.data.allPage,
                         isLoading: false
                     }
                 })
@@ -78,8 +81,9 @@ export default class Photo extends Component {
         } else {
             this.blogNavDom.classList.add('blog-photoes-header');
         }
+
         const { page, allPage } = this.state;
-        if ( (_scrollTop + document.documentElement.clientHeight) > (this.photoLayoutDom.offsetHeight - 100) ) {
+        if ( (_scrollTop + document.documentElement.clientHeight) > (this.photoLayoutDom.offsetHeight - 150) ) {
             (page < allPage) && this.getPhotos(page + 1);
         }
     }
@@ -122,12 +126,12 @@ export default class Photo extends Component {
         const { photoes, width, showPhotoView, currentPhotoIndex, isShowImageGallery, imageGalleryIndex, isLoading } = this.state;
         return(
             <div className="blog-photo-layout">
-                <section className="photo-banner" ref='photoHeader' style={{backgroundImage: `url(${ photoes[0] && photoes[0].src})`} } >
-                    <img src={ photoes[0] && photoes[0].src } alt=""/>
-                    { photoes[0] && photoes[0].desc ? <div className="photo-banner-info">
+                <section className="photo-banner" ref='photoHeader' style={{backgroundImage: `url(${ photoes[0] && photoes[0].src || '//ozrrmt7n9.bkt.clouddn.com/14506926.jpg'})`} } >
+                    <img src={ photoes[0] && photoes[0].src || '//ozrrmt7n9.bkt.clouddn.com/14506926.jpg'} alt=""/>
+                    <div className="photo-banner-info">
                         <p className="small" ><span>图记</span></p>
-                        <h2>{photoes[0].desc}</h2>
-                    </div> : null}
+                        <h2>{photoes[0] && photoes[0].desc ? photoes[0].desc : '一起老去'}</h2>
+                    </div>
                 </section>
                 <section className="middle-text tc">
                     <h2>我以一种笨拙的方式拍照</h2>
@@ -147,7 +151,7 @@ export default class Photo extends Component {
                               columns = 5;
                             }
                             return <div ref={measureRef} className="photo-list">
-                              <Gallery photos={ photoes.slice(1)} margin={ 4 } columns={columns} ImageComponent={ImageItem} onClick={ this.selectPhoto } />
+                              <Gallery photos={ photoes.slice(1) } margin={ 4 } columns={columns} ImageComponent={ImageItem} onClick={ this.selectPhoto } />
                             </div>
                         }
                     }
