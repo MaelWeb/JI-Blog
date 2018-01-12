@@ -172,7 +172,7 @@ export default class Comments extends Component {
 
                 <div className="comment-modal" hidden={!showUserInfo} style={{zIndex: 5}} ref='UserModal'>
                     <div className="comment-user-modal-form">
-                            <img src="//ozrrmt7n9.bkt.clouddn.com/image/logo.png" alt=""/>
+                            <img src="//cdn.liayal.com/image/logo.png" alt=""/>
                             <input type="text" name="name" placeholder='昵称(必填)' ref='userName' />
                             <input type="text" name="email" placeholder='xxxx@qq.com(必填)' ref='userEamil' />
                             <input type="text" name="site" placeholder='www.yourblog.com' ref='userSite' />

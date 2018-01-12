@@ -17,7 +17,7 @@ let loadEditorMD = () => {
             script.onerror = () => {
                 reject(false);
             };
-            script.src = 'http://oyfapuy1b.bkt.clouddn.com/editormd/editormd.min.js';
+            script.src = '//static.liayal.com/editormd/editormd.min.js';
             document.head.appendChild(script);
         }
     });
@@ -28,7 +28,7 @@ let defaultConfig = {
     width: "100%",
     height: 740,
     // 静态资源路径
-    path: 'http://oyfapuy1b.bkt.clouddn.com/editormd/lib/',
+    path: '//static.liayal.com/editormd/lib/',
     // theme : "dark",
     // previewTheme : "dark",
     // editorTheme : "pastel-on-dark",
@@ -146,7 +146,7 @@ class Editor extends Component {
 
 let defaultShowConfig = {
     id: 'EditorShowID' + new Date().getTime(),
-    path: 'http://oyfapuy1b.bkt.clouddn.com/editormd/lib/',
+    path: '//static.liayal.com/editormd/lib/',
     gfm: true,
     toc: true,
     tocm: true,

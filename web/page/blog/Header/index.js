@@ -49,8 +49,8 @@ export default class Header extends Component {
             <header className={ hCls } ref="blogHeader" id='IdNav'>
                 <div className="nav-pc clearfix">
                      <Link to='/'>
-                        <img className='logo black' src="//ozrrmt7n9.bkt.clouddn.com/image/logo.png" alt="Logo"/>
-                        <img className='logo white' src="//ozrrmt7n9.bkt.clouddn.com/image/logo_white.png" alt="Logo"/>
+                        <img className='logo black' src="//cdn.liayal.com/image/logo.png" alt="Logo"/>
+                        <img className='logo white' src="//cdn.liayal.com/image/logo_white.png" alt="Logo"/>
                      </Link>
                      <nav className="nav-list fr">
                         <NavLink exact to='/'><span>文记</span></NavLink>

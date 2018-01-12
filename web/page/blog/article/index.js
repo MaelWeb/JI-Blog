@@ -48,7 +48,7 @@ export default class Article extends Component {
         return (
             <div className={cls} >
                 { _article.category == "TRAVEL" ? <div className="article-banner">
-                    <div className="bg" style={{backgroundImage: `url(${ _article.banner ? _article.banner : "//ozrrmt7n9.bkt.clouddn.com/12027196.jpg" })`} } />
+                    <div className="bg" style={{backgroundImage: `url(${ _article.banner ? _article.banner : "//cdn.liayal.com/12027196.jpg" })`} } />
                     <h2 className="article-title">{_article.title}</h2>
                 </div> : null}
                 <article className='blog-article-body'>

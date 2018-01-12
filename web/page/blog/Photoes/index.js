@@ -126,8 +126,8 @@ export default class Photo extends Component {
         const { photoes, width, showPhotoView, currentPhotoIndex, isShowImageGallery, imageGalleryIndex, isLoading } = this.state;
         return(
             <div className="blog-photo-layout">
-                <section className="photo-banner" ref='photoHeader' style={{backgroundImage: `url(${ photoes[0] && photoes[0].src || '//ozrrmt7n9.bkt.clouddn.com/14506926.jpg'})`} } >
-                    <img src={ photoes[0] && photoes[0].src || '//ozrrmt7n9.bkt.clouddn.com/14506926.jpg'} alt=""/>
+                <section className="photo-banner" ref='photoHeader' style={{backgroundImage: `url(${ photoes[0] && photoes[0].src || '//cdn.liayal.com/14506926.jpg'})`} } >
+                    <img src={ photoes[0] && photoes[0].src || '//cdn.liayal.com/14506926.jpg'} alt=""/>
                     <div className="photo-banner-info">
                         <p className="small" ><span>图记</span></p>
                         <h2>{photoes[0] && photoes[0].desc ? photoes[0].desc : '一起老去'}</h2>

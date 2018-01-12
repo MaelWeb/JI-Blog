@@ -94,8 +94,8 @@ export default class Travel extends Component {
         const { travels, isLoading } = this.state;
         return (
             <div className="blog-travel-layout">
-                <div className="traverl-header" ref='travelHeader' style={{backgroundImage: `url(${ travels[0] && travels[0].banner ? travels[0].banner : "//ozrrmt7n9.bkt.clouddn.com/12027196.jpg" })`} }><Link to={`/article/${travels[0] && travels[0].id}`} >
-                    <img src={ travels[0] && travels[0].banner ? travels[0].banner : "//ozrrmt7n9.bkt.clouddn.com/12027196.jpg" } alt="" hidden />
+                <div className="traverl-header" ref='travelHeader' style={{backgroundImage: `url(${ travels[0] && travels[0].banner ? travels[0].banner : "//cdn.liayal.com/12027196.jpg" })`} }><Link to={`/article/${travels[0] && travels[0].id}`} >
+                    <img src={ travels[0] && travels[0].banner ? travels[0].banner : "//cdn.liayal.com/12027196.jpg" } alt="" hidden />
                     {travels[0] ? <div className="aticle-info">
                         <p className="small"><span>游记</span></p>
                         <h2>{ travels[0] ? travels[0].title : ''}</h2>
@@ -110,7 +110,7 @@ export default class Travel extends Component {
                     { travels.length ? travels.map( (article, index) => {
                         return index != 0 ? (
                                 <div className="article-item"  key={article.id} ><Link to={`/article/${article.id}`} >
-                                    <img src={article.banner || '//ozrrmt7n9.bkt.clouddn.com/14506926.jpg'} alt=""/>
+                                    <img src={article.banner || '//cdn.liayal.com/14506926.jpg'} alt=""/>
                                     <p className="article-title">{article.title} <small>{ Moment(article.createTime).format('MM月DD日')}</small></p>
                                 </Link></div>
                         ) : null

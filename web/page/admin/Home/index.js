@@ -94,7 +94,7 @@ export default class Home extends Component {
                 onCollapse={this.onCollapse}
                 className='home-sider' >
                 <div className="home-user tc">
-                    <Avatar size="large" src="http://ozrrmt7n9.bkt.clouddn.com/image/logo_col.png" className='home-user-avatar'/>
+                    <Avatar size="large" src="http://cdn.liayal.com/image/logo_col.png" className='home-user-avatar'/>
                 </div>
                 <Menu mode="inline" selectedKeys={[this.getSelectedKeys()]}>
                     {routes.map((route, index) => (

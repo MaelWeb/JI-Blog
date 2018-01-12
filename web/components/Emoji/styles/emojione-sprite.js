@@ -15,7 +15,7 @@ const base = {
     margin: '0 .15em',
     lineHeight: 'normal',
     verticalAlign: 'middle',
-    backgroundImage: 'url("http://ozrrmt7n9.bkt.clouddn.com/image/emojione-3.1.2-32x32.png")',
+    backgroundImage: 'url("//cdn.liayal.com/image/emojione-3.1.2-32x32.png")',
     backgroundRepeat: 'no-repeat',
 };
 
