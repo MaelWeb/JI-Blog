@@ -11,7 +11,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="记">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
     <meta name="HandheldFriendly" content="true">
     <!-- 微软的老式浏览器 -->
@@ -30,23 +29,22 @@
     <meta name="x5-page-mode" content="app">
     <!-- windows phone 点击无高光 -->
     <meta name="msapplication-tap-highlight" content="no">
-    <base target="_blank">
     <link rel="dns-prefetch" href="//cdn.liayal.com">
     <link rel="dns-prefetch" href="//static.liayal.com">
     <link rel="dns-prefetch" href="//at.alicdn.com">
     <link href="//cdn.liayal.com/image/favicon.ico" rel="shortcut icon">
-    <link rel="apple-touch-icon" href="//cdn.liayal.com/image/touch-icon-iphone.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="//cdn.liayal.com/image/touch-icon-ipad.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="//cdn.liayal.com/image/touch-icon-iphone-retina.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="//cdn.liayal.com/image/touch-icon-ipad-retina.png">
-<link href="//static.liayal.com/css/blog.c117f995.css" rel="stylesheet"></head>
+    <link rel="apple-touch-icon-precomposed" href="//cdn.liayal.com/image/touch-icon-iphone.png">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="//cdn.liayal.com/image/touch-icon-ipad.png">
+    <link rel="apple-touch-icon-precomposed" sizes="180x180" href="//cdn.liayal.com/image/touch-icon-iphone-retina.png">
+    <link rel="apple-touch-icon-precomposed" sizes="167x167" href="//cdn.liayal.com/image/touch-icon-ipad-retina.png">
+<link href="/css/blog.c117f995.css" rel="stylesheet"></head>
 
 <body>
     <div id="app"><%- html %></div>
     <script type="text/javascript">
     var _SERVER_DATA = <%- JSON.stringify(ServerData) %>;
     </script>
-    <script  src="//static.liayal.com/lib/vendor.dll.js"></script>
-<script type="text/javascript" src="//static.liayal.com/js/blog_53e52fcd.js"></script></body>
+    <script  src="/lib/vendor.dll.js"></script>
+<script type="text/javascript" src="/js/blog.js"></script></body>
 
 </html>
