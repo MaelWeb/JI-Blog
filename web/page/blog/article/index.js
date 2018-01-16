@@ -4,6 +4,7 @@ import Moment from 'moment';
 import Icon from '../../../components/Icon';
 import Comments from '../Comments';
 import ClassNames from 'classnames';
+import ArticleLoading from './article-loading';
 
 Moment.locale('zh-cn');
 
@@ -51,7 +52,7 @@ export default class Article extends Component {
                     <div className="bg" style={{backgroundImage: `url(${ _article.banner ? _article.banner : "//cdn.liayal.com/12027196.jpg" })`} } />
                     <h2 className="article-title">{_article.title}</h2>
                 </div> : null}
-                <article className='blog-article-body'>
+                { article ? <article className='blog-article-body'>
                     { _article.category != "TRAVEL" ? <h2 className="article-title"><p><em>{_article.title}</em></p></h2> : null}
                     <p className="article-desc">
                         <span><Icon type='date' /> {Moment(_article.createTime).format('LL')}</span>
@@ -59,7 +60,7 @@ export default class Article extends Component {
                         <span className="ml"><Icon type='visit' /> {_article.visited || 0}</span>
                     </p>
                     <div className="article-content" dangerouslySetInnerHTML={ {__html: _article.htmlContent} } />
-                </article>
+                </article> : <ArticleLoading />}
                 <section className='article-share-box'>
                     <a href={`https://service.weibo.com/share/share.php?url=${encodeURIComponent(`//hynal.com/article/${_article.id}`)}&title=${encodeURIComponent(_article.title)}&pic=${encodeURIComponent(_article.banner || '')}&appkey=${WEIBOKEY}` } className="share-icon">
                         <Icon type="weibo" />
