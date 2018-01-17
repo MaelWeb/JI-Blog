@@ -50,9 +50,11 @@ export default class Comments extends Component {
 
     exportComment = commentCont => {
         const { reply } = this.state;
-        if (this.user && commentCont) {
+        const user = window.localStorage.getItem('_liayal_user');
+
+        if (user && commentCont) {
             this.saveComment({
-                user: this.user,
+                user: JSON.parse(user),
                 reply: reply ? reply.id : null,
                 commentCont
             });
@@ -75,10 +77,10 @@ export default class Comments extends Component {
 
         if (!emailReg.test(email)) return message.info('邮箱格式不正确呀！');
 
-        this.user = {name, email, site};
+        window.localStorage.setItem('_liayal_user', JSON.stringify({name, email, site}));
 
         this.saveComment({
-            user: this.user,
+            user: {name, email, site},
             reply: reply ? reply.id : null,
             commentCont
         });

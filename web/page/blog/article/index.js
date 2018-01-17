@@ -60,15 +60,19 @@ export default class Article extends Component {
                         <span className="ml"><Icon type='visit' /> {_article.visited || 0}</span>
                     </p>
                     <div className="article-content" dangerouslySetInnerHTML={ {__html: _article.htmlContent} } />
+                    <div className='article-tips'>
+                        <p>如非特别注明，文章皆为原创。</p>
+                        <p><b>转载请注明出处：</b> <a href={`http://www.liayal.com/article/${_article.id}`}>{`http://www.liayal.com/article/${_article.id}`}</a></p>
+                    </div>
                 </article> : <ArticleLoading />}
                 <section className='article-share-box'>
-                    <a href={`https://service.weibo.com/share/share.php?url=${encodeURIComponent(`//hynal.com/article/${_article.id}`)}&title=${encodeURIComponent(_article.title)}&pic=${encodeURIComponent(_article.banner || '')}&appkey=${WEIBOKEY}` } className="share-icon">
+                    <a href={`https://service.weibo.com/share/share.php?url=${encodeURIComponent(`http://www.liayal.com/article/${_article.id}`)}&title=${encodeURIComponent(_article.title)}&pic=${encodeURIComponent(_article.banner || '')}&appkey=${WEIBOKEY}` } className="share-icon">
                         <Icon type="weibo" />
                     </a>
-                    <a href={ `http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${encodeURIComponent(`//hynal.com/article/${_article.id}`)}&title=${encodeURIComponent(_article.title)}&desc=${encodeURIComponent(_article.abstract)}&summary=${encodeURIComponent(_article.abstract)}&site=${encodeURIComponent('//hynal.com')}` } className="share-icon">
+                    <a href={ `http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${encodeURIComponent(`http://www.liayal.com/article/${_article.id}`)}&title=${encodeURIComponent(_article.title)}&desc=${encodeURIComponent(_article.abstract)}&summary=${encodeURIComponent(_article.abstract)}&site=${encodeURIComponent('//hynal.com')}` } className="share-icon">
                         <Icon type="qzone" />
                     </a>
-                    <a href={ `http://shuo.douban.com/!service/share?href=${encodeURIComponent(`//hynal.com/article/${_article.id}`)}&name=${encodeURIComponent(_article.title)}&text=${encodeURIComponent(_article.abstract)}&image=${encodeURIComponent(_article.banner || '')}&starid=0&aid=0&style=11` } className="share-icon">
+                    <a href={ `http://shuo.douban.com/!service/share?href=${encodeURIComponent(`http://www.liayal.com/article/${_article.id}`)}&name=${encodeURIComponent(_article.title)}&text=${encodeURIComponent(_article.abstract)}&image=${encodeURIComponent(_article.banner || '')}&starid=0&aid=0&style=11` } className="share-icon">
                         <Icon type="douban" />
                     </a>
                 </section>
