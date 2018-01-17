@@ -11,6 +11,31 @@
         word-wrap: break-word;
     }
 
+    .article-title {
+        margin: -.1rem 0 .1rem;
+        padding-bottom: 0;
+        color: #212121;
+        font-size: .26rem;
+        text-align: center;
+        border: none;
+        word-break: break-all;
+        em {
+            position: relative;
+            font-style: normal;
+            text-align: left;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        p {
+            margin-bottom: 0;
+            display: inline-block;
+            text-align: center;
+        }
+    }
+
     .article-banner {
         position: relative;
         height: 4.5rem;
