@@ -3422,6 +3422,10 @@
             }
         };
 
+        markedRenderer.image = function (href, title, text) {
+            return "<div class='image'><img src='" + href + "' alt='" + title + "'/><p>" + title + "</p></div>";
+        };
+
         return markedRenderer;
     };
 

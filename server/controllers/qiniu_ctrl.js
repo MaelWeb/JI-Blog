@@ -7,6 +7,7 @@ import { addPhoto } from './photo_ctrl';
 
 const { ACCESS_KEY, SECRET_KEY } = Config.upload;
 const DEFAULT_BUCKET = (process.env.NODE_ENV == "production") ? 'hynal-com' : 'hynal-com-test';
+const IMG_URL =  (process.env.NODE_ENV == "production") ? "//cdn.liayal.com/" : "//p1hx4ytu8.bkt.clouddn.com/";
 
 function getToken(bucket) {
     let _bucket = bucket || DEFAULT_BUCKET;
@@ -157,13 +158,11 @@ export async function getPhotoes(ctx) {
 export async function articleImageUpload(ctx) {
     let result = await uploadToQiniu(ctx, { prefix: 'image/' });
 
-    const IMG_URL = '//ozrrmt7n9.bkt.clouddn.com/';
-    const IMG_QUERY = 'imageView2/0/interlace/1/q/75|imageslim';
 
     ctx.body = {
         success: result.code == 200 ? 1 : 0,
         message: result.code == 200 ? '上传成功' : "上传失败",
-        url: result.code == 200 ? `${IMG_URL}${result.data.key}?${IMG_QUERY}` : ''
+        url: result.code == 200 ? `${IMG_URL}${result.data.key}` : ''
     }
 }
 

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 // import jQuery from 'jquery';
 // import editormd from './editormd';
-// import EditorMD from 'editor.md/editormd';
 import './editormd.less';
 
 let loadEditorMD = () => {
@@ -17,7 +16,7 @@ let loadEditorMD = () => {
             script.onerror = () => {
                 reject(false);
             };
-            script.src = '//static.liayal.com/editormd/editormd.min.js';
+            script.src = '//static.liayal.com/editormd/editormd.fix.min.js';
             document.head.appendChild(script);
         }
     });
