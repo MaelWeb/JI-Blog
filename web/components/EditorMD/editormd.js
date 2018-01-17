@@ -3159,7 +3159,7 @@
 
     // Emoji graphics files url path
     editormd.emoji = {
-        path: "http://www.emoji-cheat-sheet.com/graphics/emojis/",
+        path: "//www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/",
         ext: ".png"
     };
 
@@ -3423,7 +3423,10 @@
         };
 
         markedRenderer.image = function (href, title, text) {
-            return "<div class='image'><img src='" + href + "' alt='" + title + "'/><p>" + title + "</p></div>";
+            if (title) {
+                return "<div class='image'><img src='" + href + "' alt='" + title + "'/><p>" + title + "</p></div>";
+            }
+            return "<div class='image'><img src='" + href + "' alt=''/></div>";
         };
 
         return markedRenderer;
