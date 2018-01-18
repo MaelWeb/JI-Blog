@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch, withRouter } from 'react-router-dom';
 import { CSSTransition, TransitionGroup, CSSTransitionGroup } from 'react-transition-group';
+import Axios from 'axios';
 import ScrollToTop from '../../../components/ScrollToTop';
 import Articles from '../Articles';
 import Article from '../Article';
@@ -51,21 +52,19 @@ class App extends Component {
     }
 
     componentDidMount() {
-        var bp = document.createElement('script');
-        var curProtocol = window.location.protocol.split(':')[0];
-        if (curProtocol === 'https') {
-            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
-        } else {
-            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
-        }
-        var s = document.getElementsByTagName("script")[0];
-        s.parentNode.insertBefore(bp, s);
+        Axios.post('/api/push/baidu', {
+            url: window.location.href
+        });
     }
 
     componentDidUpdate(prevProps, prevState) {
         if ((this.props.location !== prevProps.location)) {
             window.scrollTo(0, 0);
         }
+
+        Axios.post('/api/push/baidu', {
+            url: window.location.href
+        });
     }
 
     render() {

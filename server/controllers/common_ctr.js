@@ -35,3 +35,21 @@ export async function getOneContent(ctx) {
     ctx.body = result;
     return result;
 }
+
+
+export async function pushToBaidu(ctx) {
+    const postData = ctx.request.body;
+    let result = {
+        success: 0,
+        message: '',
+    };
+
+    await Superagent.post(`http://data.zz.baidu.com/urls?site=www.liayal.com&token=kdDIO6Gl2EqQOofj`)
+        .send(postData.url)
+        .then(function (res ){
+            result = res.text;
+        });
+
+    ctx.body = result;
+    return result;
+}
