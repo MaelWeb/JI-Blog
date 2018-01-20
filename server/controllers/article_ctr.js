@@ -216,7 +216,7 @@ export async function modifyArticle(ctx) {
 
 export async function getArticle(ctx) {
     const id = ctx.params.id;
-    const projection = ctx.query.filter ? {title: 1, htmlContent: 1, abstract: 1, banner: 1, visited: 1 } : {};
+    const projection = ctx.query.filter ? {title: 1, htmlContent: 1, abstract: 1, banner: 1, visited: 1, category: 1 } : {};
     if (!id) {
         return ctx.body = {
             code: 400,
