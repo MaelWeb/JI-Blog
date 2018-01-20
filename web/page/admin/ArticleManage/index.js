@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Icon, Card, Col, Button, Modal, Pagination, Radio} from 'antd';
+import { Layout, Icon, Card, Col, Button, Modal, Pagination, Radio, Spin, Alert} from 'antd';
 import Moment from 'moment';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
@@ -33,7 +33,6 @@ export default class ArticleManege extends Component {
     };
 
     componentWillMount() {
-        this.getOne();
         this.getArticles(1);
     }
 
@@ -97,20 +96,6 @@ export default class ArticleManege extends Component {
                 return this.doDelete(article.id);
             }
         });
-    }
-
-    showOne() {
-        const { one } = this.state;
-        return one.length ? one.map( (o, i) => <Col span={8} key={i} >
-                <Card bodyStyle={{ padding: 0 }}>
-                <div className="one-image">
-                  <img src={o.imgUrl} />
-                </div>
-                <div className="one-card">
-                  <p>{o.text}</p>
-                </div>
-            </Card></Col>) : null;
-
     }
 
     changePage = page => {
@@ -195,7 +180,7 @@ export default class ArticleManege extends Component {
 
         return articles.length ? articles.map( article => {
                 return  <Col span={8} key={article.id} >
-                    <Card title={article.title} extra={<Icon type="delete" className="article-delete" onClick={ e => this.deleteArticle(article) } />} bodyStyle={bodyStyle} >
+                    <Card title={article.title} hoverable  extra={<Icon type="delete" className="article-delete" onClick={ e => this.deleteArticle(article) } />} bodyStyle={bodyStyle} >
                         <div className="article-content">
                             {article.abstract || article.content.substr(0, 100)}
                         </div>
@@ -224,7 +209,12 @@ export default class ArticleManege extends Component {
                 </Header>
                 <Content className="article-manage-content">
                     <Masonry className="article-list">
-                        {  articles.length ? this.showArticles() : this.showOne() }
+                        { articles.length ? this.showArticles() : <Spin tip="Loading..." size='large' wrapperClassName='loading'>
+                            <Alert
+                              description="文章列表加载中..."
+                              type="info"
+                            />
+                          </Spin> }
                     </Masonry>
                 </Content>
                 { articles.length ? <Footer><Pagination className='article-pn' showQuickJumper current={ page }  total={allNum} onChange={ this.changePage } pageSize={pageSize} /></Footer> : null}

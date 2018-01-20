@@ -60,7 +60,7 @@ export async function getAllArticles(ctx) {
     }
 
     if (!tag) {
-        articles = await Article.find()
+        articles = await Article.find(null, { title: 1, publish: 1, abstract: 1, createTime: 1, lastEditTime: -1, content: 1 })
             .populate("tags")
             .sort({ createTime: -1 })
             .limit(size)
@@ -75,7 +75,7 @@ export async function getAllArticles(ctx) {
         let _tag = tag.split(';');
         articles = await Article.find({
                 tags: { "$in": _tag },
-            })
+            }, { title: 1, publish: 1, abstract: 1, createTime: 1, lastEditTime: -1, content: 1 })
             .populate("tags")
             .sort({ createTime: -1 })
             .limit(size)
@@ -216,17 +216,15 @@ export async function modifyArticle(ctx) {
 
 export async function getArticle(ctx) {
     const id = ctx.params.id;
+    const projection = ctx.query.filter ? {title: 1, htmlContent: 1, abstract: 1, banner: 1, visited: 1 } : {};
     if (!id) {
         return ctx.body = {
             code: 400,
             message: "请求参数错误"
         }
     }
-    /*if (tags.length === 0) {
-      ctx.throw(400, '标签不能为空')
-    }*/
     const article = await Article
-        .findByIdAndUpdate(id, { $inc: { visited: 1 } })
+        .findByIdAndUpdate(id, { $inc: { visited: 1 } }, {projection})
         .populate("tags")
         .catch(err => {
             if (err.name === 'CastError') {

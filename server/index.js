@@ -4,10 +4,10 @@ import mongoose from 'mongoose';
 import koaStatic from 'koa-static';
 import views from 'koa-views';
 import path from 'path';
+import compress from 'koa-compress';
 
 import _Config from './config';
 import Router from './router';
-
 
 const App = new koa();
 
@@ -30,6 +30,7 @@ App.use(koaStatic(
 
 // 使用ctx.body解析中间件
 App.use(bodyParser());
+App.use(compress());
 
 // 路由
 App.use(Router.routes())

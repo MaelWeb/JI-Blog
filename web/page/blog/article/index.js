@@ -23,13 +23,17 @@ export default class Article extends Component {
         const { match: {params} } = this.props;
         const { article } = this.state;
         if (!article || article.id != params.id) {
-            Axios.get(`/api/get/article/${params.id}`)
-                .then( res => {
-                    let resData = res.data;
-                    this.setState({
-                        article: resData.article
-                    })
+            Axios.get(`/api/get/article/${params.id}`, {
+                params: {
+                    filter: 1
+                }
+            })
+            .then( res => {
+                let resData = res.data;
+                this.setState({
+                    article: resData.article
                 })
+            })
 
             Axios.get(`/api/get/comments?articleid=${params.id}`)
                 .then( res => {

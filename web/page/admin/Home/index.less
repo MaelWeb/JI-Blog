@@ -51,8 +51,13 @@
         line-height: 40px;
     }
 
-    .ant-menu-item {
+    .ant-menu-inline .ant-menu-item {
+        margin: 0;
     	border-bottom: 1px solid #eee;
+
+        &:not(:last-child) {
+            margin-bottom: 0;
+        }
 
     	&:after {
     		right: auto;

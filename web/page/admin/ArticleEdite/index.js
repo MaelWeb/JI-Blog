@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Button, Icon, Tag, Input, Modal, Breadcrumb, Spin, Radio, Upload} from 'antd';
+import { Layout, Button, Icon, Tag, Input, Modal, Breadcrumb, Spin, Radio, Upload, message} from 'antd';
 import EditorMD from 'Components/EditorMd';
 import {IMG_URL, IMG_QUERY} from '../../../config/';
 import PropTypes from 'prop-types';
@@ -33,6 +33,8 @@ export default class AddArticle extends Component {
             isPublish: false,
             isBannerModalShow: false
         };
+
+        this.isPosting = false;
     }
 
     static contextTypes = {
@@ -52,6 +54,7 @@ export default class AddArticle extends Component {
                     tags: res.data.tags
                 })
             })
+
     }
 
     async getArticle(id) {
@@ -143,9 +146,14 @@ export default class AddArticle extends Component {
     }
 
     doCreate(params) {
+        if (this.isPosting) return;
+        this.isPosting = true;
+        const hide = message.loading('文章创建中...', 0);
         Axios.post('/api/create/article', params)
         .then( res => {
+            hide();
             this.context.showMessage(res.data.message);
+            this.isPosting = false;
             if (res.data.code == 200) {
                 this.setState({
                     aid: res.data.article.id
@@ -155,7 +163,9 @@ export default class AddArticle extends Component {
             }
         })
         .catch( err => {
+            hide();
             this.context.showMessage(err);
+            this.isPosting = false;
         })
     }
 
@@ -177,15 +187,20 @@ export default class AddArticle extends Component {
             tags: selectedTags,
             banner
         };
-
-
+        if (this.isPosting) return;
+        this.isPosting = true;
+        const hide = message.loading('文章保存中...', 0);
         Axios.post(`/api/update/article/${query.aid || aid}`, params)
             .then( res => {
+                this.isPosting = false;
+                hide();
                 let resData = res.data;
-                this.context.showMessage(resData.message);
+                message.info(resData.message);
             })
             .catch( err => {
-                this.context.showMessage(err.message);
+                hide();
+                message.warning(resData.message);
+                this.isPosting = false;
             })
     }
 
@@ -403,8 +418,8 @@ export default class AddArticle extends Component {
             <Layout className="add-article-layout">
                 <Header className='add-article-header clearfix' >
                     <h2><Link to="/"><Icon type="home"/> </Link> / <span>文章编辑</span></h2>
-                    <div className={classNames("article-title tc", {'creat-pr': !query.aid})}><input type="text" placeholder='新增文章标题' className="article-title-input tc" onChange={ this.titleInputChange } value={articleTitle} /></div>
-                    { query.aid || aid ? <Button.Group size={'large'}>
+                    <div className={classNames("article-title tc", {'creat-pr': !query.aid && !aid})}><input type="text" placeholder='新增文章标题' className="article-title-input tc" onChange={ this.titleInputChange } value={articleTitle} /></div>
+                    { query.aid || aid ? <Button.Group>
                         <Button onClick={ this.saveArticle } >
                             <Icon type="save" />保存
                         </Button>

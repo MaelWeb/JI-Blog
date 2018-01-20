@@ -38,7 +38,7 @@ let _Page = Router
     .get('article/:id', async(ctx, next) => {
 
         if (!ctx.params.id) ctx.redirect('/');
-
+        ctx.query.filter = 1;
         let articleData = await getArticle(ctx);
         let commentsData = await getComments(ctx);
 

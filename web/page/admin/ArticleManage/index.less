@@ -45,13 +45,14 @@
     }
 
     .article-content {
-        height: 70px;
+        min-height: 70px;
         color: #4b4b4b;
         display: -webkit-box;
         overflow: hidden;
         text-overflow: ellipsis;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 4;
+        font-size: 12px;
     }
 
     .article-footer {
@@ -59,5 +60,28 @@
         margin-top: 10px;
         color: #d8d8d8;
         line-height: 22px;
+    }
+
+    .ant-card-head-title,
+    .ant-card-extra {
+        padding: 0;
+        line-height: 48px;
+        font-size: 14px;
+    }
+
+    .ant-card-hoverable:hover {
+        box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
+        border-color: rgba(0, 0, 0, .2);
+    }
+
+    .loading {
+        position: relative !important;
+        margin: .4rem auto;
+        width: 80%;
+        text-align: center;
+
+        .ant-spin {
+            left: 0;
+        }
     }
 }
