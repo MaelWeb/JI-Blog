@@ -14,7 +14,6 @@ export async function apiVerify(ctx, next) {
         }
         ctx.throw(401, 'invalid token');
     }
-    console.log("鉴权成功");
     await next();
 }
 
