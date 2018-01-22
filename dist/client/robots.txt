@@ -1,0 +1,9 @@
+User-agent: *
+Disallow:
+Disallow: /admin
+Disallow: /admin/registe
+Disallow: /admin/login
+Sitemap: http://www.liayal.com/sitemap.xml
+Sitemap: http://www.liayal.com/sitemap.html
+Sitemap: http://www.liayal.com/ror.xml
+Sitemap: http://www.liayal.com/urlllist.txt

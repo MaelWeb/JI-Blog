@@ -33,6 +33,7 @@ module.exports = merge(baseWebpackConfig, {
             filename: 'admin.html',
             template: path.join(templateSrc, '/admin/index.html'),
             chunks: ["admin"],
+            title: '<%= title || "游走在技术与艺术边缘地带的前端攻城狮" %>',
         }),
 
         new Html({
@@ -41,6 +42,7 @@ module.exports = merge(baseWebpackConfig, {
             chunks: ["blog"],
             html: '<%- html %>',
             script: '<%- JSON.stringify(ServerData) %>',
+            title: '<%= title || "游走在技术与艺术边缘地带的前端攻城狮" %>',
         }),
 
         new webpack.optimize.UglifyJsPlugin({
