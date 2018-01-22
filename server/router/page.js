@@ -32,7 +32,8 @@ let _Page = Router
 
         await ctx.render('blog', {
             html,
-            ServerData
+            ServerData,
+            title: '游走在技术与艺术边缘地带的前端攻城狮'
         });
     })
     .get('article/:id', async(ctx, next) => {
@@ -55,7 +56,8 @@ let _Page = Router
 
         await ctx.render('blog', {
             html,
-            ServerData
+            ServerData,
+            title: articleData.article.title
         });
     })
     .get('photoes', async(ctx, next) => {
@@ -70,7 +72,8 @@ let _Page = Router
 
         await ctx.render('blog', {
             html,
-            ServerData
+            ServerData,
+            title: '图记'
         });
     })
     .get('about', async(ctx, next) => {
@@ -85,7 +88,8 @@ let _Page = Router
 
         await ctx.render('blog', {
             html,
-            ServerData
+            ServerData,
+            title: '关于'
         });
     })
     .get('travel', async(ctx, next) => {
@@ -102,7 +106,8 @@ let _Page = Router
 
         await ctx.render('blog', {
             html,
-            ServerData
+            ServerData,
+            title: '游记'
         });
     })
     .get('books', async(ctx, next) => {
@@ -119,7 +124,8 @@ let _Page = Router
 
         await ctx.render('blog', {
             html,
-            ServerData
+            ServerData,
+            title: '阅记'
         });
     })
     .get('admin', pageVerify, async(ctx, next) => {
