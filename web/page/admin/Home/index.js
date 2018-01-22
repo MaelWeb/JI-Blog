@@ -3,16 +3,59 @@ import {
   Route,
   Link
 } from 'react-router-dom';
+import Bundle from 'Components/Bundle';
 import { Layout, Menu, Icon, Avatar } from 'antd';
+import loadArticleManage from 'bundle-loader?lazy&name=article-manage!../ArticleManage';
+import loadArticleEdite from 'bundle-loader?lazy&name=article-edite!../ArticleEdite';
+import loadPhotoManage from 'bundle-loader?lazy&name=photo!../PhotoManage';
+import loadCommentsManage from 'bundle-loader?lazy&name=comment!../CommentsManage';
+import loadUserInfo from 'bundle-loader?lazy&name=userinfo!../UserInfo';
+import loadBlogBanner from 'bundle-loader?lazy&name=blogbanner!../BlogBanner';
+import loadBooksManage from 'bundle-loader?lazy&name=books!../BooksManage';
 const { Sider } = Layout;
 import './index.less';
-import ArticleEdite from '../ArticleEdite';
-import ArticleManage from '../ArticleManage';
-import PhotoManage from '../PhotoManage';
-import CommentsManage from '../CommentsManage';
-import UserInfo from '../UserInfo';
-import BlogBanner from '../BlogBanner';
-import BooksManage from '../BooksManage';
+
+const ArticleEdite = (props) => (
+  <Bundle load={loadArticleEdite}>
+    {(ArticleEdite) => <ArticleEdite {...props}/>}
+  </Bundle>
+);
+
+const ArticleManage = (props) => (
+  <Bundle load={loadArticleManage}>
+    {(ArticleManage) => <ArticleManage {...props}/>}
+  </Bundle>
+);
+
+const PhotoManage = (props) => (
+  <Bundle load={loadPhotoManage}>
+    {(PhotoManage) => <PhotoManage {...props}/>}
+  </Bundle>
+);
+
+const CommentsManage = (props) => (
+  <Bundle load={loadCommentsManage}>
+    {(CommentsManage) => <CommentsManage {...props}/>}
+  </Bundle>
+);
+
+const BlogBanner = (props) => (
+  <Bundle load={loadBlogBanner}>
+    {(BlogBanner) => <BlogBanner {...props}/>}
+  </Bundle>
+);
+
+const BooksManage = (props) => (
+  <Bundle load={loadBooksManage}>
+    {(BooksManage) => <BooksManage {...props}/>}
+  </Bundle>
+);
+
+const UserInfo = (props) => (
+  <Bundle load={loadUserInfo}>
+    {(UserInfo) => <UserInfo {...props}/>}
+  </Bundle>
+);
 
 const routes = [
     {

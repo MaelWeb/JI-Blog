@@ -25,6 +25,7 @@ module.exports = merge(baseWebpackConfig, {
         path: outputPath,
         publicPath: '/',
         filename: 'js/[name].js',
+        chunkFilename: "js/[name].[chunkhash:8].js"
     },
     plugins: [
 

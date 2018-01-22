@@ -17,7 +17,8 @@ module.exports = merge(baseWebpackConfig, {
     output: {
         path: outputPath,
         publicPath: '//static.liayal.com/',
-        filename: 'js/[name]_[chunkhash:8].js',
+        filename: 'js/[name].[chunkhash:8].js',
+        chunkFilename: "js/[name].[chunkhash:8].js"
     },
     plugins: [
 

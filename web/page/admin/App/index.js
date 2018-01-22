@@ -1,9 +1,22 @@
 import React, { Component } from 'react';
 import { Route, Link, Switch } from 'react-router-dom';
 import BasePage from 'Components/BasePage';
-import Login from '../Login';
-import Home from '../Home';
+import Bundle from 'Components/Bundle';
+import loadLogin from 'bundle-loader?lazy&name=login!../Login';
+import loadHome from 'bundle-loader?lazy&name=home!../Home';
 import './index.less';
+
+const Login = (props) => (
+  <Bundle load={loadLogin}>
+    {(Login) => <Login {...props}/>}
+  </Bundle>
+);
+
+const Home = (props) => (
+  <Bundle load={loadHome}>
+    {(Home) => <Home {...props}/>}
+  </Bundle>
+);
 
 const App = (props) => (
     <BasePage>
