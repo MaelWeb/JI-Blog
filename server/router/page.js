@@ -80,11 +80,7 @@ let _Page = Router
 
         let ServerData = {};
 
-        const html = ReactDOMServer.renderToString(
-            <StaticRouter context={{}} location={ctx.req.url}>
-                <App />
-            </StaticRouter>
-        )
+        const html = '';
 
         await ctx.render('blog', {
             html,
