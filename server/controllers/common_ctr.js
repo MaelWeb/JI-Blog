@@ -1,9 +1,9 @@
 import Superagent from 'superagent';
 import Cheerio from 'cheerio';
 // import WechatService from '../middleware/wechat_service';
-import config from '../config/';
+// import config from '../config/';
 
-const wechat = config.wechat;
+// const wechat = config.wechat;
 
 export async function getOneContent(ctx) {
     let result = {
