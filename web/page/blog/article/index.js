@@ -5,6 +5,7 @@ import Icon from '../../../components/Icon';
 import Comments from '../Comments';
 import ClassNames from 'classnames';
 import ArticleLoading from './article-loading';
+// import Wechat from '../Util/wechat';
 
 Moment.locale('zh-cn');
 
@@ -32,7 +33,14 @@ export default class Article extends Component {
                 let resData = res.data;
                 this.setState({
                     article: resData.article
-                })
+                });
+
+                // Wechat.configShare({
+                //     title: `${resData.article.title}-记小栈`,
+                //     desc: '小记出品，必是精品。快来看看～～',
+                //     link: window.location.href,
+                //     imgUrl: 'https://cdn.liayal.com/image/touch-icon-iphone-retina.png'
+                // })
             })
 
             Axios.get(`/api/get/comments?articleid=${params.id}`)
@@ -43,6 +51,18 @@ export default class Article extends Component {
                     })
                 })
         }
+    }
+
+    componentDidMount() {
+        // const { article } = this.state;
+        // if (article) {
+        //     Wechat.configShare({
+        //         title: `${article.title}-记小栈`,
+        //         desc: '小记出品，必是精品。快来看看～～',
+        //         link: window.location.href,
+        //         imgUrl: 'https://cdn.liayal.com/image/touch-icon-iphone-retina.png'
+        //     })
+        // }
     }
 
     render() {

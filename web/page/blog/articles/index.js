@@ -66,7 +66,7 @@ export default class Articles extends Component {
             let resData = res.data;
             this.setState({
                 banners: resData.banners
-            })
+            });
         })
     }
 

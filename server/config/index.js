@@ -15,7 +15,12 @@ let config = {
         ACCESS_KEY: 'ARA9LIvdx3JFZyADmwohmEMyjVLmNSIjVxgpzIA4',
         SECRET_KEY: 'aK19LEtOfStwsvn501Pl_h_wTqkVFnbzxlI5FNU7'
     },
-    InvitationCode: "111111"
+    InvitationCode: "test",
+    wechat: {
+        host: 'https://qyapi.weixin.qq.com',
+        corpId: 'ww7c62****4323d1',
+        corpSecret: 'wP62rdpqLPkIJ*******mFL-5Wk1FTqlEpAkAQqShM'
+    }
 }
 // 可在private.js定义自己私有的配置
 // if (fs.existsSync(__dirname + '/private.js')) {

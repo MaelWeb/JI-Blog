@@ -29,6 +29,7 @@ let _Api = Router.get('/signout', (ctx) => {
     .get("/get/userinfo", apiVerify, getUserInfo)
     .get('/get/banners', getBanners)
     .get('/get/books', getBooks)
+    // .get('/wechatconfig', wechatConfig)
     .delete('/article/:id', apiVerify, deleteArticle)
     .post('/singup', singUp)
     .post('/signin', signIn)

@@ -23,6 +23,7 @@
     "busboy": "^0.2.14",
     "cheerio": "^1.0.0-rc.2",
     "chinese-random-name": "^0.1.3",
+    "crypto": "^1.0.1",
     "ejs": "^2.5.7",
     "jade": "^1.11.0",
     "jsonwebtoken": "^8.1.0",

@@ -11,6 +11,7 @@ import Travel from '../Travel';
 import Books from '../Books';
 import Header from '../Header';
 import Footer from '../Footer';
+// import Wechat from '../Util/wechat';
 
 class App extends Component {
     constructor(props) {
@@ -22,44 +23,34 @@ class App extends Component {
         };
     }
 
-    getQuery = (key) => {
-        let search = window.location.search,
-            ret = Object.create(null);
-
-        if (typeof search !== 'string') {
-            return key ? null : ret;
-        }
-
-        search = search.trim().replace(/^[?#&]/, '');
-
-        if (!search) {
-            return key ? null : ret;
-        }
-
-        search.split('&').forEach(function (param) {
-            let parts = param.replace(/\+/g, ' ').split('=');
-            let key = parts.shift();
-            let val = parts.length > 0 ? parts.join('=') : undefined;
-
-            val = val === undefined ? null : decodeURIComponent(val);
-
-            ret[decodeURIComponent(key)] = val;
-        });
-
-
-        return key ? ret[key] : ret;
-
-    }
-
     componentDidMount() {
         Axios.post('/api/push/baidu', {
             url: window.location.href
         });
+        // const { location: {pathname} } = this.props,
+        //         reg = /article\//g;
+
+        // !reg.test(pathname) && Wechat.configShare({
+        //     title: '记小栈',
+        //     desc: '游走在技术与艺术的边缘地带，偶是一枚前端攻城狮！',
+        //     link: window.location.href,
+        //     imgUrl: 'https://cdn.liayal.com/image/touch-icon-iphone-retina.png'
+        // })
     }
 
     componentDidUpdate(prevProps, prevState) {
         if ((this.props.location !== prevProps.location)) {
             window.scrollTo(0, 0);
+
+            // const { location: {pathname} } = this.props,
+            //     reg = /article\//g;
+
+            // !reg.test(pathname) && Wechat.configShare({
+            //     title: '记小栈',
+            //     desc: '游走在技术与艺术的边缘地带，偶是一枚前端攻城狮！',
+            //     link: window.location.href,
+            //     imgUrl: 'https://cdn.liayal.com/image/touch-icon-iphone-retina.png'
+            // })
         }
 
         Axios.post('/api/push/baidu', {

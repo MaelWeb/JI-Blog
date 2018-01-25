@@ -1,5 +1,9 @@
 import Superagent from 'superagent';
 import Cheerio from 'cheerio';
+// import WechatService from '../middleware/wechat_service';
+import config from '../config/';
+
+const wechat = config.wechat;
 
 export async function getOneContent(ctx) {
     let result = {
@@ -53,3 +57,38 @@ export async function pushToBaidu(ctx) {
     ctx.body = result;
     return result;
 }
+
+// export async function wechatConfig(ctx) {
+//     let query = ctx.query;
+//     let result = {
+//         code: 200,
+//         message: '',
+//         data:null
+//     };
+
+//     let signParam = {
+//         url: query.url,
+//         timestamp: + new Date(),
+//         noncestr: WechatService.generateNoncestr()
+//     }
+
+//     let signature = await WechatService.getApiSignature(signParam);
+
+//     if (!signature) {
+//         result = {
+//             code: 400,
+//             message: '获取签名失败'
+//         }
+//     } else {
+//         result.data = {
+//             url: query.url,
+//             timestamp: signParam.timestamp,
+//             noncestr: signParam.noncestr,
+//             appId: wechat.corpId,
+//             signature
+//         }
+//     }
+
+//     ctx.body = result;
+
+// }
