@@ -2,7 +2,7 @@ import fs from 'fs'
 let config = {
     port: process.env.PORT || 8080,
     mongodb: {
-        url: 'mongodb://root:root@127.0.0.1:27017/koa-blog'
+        url: 'mongodb://root:root@127.0.0.1:27017/koablog'
     },
     jwt: {
         secret: 'test' //默认
@@ -12,14 +12,14 @@ let config = {
         useMongoClient: true
     },
     upload: {
-        ACCESS_KEY: 'ARA9LIvdx3JFZyADmwohmEMyjVLmNSIjVxgpzIA4',
-        SECRET_KEY: 'aK19LEtOfStwsvn501Pl_h_wTqkVFnbzxlI5FNU7'
+        ACCESS_KEY: 'ARA9LIvdx3JFZyA******EMyjVLmNSIjVxgpzIA4',
+        SECRET_KEY: 'aK19LEtOfStwsvn5******_wTqkVFnbzxlI5FNU7'
     },
-    InvitationCode: "11111",
+    InvitationCode: "001123",
     wechat: {
-        host: 'https://qyapi.weixin.qq.com',
-        corpId: 'ww7c62******924323d1',
-        corpSecret: 'wP62rdpqLPkIJ*******-5Wk1FTqlEpAkAQqShM'
+        host: 'https://api.weixin.qq.com',
+        appId: 'wx05c596***2033acc',
+        secret: '0cf16dbd***6d03a3e1a6d0db04e6'
     }
 }
 // 可在private.js定义自己私有的配置

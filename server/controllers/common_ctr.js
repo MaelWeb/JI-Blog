@@ -84,7 +84,7 @@ export async function pushToBaidu(ctx) {
 //             url: query.url,
 //             timestamp: signParam.timestamp,
 //             noncestr: signParam.noncestr,
-//             appId: wechat.corpId,
+//             appId: wechat.appId,
 //             signature
 //         }
 //     }

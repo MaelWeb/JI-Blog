@@ -2,7 +2,7 @@ import router from 'koa-router';
 import { apiVerify } from '../middleware/verify';
 import { singUp, signIn, getUserInfo, updateUserInfo } from '../controllers/user_ctr';
 import { createArticle, getAllArticles, getArticle, deleteArticle, modifyArticle, getAllPublishArticles, publishArticle, notPublishArticle } from '../controllers/article_ctr';
-import { getOneContent, pushToBaidu } from '../controllers/common_ctr';
+import { getOneContent, pushToBaidu} from '../controllers/common_ctr';
 import { createTag, getAllTags, updateTagCount } from '../controllers/tags_ctr';
 import { fileUpload, articleImageUpload, deleteFile } from '../controllers/qiniu_ctrl';
 import { addPhoto, getPhotoes, updatePhoto, deletePhoto } from '../controllers/photo_ctrl';

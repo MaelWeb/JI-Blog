@@ -20,7 +20,7 @@ class WeChat {
                 script.onerror = () => {
                     reject();
                 };
-                script.src = '//res.wx.qq.com/open/js/jweixin-1.2.0.js';
+                script.src = 'https://res.wx.qq.com/open/js/jweixin-1.2.0.js';
                 document.body.appendChild(script);
             }
         });
@@ -48,7 +48,7 @@ class WeChat {
 
         if (configData) {
             window.wx.config({
-                debug: true,
+                debug: false,
                 appId: configData.appId,
                 timestamp: configData.timestamp,
                 nonceStr: configData.noncestr,

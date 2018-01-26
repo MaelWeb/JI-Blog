@@ -13,15 +13,15 @@ class WeChatService {
     async _getAccessToken() {
         let now = +new Date();
         if (!this.accessToken || this.accessToken.expiresTime < now) {
-            await Superagent.get(`${wechat.host}/cgi-bin/gettoken`)
+            await Superagent.get(`${wechat.host}/cgi-bin/token`)
                 .query({
-                    corpid: wechat.corpId,
-                    corpsecret: wechat.corpSecret
+                    grant_type: 'client_credential',
+                    appid: wechat.appId,
+                    secret: wechat.secret
                 })
                 .then(res => {
                     let result = JSON.parse(res.text);
-
-                    if (result.errcode == 0) {
+                    if (!result.errcode) {
                         this.accessToken = {
                             token: result.access_token,
                             expiresTime: +new Date() + (result.expires_in - 200)
@@ -42,13 +42,13 @@ class WeChatService {
         if (!access_token ) return null;
 
         if (!this.jsApiTicket || this.jsApiTicket.expiresTime < now) {
-            await Superagent.get(`${wechat.host}/cgi-bin/get_jsapi_ticket`)
+            await Superagent.get(`${wechat.host}/cgi-bin/ticket/getticket`)
                 .query({
+                    type: 'jsapi',
                     access_token
                 })
                 .then(res => {
                     let result = JSON.parse(res.text);
-
                     if (result.errcode == 0) {
                         this.jsApiTicket = {
                             ticket: result.ticket,

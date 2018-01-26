@@ -11,7 +11,6 @@ import Travel from '../Travel';
 import Books from '../Books';
 import Header from '../Header';
 import Footer from '../Footer';
-// import Wechat from '../Util/wechat';
 
 class App extends Component {
     constructor(props) {
@@ -27,30 +26,11 @@ class App extends Component {
         Axios.post('/api/push/baidu', {
             url: window.location.href
         });
-        // const { location: {pathname} } = this.props,
-        //         reg = /article\//g;
-
-        // !reg.test(pathname) && Wechat.configShare({
-        //     title: '记小栈',
-        //     desc: '游走在技术与艺术的边缘地带，偶是一枚前端攻城狮！',
-        //     link: window.location.href,
-        //     imgUrl: 'https://cdn.liayal.com/image/touch-icon-iphone-retina.png'
-        // })
     }
 
     componentDidUpdate(prevProps, prevState) {
         if ((this.props.location !== prevProps.location)) {
             window.scrollTo(0, 0);
-
-            // const { location: {pathname} } = this.props,
-            //     reg = /article\//g;
-
-            // !reg.test(pathname) && Wechat.configShare({
-            //     title: '记小栈',
-            //     desc: '游走在技术与艺术的边缘地带，偶是一枚前端攻城狮！',
-            //     link: window.location.href,
-            //     imgUrl: 'https://cdn.liayal.com/image/touch-icon-iphone-retina.png'
-            // })
         }
 
         Axios.post('/api/push/baidu', {
