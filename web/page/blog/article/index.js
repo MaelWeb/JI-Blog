@@ -30,6 +30,7 @@ export default class Article extends Component {
             })
             .then( res => {
                 let resData = res.data;
+                document.title = `${resData.article.title}  - 「JI · 记小栈」`;
                 this.setState({
                     article: resData.article
                 });
@@ -42,6 +43,13 @@ export default class Article extends Component {
                         comments: resData.comments
                     })
                 })
+        }
+    }
+
+    componentDidMount() {
+        const { article } = this.state;
+        if (article) {
+            document.title = `${article.title}  - 「JXZ · 记小栈」`;
         }
     }
 
