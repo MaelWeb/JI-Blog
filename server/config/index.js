@@ -2,7 +2,7 @@ import fs from 'fs'
 let config = {
     port: process.env.PORT || 8080,
     mongodb: {
-        url: 'mongodb://root:root@127.0.0.1:27017/koablog'
+        url: 'mongodb://root:root@127.0.0.1:27017/koa-blog'
     },
     jwt: {
         secret: 'test' //默认
@@ -15,7 +15,7 @@ let config = {
         ACCESS_KEY: 'ARA9LIvdx3JFZyA******EMyjVLmNSIjVxgpzIA4',
         SECRET_KEY: 'aK19LEtOfStwsvn5******_wTqkVFnbzxlI5FNU7'
     },
-    InvitationCode: "001123",
+    InvitationCode: "11111",
     wechat: {
         host: 'https://api.weixin.qq.com',
         appId: 'wx05c596***2033acc',

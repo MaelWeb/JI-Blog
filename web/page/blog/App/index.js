@@ -33,9 +33,11 @@ class App extends Component {
             window.scrollTo(0, 0);
         }
 
-        Axios.post('/api/push/baidu', {
-            url: window.location.href
-        });
+        if (process.env.NODE_ENV == 'production') {
+            Axios.post('/api/push/baidu', {
+                url: window.location.href
+            });
+        }
     }
 
     render() {

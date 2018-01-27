@@ -31,7 +31,7 @@ export default class UserInfo extends Component {
     }
 
     modalOk = () => {
-        const name = this.refs.ModalInput.refs.input.value;
+        const name = this.refs.ModalInput.input.value;
 
         if (!name) return this.context.showMessage("请输入昵称");
 
