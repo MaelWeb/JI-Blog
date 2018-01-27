@@ -33,6 +33,16 @@ class App extends Component {
             window.scrollTo(0, 0);
         }
 
+        let titleMap = {
+            '/travel': '游记  - 「JI · 记小栈」',
+            '/books': '阅记  - 「JI · 记小栈」',
+            '/photoes': '图记  - 「JI · 记小栈」',
+            '/about': '关于  - 「JI · 记小栈」',
+            '/': '游走在技术与艺术边缘地带的前端攻城狮 - 「JI · 记小栈」'
+        };
+
+        document.title = titleMap[this.props.location.pathname] || '「JI · 记小栈';
+
         if (process.env.NODE_ENV == 'production') {
             Axios.post('/api/push/baidu', {
                 url: window.location.href

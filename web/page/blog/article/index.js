@@ -49,7 +49,7 @@ export default class Article extends Component {
     componentDidMount() {
         const { article } = this.state;
         if (article) {
-            document.title = `${article.title}  - 「JXZ · 记小栈」`;
+            document.title = `${article.title}  - 「JI · 记小栈」`;
         }
     }
 
