@@ -41,7 +41,7 @@ class App extends Component {
             '/': '游走在技术与艺术边缘地带的前端攻城狮 - 「JI · 记小栈」'
         };
 
-        document.title = titleMap[this.props.location.pathname] || '「JI · 记小栈';
+        document.title = titleMap[this.props.location.pathname] || '「JI · 记小栈」';
 
         if (process.env.NODE_ENV == 'production') {
             Axios.post('/api/push/baidu', {

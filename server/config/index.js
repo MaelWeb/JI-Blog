@@ -12,14 +12,14 @@ let config = {
         useMongoClient: true
     },
     upload: {
-        ACCESS_KEY: 'ARA9LIvdx3JFZ******mEMyjVLmNSIjVxgpzIA4',
-        SECRET_KEY: 'aK19LEtOfStws******l_h_wTqkVFnbzxlI5FNU7'
+        ACCESS_KEY: 'ARA9LIvdx3JF***mEMyjVLmNSIjVxgpzIA4',
+        SECRET_KEY: 'aK19LEtOfStwsvn***1Pl_h_wTqkVFnbzxlI5FNU7'
     },
-    InvitationCode: "5620",
+    InvitationCode: "1111",
     wechat: {
         host: 'https://api.weixin.qq.com',
-        appId: 'wx05c******033acc',
-        secret: '0cf16dbd475******3a3e1a6d0db04e6'
+        appId: 'wx05c596***92033acc',
+        secret: '0cf16dbd47***6d03a3e1a6d0db04e6'
     }
 }
 // 可在private.js定义自己私有的配置

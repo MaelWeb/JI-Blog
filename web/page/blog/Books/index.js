@@ -107,7 +107,7 @@ export default class Books extends Component {
                     <img src="//cdn.liayal.com/image/books_banner.jpg" alt=""/>
                     <div className="text-wrap">
                         <p><span style={{background: "#B6BABD"}} >{banner.text[0]}</span>{banner.text[1]}</p>
-                        <div className='tr'><a href={ banner.href || "javascript:void(0);"} target="_blank">—— 《 {banner.author} 》</a></div>
+                        <div className='tr author'><a href={ banner.href || "javascript:void(0);"} target="_blank">—— 《{banner.author}》</a></div>
                     </div>
                 </div>
 
