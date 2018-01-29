@@ -1,7 +1,7 @@
 @import 'reset';
 
 html {
-    font-size: 100px;
+    font-size: 180px;
     overflow-y: scroll;
 }
 
@@ -47,9 +47,21 @@ html {
     }
 }
 
-@media screen and (min-width: 414px) {
+@media screen and (max-width: 650px) {
     html {
         font-size: 110.4px;
+    }
+}
+
+@media screen and (max-width: 950px) {
+    html {
+        font-size: 140px;
+    }
+}
+
+@media screen and (max-width: 1550px) {
+    html {
+        font-size: 160px;
     }
 }
 
@@ -57,7 +69,9 @@ body {
     position: relative;
     min-width: 320px;
     width: 100%;
-    font: .14rem/1.5 "PingFangSC-Light,Helvetica,Tahoma,Microsoft Yahei,sans-serif";
+    font-size: .14rem;
+    font-family: "PingFang SC, Helvetica neue, Helvetica, Tahoma, lantinghei sc, Microsoft Yahei, sans-serif";
+    line-height: 1.5;
     color: #333;
     background: #fff;
     -webkit-backface-visibility: hidden;
