@@ -74,7 +74,7 @@ export default class Article extends Component {
                     <div className="article-content" dangerouslySetInnerHTML={ {__html: _article.htmlContent} } />
                     <div className='article-tips'>
                         <p>如非特别注明，文章皆为原创。</p>
-                        <p><b>转载请注明出处：</b> <a href={`https://www.liayal.com/article/${_article.id}`}>{`http://www.liayal.com/article/${_article.id}`}</a></p>
+                        <p><b>转载请注明出处：</b> <a href={`https://www.liayal.com/article/${_article.id}`}>{`https://www.liayal.com/article/${_article.id}`}</a></p>
                     </div>
                 </article> : <ArticleLoading />}
                 <section className='article-share-box'>

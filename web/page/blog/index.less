@@ -3,6 +3,7 @@
 @import '../../components/ImageGallery/index.less';
 @import '../../components/Icon/iconfont.less';
 @import '../../components/ScrollToTop/index.less';
+
 /** antd **/
 
 .anticon {
@@ -103,6 +104,8 @@
         content: "\e616";
     }
 }
+
+
 /** antd end **/
 
 .blog-layout {
@@ -127,8 +130,7 @@
     z-index: 2;
     background-color: #fff;
     border-top: .04rem solid #212121;
-    border-bottom: 1px solid #ccc;
-    // box-shadow: -2px 2px 6px #ccc;
+    border-bottom: 1px solid #ccc; // box-shadow: -2px 2px 6px #ccc;
     transition: all .8s;
     line-height: .22rem;
     overflow: hidden;
@@ -246,7 +248,7 @@
             width: 100%;
             height: 20%;
             color: inherit;
-            font-size: .3rem;
+            font-size: .24rem;
             display: table;
             cursor: pointer;
 
@@ -373,7 +375,6 @@
                 width: 25%;
             }
         }
-
     }
 }
 
@@ -413,13 +414,13 @@
 
     .blog-photo-layout {
         .photo-banner {
-            height: 5rem;
+            height: 4rem;
         }
     }
 
     .blog-article-layout {
         .article-banner {
-            height: 3.8rem;
+            height: 4rem;
         }
     }
 
@@ -454,7 +455,7 @@
         }
 
         .article-banner {
-            height: 3.5rem;
+            height: 3rem;
         }
     }
 
@@ -499,7 +500,7 @@
 
     .blog-photo-layout {
         .photo-banner {
-            height: 3.5rem;
+            height: 3rem;
         }
     }
 
@@ -516,21 +517,10 @@
                 width: 50%;
             }
         }
-
     }
 }
 
 @media screen and (max-width: 800px) {
-
-    .blog-header {
-        .nav-list {
-            display: none;
-        }
-
-        .menu {
-            display: block;
-        }
-    }
 
     .blog-articles-layout {
         .banners {
@@ -558,7 +548,7 @@
 
     .blog-travel-layout {
         .traverl-header {
-            height: 3rem;
+            height: 2.8rem;
              :after {
                 bottom: -0.11rem;
                 padding: .03rem .06rem;
@@ -569,7 +559,7 @@
 
     .blog-photo-layout {
         .photo-banner {
-            height: 3.2rem;
+            height: 2.8rem;
             &:after {
                 bottom: -0.11rem;
                 padding: .03rem .06rem;
@@ -588,7 +578,7 @@
 
         .blog-books-header .text-wrap {
             font-size: .1rem;
-            line-height: 1.8;
+            line-height: 1.7;
         }
 
         .books-list {
@@ -597,14 +587,19 @@
                 width: 50%;
             }
         }
-
     }
 }
 
 @media screen and (max-width: 420px) {
     .blog-header {
-        height: .5rem;
-        line-height: 1;
+
+        .nav-list {
+            display: none;
+        }
+
+        .menu {
+            display: block;
+        }
     }
 
     .blog-articles-layout {
@@ -674,7 +669,7 @@
 
     .blog-travel-layout {
         .traverl-header {
-            height: 2.5rem;
+            height: 2rem;
             .aticle-info {
                 padding: .05rem .1rem;
                 width: 85%;
@@ -717,7 +712,7 @@
     }
 
     .blog-about {
-        padding: .7rem 3%;
+        padding: .5rem 3%;
         .about-module {
             margin-bottom: .4rem;
             width: 100%;
@@ -732,7 +727,7 @@
 
     .blog-photo-layout {
         .photo-banner {
-            height: 2.5rem;
+            height: 2rem;
         }
         .photo-list {
             padding: 0 1%;
@@ -743,8 +738,7 @@
 
         .blog-books-header {
             background-image: url("//cdn.liayal.com/image/books_banner.jpg");
-            height: 5rem;
-            height: 80vh;
+            height: 4rem;
             overflow: hidden;
             background-color: #ccc;
             background-size: cover;
@@ -756,9 +750,9 @@
 
             .text-wrap {
                 top: 19%;
-                left: 29%;
-                width: 52%;
-                line-height: 2.6;
+                left: 33%;
+                width: 42%;
+                line-height: 2;
             }
         }
 
@@ -768,7 +762,6 @@
                 width: 100%;
             }
         }
-
     }
 
     .middle-text {

@@ -23,9 +23,11 @@ class App extends Component {
     }
 
     componentDidMount() {
-        Axios.post('/api/push/baidu', {
-            url: window.location.href
-        });
+        if (process.env.NODE_ENV == 'production') {
+            Axios.post('/api/push/baidu', {
+                url: window.location.href
+            });
+        }
     }
 
     componentDidUpdate(prevProps, prevState) {
