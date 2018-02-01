@@ -1,4 +1,4 @@
-import fs from 'fs'
+const fs = require('fs');
 let config = {
     port: process.env.PORT || 8080,
     mongodb: {
@@ -12,18 +12,18 @@ let config = {
         useMongoClient: true
     },
     upload: {
-        ACCESS_KEY: 'ARA9LIvdx3J****mwohmEMyjVLmNSIjVxgpzIA4',
-        SECRET_KEY: 'aK19LEtOfStw5****01Pl_h_wTqkVFnbzxlI5FNU7'
+        ACCESS_KEY: 'v6NxwNQtqVpK0******v0Fo8qlFcVxnlYbO6',
+        SECRET_KEY: 'b5p89rqZeO8K******k2fHtKEToE5PdSmQLRq'
     },
-    InvitationCode: "5620",
+    InvitationCode: "1111",
     wechat: {
         host: 'https://api.weixin.qq.com',
-        appId: 'wx05c59****92033acc',
-        secret: '0cf16dbd475****ac3a3e1a6d0db04e6'
+        appId: 'wx05c5****92033acc',
+        secret: '0cf16dbd47***3a3e1a6d0db04e6'
     }
 }
 // 可在private.js定义自己私有的配置
 // if (fs.existsSync(__dirname + '/private.js')) {
 //     config = Object.assign(config, require('./private.js'));
 // }
-export default config;
+module.exports = config;

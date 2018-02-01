@@ -1,25 +1,27 @@
 // 将打包好的文件上传到七牛
 const qiniu = require("qiniu");
-const fs = require('fs')
-const moment = require('moment')
+const fs = require('fs');
+const path = require('path');
+const moment = require('moment');
 const _array = require('lodash/array');
-const _difference = require('lodash/difference')
-// const crypto = require('crypto');
+const _difference = require('lodash/difference');
+const qiniuConfig = require('../server/config');
 
-const qiniuConfig = require('./qiniu.config.js')
 //需要填写你的 Access Key 和 Secret Key
 let config = new qiniu.conf.Config();
-config.zone = qiniu.zone[qiniuConfig.zone];
+config.zone = qiniu.zone['Zone_z0'];
 qiniu.conf.RPC_TIMEOUT = 600000;
 
-let mac = new qiniu.auth.digest.Mac(qiniuConfig.accessKey, qiniuConfig.secretKey);
+let mac = new qiniu.auth.digest.Mac(qiniuConfig.upload.ACCESS_KEY, qiniuConfig.upload.secretKey);
 
 
 let argvArr = process.argv.slice(2);
-let bucket = qiniuConfig.bucket;
-let cdn = qiniuConfig.cdnHost;
-
-let { originPath, oldOriginPath, fileEncodeType = 'utf8', qndataFile = 'qndata.json', failedUploadLog = 'failedlog.json' } = qiniuConfig;
+let bucket = 'hynal-static',
+    cdn = 'static.liayal.com',
+    originPath = path.resolve(__dirname, '../dist/client/'),
+    fileEncodeType = 'utf8',
+    qndataFile = 'qndata.json',
+    failedUploadLog = 'failedlog.json';
 
 
 let fileCount = 0,
