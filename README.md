@@ -21,7 +21,7 @@ and so on ...
 项目后端使用了koa2，所以需要将系统的 **node** 升级到 7.0.0 版本，以及确保本地装有**mongodb**数据库。
 - clone 项目到本地 
 ```code
-git clone https://github.com/MaelWeb   
+git clone https://github.com/MaelWeb/JI-Blog.git  
 ```
 - 安装依赖
 ```code
