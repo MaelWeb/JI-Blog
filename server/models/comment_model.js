@@ -13,7 +13,7 @@ const CommentSchema = new Schema({
             type: String,
             validate: {
                 validator: function(v) {
-                    return /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/.test(v);
+                    return /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/g.test(v);
                 },
                 message: '{VALUE} is not a valid Email!'
             },

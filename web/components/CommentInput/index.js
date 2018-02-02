@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
-import Icon from '../../../components/Icon';
+import Icon from '../Icon';
 import ClassNames from 'classnames';
-import EmojiData from './EmojiData';
-import Emojify from '../../../components/Emoji';
+import EmojiData from './data';
+import Emojify from '../Emoji';
 
 export default class CommentInput extends Component {
     constructor(props) {
@@ -16,11 +16,13 @@ export default class CommentInput extends Component {
     }
 
     static defaultProps = {
-        exportComment: () => {}
+        exportComment: () => {},
+        isShowBtn: true
     };
 
     static defaultPropTypes = {
-        exportComment: PropTypes.func
+        exportComment: PropTypes.func,
+        isShowBtn: PropTypes.boolen
     };
 
     componentDidMount() {
@@ -105,12 +107,13 @@ export default class CommentInput extends Component {
 
     render() {
         const { showEmoji } = this.state;
+        const { isShowBtn, className } = this.props;
         return (
-            <div className="comment-input">
+            <div className={ ClassNames("blog-comment-input", {[className]: className}) }>
                 <textarea rows="4" ref="commentText" placeholder='你不想说点啥么？' ></textarea>
                 <div className="btn clearfix">
                     <Icon type='emoji' className='fl' onClick={ this.toggleEmoji } />
-                    <button onClick={ this.exportComment } >发布</button>
+                    { isShowBtn ? <button onClick={ this.exportComment } >发布</button> : null}
                 </div>
                 <div className={ ClassNames("emoji-box", { show: showEmoji}) } id='CommentEmoji' >
                     <Emojify style={{height: 20, cursor: 'pointer'}} onClick={ this.addEmoji }>

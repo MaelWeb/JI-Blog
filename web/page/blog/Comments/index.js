@@ -4,7 +4,7 @@ import Moment from 'moment';
 import ClassNames from 'classnames';
 import Icon from '../../../components/Icon';
 import Emojify from '../../../components/Emoji';
-import CommentInput from './commentInput';
+import CommentInput from '../../../components/CommentInput';
 import Axios from 'axios';
 import { message } from 'antd';
 
@@ -50,11 +50,16 @@ export default class Comments extends Component {
 
     exportComment = commentCont => {
         const { reply } = this.state;
-        const user = window.localStorage.getItem('_liayal_user');
+        const user = /access\_token/g.test(document.cookie) ? {
+            name: '记小栈',
+            email: 'mael.liang@live.com',
+            site: 'https://www.liayal.com',
+            avatar: 'https://cdn.liayal.com/image/logo_min.png'
+        } : window.localStorage.getItem('_liayal_user');
 
         if (user && commentCont) {
             this.saveComment({
-                user: JSON.parse(user),
+                user: (typeof user == 'string') ? JSON.parse(user) : user,
                 reply: reply ? reply.id : null,
                 commentCont
             });
@@ -160,7 +165,7 @@ export default class Comments extends Component {
 
                 <div className="comment-list">
                     { comments.length ? comments.map((comment, index) => (<div className="comment-item clearfix border-b" key={index} >
-                        <div className="comment-avatar fl"><Icon type='avatar' /></div>
+                        <div className="comment-avatar fl">{ comment.user && comment.user.avatar ? <img src={comment.user.avatar} alt="" className="avatar"/> : <Icon type='avatar' />}</div>
                         <div className="comment-body fl">
                             <h6>{comment.user.name}<small>{this.getTimeString(comment.createTime)}</small></h6>
                             { comment.reply ? <Emojify style={emojiStyle}><blockquote>@{comment.reply.user.name}: {comment.reply.commentCont}</blockquote></Emojify> : null}

@@ -23,33 +23,8 @@
         border-color: transparent transparent #fff;
     }
 
-    .comment-input {
-        padding: .01rem;
-        transition: all .2s ease;
-        textarea {
-            position: relative;
-            width: 100%;
-            height: 80px;
-            margin: .3rem 0 .15rem 0;
-            padding: 4px 10px;
-            font-family: inherit;
-            line-height: 24px;
-            font-size: .12rem;
-            color: #333;
-            display: block;
-            border-color: #212121;
-            border-radius: 0;
-        }
-
-        button {
-            padding: .02rem .2rem;
-            background-color: #212121;
-            color: #fff;
-            float: right;
-            border-radius: 0;
-            outline: none;
-            border: none;
-        }
+    .blog-comment-input {
+        margin-top: .2rem;
     }
 
     .comment-list {
@@ -71,10 +46,16 @@
     }
 
     .comment-avatar {
-        padding-right: .1rem; // color: #DEECFF;
+        width: .4rem;
+        min-height: .4rem;
+        margin-right: .1rem; // color: #DEECFF;
         i {
             font-size: .4rem;
             line-height: 1;
+        }
+
+        .avatar {
+            max-height: .4rem;
         }
     }
 

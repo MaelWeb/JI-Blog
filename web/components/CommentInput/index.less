@@ -1,0 +1,48 @@
+.blog-comment-input {
+    padding: .01rem;
+    transition: all .2s ease;
+    textarea {
+        position: relative;
+        width: 100%;
+        height: 80px;
+        margin: .15rem 0;
+        padding: 4px 10px;
+        font-family: inherit;
+        line-height: 24px;
+        font-size: .12rem;
+        color: #333;
+        display: block;
+        border-color: #212121;
+        border-radius: 0;
+        resize: inherit;
+    }
+
+    button {
+        padding: .02rem .2rem;
+        background-color: #212121;
+        color: #fff;
+        float: right;
+        border-radius: 0;
+        outline: none;
+        border: none;
+    }
+
+    .emoji-box {
+        margin: .1rem 0;
+        max-height: 0;
+        overflow: hidden;
+        transition: all .6s 0s ease-out;
+
+        .emoji-wrap {
+            padding: .08rem 0;
+            text-align: center;
+            border: 1px solid #d8d8d8;
+            border-radius: .1rem;
+            background-color: #fff;
+        }
+
+        &.show {
+            max-height: 100vh;
+        }
+    }
+}

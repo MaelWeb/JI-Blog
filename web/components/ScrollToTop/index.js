@@ -21,7 +21,7 @@ export default class ScrollToTopBtn extends React.Component {
                     || (document.documentElement && document.documentElement.scrollTop)
                     || document.body.scrollTop
                     || 0;
-                var speed = winscroll * 20 / 100;
+                var speed = Math.ceil(winscroll * 20 / 100);
                 window.scrollBy(0, -speed);
                 if (winscroll > 0) {
                     timer = setTimeout(toTop, 10);

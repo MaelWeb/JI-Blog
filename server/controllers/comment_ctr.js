@@ -4,7 +4,7 @@ export async function creactComment(ctx) {
     const postData = ctx.request.body;
     const createTime = new Date();
     const { user, commentCont } = postData;
-    const emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/g;
+    const emailReg = /^[a-z0-9]+([._\\-]*[a-z0-9])*@([a-z0-9]+[-a-z0-9]*[a-z0-9]+.){1,63}[a-z0-9]+$/g;
 
     if (!user) {
         return ctx.body = {

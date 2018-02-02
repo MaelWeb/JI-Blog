@@ -12,7 +12,7 @@ let config = new qiniu.conf.Config();
 config.zone = qiniu.zone['Zone_z0'];
 qiniu.conf.RPC_TIMEOUT = 600000;
 
-let mac = new qiniu.auth.digest.Mac(qiniuConfig.upload.ACCESS_KEY, qiniuConfig.upload.secretKey);
+let mac = new qiniu.auth.digest.Mac(qiniuConfig.upload.ACCESS_KEY, qiniuConfig.upload.SECRET_KEY);
 
 
 let argvArr = process.argv.slice(2);

@@ -1,4 +1,4 @@
-const fs = require('fs');
+const path = require('path');
 let config = {
     port: process.env.PORT || 8080,
     mongodb: {
@@ -12,14 +12,14 @@ let config = {
         useMongoClient: true
     },
     upload: {
-        ACCESS_KEY: 'v6NxwNQtqVpK0******v0Fo8qlFcVxnlYbO6',
-        SECRET_KEY: 'b5p89rqZeO8K******k2fHtKEToE5PdSmQLRq'
+        ACCESS_KEY: 'v6NxwNQtqVpK******q-YXv0Fo8qlFcVxnlYbO6',
+        SECRET_KEY: 'b5p89rqZeO8K******p3Pk2fHtKEToE5PdSmQLRq'
     },
-    InvitationCode: "1111",
+    InvitationCode: "5620",
     wechat: {
         host: 'https://api.weixin.qq.com',
-        appId: 'wx05c5****92033acc',
-        secret: '0cf16dbd47***3a3e1a6d0db04e6'
+        appId: 'wx05c59******92033acc',
+        secret: '0cf16dbd47******03a3e1a6d0db04e6'
     }
 }
 // 可在private.js定义自己私有的配置
