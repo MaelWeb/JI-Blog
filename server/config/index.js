@@ -15,7 +15,7 @@ let config = {
         ACCESS_KEY: 'v6NxwNQtqVpK******q-YXv0Fo8qlFcVxnlYbO6',
         SECRET_KEY: 'b5p89rqZeO8K******p3Pk2fHtKEToE5PdSmQLRq'
     },
-    InvitationCode: "5620",
+    InvitationCode: "1111",
     wechat: {
         host: 'https://api.weixin.qq.com',
         appId: 'wx05c59******92033acc',
