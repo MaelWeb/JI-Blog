@@ -9,6 +9,8 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const sourcePath = path.join(__dirname, '../web');
 const nodeModules = path.resolve(__dirname, '../node_modules');
 
+const isDev =  !!(process.env.NODE_ENV != 'production');
+
 // const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 function createHappyPlugin(id, loaders) {
@@ -19,7 +21,7 @@ function createHappyPlugin(id, loaders) {
     });
 }
 
-var cssLoader = ExtractTextPlugin.extract({
+const cssLoader = ExtractTextPlugin.extract({
     fallback: "style-loader",
     use: [
         'happypack/loader?id=happy-css'
@@ -27,14 +29,12 @@ var cssLoader = ExtractTextPlugin.extract({
 });
 
 
-var lessLoader = ExtractTextPlugin.extract({
+const lessLoader = ExtractTextPlugin.extract({
     fallback: "style-loader",
     use: [
         'happypack/loader?id=happy-less'
     ]
 })
-
-var babelPreset = process.env.NODE_ENV == 'development' ? {development: {presets: ['react-hmre']}} : {};
 
 module.exports = {
     context: sourcePath,
@@ -47,13 +47,14 @@ module.exports = {
             // use: [{
             //     loader: 'babel-loader',
             //     options: {
-            //         cacheDirectory: true
+            //         cacheDirectory: true,
+            //         presets: ['react-hmre']
             //     }
             // }],
         }, {
             test: /\.css$/,
             exclude: nodeModules,
-            use: cssLoader
+            use: isDev ? ['style-loader', 'happypack/loader?id=happy-css'] : cssLoader,
             // use: ExtractTextPlugin.extract({
             //     fallback: "style-loader",
             //     use: [{
@@ -72,7 +73,7 @@ module.exports = {
             // }),
         }, {
             test: /\.less$/,
-            use: lessLoader
+            use: isDev ? ['style-loader', 'happypack/loader?id=happy-less'] : lessLoader,
             // use: ExtractTextPlugin.extract({
             //     fallback: "style-loader",
             //     use: [{
@@ -102,12 +103,12 @@ module.exports = {
             test: /\.(woff|woff2|eot|ttf|otf|svg)$/,
             // use: ['happypack/loader?id=happy-font']
             use: [{
-                    loader: 'file-loader',
-                    options: {
-                        limit: 8192,
-                        name: 'font/[name].[hash:8].[ext]'
-                    }
+                loader: 'file-loader',
+                options: {
+                    limit: 8192,
+                    name: 'font/[name].[hash:8].[ext]'
                 }
+            }
 
             ]
         }, {
@@ -145,35 +146,39 @@ module.exports = {
             loader: 'babel-loader',
             query: {
                 cacheDirectory: true,
-                env: babelPreset
+                presets: ['react-hmre']
             }
         }]),
         createHappyPlugin('happy-css', [{
             loader: 'css-loader',
             query: {
-                minimize: true
+                minimize: true,
             }
         }, {
             loader: 'postcss-loader',
             query: {
                 config: {
                     path: path.join(__dirname, './postcss.config.js')
-                }
+                },
             }
         }]),
         createHappyPlugin('happy-less', [{
             loader: 'css-loader',
             query: {
-                minimize: true
+                minimize: true,
             }
         }, {
             loader: 'postcss-loader',
             query: {
                 config: {
                     path: path.join(__dirname, './postcss.config.js')
-                }
+                },
             }
-        }, 'less-loader']),
+        }, {
+            loader: 'less-loader', 
+            query: {
+            }
+        }]),
         // createHappyPlugin('happy-font', [{
         //     loader: "file-loader",
         //     query: {
@@ -182,9 +187,10 @@ module.exports = {
         //     }
         // }]),
         new ProgressBarPlugin({
-            format: chalk.blue.bold("build  ") + chalk.cyan("[:bar]")  + chalk.green.bold(':percent') + ' (' + chalk.magenta(":elapsed") + ' seconds) ',
+            format: chalk.blue.bold("build  ") + chalk.cyan("[:bar]") + chalk.green.bold(':percent') + ' (' + chalk.magenta(":elapsed") + ' seconds) ',
             clear: false
         }),
+        new webpack.NamedModulesPlugin(),
         new LodashModuleReplacementPlugin(),
         // new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'js/[name].js' })
     ]

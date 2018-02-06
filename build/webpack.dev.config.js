@@ -1,9 +1,9 @@
-var path = require('path');
-var merge = require('webpack-merge');
-var webpack = require('webpack');
-var baseWebpackConfig = require('./webpack.base.config');
-var Html = require('html-webpack-plugin');
-var HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
+const path = require('path');
+const merge = require('webpack-merge');
+const webpack = require('webpack');
+const baseWebpackConfig = require('./webpack.base.config');
+const Html = require('html-webpack-plugin');
+const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const outputPath = path.join(__dirname, '../dist/client/');
 const templateSrc = path.join(__dirname, '../web/page/');
 
@@ -12,12 +12,12 @@ module.exports = merge(baseWebpackConfig, {
     entry: {
         admin: [
             'eventsource-polyfill',
-            'webpack-hot-middleware/client?path=/__webpack_hmr',
+            'webpack-hot-middleware/client',
             '../web/page/admin/index.js',
         ],
         blog: [
             'eventsource-polyfill',
-            'webpack-hot-middleware/client?path=/__webpack_hmr',
+            'webpack-hot-middleware/client',
             '../web/page/blog/index.js',
         ]
     },
@@ -36,23 +36,21 @@ module.exports = merge(baseWebpackConfig, {
         }),
         new Html({
             filename: 'admin.html',
-            template: path.join(templateSrc, '/admin/index.html'),
             alwaysWriteToDisk: true,
+            template: path.join(templateSrc, '/admin/index.html'),
             title: '<%= title || "游走在技术与艺术边缘地带的前端攻城狮" %>',
             chunks: ["admin"],
         }),
         new Html({
             filename: 'blog.html',
+            alwaysWriteToDisk: true,            
             template: path.join(templateSrc, '/blog/index.html'),
             html: '<%- html %>',
             script: '<%- JSON.stringify(ServerData) %>',
             title: '<%= title || "游走在技术与艺术边缘地带的前端攻城狮" %>',
-            alwaysWriteToDisk: true,
             chunks: ["blog"],
         }),
-        new webpack.optimize.OccurrenceOrderPlugin(),
         new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoEmitOnErrorsPlugin(),
         new HtmlWebpackHarddiskPlugin()
     ]
 })

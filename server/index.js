@@ -17,35 +17,11 @@ mongoose.Promise = Promise;
 mongoose.connect(_Config.mongodb.url, _Config.mongodbSOptions);
 mongoose.connection.on('error', console.error);
 
-// 配置服务端模板渲染引擎中间件
-App.use(views(path.resolve(process.cwd(), './dist/client'), {
-    extension: 'html',
-    map: { html: 'ejs' }
-}))
-
-// 配置静态资源加载中间件
-App.use(koaStatic(
-    path.resolve(process.cwd(), './dist/client/')
-));
-
-// 使用ctx.body解析中间件
-App.use(bodyParser());
-App.use(compress());
-
-// 路由
-App.use(Router.routes())
-    .use(Router.allowedMethods());
-
-
-App.listen(_Config.port, () => {
-    console.log(`\n[node-koa-blog] start-quick is starting at port ${_Config.port}`);
-});
-
 // 开发环境启动webpack编译
 if (NODE_ENV == 'development') {
-    var webpack = require('webpack');
-    var { devMiddleware, hotMiddleware } = require('koa-webpack-middleware');
-    var devConfig = require('../build/webpack.dev.config');
+    const webpack = require('webpack');
+    const { devMiddleware, hotMiddleware } = require('koa-webpack-middleware');
+    const devConfig = require('../build/webpack.dev.config');
 
     const compile = webpack(devConfig);
     App.use(devMiddleware(compile, {
@@ -68,11 +44,31 @@ if (NODE_ENV == 'development') {
         debug: true,
         lazy: false,
         historyApiFallback: true
-    }))
+    }));
 
-    App.use(hotMiddleware(compile, {
-        // log: console.log,
-        // path: '/__webpack_hmr',
-        // heartbeat: 10 * 1000
-    }))
+    App.use(hotMiddleware(compile));
 }
+
+// 配置服务端模板渲染引擎中间件
+App.use(views(path.resolve(process.cwd(), './dist/client'), {
+    extension: 'html',
+    map: { html: 'ejs' }
+}))
+
+// 配置静态资源加载中间件
+App.use(koaStatic(
+    path.resolve(process.cwd(), './dist/client/')
+));
+
+// 使用ctx.body解析中间件
+App.use(bodyParser());
+App.use(compress());
+
+// 路由
+App.use(Router.routes())
+    .use(Router.allowedMethods());
+
+
+App.listen(_Config.port, () => {
+    console.log(`\n[JI-Blog] start-quick is starting at port ${_Config.port}`);
+});

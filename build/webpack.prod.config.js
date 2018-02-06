@@ -1,10 +1,10 @@
-var path = require('path');
-var merge = require('webpack-merge');
-var webpack = require('webpack');
-var baseWebpackConfig = require('./webpack.base.config');
-var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
-var Html = require('html-webpack-plugin');
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const path = require('path');
+const merge = require('webpack-merge');
+const webpack = require('webpack');
+const baseWebpackConfig = require('./webpack.base.config');
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const Html = require('html-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const templateSrc = path.join(__dirname, '../web/page/');
 const outputPath = path.join(__dirname, '../dist/client/');
 
