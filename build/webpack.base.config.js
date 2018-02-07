@@ -9,8 +9,7 @@ const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const sourcePath = path.join(__dirname, '../web');
 const nodeModules = path.resolve(__dirname, '../node_modules');
 
-const isDev =  !!(process.env.NODE_ENV != 'production');
-
+const isDev = !!(process.env.NODE_ENV != 'production');
 // const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 function createHappyPlugin(id, loaders) {
@@ -143,16 +142,21 @@ module.exports = {
             manifest: require('./vendor-manifest.json'),
         }),
         createHappyPlugin('happy-babel-js', [{
+            loader: 'cache-loader',
+            options: {
+                cacheDirectory: path.resolve(__dirname, '.cache--happypack')
+            }
+        }, {
             loader: 'babel-loader',
             query: {
-                cacheDirectory: true,
-                presets: ['react-hmre']
+                // cacheDirectory: isDev,
+                presets: isDev ? ['react-hmre'] : []
             }
         }]),
         createHappyPlugin('happy-css', [{
             loader: 'css-loader',
             query: {
-                minimize: true,
+                minimize: !isDev,
             }
         }, {
             loader: 'postcss-loader',
@@ -165,7 +169,7 @@ module.exports = {
         createHappyPlugin('happy-less', [{
             loader: 'css-loader',
             query: {
-                minimize: true,
+                minimize: !isDev,
             }
         }, {
             loader: 'postcss-loader',
@@ -175,7 +179,7 @@ module.exports = {
                 },
             }
         }, {
-            loader: 'less-loader', 
+            loader: 'less-loader',
             query: {
             }
         }]),

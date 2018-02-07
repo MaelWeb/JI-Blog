@@ -16,7 +16,7 @@ let loadEditorMD = () => {
             script.onerror = () => {
                 reject(false);
             };
-            script.src = '//static.liayal.com/editormd/editormd.fix.min.js';
+            script.src = '//static.liayal.com/editormd/editormd.min.js';
             document.head.appendChild(script);
         }
     });

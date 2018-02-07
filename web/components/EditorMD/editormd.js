@@ -486,24 +486,24 @@
                 }
 
                 if (settings.flowChart || settings.sequenceDiagram) {
-                    editormd.loadScript(loadPath + "raphael.min", function() {
+                    editormd.loadScript(loadPath + "raphael.min.js", function() {
 
-                        editormd.loadScript(loadPath + "underscore.min", function() {
+                        editormd.loadScript(loadPath + "underscore.min.js", function() {
 
                             if (!settings.flowChart && settings.sequenceDiagram) {
-                                editormd.loadScript(loadPath + "sequence-diagram.min", function() {
+                                editormd.loadScript(loadPath + "sequence-diagram.min.js", function() {
                                     _this.loadedDisplay();
                                 });
                             } else if (settings.flowChart && !settings.sequenceDiagram) {
-                                editormd.loadScript(loadPath + "flowchart.min", function() {
-                                    editormd.loadScript(loadPath + "jquery.flowchart.min", function() {
+                                editormd.loadScript(loadPath + "flowchart.min.js", function() {
+                                    editormd.loadScript(loadPath + "jquery.flowchart.min.js", function() {
                                         _this.loadedDisplay();
                                     });
                                 });
                             } else if (settings.flowChart && settings.sequenceDiagram) {
-                                editormd.loadScript(loadPath + "flowchart.min", function() {
-                                    editormd.loadScript(loadPath + "jquery.flowchart.min", function() {
-                                        editormd.loadScript(loadPath + "sequence-diagram.min", function() {
+                                editormd.loadScript(loadPath + "flowchart.min.js", function() {
+                                    editormd.loadScript(loadPath + "jquery.flowchart.min.js", function() {
+                                        editormd.loadScript(loadPath + "sequence-diagram.min.js", function() {
                                             _this.loadedDisplay();
                                         });
                                     });
@@ -528,12 +528,12 @@
                 editormd.loadCSS(loadPath + "codemirror/addon/fold/foldgutter");
             }
 
-            editormd.loadScript(loadPath + "codemirror/codemirror.min", function() {
+            editormd.loadScript(loadPath + "codemirror/codemirror.min.js", function() {
                 editormd.$CodeMirror = CodeMirror;
 
-                editormd.loadScript(loadPath + "codemirror/modes.min", function() {
+                editormd.loadScript(loadPath + "codemirror/modes.min.js", function() {
 
-                    editormd.loadScript(loadPath + "codemirror/addons.min", function() {
+                    editormd.loadScript(loadPath + "codemirror/addons.min.js", function() {
 
                         _this.setCodeMirror();
 
@@ -545,12 +545,12 @@
 
                         _this.setToolbar();
 
-                        editormd.loadScript(loadPath + "marked.min", function() {
+                        editormd.loadScript(loadPath + "marked.min.js", function() {
 
                             editormd.$marked = marked;
 
                             if (settings.previewCodeHighlight) {
-                                editormd.loadScript(loadPath + "prettify.min", function() {
+                                editormd.loadScript(loadPath + "prettify.min.js", function() {
                                     loadFlowChartOrSequenceDiagram();
                                 });
                             } else {
@@ -2881,11 +2881,11 @@
         },
 
         link: function() {
-            this.executePlugin("linkDialog", "link-dialog/link-dialog");
+            this.executePlugin("linkDialog", "link-dialog/link-dialog.js");
         },
 
         "reference-link": function() {
-            this.executePlugin("referenceLinkDialog", "reference-link-dialog/reference-link-dialog");
+            this.executePlugin("referenceLinkDialog", "reference-link-dialog/reference-link-dialog.js");
         },
 
         pagebreak: function() {
@@ -2901,7 +2901,7 @@
         },
 
         image: function() {
-            this.executePlugin("imageDialog", "image-dialog/image-dialog");
+            this.executePlugin("imageDialog", "image-dialog/image-dialog.js");
         },
 
         code: function() {
@@ -2917,15 +2917,15 @@
         },
 
         "code-block": function() {
-            this.executePlugin("codeBlockDialog", "code-block-dialog/code-block-dialog");
+            this.executePlugin("codeBlockDialog", "code-block-dialog/code-block-dialog.js");
         },
 
         "preformatted-text": function() {
-            this.executePlugin("preformattedTextDialog", "preformatted-text-dialog/preformatted-text-dialog");
+            this.executePlugin("preformattedTextDialog", "preformatted-text-dialog/preformatted-text-dialog.js");
         },
 
         table: function() {
-            this.executePlugin("tableDialog", "table-dialog/table-dialog");
+            this.executePlugin("tableDialog", "table-dialog/table-dialog.js");
         },
 
         datetime: function() {
@@ -2939,15 +2939,15 @@
         },
 
         emoji: function() {
-            this.executePlugin("emojiDialog", "emoji-dialog/emoji-dialog");
+            this.executePlugin("emojiDialog", "emoji-dialog/emoji-dialog.js");
         },
 
         "html-entities": function() {
-            this.executePlugin("htmlEntitiesDialog", "html-entities-dialog/html-entities-dialog");
+            this.executePlugin("htmlEntitiesDialog", "html-entities-dialog/html-entities-dialog.js");
         },
 
         "goto-line": function() {
-            this.executePlugin("gotoLineDialog", "goto-line-dialog/goto-line-dialog");
+            this.executePlugin("gotoLineDialog", "goto-line-dialog/goto-line-dialog.js");
         },
 
         watch: function() {
@@ -2971,7 +2971,7 @@
         },
 
         help: function() {
-            this.executePlugin("helpDialog", "help-dialog/help-dialog");
+            this.executePlugin("helpDialog", "help-dialog/help-dialog.js");
         },
 
         info: function() {
@@ -3884,7 +3884,7 @@
         script = document.createElement("script");
         script.id = fileName.replace(/[\./]+/g, "-");
         script.type = "text/javascript";
-        script.src = fileName + ".js";
+        script.src = fileName;
 
         if (editormd.isIE8) {
             script.onreadystatechange = function() {
@@ -3914,7 +3914,7 @@
     // You can custom KaTeX load url.
     editormd.katexURL = {
         css: "//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min",
-        js: "//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min"
+        js: "//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.3.0/katex.min.js"
     };
 
     editormd.kaTeXLoaded = false;
