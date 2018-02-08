@@ -107,18 +107,7 @@ module.exports = {
                     limit: 8192,
                     name: 'font/[name].[hash:8].[ext]'
                 }
-            }
-
-            ]
-        }, {
-            // test: require.resolve('jquery'),
-            // use: [{
-            //     loader: 'expose-loader',
-            //     options: '$'
-            // }, {
-            //     loader: 'expose-loader',
-            //     options: 'Zepto'
-            // }]
+            }]
         }],
         noParse: /node_modules\/(jquey|js\-cookie\.js)/
     },

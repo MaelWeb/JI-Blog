@@ -63,9 +63,15 @@ module.exports = merge(baseWebpackConfig, {
             }
         }),
 
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new OptimizeCSSPlugin(),
+        new OptimizeCSSPlugin({
+            cssProcessorOptions: {
+                discardComments: {
+                    removeAll: true
+                }
+            },
+            canPrint: true
+        }),
         new webpack.optimize.ModuleConcatenationPlugin(),
-        new BundleAnalyzerPlugin()
+        // new BundleAnalyzerPlugin()
     ]
 });
