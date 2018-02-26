@@ -417,7 +417,7 @@ export default class AddArticle extends Component {
         return(
             <Layout className="add-article-layout">
                 <Header className='add-article-header clearfix' >
-                    <h2><Link to="/"><Icon type="home"/> </Link> / <span>文章编辑</span></h2>
+                    <h3><Link to="/"><Icon type="home"/> </Link> / <span>文章编辑</span></h3>
                     <div className={classNames("article-title tc", {'creat-pr': !query.aid && !aid})}><input type="text" placeholder='新增文章标题' className="article-title-input tc" onChange={ this.titleInputChange } value={articleTitle} /></div>
                     { query.aid || aid ? <Button.Group>
                         <Button onClick={ this.saveArticle } >

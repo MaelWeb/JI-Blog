@@ -197,7 +197,7 @@ export default class ArticleManege extends Component {
         let data = photoes.length ? photoes : one;
         return ( <Layout className = "photo-manage-layout" >
                 <Header className = 'photo-manage-header clearfix' >
-                    <h2 > 图 集 </h2>
+                    <h3> 图 集 </h3>
                     <div  className='fr'><Button icon='plus' onClick={ this.showAddPhoto } >添加图片</Button></div>
                 </Header>
                 <Content className = "photo-manage-content" >

@@ -142,29 +142,13 @@ audio,
 video {
     margin: 0;
     tap-highlight-color: rgba(0, 0, 0, 0);
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    -ms-tap-highlight-color: rgba(0, 0, 0, 0);
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -ms-box-sizing: border-box;
     box-sizing: border-box;
-    -webkit-text-size-adjust: none;
-    /*静止横屏竖屏下的字体变化*/
-    -moz-text-size-adjust: none;
-    -ms-text-size-adjust: none;
     text-size-adjust: none;
     box-sizing: border-box;
 }
 
 form {
     display: inline;
-}
-
-ul,
-ol {
-    list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
 button,
@@ -177,16 +161,6 @@ textarea {
     box-sizing: border-box;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-size: 100%;
-    font-weight: 400;
-}
-
 input {
     &:focus {
         &:-moz-placeholder,
@@ -194,12 +168,6 @@ input {
             color: transparent;
         }
     }
-}
-
-em,
-i,
-address {
-    font-style: normal;
 }
 
 button,
@@ -229,6 +197,10 @@ input[type="submit"] {
     cursor: pointer;
     -webkit-appearance: button;
     -moz-appearance: button;
+}
+
+img {
+    max-width: 100%;
 }
 
 .hidden {

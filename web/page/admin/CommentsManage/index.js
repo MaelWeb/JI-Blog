@@ -176,7 +176,7 @@ export default class ComponentsManege extends Component {
         return(
             <Layout className="comments-manage-layout">
                 <Header className='comments-manage-header clearfix' >
-                    <h2>评论管理</h2>
+                    <h3>评论管理</h3>
                 </Header>
                 <Content className="comments-manage-content">
                     { comments.length ? <Masonry className="comments-list">

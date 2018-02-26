@@ -220,7 +220,7 @@ export default class BooksManage extends Component {
         return (
             <Layout className="books-manage-layout">
                 <Header className='books-manage-header clearfix' >
-                    <h2>图书管理</h2>
+                    <h3>图书管理</h3>
                 </Header>
                 <Content className="books-manage-content">
                  { books.length ? books.map( (book, index) => <div className="book-box" key={book.id} >

@@ -205,7 +205,7 @@ export default class ArticleManege extends Component {
         return(
             <Layout className="article-manage-layout">
                 <Header className='article-manage-header clearfix' >
-                    <h2>文章管理</h2><Link to="/edit" className='fr'><Button icon="plus" >写文章</Button></Link>
+                    <h3>文章管理</h3><Link to="/edit" className='fr'><Button icon="plus" >写文章</Button></Link>
                 </Header>
                 <Content className="article-manage-content">
                     <Masonry className="article-list">

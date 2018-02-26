@@ -106,7 +106,7 @@ export default class Home extends Component {
                     ))}
                 </Menu>
             </Sider>
-            <Layout style={{ marginLeft: this.state.collapsed ? 65 : 200 }} className='home-content-layout'>
+            <Layout style={{ marginLeft: this.state.collapsed ? 80 : 200 }} className='home-content-layout'>
                 {routes.map((route, index) => (
                   <Route
                     key={index}

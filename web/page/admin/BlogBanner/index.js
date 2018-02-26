@@ -186,7 +186,7 @@ export default class BannerSetting extends Component {
         return (
             <Layout className="banner-setting-layout">
                 <Header className='banner-setting-header clearfix' >
-                    <h2>Banner设置</h2>
+                    <h3>头图设置</h3>
                 </Header>
                 <Content className="banner-setting-content">
                 <h2>博客首页</h2>

@@ -73,7 +73,7 @@ export default class UserInfo extends Component {
         return (
             <Layout className ="userinfo-layout" >
                 <Header className = 'userinfo-header clearfix' >
-                    <h2 >账号设置</h2><Button className='fr logout' onClick={ this.logout } >退出登录</Button>
+                    <h3>账号设置</h3><Button className='fr logout' onClick={ this.logout } >退出登录</Button>
                 </Header>
                 <Content className = "userinfo-manage-content" >
                     <div className="userinfo-body">
