@@ -31,7 +31,7 @@ const routes = [
     },
     {
         path: '/banner',
-        navText: 'Banner设置',
+        navText: '头图设置',
         iconType: 'setting',
         component: BlogBanner
     },
