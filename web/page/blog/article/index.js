@@ -54,9 +54,10 @@ export default class Article extends Component {
     }
 
     render() {
-        const { article, comments } = this.state;
+        let { article, comments } = this.state;
         const { match: {params} } = this.props;
         let _article = article || {};
+        let htmlContent = _article.htmlContent ? decodeURIComponent(_article.htmlContent) : '';
         let cls = ClassNames('blog-article-layout', { [`blog-article-${_article.category && _article.category.toLocaleLowerCase()}`]:  _article.category});
         return (
             <div className={cls} >
@@ -71,7 +72,7 @@ export default class Article extends Component {
                         { _article.tags && _article.tags.length ? <span className="ml"><Icon type='cc-tag' /> {_article.tags.map( tag => tag.name + ' ')}</span> : null }
                         <span className="ml"><Icon type='visit' /> {_article.visited || 0}</span>
                     </p>
-                    <div className="article-content" dangerouslySetInnerHTML={ {__html: _article.htmlContent} } />
+                    <div className="article-content" dangerouslySetInnerHTML={ {__html: htmlContent } } />
                     <div className='article-tips'>
                         <p>如非特别注明，文章皆为原创。</p>
                         <p><b>转载请注明出处：</b> <a href={`https://www.liayal.com/article/${_article.id}`}>{`https://www.liayal.com/article/${_article.id}`}</a></p>

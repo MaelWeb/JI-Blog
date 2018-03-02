@@ -43,7 +43,7 @@ module.exports = merge(baseWebpackConfig, {
         }),
         new Html({
             filename: 'blog.html',
-            alwaysWriteToDisk: true,            
+            alwaysWriteToDisk: true,
             template: path.join(templateSrc, '/blog/index.html'),
             html: '<%- html %>',
             script: '<%- JSON.stringify(ServerData) %>',

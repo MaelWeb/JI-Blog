@@ -34,6 +34,10 @@ module.exports = merge(baseWebpackConfig, {
             template: path.join(templateSrc, '/admin/index.html'),
             chunks: ["admin"],
             title: '<%= title || "游走在技术与艺术边缘地带的前端攻城狮" %>',
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true
+            }
         }),
 
         new Html({
@@ -43,6 +47,10 @@ module.exports = merge(baseWebpackConfig, {
             html: '<%- html %>',
             script: '<%- JSON.stringify(ServerData) %>',
             title: '<%= title || "游走在技术与艺术边缘地带的前端攻城狮" %>',
+            minify: {
+                removeComments: true,
+                collapseWhitespace: true
+            }
         }),
 
         new webpack.optimize.UglifyJsPlugin({
