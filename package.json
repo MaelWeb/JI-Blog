@@ -25,6 +25,7 @@
     "chinese-random-name": "^0.1.3",
     "crypto": "^1.0.1",
     "ejs": "^2.5.7",
+    "html-minifier": "^3.5.9",
     "jade": "^1.11.0",
     "jsonwebtoken": "^8.1.0",
     "koa": "^ 2.3.0",

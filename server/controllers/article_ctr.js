@@ -239,7 +239,6 @@ export async function getArticle(ctx) {
                 }
             }
         });
-    article.htmlContent = encodeURIComponent(article.htmlContent);
     ctx.body = {
         code: 200,
         article: article

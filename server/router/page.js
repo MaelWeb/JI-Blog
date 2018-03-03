@@ -1,5 +1,6 @@
 import router from 'koa-router';
 import fs from 'fs';
+import  htmlMinifier from 'html-minifier';
 import { pageVerify } from '../middleware/verify';
 import { getAllTags } from '../controllers/tags_ctr';
 import { getAllPublishArticles, getArticle } from '../controllers/article_ctr';
@@ -31,7 +32,10 @@ let _Page = Router
         )
 
         await ctx.render('blog', {
-            html,
+            html: htmlMinifier.minify(html, {
+                removeComments: true,
+                collapseWhitespace: true
+            }),
             ServerData,
             title: '游走在技术与艺术边缘地带的前端攻城狮'
         });
@@ -55,7 +59,10 @@ let _Page = Router
         )
 
         await ctx.render('blog', {
-            html,
+            html: htmlMinifier.minify(html, {
+                removeComments: true,
+                collapseWhitespace: true
+            }),
             ServerData,
             title: articleData.article.title
         });
@@ -71,7 +78,10 @@ let _Page = Router
         )
 
         await ctx.render('blog', {
-            html,
+            html: htmlMinifier.minify(html, {
+                removeComments: true,
+                collapseWhitespace: true
+            }),
             ServerData,
             title: '图记'
         });
@@ -83,7 +93,10 @@ let _Page = Router
         const html = '';
 
         await ctx.render('blog', {
-            html,
+            html: htmlMinifier.minify(html, {
+                removeComments: true,
+                collapseWhitespace: true
+            }),
             ServerData,
             title: '关于'
         });
@@ -101,7 +114,10 @@ let _Page = Router
         )
 
         await ctx.render('blog', {
-            html,
+            html: htmlMinifier.minify(html, {
+                removeComments: true,
+                collapseWhitespace: true
+            }),
             ServerData,
             title: '游记'
         });
@@ -119,7 +135,10 @@ let _Page = Router
         )
 
         await ctx.render('blog', {
-            html,
+            html: htmlMinifier.minify(html, {
+                removeComments: true,
+                collapseWhitespace: true
+            }),
             ServerData,
             title: '阅记'
         });
