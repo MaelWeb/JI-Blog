@@ -49,21 +49,21 @@ export async function createArticle(ctx) {
 export async function getAllArticles(ctx) {
     const tag = ctx.query.tag;
     const page = +ctx.query.page || 1;
-    const size = +ctx.query.size || 10;
+    const pageSize = +ctx.query.pageSize || 10;
     let skip = 0;
     let articles;
     let allPage;
     let allNum;
 
     if (page !== 1) {
-        skip = size * (page - 1)
+        skip = pageSize * (page - 1)
     }
 
     if (!tag) {
         articles = await Article.find(null, { title: 1, publish: 1, abstract: 1, createTime: 1, lastEditTime: -1, content: 1 })
             .populate("tags")
             .sort({ createTime: -1 })
-            .limit(size)
+            .limit(pageSize)
             .skip(skip).catch(err => {
                 ctx.throw(500, '服务器内部错误')
             });
@@ -78,7 +78,7 @@ export async function getAllArticles(ctx) {
             }, { title: 1, publish: 1, abstract: 1, createTime: 1, lastEditTime: -1, content: 1 })
             .populate("tags")
             .sort({ createTime: -1 })
-            .limit(size)
+            .limit(pageSize)
             .skip(skip).catch(err => {
                 ctx.throw(500, '服务器内部错误')
             });
@@ -88,7 +88,7 @@ export async function getAllArticles(ctx) {
             ctx.throw(500, '服务器内部错误')
         })
     }
-    allPage = Math.ceil(allNum / size);
+    allPage = Math.ceil(allNum / pageSize);
 
     ctx.body = {
         code: 200,
@@ -104,7 +104,7 @@ export async function getAllArticles(ctx) {
 export async function getAllPublishArticles(ctx) {
     const tag = ctx.query.tag;
     const page = +ctx.query.page || 1;
-    const limit = +ctx.query.limit || 10;
+    const pageSize = +ctx.query.pageSize || 10;
     const category = ctx.query.category || null;
     let skip = 0;
     let articles;
@@ -112,7 +112,7 @@ export async function getAllPublishArticles(ctx) {
     let allNum;
 
     if (page !== 1) {
-        skip = limit * (page - 1)
+        skip = pageSize * (page - 1)
     }
 
     if (!tag) {
@@ -122,7 +122,7 @@ export async function getAllPublishArticles(ctx) {
             }, { title: 1, banner: 1, abstract: 1, createTime: 1, id: 1, lastEditTime: -1 })
             .populate("tags")
             .sort({ createTime: -1 })
-            .limit(limit)
+            .limit(pageSize)
             .skip(skip).catch(err => {
                 ctx.throw(500, '服务器内部错误')
             });
@@ -141,7 +141,7 @@ export async function getAllPublishArticles(ctx) {
             }, { title: 1, banner: 1, abstract: 1, createTime: 1, id: 1, lastEditTime: -1 })
             .populate("tags")
             .sort({ createTime: -1 })
-            .limit(limit)
+            .limit(pageSize)
             .skip(skip).catch(err => {
                 ctx.throw(500, '服务器内部错误')
             });
@@ -153,7 +153,7 @@ export async function getAllPublishArticles(ctx) {
         })
     }
 
-    allPage = Math.ceil(allNum / limit)
+    allPage = Math.ceil(allNum / pageSize)
 
     ctx.body = {
         code: 200,
@@ -216,7 +216,15 @@ export async function modifyArticle(ctx) {
 
 export async function getArticle(ctx) {
     const id = ctx.params.id;
-    const projection = ctx.query.filter ? {title: 1, htmlContent: 1, abstract: 1, banner: 1, visited: 1, category: 1 } : {};
+    const { filter } = ctx.query;
+    let projection = {};
+
+    if (filter == "web") {
+        projection = { title: 1, htmlContent: 1, abstract: 1, banner: 1, visited: 1, category: 1 }
+    } else if (filter == "weapp") {
+        projection = { title: 1, content: 1, abstract: 1, banner: 1, visited: 1, category: 1 }
+    }
+
     if (!id) {
         return ctx.body = {
             code: 400,
@@ -224,7 +232,7 @@ export async function getArticle(ctx) {
         }
     }
     const article = await Article
-        .findByIdAndUpdate(id, { $inc: { visited: 1 } }, {projection})
+        .findByIdAndUpdate(id, { $inc: { visited: 1 } }, { projection })
         .populate("tags")
         .catch(err => {
             if (err.name === 'CastError') {

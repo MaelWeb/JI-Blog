@@ -19,6 +19,7 @@ let _Page = Router
     .get('/', async(ctx, next) => {
         ctx.query.category = 'DEFAULT';
         ctx.query.page = 'HOME';
+        ctx.query.pageSize = 20;
         let tags = await getAllTags(ctx);
         let articleData = await getAllPublishArticles(ctx);
         let banners = await getBanners(ctx);
@@ -43,7 +44,7 @@ let _Page = Router
     .get('article/:id', async(ctx, next) => {
 
         if (!ctx.params.id) ctx.redirect('/');
-        ctx.query.filter = 1;
+        ctx.query.filter = "web";
         let articleData = await getArticle(ctx);
         let commentsData = await getComments(ctx);
 

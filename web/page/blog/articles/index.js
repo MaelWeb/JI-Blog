@@ -4,6 +4,7 @@ import { Pagination } from 'antd';
 import Axios from 'axios';
 import classNames from 'classnames';
 
+const PageSize = 20;
 export default class Articles extends Component {
     constructor(props) {
         super(props);
@@ -42,7 +43,8 @@ export default class Articles extends Component {
             params: {
                 tag: tagid || null,
                 category: 'DEFAULT',
-                page
+                page,
+                pageSize: PageSize
             }
         })
         .then( res => {
@@ -51,7 +53,8 @@ export default class Articles extends Component {
                 articles: resData.articles,
                 curTagId: tagid,
                 allNum: resData.allNum,
-                page: resData.page
+                page: resData.page,
+                allPage: resData.allPage
             })
         })
     }
@@ -149,7 +152,7 @@ export default class Articles extends Component {
                         </Link></li>) : null}
                     </ul>
                 </div>
-                { allPage > 1 ? <Pagination size="small" total={allNum} current={page} onChange={ this.changePage } /> : null}
+                { allPage > 1 ? <Pagination size="small" total={allNum} current={page} defaultPageSize={PageSize} onChange={ this.changePage } /> : null}
             </div>
         )
     }

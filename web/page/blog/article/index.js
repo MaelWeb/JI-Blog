@@ -25,7 +25,7 @@ export default class Article extends Component {
         if (!article || article.id != params.id) {
             Axios.get(`/api/get/article/${params.id}`, {
                 params: {
-                    filter: 1
+                    filter: "web"
                 }
             })
             .then( res => {

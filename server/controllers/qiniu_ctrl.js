@@ -7,7 +7,7 @@ import { addPhoto } from './photo_ctrl';
 
 const { ACCESS_KEY, SECRET_KEY } = Config.upload;
 const DEFAULT_BUCKET = (process.env.NODE_ENV == "production") ? 'hynal-com' : 'hynal-com-test';
-const IMG_URL =  (process.env.NODE_ENV == "production") ? "//cdn.liayal.com/" : "//p1hx4ytu8.bkt.clouddn.com/";
+const IMG_URL =  (process.env.NODE_ENV == "production") ? "https://cdn.liayal.com/" : "//p1hx4ytu8.bkt.clouddn.com/";
 
 function getToken(bucket) {
     let _bucket = bucket || DEFAULT_BUCKET;

@@ -58,7 +58,7 @@ export default class ArticleManege extends Component {
             params: {
                 page: _page || page,
                 tag: '',
-                size: pageSize
+                pageSize: pageSize
             }
         })
         .then( res => {
