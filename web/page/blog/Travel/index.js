@@ -104,7 +104,7 @@ export default class Travel extends Component {
                 </Link></div>
                 <div className="middle-text tc">
                     <h2>我从旅行中获得乐趣</h2>
-                    <p>摄影是一种神奇的记录：照片记录了时间、风景、人物；可回放照片时才发现，原来它还记录了按下快门时的感触、思绪、心事……也许这就是为什么明明看到的是一张风景，却会让你想起谁</p>
+                    <p>一个人，一条路，人在途中，心随景动，从起点，到尽头，也许快乐，或有时孤独，如果心在远方，只需勇敢前行，梦想自会引路，有多远，走多远，把足迹连成生命线。</p>
                 </div>
                 <Masonry className="travel-article-list">
                     { travels.length ? travels.map( (article, index) => {
