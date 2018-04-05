@@ -220,7 +220,7 @@ export async function getArticle(ctx) {
     let projection = {};
 
     if (filter == "web") {
-        projection = { title: 1, htmlContent: 1, abstract: 1, banner: 1, visited: 1, category: 1 }
+        projection = { title: 1, htmlContent: 1, abstract: 1, banner: 1, visited: 1, category: 1, createTime: 1 }
     } else if (filter == "weapp") {
         projection = { title: 1, content: 1, abstract: 1, banner: 1, visited: 1, category: 1 }
     }
