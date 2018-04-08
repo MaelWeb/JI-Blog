@@ -9,6 +9,7 @@ const templateSrc = path.join(__dirname, '../web/page/');
 
 module.exports = merge(baseWebpackConfig, {
     devtool: 'source-map',
+    mode: "production",
     entry: {
         admin: [
             'eventsource-polyfill',
@@ -28,12 +29,6 @@ module.exports = merge(baseWebpackConfig, {
         chunkFilename: "js/[name].[chunkhash:8].js"
     },
     plugins: [
-
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('development')
-            }
-        }),
         new Html({
             filename: 'admin.html',
             alwaysWriteToDisk: true,

@@ -2,3 +2,4 @@ node_modules
 .DS_Store
 .cache--happypack
 dist/server/*
+package-lock.json
