@@ -20,33 +20,17 @@ mongoose.connection.on('error', console.error);
 // 开发环境启动webpack编译
 if (NODE_ENV == 'development') {
     const webpack = require('webpack');
-    const { devMiddleware, hotMiddleware } = require('koa-webpack-middleware');
+    const koaWebpack = require('koa-webpack');
     const devConfig = require('../build/webpack.dev.config');
 
-    const compile = webpack(devConfig);
-    App.use(devMiddleware(compile, {
-        // display no info to console (only warnings and errors)
-        noInfo: true,
-        // watch options (only lazy: false)
-        watchOptions: {
-            aggregateTimeout: 300,
-            poll: true,
-        },
-        // public path to bind the middleware to
-        // use the same as in webpack
-        publicPath: devConfig.output.publicPath,
-
-        // options for formating the statistics
-        stats: {
-            colors: true,
-            chunks: false
-        },
-        debug: true,
-        lazy: false,
-        historyApiFallback: true
+    const compiler = webpack(devConfig);
+    App.use(koaWebpack({
+        compiler,
+        dev: {
+            logLevel: "debug"
+        }
     }));
 
-    App.use(hotMiddleware(compile));
 }
 
 // 配置服务端模板渲染引擎中间件
