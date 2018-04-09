@@ -7,6 +7,8 @@ const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const outputPath = path.join(__dirname, '../dist/client/');
 const templateSrc = path.join(__dirname, '../web/page/');
 
+// process.traceDeprecation = true;
+
 module.exports = merge(baseWebpackConfig, {
     devtool: 'source-map',
     mode: "development",
