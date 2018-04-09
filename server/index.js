@@ -27,7 +27,7 @@ if (NODE_ENV == 'development') {
     App.use(koaWebpack({
         compiler,
         dev: {
-            logLevel: "debug"
+            // logLevel: "warn"
         }
     }));
 

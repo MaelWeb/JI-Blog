@@ -9,7 +9,7 @@ const templateSrc = path.join(__dirname, '../web/page/');
 
 module.exports = merge(baseWebpackConfig, {
     devtool: 'source-map',
-    mode: "production",
+    mode: "development",
     entry: {
         admin: [
             'eventsource-polyfill',

@@ -1,6 +1,5 @@
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HappyPack = require('happypack');
 const os = require('os');
@@ -103,7 +102,6 @@ module.exports = {
         jquery: "$"
     },
     plugins: [
-        // new ExtractTextPlugin('css/[name].[contenthash:8].css'),
         new MiniCssExtractPlugin({
             filename: "css/[name].[contenthash:8].css",
             chunkFilename: "[name].css"
