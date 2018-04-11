@@ -7,8 +7,11 @@ const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const outputPath = path.join(__dirname, '../dist/client/');
 const templateSrc = path.join(__dirname, '../web/page/');
 
+// process.traceDeprecation = true;
+
 module.exports = merge(baseWebpackConfig, {
     devtool: 'source-map',
+    mode: "development",
     entry: {
         admin: [
             'eventsource-polyfill',
@@ -28,12 +31,6 @@ module.exports = merge(baseWebpackConfig, {
         chunkFilename: "js/[name].[chunkhash:8].js"
     },
     plugins: [
-
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify('development')
-            }
-        }),
         new Html({
             filename: 'admin.html',
             alwaysWriteToDisk: true,

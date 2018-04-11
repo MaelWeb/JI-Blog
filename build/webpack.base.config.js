@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HappyPack = require('happypack');
 const os = require('os');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
@@ -20,21 +20,6 @@ function createHappyPlugin(id, loaders) {
     });
 }
 
-const cssLoader = ExtractTextPlugin.extract({
-    fallback: "style-loader",
-    use: [
-        'happypack/loader?id=happy-css'
-    ]
-});
-
-
-const lessLoader = ExtractTextPlugin.extract({
-    fallback: "style-loader",
-    use: [
-        'happypack/loader?id=happy-less'
-    ]
-})
-
 module.exports = {
     context: sourcePath,
     module: {
@@ -53,42 +38,34 @@ module.exports = {
         }, {
             test: /\.css$/,
             exclude: nodeModules,
-            use: isDev ? ['style-loader', 'happypack/loader?id=happy-css'] : cssLoader,
-            // use: ExtractTextPlugin.extract({
-            //     fallback: "style-loader",
-            //     use: [{
-            //         loader: 'css-loader',
-            //         options: {
-            //             minimize: true
-            //         }
-            //     }, {
-            //         loader: 'postcss-loader',
-            //         options: {
-            //             config: {
-            //                 path: path.join(__dirname, './postcss.config.js')
-            //             }
-            //         }
-            //     }]
-            // }),
+            use: isDev ? ['style-loader', 'happypack/loader?id=happy-css'] : ["style-loader", MiniCssExtractPlugin.loader, {
+                loader: 'css-loader',
+                options: {
+                    minimize: true
+                }
+            }, {
+                loader: 'postcss-loader',
+                options: {
+                    config: {
+                        path: path.join(__dirname, './postcss.config.js')
+                    }
+                }
+            }]
         }, {
             test: /\.less$/,
-            use: isDev ? ['style-loader', 'happypack/loader?id=happy-less'] : lessLoader,
-            // use: ExtractTextPlugin.extract({
-            //     fallback: "style-loader",
-            //     use: [{
-            //         loader: 'css-loader',
-            //         options: {
-            //             minimize: true
-            //         }
-            //     }, {
-            //         loader: 'postcss-loader',
-            //         options: {
-            //             config: {
-            //                 path: path.join(__dirname, './postcss.config.js')
-            //             }
-            //         }
-            //     }, 'less-loader']
-            // })
+            use: isDev ? ['style-loader', 'happypack/loader?id=happy-less'] : ["style-loader", MiniCssExtractPlugin.loader, {
+                loader: 'css-loader',
+                options: {
+                    minimize: true
+                }
+            }, {
+                loader: 'postcss-loader',
+                options: {
+                    config: {
+                        path: path.join(__dirname, './postcss.config.js')
+                    }
+                }
+            }, 'less-loader']
         }, {
             test: /.(gif|jpg|png)$/,
             use: [{
@@ -125,7 +102,10 @@ module.exports = {
         jquery: "$"
     },
     plugins: [
-        new ExtractTextPlugin('css/[name].[contenthash:8].css'),
+        new MiniCssExtractPlugin({
+            filename: "css/[name].[contenthash:8].css",
+            chunkFilename: "[name].css"
+        }),
         new webpack.DllReferencePlugin({
             context: path.resolve(__dirname, "../"),
             manifest: require('./vendor-manifest.json'),
@@ -183,8 +163,6 @@ module.exports = {
             format: chalk.blue.bold("build  ") + chalk.cyan("[:bar]") + chalk.green.bold(':percent') + ' (' + chalk.magenta(":elapsed") + ' seconds) ',
             clear: false
         }),
-        new webpack.NamedModulesPlugin(),
         new LodashModuleReplacementPlugin(),
-        // new webpack.optimize.CommonsChunkPlugin({ name: 'vendor', filename: 'js/[name].js' })
     ]
 };
