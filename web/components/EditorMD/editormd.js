@@ -3159,7 +3159,7 @@
 
     // Emoji graphics files url path
     editormd.emoji = {
-        path: "//www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/",
+        path: "//cdn.liayal.com/emojis/",
         ext: ".png"
     };
 

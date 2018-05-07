@@ -48,10 +48,7 @@ export default class Header extends Component {
         return (
             <header className={ hCls } ref="blogHeader" id='IdNav'>
                 <div className="nav-pc clearfix">
-                     <Link to='/'>
-                        <img className='logo black' src="//cdn.liayal.com/image/logo.png" alt="Logo"/>
-                        <img className='logo white' src="//cdn.liayal.com/image/logo_white.png" alt="Logo"/>
-                     </Link>
+                    <Icon type={ showNav ? "close" : "menu" } className='menu fr' onClick={ this.showNacBox } />
                      <nav className="nav-list fr">
                         <NavLink exact to='/'><span>文记</span></NavLink>
                         <NavLink to='/travel'><span>游记</span></NavLink>
@@ -59,7 +56,10 @@ export default class Header extends Component {
                         <NavLink to='/books'><span>阅记</span></NavLink>
                         <NavLink to='/about'><span>关于</span></NavLink>
                     </nav>
-                    <Icon type={ showNav ? "close" : "menu" } className='menu fr' onClick={ this.showNacBox } />
+                    <Link to='/'>
+                        <img className='logo black' src="//cdn.liayal.com/image/logo.png" alt="Logo"/>
+                        <img className='logo white' src="//cdn.liayal.com/image/logo_white.png" alt="Logo"/>
+                     </Link>
                 </div>
                 <nav className="nav-min tc" onClick={ this.showNacBox } >
                     <NavLink exact to='/'><span>文记</span></NavLink>

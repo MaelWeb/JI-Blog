@@ -31,6 +31,7 @@
 
     .comments-list {
         margin: 0 -8px;
+        background-color: #ececec;
 
         .ant-col-8 {
             border: 8px solid #ececec;
@@ -53,13 +54,21 @@
     }
 
     .comment-content {
-        height: .71rem;
+        min-height: .71rem;
         color: #4b4b4b;
         display: -webkit-box;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 4;
+        // overflow: hidden;
+        // text-overflow: ellipsis;
+        // -webkit-box-orient: vertical;
+        // -webkit-line-clamp: 4;
+
+        .repled {
+            margin-bottom: .06rem;
+            padding-left: .03rem;
+            color: #777;
+            border-left: 2px solid #ddd;
+            font-size: .12rem;
+        }
 
         a {
             color: inherit;
@@ -71,9 +80,14 @@
         margin-top: 10px;
         color: #999;
         line-height: 22px;
+        font-size: .1rem;
 
-        i {
-            margin-right: .05rem;
+        .comment-footer-email {
+            margin-right: .02rem;
+        }
+
+        .ant-btn {
+            line-height: 24px;
         }
     }
 }

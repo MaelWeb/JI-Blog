@@ -153,10 +153,11 @@ export default class ComponentsManege extends Component {
                 return  <Col span={8} key={comment.id} >
                     <Card title={<span><Icon type="user" /> {comment.user.name}</span>} extra={<Icon type="delete" className="comment-delete" onClick={ e => this.deleteComment(comment) } />} bodyStyle={bodyStyle} >
                         <Tooltip placement="topLeft" title="点击内容去对应文章"><div className="comment-content"><a href={ comment.articleid ? `${window.location.origin}/article/${comment.articleid}` : 'javascript:void(0);'} className="">
+                            { comment.reply ? <Emojify style={emojiStyle}><blockquote className="repled nowrapmulti">@{comment.reply.user.name}: {comment.reply.commentCont}</blockquote></Emojify> : null}
                             <Emojify style={emojiStyle} >{comment.commentCont}</Emojify>
                         </a></div></Tooltip>
                         <div className="comment-footer clearfix">
-                            <Icon type="mail" /><span>{comment.user.email}</span>
+                            <Icon type="mail" className="comment-footer-email" /><span>{comment.user.email}</span>
                             <ButtonGroup className="fr">
                                 <Button ghost type="primary" size="small" onClick={ e => { this.repeatComment(comment) } } >
                                     <Icon type="message" />回复
