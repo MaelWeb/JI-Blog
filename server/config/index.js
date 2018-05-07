@@ -2,7 +2,7 @@ const path = require('path');
 let config = {
     port: process.env.PORT || 8080,
     mongodb: {
-        url: 'mongodb://root:mael147863@118.126.82.201:27017/blog'
+        url: 'mongodb://root:root@127.0.0.1:27017/blog'
     },
     jwt: {
         secret: "test" //默认
