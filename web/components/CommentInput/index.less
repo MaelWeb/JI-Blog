@@ -1,10 +1,11 @@
 .blog-comment-input {
+    position: relative;
     padding: .01rem;
     transition: all .2s ease;
     textarea {
         position: relative;
         width: 100%;
-        height: 80px;
+        height: .8rem;
         margin: .15rem 0;
         padding: 4px 10px;
         font-family: inherit;
@@ -12,9 +13,14 @@
         font-size: .12rem;
         color: #333;
         display: block;
-        border-color: #212121;
+        border-color: #999;
         border-radius: 0;
         resize: inherit;
+        transition: all .4s linear;
+    }
+
+    textarea.focus {
+        border-color: #212121;
     }
 
     button {
@@ -27,17 +33,26 @@
         border: none;
     }
 
+    .btn {
+        height: 0;
+        transition: all .4s linear;
+        overflow: hidden;
+    }
+
+    .btnshow {
+        height: .2rem;
+    }
+
     .emoji-box {
         margin: .1rem 0;
         max-height: 0;
         overflow: hidden;
-        transition: all .6s 0s ease-out;
+        transition: all .4s 0s linear;
 
         .emoji-wrap {
             padding: .08rem 0;
             text-align: center;
             border: 1px solid #d8d8d8;
-            border-radius: .1rem;
             background-color: #fff;
         }
 

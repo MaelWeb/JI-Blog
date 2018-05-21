@@ -1,0 +1,92 @@
+.blog-message-layout {
+    padding-top: .35rem;
+    .blog-message-header {
+        position: relative;
+        height: 4.5rem;
+        height: 75vh;
+        background: no-repeat 50% #cef;
+        background-position: 50%;
+        background-size: cover;
+    }
+
+    .blog-message-header-input {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 60%;
+        padding: 20px;
+        transform: translate(-50%, -50%);
+        background-color: rgba(255, 255, 255, .6);
+        border-radius: 4px;
+    }
+
+    .blog-comment-input {
+        .emoji-box {
+            position: absolute;
+            left: 0;
+            top: 1.3rem;
+            box-shadow: 0 0 4px #ddd;
+        }
+
+        textarea {
+        	background-color: rgba(255, 255, 255, .6);
+        }
+    }
+
+    .blog-message-list {
+        padding: 20px;
+    }
+
+    .blog-message-item {
+        position: relative;
+        width: 31.333%;
+        margin: 1%;
+        float: left;
+        border: 8px solid #030303;
+        border-radius: 20px;
+    }
+
+    .blog-message-item p {
+        margin: 20px;
+        padding: 10px;
+        background-color: #c1e0db;
+        border-radius: 10px;
+    }
+
+    .blog-message-item:before,
+    .blog-message-item:after {
+        position: absolute;
+        font-family: "iconfont" !important;
+        font-size: 38px;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        content: "\e64e";
+        background-color: #fff;
+        line-height: 1;
+    }
+
+    .blog-message-item:before {
+        top: -28px;
+        left: 17px;
+    }
+
+    .blog-message-item:after {
+        bottom: -20px;
+        right: 17px;
+    }
+
+    .blog-message-item-fcd474 {
+        border-radius: 50%;
+    }
+
+    .blog-message-item-fcd474:before,
+    .blog-message-item-fcd474:after {
+        content: "\e6e2";
+    }
+
+    .blog-message-item-fcd474 p {
+        background-color: #fcd474;
+        border-radius: 50%;
+    }
+}

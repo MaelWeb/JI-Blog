@@ -54,7 +54,8 @@ export default class Header extends Component {
                         <NavLink to='/travel'><span>游记</span></NavLink>
                         <NavLink to='/photoes'><span>图记</span></NavLink>
                         <NavLink to='/books'><span>阅记</span></NavLink>
-                        <NavLink to='/about'><span>关于</span></NavLink>
+                        <NavLink to='/message'><span>留言</span></NavLink>
+                        {/*<NavLink to='/about'><span>关于</span></NavLink>*/}
                     </nav>
                     <Link to='/'>
                         <img className='logo black' src="//cdn.liayal.com/image/logo.png" alt="Logo"/>
@@ -66,7 +67,7 @@ export default class Header extends Component {
                     <NavLink to='/travel'><span>游记</span></NavLink>
                     <NavLink to='/photoes'><span>图记</span></NavLink>
                     <NavLink to='/books'><span>阅记</span></NavLink>
-                    <NavLink to='/about'><span>关于</span></NavLink>
+                    <NavLink to='/message'><span>留言</span></NavLink>
                 </nav>
             </header>
         )

@@ -6,6 +6,7 @@ import { getAllTags } from '../controllers/tags_ctr';
 import { getAllPublishArticles, getArticle } from '../controllers/article_ctr';
 import { getPhotoes } from '../controllers/photo_ctrl';
 import { getComments } from '../controllers/comment_ctr';
+import { getOneContent } from '../controllers/common_ctr';
 import { getBanners } from '../controllers/banner_ctr';
 import { getBooks } from '../controllers/book_ctr';
 import ReactDOMServer from 'react-dom/server';
@@ -142,6 +143,26 @@ let _Page = Router
             }),
             ServerData,
             title: '阅记'
+        });
+    })
+    .get('message', async(ctx, next) => {
+        let banners = await getOneContent(ctx);
+        // let banners = await getBanners(ctx);
+        let ServerData = { banners };
+
+        const html = ReactDOMServer.renderToString(
+            <StaticRouter context={{}} location={ctx.req.url}>
+                <App InitData={{...ServerData}}/>
+            </StaticRouter>
+        )
+
+        await ctx.render('blog', {
+            html: htmlMinifier.minify(html, {
+                removeComments: true,
+                collapseWhitespace: true
+            }),
+            ServerData,
+            title: '留言'
         });
     })
     .get('admin', pageVerify, async(ctx, next) => {

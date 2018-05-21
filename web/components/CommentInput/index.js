@@ -42,7 +42,7 @@ export default class CommentInput extends Component {
             return { showEmoji: !preState.showEmoji }
         }, () => {
             this.setCaretPosition(this.caretIndex);
-        })
+        });
     }
 
     //获取光标位置
@@ -95,7 +95,8 @@ export default class CommentInput extends Component {
         this.caretIndex = this.getCaretPosition();
     }
 
-    exportComment = () => {
+    exportComment = (event) => {
+        event.stopPropagation();
         const commentCont = this.refs.commentText.value;
         this.props.exportComment(commentCont);
     }
@@ -104,14 +105,28 @@ export default class CommentInput extends Component {
         this.textareaDom.value = '';
     }
 
+    toggleFocus(isfocus) {
+        this.setState({
+            textareaFocus: isfocus,
+        });
+    }
+
+    onTextareaBlur = (e) => {
+        console.log(e.relatedTarget);
+        console.log(e.nativeEvent);
+        for ( let key in e) {
+            console.log(key, e[key]);
+        }
+    }
+
 
     render() {
-        const { showEmoji } = this.state;
+        const { showEmoji, textareaFocus } = this.state;
         const { isShowBtn, className } = this.props;
         return (
             <div className={ ClassNames("blog-comment-input", {[className]: className}) }>
-                <textarea rows="4" ref="commentText" placeholder='你不想说点啥么？' ></textarea>
-                <div className="btn clearfix">
+                <textarea id="test" className={ ClassNames({ focus: textareaFocus }) }  rows="4" ref="commentText" placeholder='你不想说点啥么？' onFocus={ () => { this.toggleFocus(true) } } onBlur={ this.onTextareaBlur } ></textarea>
+                <div className={ ClassNames("btn clearfix", {btnshow: textareaFocus})}>
                     <Icon type='emoji' className='fl' onClick={ this.toggleEmoji } />
                     { isShowBtn ? <button onClick={ this.exportComment } >发布</button> : null}
                 </div>

@@ -11,6 +11,7 @@ import Travel from '../Travel';
 import Books from '../Books';
 import Header from '../Header';
 import Footer from '../Footer';
+import Message from '../Message';
 
 class App extends Component {
     constructor(props) {
@@ -40,6 +41,7 @@ class App extends Component {
             '/books': '阅记  - 「JI · 记小栈」',
             '/photoes': '图记  - 「JI · 记小栈」',
             '/about': '关于  - 「JI · 记小栈」',
+            '/messsage': '留言  - 「JI · 记小栈」',
             '/': '游走在技术与艺术边缘地带的前端攻城狮 - 「JI · 记小栈」'
         };
 
@@ -66,7 +68,7 @@ class App extends Component {
                         <Route path="/" exact={true} render={ props=> (<Articles {...props} {...InitData} />) } />
                         <Route path="/article/:id" render={ props=> (<Article {...props} {...InitData} />) } />
                         <Route path="/photoes" render={ props=> (<Photoes {...props} {...InitData} />) }  />
-                        <Route path="/about" render={ props=> (<About {...props} />) }  />
+                        <Route path="/message" render={ props=> (<Message {...props} {...InitData} />) }  />
                         <Route path="/travel" render={ props=> (<Travel {...props} {...InitData} />) } />
                         <Route path="/books" render={ props=> (<Books {...props} {...InitData} />) } />
                     </Switch>
