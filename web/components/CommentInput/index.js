@@ -17,17 +17,36 @@ export default class CommentInput extends Component {
 
     static defaultProps = {
         exportComment: () => {},
-        isShowBtn: true
+        isShowBtn: true,
+        placeholder: "你不想说点啥么？"
     };
 
     static defaultPropTypes = {
         exportComment: PropTypes.func,
-        isShowBtn: PropTypes.boolen
+        isShowBtn: PropTypes.boolen,
+        placeholder:PropTypes.string
     };
 
     componentDidMount() {
         // this.textareaDom = document.getElementById(this.textareaId);
         this.textareaDom = ReactDOM.findDOMNode(this.refs.commentText);
+        document.getElementById("main").addEventListener("click", this.documentClick );
+    }
+
+    componentWillUnmount() {
+        document.getElementById("main").removeEventListener("click", this.documentClick );
+    }
+
+    documentClick = e => {
+        let target = e.target,
+            targetId = target.id;
+
+        if ( (targetId != "JI_Comment_Button") && (targetId != "JI_Comment_Input") && (targetId != "JI_Comment_Emoji") ) {
+            this.setState({
+                textareaFocus: false,
+                showEmoji: false
+            });
+        }
     }
 
     addEmoji = (event) => {
@@ -79,10 +98,10 @@ export default class CommentInput extends Component {
     insertText(str) {
         if (document.selection) {
             this.textareaDom.focus();
-            var sel = document.selection.createRange();
+            let sel = document.selection.createRange();
             sel.text = str;
         } else if (typeof this.textareaDom.selectionStart === 'number' && typeof this.textareaDom.selectionEnd === 'number') {
-            var startPos = this.textareaDom.selectionStart,
+            let startPos = this.textareaDom.selectionStart,
                 endPos = this.textareaDom.selectionEnd,
                 cursorPos = startPos,
                 tmpStr = this.textareaDom.value;
@@ -96,7 +115,6 @@ export default class CommentInput extends Component {
     }
 
     exportComment = (event) => {
-        event.stopPropagation();
         const commentCont = this.refs.commentText.value;
         this.props.exportComment(commentCont);
     }
@@ -105,30 +123,29 @@ export default class CommentInput extends Component {
         this.textareaDom.value = '';
     }
 
+    placeholderClick = () => {
+        this.textareaDom.focus();
+    }
+
     toggleFocus(isfocus) {
         this.setState({
             textareaFocus: isfocus,
         });
     }
 
-    onTextareaBlur = (e) => {
-        console.log(e.relatedTarget);
-        console.log(e.nativeEvent);
-        for ( let key in e) {
-            console.log(key, e[key]);
-        }
-    }
-
 
     render() {
         const { showEmoji, textareaFocus } = this.state;
-        const { isShowBtn, className } = this.props;
+        const { isShowBtn, className, placeholder } = this.props;
         return (
             <div className={ ClassNames("blog-comment-input", {[className]: className}) }>
-                <textarea id="test" className={ ClassNames({ focus: textareaFocus }) }  rows="4" ref="commentText" placeholder='你不想说点啥么？' onFocus={ () => { this.toggleFocus(true) } } onBlur={ this.onTextareaBlur } ></textarea>
+                <div className={ ClassNames("blog-comment-input-textarea", { focus: textareaFocus }) } >
+                    <textarea id="JI_Comment_Input" rows="4" ref="commentText" onFocus={ () => { this.toggleFocus(true) } } ></textarea>
+                    { !textareaFocus ? <span onClick={ this.placeholderClick  } className="blog-comment-input-textarea-placeholder">{placeholder}</span> : null}
+                </div>
                 <div className={ ClassNames("btn clearfix", {btnshow: textareaFocus})}>
-                    <Icon type='emoji' className='fl' onClick={ this.toggleEmoji } />
-                    { isShowBtn ? <button onClick={ this.exportComment } >发布</button> : null}
+                    <Icon id="JI_Comment_Emoji" type='emoji' className='fl' onClick={ this.toggleEmoji } />
+                    { isShowBtn ? <button onClick={ this.exportComment } id="JI_Comment_Button" >发布</button> : null}
                 </div>
                 <div className={ ClassNames("emoji-box", { show: showEmoji}) } id='CommentEmoji' >
                     <Emojify style={{height: 20, cursor: 'pointer'}} onClick={ this.addEmoji }>

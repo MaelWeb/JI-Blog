@@ -2,7 +2,8 @@
     position: relative;
     padding: .01rem;
     transition: all .2s ease;
-    textarea {
+
+    .blog-comment-input-textarea {
         position: relative;
         width: 100%;
         height: .8rem;
@@ -13,14 +14,34 @@
         font-size: .12rem;
         color: #333;
         display: block;
-        border-color: #999;
+        border:1px solid #999;
         border-radius: 0;
         resize: inherit;
         transition: all .4s linear;
-    }
+        background-color: #fff;
 
-    textarea.focus {
-        border-color: #212121;
+        &.focus {
+            border-color: #212121;
+        }
+
+        textarea {
+            height: 100%;
+            width: 100%;
+            border: none;
+            background-color: initial;
+        }
+
+        .blog-comment-input-textarea-placeholder {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            padding: 0 .1rem;
+            width: 100%;
+            font-size: .18rem;
+            box-sizing: border-box;
+            color: #999;
+            transform: translate(-50%, -55%);
+        }
     }
 
     button {
@@ -37,6 +58,10 @@
         height: 0;
         transition: all .4s linear;
         overflow: hidden;
+    }
+
+    .blog-comment-input-textarea-placeholder {
+        color: #ddd;
     }
 
     .btnshow {
