@@ -147,8 +147,9 @@ let _Page = Router
     })
     .get('message', async(ctx, next) => {
         let banners = await getOneContent(ctx);
-        // let banners = await getBanners(ctx);
-        let ServerData = { banners };
+        ctx.params.articleid = 'message666';
+        let commentsData = await getComments(ctx);
+        let ServerData = { banners, ...commentsData };
 
         const html = ReactDOMServer.renderToString(
             <StaticRouter context={{}} location={ctx.req.url}>

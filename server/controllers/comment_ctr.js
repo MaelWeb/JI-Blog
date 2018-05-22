@@ -96,7 +96,7 @@ export async function getComments(ctx) {
         page
     }
 
-    return { comments, allPage, allNum };
+    return { comments, allPage, allNum, page };
 }
 
 export async function showAndHideComent(ctx) {

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
 import ClassNames from 'classnames';
@@ -16,9 +16,10 @@ export default class Message extends Component {
     constructor(props) {
         super(props);
 
-        const { banners } = props;
+        const { banners, comments, allPage, page } = props;
         this.state = {
             banners,
+            comments,
             showUserInfo: false,
             isShowReplyModal: false,
             reply: null,
@@ -26,14 +27,33 @@ export default class Message extends Component {
         };
     }
 
+    static defaultProps = {
+        comments: [],
+        banners: []
+    };
+
+    static defaultPropTypes = {
+        comments: PropTypes.array,
+        banners: PropTypes.array
+    };
+
 
     componentDidMount() {
         if (!this.state.banners ) {
             Axios.get('/api/one')
                 .then(res => {
-                    console.log(res);
                     this.setState({
                         banners: res.data.data
+                    })
+                });
+
+            Axios.get(`/api/get/comments?articleid=message666`)
+                .then( res => {
+                    let resData = res.data;
+                    this.setState({
+                        comments: resData.comments,
+                        page: resdata.page,
+                        allPage: resdata.allPage
                     })
                 })
         }
@@ -158,17 +178,14 @@ export default class Message extends Component {
             <div className="blog-message-layout">
                 <div className="blog-message-header" style={{ backgroundImage: `url(${header.imgUrl})` }} >
                     <div className="blog-message-header-input">
-                        <CommentInput exportComment={ this.exportComment } ref='commentInput' />
+                        <CommentInput exportComment={ this.exportComment } placeholder={ header.text } ref='commentInput' />
                     </div>
                 </div>
-                <Masonry className="blog-message-list clearfix">
-                    <MessageItem />
-                    <MessageItem />
-                    <MessageItem />
-                    <MessageItem />
-                    <MessageItem />
-                    <MessageItem />
-                </Masonry>
+                <div className="blog-message-body">
+                    <Masonry className="blog-message-list clearfix">
+                        { comments.length ? comments.map((comment, index) => !comment.isRemove && <MessageItem key={index} comment={comment} />) : null }
+                    </Masonry>
+                </div>
                 <div className="comment-modal" hidden={!showUserInfo} style={{zIndex: 5}} ref='UserModal'>
                     <div className="comment-user-modal-form">
                             <img src="//cdn.liayal.com/image/logo.png" alt=""/>

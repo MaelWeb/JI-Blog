@@ -1,5 +1,6 @@
 .blog-message-layout {
     padding-top: .35rem;
+    // background-color: #d8d8d8;
     .blog-message-header {
         position: relative;
         height: 4.5rem;
@@ -7,6 +8,11 @@
         background: no-repeat 50% #cef;
         background-position: 50%;
         background-size: cover;
+    }
+
+    .blog-message-body {
+        width: 80%;
+        margin: 0 auto;
     }
 
     .blog-message-header-input {
@@ -46,20 +52,19 @@
 
         .blog-message-item-box {
             position: relative;
-            margin: 10px 10px 20px;
-            border: 8px solid #030303;
-            border-radius: 20px;
+            margin: .1rem;
+            border: .02rem solid #212121;
             font-size: .14rem;
             &:before,
             &:after {
                 position: absolute;
-                padding: 0 10px;
+                padding: 0 .06rem;
                 font-family: "iconfont" !important;
-                font-size: 38px;
+                font-size: .2rem;
                 font-style: normal;
                 -webkit-font-smoothing: antialiased;
                 -moz-osx-font-smoothing: grayscale;
-                content: "\e64e";
+                content: "\e63c";
                 background-color: #fff;
                 line-height: 1;
             }
@@ -67,65 +72,38 @@
 
 
             &:before {
-                top: -28px;
-                left: 17px;
+                top: -.13rem;
+                left: .17rem;
             }
 
             &:after {
-                bottom: -20px;
-                right: 17px;
+                bottom: -.12rem;
+                right: .17rem;
+                transform: rotateZ(-180deg);
             }
         }
 
         p {
-            margin: 20px;
-            padding: 10px;
+            margin: .1rem;
+            padding: .1rem;
             background-color: #c1e0db;
-            border-radius: 10px;
+            border-radius: .04rem;
         }
     }
 
     .blog-message-item-fcd474 .blog-message-item-box {
-        border-radius: 20%;
-
-        &:before,
-        &:after {
-            content: "\e6e2";
-            transform: translateX(-50%);
-            left: 50%;
-            right: auto;
-        }
-
-        &:after {
-            transform: rotateZ(-180deg);
-        }
-
         p {
-            padding: 10%;
             background-color: #fcd474;
-            border-radius: 20%;
         }
     }
 
 
     .blog-message-item-ffcdac .blog-message-item-box {
-        border-radius: 0;
-
-        &:before,
-        &:after {
-            content: "\e63c";
-            font-size: 40px;
-        }
-
-        &:after {
-            bottom: -25px;
-            transform: rotateZ(-180deg);
-        }
-
         p {
             background-color: #ffcdac;
         }
     }
+
     .comment-modal {
         position: fixed;
         top: 0;

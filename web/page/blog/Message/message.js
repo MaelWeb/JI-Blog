@@ -21,7 +21,8 @@ export default class MessageItem extends Component {
     }
 
     static defaultProps = {
-        className: ''
+        className: '',
+        comment: {}
     };
 
     randomClassName() {
@@ -34,14 +35,12 @@ export default class MessageItem extends Component {
 
 
     render() {
-        const { className } = this.props;
+        const { className, comment } = this.props;
         let randomClass = this.randomClassName();
         return(
             <div className={ ClassNames('blog-message-item', {[className]: className, [randomClass]: randomClass}) } >
                 <div className="blog-message-item-box">
-                <Emojify style={emojiStyle}><p className="blog-message-item-text">后台管理是用vue重新实现了一遍吗，这个单独目录（console）怎么进行git clone
-                后台管理是用vue重新实现了一遍吗，这个单独目录（console）怎么进行git clone
-                后台管理是用vue重新实现了一遍吗，这个单独目录（console）</p></Emojify>
+                <Emojify style={emojiStyle}><p className="blog-message-item-text">{comment.commentCont}</p></Emojify>
                 </div>
             </div>
         )
