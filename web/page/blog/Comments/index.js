@@ -168,7 +168,7 @@ export default class Comments extends Component {
                         <div className="comment-avatar fl">{ comment.user && comment.user.avatar ? <img src={comment.user.avatar} alt="" className="avatar"/> : <Icon type='avatar' />}</div>
                         <div className="comment-body fl">
                             <h6>{comment.user.name}<small>{this.getTimeString(comment.createTime)}</small></h6>
-                            { comment.reply ? <Emojify style={emojiStyle}><blockquote>@{comment.reply.user.name}: {comment.reply.commentCont}</blockquote></Emojify> : null}
+                            { comment.reply ? <Emojify style={emojiStyle}><blockquote className="nowrapmulti">@{comment.reply.user.name}: {comment.reply.commentCont}</blockquote></Emojify> : null}
                             <Emojify style={emojiStyle} ><p>{comment.commentCont}</p></Emojify>
                             <div className="comment-reply">
                                 <Icon type='reply' onClick={ e => {this.showReplyModal(comment)} } />

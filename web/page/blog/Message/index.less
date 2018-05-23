@@ -1,6 +1,5 @@
 .blog-message-layout {
-    padding-top: .35rem;
-    // background-color: #d8d8d8;
+    padding: .35rem 0; // background-color: #d8d8d8;
     .blog-message-header {
         position: relative;
         height: 4.5rem;
@@ -45,61 +44,120 @@
     }
 
     .blog-message-item {
-        width: 33.333%;
+        padding: 1px 0;
         box-sizing: border-box;
-        display: inline-block;
-        font-size: 0;
 
         .blog-message-item-box {
             position: relative;
-            margin: .1rem;
-            border: .02rem solid #212121;
-            font-size: .14rem;
-            &:before,
-            &:after {
-                position: absolute;
-                padding: 0 .06rem;
-                font-family: "iconfont" !important;
-                font-size: .2rem;
-                font-style: normal;
-                -webkit-font-smoothing: antialiased;
-                -moz-osx-font-smoothing: grayscale;
-                content: "\e63c";
-                background-color: #fff;
+            margin-top: .1rem;
+            font-size: .14rem; // &:before,
+            // &:after {
+            //     position: absolute;
+            //     padding: 0 .06rem;
+            //     font-family: "iconfont" !important;
+            //     font-size: .2rem;
+            //     font-style: normal;
+            //     -webkit-font-smoothing: antialiased;
+            //     -moz-osx-font-smoothing: grayscale;
+            //     content: "\e63c";
+            //     background-color: #fff;
+            //     line-height: 1;
+            //     display: none;
+            // }
+            // &:before {
+            //     top: -.13rem;
+            //     left: .17rem;
+            // }
+            // &:after {
+            //     bottom: -.12rem;
+            //     right: .17rem;
+            //     transform: rotateZ(-180deg);
+            // }
+        }
+
+        .blog-message-item-body {
+            max-width: 80%;
+            margin-top: .2rem;
+            padding: .04rem .2rem .1rem;
+            border: .01rem solid #8e8e8e;
+            border-radius: .04rem;
+
+            &.fl {
+                margin-left: -.2rem;
+            }
+
+            &.fr {
+                margin-right: -.2rem;
+            }
+        }
+
+        .blog-message-item-box-avatar {
+            position: relative;
+            width: .5rem;
+            height: .5rem;
+            border-radius: .5rem;
+            background-color: #fff;
+            overflow: hidden;
+            z-index: 1;
+
+            i {
+                font-size: .5rem;
                 line-height: 1;
             }
 
 
-
-            &:before {
-                top: -.13rem;
-                left: .17rem;
+            .avatar-img {
+                width: .5rem;
+                height: .5rem;
+                border-radius: .5rem;
+                text-align: center;
+                border: 2px solid #212121;
+                display: table-cell;
+                vertical-align: middle;
             }
 
-            &:after {
-                bottom: -.12rem;
-                right: .17rem;
-                transform: rotateZ(-180deg);
+            .avatar-img img {
+                width: 80%;
+                max-height: 100%;
+                line-height: .4rem;
+                vertical-align: middle;
             }
         }
 
-        p {
-            margin: .1rem;
-            padding: .1rem;
+        .blog-message-item-user {
+            small {
+                margin-left: .1rem
+            }
+        }
+
+        .fr .blog-message-item-user {
+            text-align: right;
+        }
+
+        .blog-message-item-text {
+            min-width: 2rem;
+            padding: .05rem;
             background-color: #c1e0db;
             border-radius: .04rem;
+
+            blockquote {
+                margin: .05rem 0;
+                padding-left: .05rem;
+                color: #999;
+                border-left: .02rem solid #888;
+            }
         }
     }
 
     .blog-message-item-fcd474 .blog-message-item-box {
-        p {
+        .blog-message-item-text {
             background-color: #fcd474;
         }
     }
 
 
     .blog-message-item-ffcdac .blog-message-item-box {
-        p {
+        .blog-message-item-text {
             background-color: #ffcdac;
         }
     }

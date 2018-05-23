@@ -147,7 +147,7 @@ let _Page = Router
     })
     .get('message', async(ctx, next) => {
         let banners = await getOneContent(ctx);
-        ctx.params.articleid = 'message666';
+        ctx.query.articleid = 'message666';
         let commentsData = await getComments(ctx);
         let ServerData = { banners, ...commentsData };
 

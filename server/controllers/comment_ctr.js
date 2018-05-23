@@ -51,7 +51,7 @@ export async function creactComment(ctx) {
 export async function getComments(ctx) {
     const query = ctx.query;
     const page = +query.page || 1;
-    const size = +query.size || 10;
+    const size = +query.size || 20;
     const articleid = ctx.params.id || query.articleid;
 
     let skip = 0,
