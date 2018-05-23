@@ -49,7 +49,7 @@ export async function createArticle(ctx) {
 export async function getAllArticles(ctx) {
     const tag = ctx.query.tag;
     const page = +ctx.query.page || 1;
-    const pageSize = +ctx.query.pageSize || 10;
+    const pageSize = +ctx.query.pageSize || 20;
     let skip = 0;
     let articles;
     let allPage;
@@ -68,7 +68,7 @@ export async function getAllArticles(ctx) {
                 ctx.throw(500, '服务器内部错误')
             });
         allNum = await Article.count().catch(err => {
-            this.throw(500, '服务器内部错误')
+            ctx.throw(500, '服务器内部错误');
         })
     } else {
         // console.log(tagArr)
@@ -104,7 +104,7 @@ export async function getAllArticles(ctx) {
 export async function getAllPublishArticles(ctx) {
     const tag = ctx.query.tag;
     const page = +ctx.query.page || 1;
-    const pageSize = +ctx.query.pageSize || 10;
+    const pageSize = +ctx.query.pageSize || 20;
     const category = ctx.query.category || null;
     let skip = 0;
     let articles;
@@ -130,7 +130,7 @@ export async function getAllPublishArticles(ctx) {
             publish: true,
             category
         }).count().catch(err => {
-            this.throw(500, '服务器内部错误')
+            ctx.throw(500, '服务器内部错误')
         })
     } else {
         let tagArr = tag.split(';')
@@ -166,6 +166,46 @@ export async function getAllPublishArticles(ctx) {
     return { articles, allPage, page, allNum };
 }
 
+export async function getTopArticles(ctx) {
+    const page = +ctx.query.page || 1;
+    const pageSize = +ctx.query.pageSize || 20;
+    let skip = 0;
+    let articles;
+    let allPage;
+    let allNum;
+
+    if (page !== 1) {
+        skip = pageSize * (page - 1)
+    }
+
+    articles = await Article.find({
+            publish: true
+        }, { title: 1, banner: 1, abstract: 1, createTime: 1, id: 1, lastEditTime: -1 })
+        .populate("tags")
+        .sort( {visited: -1 } )
+        .limit(pageSize)
+        .skip(skip).catch(err => {
+            ctx.throw(500, '服务器内部错误')
+        });
+
+    allNum = await Article.find({
+        publish: true
+    }).count().catch(err => {
+        ctx.throw(500, '服务器内部错误');
+    })
+
+    allPage = Math.ceil(allNum / pageSize);
+
+    ctx.body = {
+        code: 200,
+        articles,
+        allPage,
+        allNum,
+        page
+    };
+
+    return { articles, allPage, page, allNum };
+}
 
 export async function modifyArticle(ctx) {
     // console.log(ctx.request.body)
@@ -299,7 +339,7 @@ export async function publishArticle(ctx) {
     }
 }
 
-export async function notPublishArticle(ctx) {
+export async function hideArticle(ctx) {
     const id = ctx.params.id;
     const article = await Article.findByIdAndUpdate(id, { $set: { publish: false } }).catch(err => {
         if (err.name === 'CastError') {

@@ -49,16 +49,25 @@ export async function creactComment(ctx) {
 }
 
 export async function getComments(ctx) {
-    const query = ctx.query;
-    const page = +query.page || 1;
-    const size = +query.size || 20;
-    const articleid = ctx.params.id || query.articleid;
-
-    let skip = 0,
+    let page = 1,
+        size =  20,
+        articleid = null,
+        skip = 0,
         allNum = 0,
         allPage = 0,
         comments = [],
         filter = {};
+
+    if (ctx && ctx.query ) {
+        page = +ctx.query.page || 1;
+        size = +ctx.query.size || 20;
+        articleid = ctx.query.articleid || '';
+        ctx.query.isRemove && (filter.isRemove = ctx.query.isRemove);
+    }
+
+    if (ctx && ctx.params) {
+        articleid = ctx.params.id || '';
+    }
 
     if (page !== 1) {
         skip = size * (page - 1)
@@ -66,10 +75,6 @@ export async function getComments(ctx) {
 
     if (articleid) {
         filter.articleid = articleid
-    }
-
-    if (query.isRemove) {
-        filter.isRemove = query.isRemove;
     }
 
     comments = await Comment.find(filter)
@@ -88,13 +93,13 @@ export async function getComments(ctx) {
 
     allPage = Math.ceil(allNum / size);
 
-    ctx.body = {
+    ctx && (ctx.body = {
         code: 200,
         comments,
         allPage,
         allNum,
         page
-    }
+    })
 
     return { comments, allPage, allNum, page };
 }

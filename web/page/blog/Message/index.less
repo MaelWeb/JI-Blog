@@ -1,5 +1,6 @@
 .blog-message-layout {
-    padding: .35rem 0; // background-color: #d8d8d8;
+    padding: .35rem 0;
+    background-color: #d8d8d8;
     .blog-message-header {
         position: relative;
         height: 4.5rem;
@@ -10,7 +11,7 @@
     }
 
     .blog-message-body {
-        width: 80%;
+        padding: .1rem .2rem;
         margin: 0 auto;
     }
 
@@ -38,9 +39,22 @@
         }
     }
 
-    .blog-message-list {
-        box-sizing: border-box;
-        padding: 20px 0;
+    .blog-message-list-wrap {
+        width: 100%;
+
+        .blog-message-list {
+            margin-right: 3.2rem;
+            padding: .2rem;
+            background-color: #fff;
+            border: 1px solid #ccc;
+        }
+    }
+
+    .blog-message-other {
+        margin-left: -3rem;
+        width: 3rem;
+        min-height: 4rem;
+        background-color: #fff;
     }
 
     .blog-message-item {

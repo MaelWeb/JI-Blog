@@ -1,7 +1,7 @@
 import router from 'koa-router';
 import { apiVerify } from '../middleware/verify';
 import { singUp, signIn, getUserInfo, updateUserInfo } from '../controllers/user_ctr';
-import { createArticle, getAllArticles, getArticle, deleteArticle, modifyArticle, getAllPublishArticles, publishArticle, notPublishArticle } from '../controllers/article_ctr';
+import { createArticle, getAllArticles, getArticle, deleteArticle, modifyArticle, getAllPublishArticles, publishArticle, hideArticle, getTopArticles } from '../controllers/article_ctr';
 import { getOneContent, pushToBaidu} from '../controllers/common_ctr';
 import { createTag, getAllTags, updateTagCount } from '../controllers/tags_ctr';
 import { fileUpload, articleImageUpload, deleteFile } from '../controllers/qiniu_ctrl';
@@ -21,6 +21,7 @@ let _Api = Router.get('/signout', (ctx) => {
     })
     .get("/get/alltags", getAllTags)
     .get("/get/all/articles", getAllArticles)
+    .get("/get/top/articles", getTopArticles)
     .get("/get/publish/articles", getAllPublishArticles)
     .get('/get/comments', getComments)
     .get('/get/article/:id', getArticle)
@@ -38,7 +39,7 @@ let _Api = Router.get('/signout', (ctx) => {
     .post('/update/tag/count', apiVerify, updateTagCount)
     .post('/create/article', apiVerify, createArticle)
     .post("/publish/article/:id", apiVerify, publishArticle)
-    .post("/recall/article/:id", apiVerify, notPublishArticle)
+    .post("/recall/article/:id", apiVerify, hideArticle)
     .post('/create/comment', creactComment)
     .post('/toggle/comment', apiVerify, showAndHideComent)
     .delete('/comment/:id', apiVerify, deleteComment)

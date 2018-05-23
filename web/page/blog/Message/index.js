@@ -16,10 +16,11 @@ export default class Message extends Component {
     constructor(props) {
         super(props);
 
-        const { banners, comments, allPage, page, allNum } = props;
+        const { banners, comments, allPage, page, allNum, newComments } = props;
         this.state = {
             banners,
             comments,
+            newComments,
             allNum,
             allPage,
             page,
@@ -33,6 +34,7 @@ export default class Message extends Component {
     static defaultProps = {
         comments: [],
         banners: [],
+        newComments: [],
         allNum: 0,
         allPage: 0,
         page: 0
@@ -40,7 +42,8 @@ export default class Message extends Component {
 
     static defaultPropTypes = {
         comments: PropTypes.array,
-        banners: PropTypes.array
+        banners: PropTypes.array,
+        newComments: PropTypes.array
     };
 
 
@@ -55,7 +58,18 @@ export default class Message extends Component {
 
             this.getComments(1);
         }
-
+        Axios.get('/api/get/comments', {
+            params: {
+                page: 1,
+                size: 10
+            }
+        })
+        .then( res => {
+            let resData = res.data;
+            this.setState({
+                newComments: resData.comments,
+            })
+        })
     }
 
     changePage = (page, pageSize) => {
@@ -182,9 +196,14 @@ export default class Message extends Component {
                     </div>
                 </div>
                 <div className="blog-message-body clearfix">
-                    <div className="blog-message-list-wrap">
-                    { comments.length ? comments.map((comment, index) => !comment.isRemove && <MessageItem key={index} comment={comment} isFloatRight={ !!(index % 2 != 0) } />) : null }
-                    { allPage > 1 ? <Pagination size="small" total={allNum} current={page} defaultPageSize={PageSize} onChange={ this.changePage } /> : null}
+                    <div className="blog-message-list-wrap fl">
+                        <div className="blog-message-list">
+                        { comments.length ? comments.map((comment, index) => !comment.isRemove && <MessageItem key={index} comment={comment} isFloatRight={ !!(index % 2 != 0) } />) : null }
+                        { allPage > 1 ? <Pagination size="small" total={allNum} current={page} defaultPageSize={PageSize} onChange={ this.changePage } /> : null}
+                        </div>
+                    </div>
+                    <div className="blog-message-other fr">
+
                     </div>
                 </div>
                 <div className="comment-modal" hidden={!showUserInfo} style={{zIndex: 5}} ref='UserModal'>
