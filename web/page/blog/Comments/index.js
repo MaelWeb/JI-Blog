@@ -7,6 +7,7 @@ import Emojify from '../../../components/Emoji';
 import CommentInput from '../../../components/CommentInput';
 import Axios from 'axios';
 import { message } from 'antd';
+import { getTimeString } from '../Util';
 
 const emojiStyle = {
     height: 20
@@ -167,7 +168,7 @@ export default class Comments extends Component {
                     { comments.length ? comments.map((comment, index) => (<div className="comment-item clearfix border-b" key={index} >
                         <div className="comment-avatar fl">{ comment.user && comment.user.avatar ? <img src={comment.user.avatar} alt="" className="avatar"/> : <Icon type='avatar' />}</div>
                         <div className="comment-body fl">
-                            <h6>{comment.user.name}<small>{this.getTimeString(comment.createTime)}</small></h6>
+                            <h6>{comment.user.name}<small>{getTimeString(comment.createTime)}</small></h6>
                             { comment.reply ? <Emojify style={emojiStyle}><blockquote className="nowrapmulti">@{comment.reply.user.name}: {comment.reply.commentCont}</blockquote></Emojify> : null}
                             <Emojify style={emojiStyle} ><p>{comment.commentCont}</p></Emojify>
                             <div className="comment-reply">

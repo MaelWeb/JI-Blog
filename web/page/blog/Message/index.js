@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Axios from 'axios';
@@ -7,11 +8,15 @@ import CommentInput from '../../../components/CommentInput';
 import MessageItem from './message.js';
 import Masonry from 'react-masonry-component';
 import { message, Pagination } from 'antd';
-import Moment from 'moment';
 import Icon from '../../../components/Icon';
+import { getTimeString } from '../Util';
+import Emojify from '../../../components/Emoji';
 
-Moment.locale('zh-cn');
-const PageSize = 20;
+const emojiStyle = {
+    height: 20
+};
+
+const PageSize = 10;
 export default class Message extends Component {
     constructor(props) {
         super(props);
@@ -48,6 +53,15 @@ export default class Message extends Component {
 
 
     componentDidMount() {
+        this.headerDom = ReactDOM.findDOMNode(this.refs.mressageHeader);
+        this.messageLayoutDom = ReactDOM.findDOMNode(this);
+        this.blogNavDom = document.getElementById('IdNav');
+
+        this.blogNavDom.classList.add('blog-message-header');
+
+
+        window.addEventListener("scroll", this.onscroll, false);
+
         if (!this.state.banners ) {
             Axios.get('/api/one')
                 .then(res => {
@@ -70,6 +84,24 @@ export default class Message extends Component {
                 newComments: resData.comments,
             })
         })
+    }
+
+    componentWillUnmount() {
+        this.blogNavDom.classList.remove('blog-message-header');
+        window.removeEventListener("scroll", this.onscroll);
+    }
+
+    onscroll = (e) => {
+        e = e || window.event;
+        let _scrollTop = window.pageYOffset
+                || (document.documentElement && document.documentElement.scrollTop)
+                || document.body.scrollTop
+                || 0;;
+        if (_scrollTop >= (this.headerDom.offsetHeight - this.blogNavDom.offsetHeight)) {
+            this.blogNavDom.classList.remove('blog-message-header');
+        } else {
+            this.blogNavDom.classList.add('blog-message-header');
+        }
     }
 
     changePage = (page, pageSize) => {
@@ -184,13 +216,25 @@ export default class Message extends Component {
         })
     }
 
+    getDateDom() {
+        let day = new Date().toDateString(),
+            dayArray = day.split(" ");
+
+        return(
+            <div className="blog-message-widget-date">
+                <strong>{ dayArray[2]}</strong>
+                <small>{dayArray[1]} {dayArray[3]}</small>
+            </div>
+        )
+    }
+
     render() {
-        const { banners, comments, showUserInfo, isShowReplyModal, reply, allPage, allNum, page } = this.state;
-        let randomIndex = Math.floor(Math.random()* banners.length),
+        const { banners, comments, showUserInfo, isShowReplyModal, reply, allPage, allNum, page, newComments } = this.state;
+        let randomIndex = Math.floor(Math.random() * banners.length),
             header = banners[randomIndex] || {};
         return (
             <div className="blog-message-layout">
-                <div className="blog-message-header" style={{ backgroundImage: `url(${header.imgUrl})` }} >
+                <div className="blog-message-header" style={{ backgroundImage: `url(${header.imgUrl})` }} ref="mressageHeader" >
                     <div className="blog-message-header-input">
                         <CommentInput exportComment={ this.exportComment } placeholder={ header.text } ref='commentInput' />
                     </div>
@@ -198,12 +242,32 @@ export default class Message extends Component {
                 <div className="blog-message-body clearfix">
                     <div className="blog-message-list-wrap fl">
                         <div className="blog-message-list">
-                        { comments.length ? comments.map((comment, index) => !comment.isRemove && <MessageItem key={index} comment={comment} isFloatRight={ !!(index % 2 != 0) } />) : null }
+                        { comments.length ? comments.map((comment, index) => !comment.isRemove && <MessageItem key={index} comment={comment} replyComent={ this.showReplyModal } isFloatRight={ !!(index % 2 != 0) } />) : null }
                         { allPage > 1 ? <Pagination size="small" total={allNum} current={page} defaultPageSize={PageSize} onChange={ this.changePage } /> : null}
                         </div>
                     </div>
                     <div className="blog-message-other fr">
+                        <div className="blog-message-widget-box">
+                            <div className="blog-message-widget-one">
+                                <img src={banners[0].imgUrl} alt=""/>
+                                <div className="blog-message-widget-footer">
+                                    <p className="blog-message-widget-txt" >{ banners[0].text }</p>
+                                    { this.getDateDom() }
+                                </div>
+                            </div>
+                        </div>
 
+                        <div className="blog-message-widget-up">
+                            <h5>最近评论</h5>
+                            <ul className="blog-message-widge-list">
+                                { newComments.length ? newComments.map( comment => (
+                                    <li>
+                                        <h6>{comment.user.name}<small>{getTimeString(comment.createTime)}</small></h6>
+                                        <Emojify style={emojiStyle} ><p>{comment.commentCont}</p></Emojify>
+                                    </li>
+                                    )) : null}
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <div className="comment-modal" hidden={!showUserInfo} style={{zIndex: 5}} ref='UserModal'>

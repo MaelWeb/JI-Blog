@@ -1,10 +1,9 @@
 .blog-message-layout {
-    padding: .35rem 0;
     background-color: #d8d8d8;
     .blog-message-header {
         position: relative;
         height: 4.5rem;
-        height: 75vh;
+        height: 80vh;
         background: no-repeat 50% #cef;
         background-position: 50%;
         background-size: cover;
@@ -30,7 +29,7 @@
         .emoji-box {
             position: absolute;
             left: 0;
-            top: 1.3rem;
+            top: .8rem;
             box-shadow: 0 0 4px #ddd;
         }
 
@@ -43,7 +42,7 @@
         width: 100%;
 
         .blog-message-list {
-            margin-right: 3.2rem;
+            margin-right: 3rem;
             padding: .2rem;
             background-color: #fff;
             border: 1px solid #ccc;
@@ -51,10 +50,85 @@
     }
 
     .blog-message-other {
-        margin-left: -3rem;
-        width: 3rem;
+        margin-left: -2.8rem;
+        width: 2.8rem;
         min-height: 4rem;
+    }
+
+    .blog-message-widget-box {
         background-color: #fff;
+    }
+
+    .blog-message-widget-one {
+        img {
+            display: block;
+            width: 100%;
+        }
+
+        strong {
+            font-size: .3rem;
+            display: block;
+        }
+
+        .blog-message-widget-footer {
+            position: relative;
+            padding: 10px 0 10px 10px;
+        }
+
+        .blog-message-widget-date,
+        .blog-message-widget-txt {
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .blog-message-widget-date {
+            width: 30%;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .blog-message-widget-txt {
+            width: 70%;
+            font-size: .12rem;
+        }
+    }
+
+    .blog-message-widget-up {
+        margin-top: .1rem;
+        padding-bottom: 1px;
+        background-color: #fff;
+
+        h5 {
+            padding: .05rem .1rem;
+            border-left: 2px solid #666;
+            border-bottom: 1px solid #666;
+        }
+
+        h6 {
+            margin-bottom: .02rem;
+            font-size: .12rem;
+        }
+
+        small {
+            margin-left: .04rem;
+            font-weight: normal;
+        }
+
+        li {
+            padding: .05rem .1rem;
+            transition: all 2s;
+            cursor: pointer;
+
+            &:hover {
+                background-color: #c1e0db;
+            }
+        }
+
+        .blog-message-widge-list {
+            padding: 0;
+            list-style: none;
+            font-size: .12rem;
+        }
     }
 
     .blog-message-item {
@@ -153,6 +227,7 @@
             padding: .05rem;
             background-color: #c1e0db;
             border-radius: .04rem;
+            cursor: pointer;
 
             blockquote {
                 margin: .05rem 0;
@@ -175,6 +250,8 @@
             background-color: #ffcdac;
         }
     }
+
+
 
     .comment-modal {
         position: fixed;
@@ -211,6 +288,7 @@
 
         h6 {
             margin: 0;
+            font-size: .12rem;
         }
     }
 

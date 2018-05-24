@@ -8,7 +8,7 @@ const DEFAULT_OPTIONS = {
     convertUnicode: true,
     convertAscii: true,
     style: {
-        backgroundImage: 'url(https://github.com/pladaria/react-emojione/blob/emojione3/assets/sprites/emojione-3.1.2-64x64.png?raw=true)'
+        backgroundImage: 'url(//cdn.liayal.com/image/emojione-3.1.2-32x32.png)'
     },
     onClick: undefined,
     output: 'emoji' // valid options: 'emoji', 'unicode'

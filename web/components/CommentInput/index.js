@@ -30,23 +30,6 @@ export default class CommentInput extends Component {
     componentDidMount() {
         // this.textareaDom = document.getElementById(this.textareaId);
         this.textareaDom = ReactDOM.findDOMNode(this.refs.commentText);
-        document.getElementById("main").addEventListener("click", this.documentClick );
-    }
-
-    componentWillUnmount() {
-        document.getElementById("main").removeEventListener("click", this.documentClick );
-    }
-
-    documentClick = e => {
-        let target = e.target,
-            targetId = target.id;
-
-        if ( (targetId != "JI_Comment_Button") && (targetId != "JI_Comment_Input") && (targetId != "JI_Comment_Emoji") ) {
-            this.setState({
-                textareaFocus: false,
-                showEmoji: false
-            });
-        }
     }
 
     addEmoji = (event) => {
@@ -128,24 +111,25 @@ export default class CommentInput extends Component {
     }
 
     toggleFocus(isfocus) {
+        if (this.textareaDom.value) return;
         this.setState({
-            textareaFocus: isfocus,
+            textareaFocus: isfocus
         });
     }
 
 
     render() {
-        const { showEmoji, textareaFocus } = this.state;
+        const { showEmoji, textareaFocus, value } = this.state;
         const { isShowBtn, className, placeholder } = this.props;
         return (
             <div className={ ClassNames("blog-comment-input", {[className]: className}) }>
                 <div className={ ClassNames("blog-comment-input-textarea", { focus: textareaFocus }) } >
-                    <textarea id="JI_Comment_Input" rows="4" ref="commentText" onFocus={ () => { this.toggleFocus(true) } } ></textarea>
-                    { !textareaFocus ? <span onClick={ this.placeholderClick  } className="blog-comment-input-textarea-placeholder">{placeholder}</span> : null}
-                </div>
-                <div className={ ClassNames("btn clearfix", {btnshow: textareaFocus})}>
-                    <Icon id="JI_Comment_Emoji" type='emoji' className='fl' onClick={ this.toggleEmoji } />
-                    { isShowBtn ? <button onClick={ this.exportComment } id="JI_Comment_Button" >发布</button> : null}
+                    <textarea id="JI_Comment_Input" rows="4" ref="commentText" onFocus={ () => { this.toggleFocus(true) } } onBlur={ () => { this.toggleFocus(false) } } ></textarea>
+                    { !textareaFocus  ? <span onClick={ this.placeholderClick  } className="blog-comment-input-textarea-placeholder">{placeholder}</span> : null}
+                    <div className="send-box">
+                        <button onClick={ this.toggleEmoji } ><Icon type='emoji' size="large" /></button>
+                        <button onClick={ this.exportComment }><Icon size="large" type='send' /></button>
+                    </div>
                 </div>
                 <div className={ ClassNames("emoji-box", { show: showEmoji}) } id='CommentEmoji' >
                     <Emojify style={{height: 20, cursor: 'pointer'}} onClick={ this.addEmoji }>

@@ -3,7 +3,6 @@ import {
   Route,
   Link
 } from 'react-router-dom';
-import Bundle from 'Components/Bundle';
 import { Layout, Menu, Icon, Avatar } from 'antd';
 import ArticleManage from '../ArticleManage';
 import ArticleEdite from '../ArticleEdite';

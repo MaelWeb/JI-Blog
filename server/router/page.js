@@ -147,10 +147,11 @@ let _Page = Router
     })
     .get('message', async(ctx, next) => {
         let banners = await getOneContent(ctx);
-        let commentsData = await getComments({
-            articleid: "message666"
-        });
-        // let newComments = await getComments();
+        ctx.query = {
+            articleid: "message666",
+            size: 10
+        };
+        let commentsData = await getComments(ctx);
         let ServerData = { banners, ...commentsData };
 
         const html = ReactDOMServer.renderToString(
