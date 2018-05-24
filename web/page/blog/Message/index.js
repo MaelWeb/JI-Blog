@@ -62,7 +62,7 @@ export default class Message extends Component {
 
         window.addEventListener("scroll", this.onscroll, false);
 
-        if (!this.state.banners ) {
+        if (!this.state.banners.length || !this.state.comments.length ) {
             Axios.get('/api/one')
                 .then(res => {
                     this.setState({
@@ -105,7 +105,6 @@ export default class Message extends Component {
     }
 
     changePage = (page, pageSize) => {
-        console.log(page);
         this.getComments(page)
     }
 
@@ -230,11 +229,11 @@ export default class Message extends Component {
 
     render() {
         const { banners, comments, showUserInfo, isShowReplyModal, reply, allPage, allNum, page, newComments } = this.state;
-        let randomIndex = Math.floor(Math.random() * banners.length),
+        let randomIndex = Math.floor(Math.random() * (banners.length - 1) ) + 1,
             header = banners[randomIndex] || {};
         return (
             <div className="blog-message-layout">
-                <div className="blog-message-header" style={{ backgroundImage: `url(${header.imgUrl})` }} ref="mressageHeader" >
+                <div className="blog-message-header" style={{ backgroundImage: `url(//cdn.liayal.com/banner/pexels-photo-1096848.jpeg)` }} ref="mressageHeader" >
                     <div className="blog-message-header-input">
                         <CommentInput exportComment={ this.exportComment } placeholder={ header.text } ref='commentInput' />
                     </div>
@@ -261,10 +260,10 @@ export default class Message extends Component {
                             <h5>最近评论</h5>
                             <ul className="blog-message-widge-list">
                                 { newComments.length ? newComments.map( comment => (
-                                    <li>
+                                    <li><Link to={ comment.articleid != "message666" ? `/article/${comment.articleid}` : `#${comment.id}` } >
                                         <h6>{comment.user.name}<small>{getTimeString(comment.createTime)}</small></h6>
                                         <Emojify style={emojiStyle} ><p>{comment.commentCont}</p></Emojify>
-                                    </li>
+                                    </Link></li>
                                     )) : null}
                             </ul>
                         </div>
@@ -274,7 +273,7 @@ export default class Message extends Component {
                     <div className="comment-user-modal-form">
                             <img src="//cdn.liayal.com/image/logo.png" alt=""/>
                             <input type="text" name="name" placeholder='昵称(必填)' ref='userName' />
-                            <input type="text" name="email" placeholder='xxxx@qq.com(必填)' ref='userEamil' />
+                            <input type="text"  autoComplete='email' name="email" placeholder='xxxx@qq.com(必填)' ref='userEamil' />
                             <input type="text" name="site" placeholder='www.yourblog.com' ref='userSite' />
                             <div className="btns">
                                 <button onClick={ this.commentCancle }>取消</button>

@@ -6,7 +6,7 @@ import Icon from '../../../components/Icon';
 import Emojify from '../../../components/Emoji';
 import CommentInput from '../../../components/CommentInput';
 import Axios from 'axios';
-import { message } from 'antd';
+import { message, Pagination } from 'antd';
 import { getTimeString } from '../Util';
 
 const emojiStyle = {
@@ -23,8 +23,8 @@ export default class Comments extends Component {
             showUserInfo: false,
             isShowReplyModal: false,
             reply: null,
-            comments: props.comments,
-            commentCont: null
+            commentCont: null,
+            commentsData: props.commentsData
         };
 
         this.caretIndex = 0;
@@ -32,16 +32,16 @@ export default class Comments extends Component {
 
     static defaultProps = {
         articleid: '',
-        comments: []
+        commentsData: {}
     };
 
     static defaultPropTypes = {
-        comments: PropTypes.array
+        commentsData: PropTypes.object
     };
 
     componentWillReceiveProps(nextProps) {
         this.setState({
-            comments: nextProps.comments
+            commentsData: nextProps.commentsData
         });
     }
 
@@ -100,18 +100,16 @@ export default class Comments extends Component {
 
     saveComment(data) {
         const { articleid } = this.props;
-        let comments = this.state.comments;
         Axios.post('/api/create/comment', {...data, articleid})
             .then( res => {
                 let resdata = res.data;
                 if (resdata.code  == 200) {
-                    comments.unshift(resdata.comment);
+                    this.getComments(0);
                     data.reply ? this.refs.replyInput.clearTextarea() : this.refs.commentInput.clearTextarea();
                     this.setState({
                         showUserInfo: false,
                         isShowReplyModal: false,
                         reply: null,
-                        comments: comments,
                         commentCont: null
                     });
                 } else {
@@ -158,14 +156,35 @@ export default class Comments extends Component {
         }
     }
 
+    changePage = (page, pageSize) => {
+        this.getComments(page)
+    }
+
+    getComments(page) {
+        Axios.get('/api/get/comments', {
+            params: {
+                articleid: this.props.articleid,
+                page: page,
+                size: PageSize
+            }
+        })
+        .then( res => {
+            let resData = res.data;
+            this.setState({
+                commentsData: resdata
+            })
+        });
+    }
+
     render() {
-        const { showUserInfo, isShowReplyModal, reply, comments } = this.state;
+        const { showUserInfo, isShowReplyModal, reply, commentsData } = this.state;
+        const { comments, allPage, page, allNum } = commentsData;
         return (
             <article className="blog-comment">
                 <CommentInput exportComment={ this.exportComment } ref='commentInput' />
 
                 <div className="comment-list">
-                    { comments.length ? comments.map((comment, index) => (<div className="comment-item clearfix border-b" key={index} >
+                    { comments && comments.length ? comments.map((comment, index) => (<div className="comment-item clearfix border-b" key={index} name={comment.id} >
                         <div className="comment-avatar fl">{ comment.user && comment.user.avatar ? <img src={comment.user.avatar} alt="" className="avatar"/> : <Icon type='avatar' />}</div>
                         <div className="comment-body fl">
                             <h6>{comment.user.name}<small>{getTimeString(comment.createTime)}</small></h6>
@@ -177,12 +196,13 @@ export default class Comments extends Component {
                         </div>
                     </div>)) : null}
                 </div>
+                { allPage > 1 ? <Pagination size="small" total={allNum} current={page} defaultPageSize={20} onChange={ this.changePage } /> : null}
 
                 <div className="comment-modal" hidden={!showUserInfo} style={{zIndex: 5}} ref='UserModal'>
                     <div className="comment-user-modal-form">
                             <img src="//cdn.liayal.com/image/logo.png" alt=""/>
                             <input type="text" name="name" placeholder='昵称(必填)' ref='userName' />
-                            <input type="text" name="email" placeholder='xxxx@qq.com(必填)' ref='userEamil' />
+                            <input type="text"  autoComplete='email' name="email" placeholder='xxxx@qq.com(必填)' ref='userEamil' />
                             <input type="text" name="site" placeholder='www.yourblog.com' ref='userSite' />
                             <div className="btns">
                                 <button onClick={ this.commentCancle }>取消</button>

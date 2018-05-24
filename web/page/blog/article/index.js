@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Axios from 'axios';
 import Moment from 'moment';
 import Icon from '../../../components/Icon';
@@ -12,12 +13,22 @@ const WEIBOKEY = '';
 export default class Article extends Component {
     constructor(props) {
         super(props);
-        const { article, comments } = props;
+        const { article, commentsData } = props;
+
         this.state = {
             article,
-            comments
+            commentsData
         };
+
     }
+
+    static defaultProps = {
+        commentsData: {}
+    };
+
+    static defaultPropTypes = {
+        commentsData: PropTypes.object
+    };
 
     componentWillMount() {
         const { match: {params} } = this.props;
@@ -40,7 +51,7 @@ export default class Article extends Component {
                 .then( res => {
                     let resData = res.data;
                     this.setState({
-                        comments: resData.comments
+                        commentsData: resData
                     })
                 })
         }
@@ -54,7 +65,7 @@ export default class Article extends Component {
     }
 
     render() {
-        let { article, comments } = this.state;
+        let { article, commentsData } = this.state;
         const { match: {params} } = this.props;
         let _article = article || {};
         let cls = ClassNames('blog-article-layout', { [`blog-article-${_article.category && _article.category.toLocaleLowerCase()}`]:  _article.category});
@@ -88,7 +99,7 @@ export default class Article extends Component {
                         <Icon type="douban" />
                     </a>
                 </section>
-                <Comments articleid={params.id} comments={comments} />
+                <Comments articleid={params.id} commentsData={commentsData} />
             </div>
         )
     }

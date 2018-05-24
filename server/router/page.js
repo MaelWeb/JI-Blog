@@ -51,7 +51,7 @@ let _Page = Router
 
         let ServerData = {
             article: articleData.article,
-            comments: commentsData.comments
+            commentsData
         }
 
         const html = ReactDOMServer.renderToString(

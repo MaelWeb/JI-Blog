@@ -41,7 +41,7 @@ class App extends Component {
             '/books': '阅记  - 「JI · 记小栈」',
             '/photoes': '图记  - 「JI · 记小栈」',
             '/about': '关于  - 「JI · 记小栈」',
-            '/messsage': '留言  - 「JI · 记小栈」',
+            '/message': '留言  - 「JI · 记小栈」',
             '/': '游走在技术与艺术边缘地带的前端攻城狮 - 「JI · 记小栈」'
         };
 

@@ -5,6 +5,7 @@
 @import '../../components/ScrollToTop/index.less';
 @import '../../components/CommentInput/index.less';
 
+
 /** antd **/
 
 .anticon {
@@ -42,6 +43,7 @@
 
 .ant-pagination {
     margin: .1rem 0;
+    padding: 0;
     font-size: .12rem;
     text-align: center;
 
@@ -107,6 +109,7 @@
 }
 
 
+
 /** antd end **/
 
 .blog-layout {
@@ -131,17 +134,21 @@
     z-index: 2;
     background-color: #fff;
     border-top: .04rem solid #212121;
-    border-bottom: 1px solid #ccc; // box-shadow: -2px 2px 6px #ccc;
+    border-bottom: 1px solid #ccc;
     transition: all .8s;
     line-height: .22rem;
     overflow: hidden;
 
-    .nav-list a {
-        display: inline-block;
-        padding: 0 .2rem;
+    .nav-list {
+        transition: all 1s;
+        transform: translateY(0);
+        a {
+            display: inline-block;
+            padding: 0 .2rem;
 
-        &:hover {
-            color: #d1a47d;
+            &:hover {
+                color: #d1a47d;
+            }
         }
     }
 
@@ -167,6 +174,12 @@
         .menu {
             background-color: transparent;
             border-color: #fff;
+            display: block;
+            transform: translateY(0);
+        }
+
+        .nav-list {
+            transform: translateY(-200%);
         }
     }
 
@@ -210,7 +223,6 @@
     }
 
     .menu {
-        // margin-top: .07rem;
         width: .2rem;
         height: .2rem;
         color: #fff;
@@ -222,7 +234,8 @@
         text-align: center;
         line-height: .2rem;
         overflow: hidden;
-        display: none;
+        transition: all 1s;
+        transform: translateY(-150%);
     }
 
     .icon-close {
@@ -417,7 +430,8 @@
 
     .blog-photo-layout {
         .photo-banner {
-            height: 3.8rem;
+            height: 4rem;
+            height: 75vh;
         }
     }
 
@@ -429,13 +443,15 @@
         }
 
         .article-banner {
-            height: 3.8rem;
+            height: 4rem;
+            height: 75vh;
         }
     }
 
     .blog-travel-layout {
         .traverl-header {
-            height: 3.8rem;
+            height: 4rem;
+            height: 75vh;
         }
     }
 
@@ -597,6 +613,33 @@
             }
         }
     }
+
+    .blog-message-layout {
+
+        .blog-message-header-input {
+            width: 95%;
+            padding: .1rem;
+        }
+
+        .blog-message-other.fr,
+        .blog-message-list-wrap.fl {
+            float: none;
+        }
+
+        .blog-message-body {
+            padding: .05rem;
+        }
+
+        .blog-message-list {
+            margin-right: 0;
+            width: 100%;
+        }
+
+        .blog-message-other {
+            margin: .1rem 0;
+            width: 100%;
+        }
+    }
 }
 
 @media screen and (max-width: 420px) {
@@ -608,6 +651,7 @@
 
         .menu {
             display: block;
+            transform: translateY(0);
         }
     }
 
