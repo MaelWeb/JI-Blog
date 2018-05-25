@@ -61,21 +61,18 @@ export async function getComments(ctx) {
     if (ctx && ctx.query ) {
         page = +ctx.query.page || 1;
         size = +ctx.query.size || 20;
-        articleid = ctx.query.articleid || '';
         ctx.query.isRemove && (filter.isRemove = ctx.query.isRemove);
+        ctx.query.articleid && (filter.articleid = ctx.query.articleid)
     }
 
-    if (ctx && ctx.params) {
-        articleid = ctx.params.id || '';
+    if (ctx && ctx.params && ctx.params.id) {
+        filter.articleid = ctx.params.id;
     }
 
     if (page !== 1) {
         skip = size * (page - 1)
     }
 
-    if (articleid) {
-        filter.articleid = articleid
-    }
 
     comments = await Comment.find(filter)
         .populate("reply")

@@ -182,7 +182,7 @@ export default class Comments extends Component {
         return (
             <article className="blog-comment">
                 <CommentInput exportComment={ this.exportComment } ref='commentInput' />
-
+                <h3 className='blog-comment-title'>评论</h3>
                 <div className="comment-list">
                     { comments && comments.length ? comments.map((comment, index) => (<div className="comment-item clearfix border-b" key={index} name={comment.id} >
                         <div className="comment-avatar fl">{ comment.user && comment.user.avatar ? <img src={comment.user.avatar} alt="" className="avatar"/> : <Icon type='avatar' />}</div>
@@ -194,7 +194,7 @@ export default class Comments extends Component {
                                 <Icon type='reply' onClick={ e => {this.showReplyModal(comment)} } />
                             </div>
                         </div>
-                    </div>)) : null}
+                    </div>)) : <p className="no-comments tc">～ 评论还没有，沙发可以有 O(∩_∩)O~ </p>}
                 </div>
                 { allPage > 1 ? <Pagination size="small" total={allNum} current={page} defaultPageSize={20} onChange={ this.changePage } /> : null}
 

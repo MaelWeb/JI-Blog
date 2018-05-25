@@ -42,10 +42,25 @@
         width: 100%;
 
         .blog-message-list {
+            position: relative;
             margin-right: 3rem;
             padding: .2rem;
             background-color: #fff;
+            // min-height: 10rem;
             // border: 1px solid #ccc;
+
+            .blog-message-icon {
+                position: absolute;
+                top: -.23rem;
+                left: 50%;
+                margin-left: -.2rem;
+                width: .4rem;
+                height: .4rem;
+                border-radius: .4rem;
+                font-size: .4rem;
+                background-color: #d8d8d8;
+                color: #333;
+            }
         }
     }
 
@@ -72,7 +87,7 @@
 
         .blog-message-widget-footer {
             position: relative;
-            padding: 10px 0 10px 10px;
+            padding: .1rem 0 .1rem .1rem;
         }
 
         .blog-message-widget-date,
@@ -89,7 +104,7 @@
 
         .blog-message-widget-txt {
             width: 70%;
-            font-size: .12rem;
+            font-size: .13rem;
         }
     }
 

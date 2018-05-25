@@ -241,6 +241,7 @@ export default class Message extends Component {
                 <div className="blog-message-body clearfix">
                     <div className="blog-message-list-wrap fl">
                         <div className="blog-message-list">
+                        <Icon className="blog-message-icon" type="message" />
                         { comments.length ? comments.map((comment, index) => !comment.isRemove && <MessageItem key={index} comment={comment} replyComent={ this.showReplyModal } isFloatRight={ !!(index % 2 != 0) } />) : null }
                         { allPage > 1 ? <Pagination size="small" total={allNum} current={page} defaultPageSize={PageSize} onChange={ this.changePage } /> : null}
                         </div>
