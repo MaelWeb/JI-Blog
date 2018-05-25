@@ -71,6 +71,7 @@ class App extends Component {
                         <Route path="/message" render={ props=> (<Message {...props} {...InitData} />) }  />
                         <Route path="/travel" render={ props=> (<Travel {...props} {...InitData} />) } />
                         <Route path="/books" render={ props=> (<Books {...props} {...InitData} />) } />
+                        <Route path="/about" render={ props=> (<About {...props} {...InitData} />) } />
                     </Switch>
                 </CSSTransition>
             </TransitionGroup>
