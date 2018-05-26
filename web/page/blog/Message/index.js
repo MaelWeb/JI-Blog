@@ -249,9 +249,9 @@ export default class Message extends Component {
                     <div className="blog-message-other fr">
                         <div className="blog-message-widget-box">
                             <div className="blog-message-widget-one">
-                                <img src={banners[0].imgUrl} alt=""/>
+                                <img src={banners[0] ? banners[0].imgUrl : 'http://image.wufazhuce.com/Fu1qjJjsQ_wZ_3BR-utNJwUIGY-P'} alt=""/>
                                 <div className="blog-message-widget-footer">
-                                    <p className="blog-message-widget-txt" >{ banners[0].text }</p>
+                                    <p className="blog-message-widget-txt" >{ banners[0] ? banners[0].text : '懂的人会懂，感动的人会感动，无关的人，敬请错过。' }</p>
                                     { this.getDateDom() }
                                 </div>
                             </div>

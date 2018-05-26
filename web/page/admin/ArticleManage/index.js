@@ -182,7 +182,7 @@ export default class ArticleManege extends Component {
                 return  <Col span={8} key={article.id} >
                     <Card title={article.title} hoverable  extra={<Icon type="delete" className="article-delete" onClick={ e => this.deleteArticle(article) } />} bodyStyle={bodyStyle} >
                         <div className="article-content">
-                            {article.abstract || article.content.substr(0, 100)}
+                            {article.abstract || article.content.substr(0, 100)} ...
                         </div>
                         <div className="article-footer clearfix">
                             <span>{ this.getTimeString(article.createTime) }</span>
