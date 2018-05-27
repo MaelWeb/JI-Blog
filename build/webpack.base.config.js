@@ -108,7 +108,11 @@ module.exports = {
         }),
         new webpack.DllReferencePlugin({
             context: path.resolve(__dirname, "../"),
-            manifest: require('./vendor-manifest.json'),
+            manifest: require('./react-manifest.json'),
+        }),
+        new webpack.DllReferencePlugin({
+            context: path.resolve(__dirname, "../"),
+            manifest: require('./common-manifest.json'),
         }),
         createHappyPlugin('happy-babel-js', [{
             loader: 'cache-loader',

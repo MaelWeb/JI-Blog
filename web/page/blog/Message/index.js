@@ -21,9 +21,9 @@ export default class Message extends Component {
     constructor(props) {
         super(props);
 
-        const { banners, comments, allPage, page, allNum, newComments } = props;
+        const { messageBanners, comments, allPage, page, allNum, newComments } = props;
         this.state = {
-            banners,
+            messageBanners,
             comments,
             newComments,
             allNum,
@@ -38,7 +38,7 @@ export default class Message extends Component {
 
     static defaultProps = {
         comments: [],
-        banners: [],
+        messageBanners: [],
         newComments: [],
         allNum: 0,
         allPage: 0,
@@ -47,7 +47,7 @@ export default class Message extends Component {
 
     static defaultPropTypes = {
         comments: PropTypes.array,
-        banners: PropTypes.array,
+        messageBanners: PropTypes.array,
         newComments: PropTypes.array
     };
 
@@ -62,11 +62,11 @@ export default class Message extends Component {
 
         window.addEventListener("scroll", this.onscroll, false);
 
-        if (!this.state.banners.length || !this.state.comments.length ) {
+        if (!this.state.comments.length ) {
             Axios.get('/api/one')
                 .then(res => {
                     this.setState({
-                        banners: res.data.data
+                        messageBanners: res.data.data
                     })
                 });
 
@@ -228,9 +228,9 @@ export default class Message extends Component {
     }
 
     render() {
-        const { banners, comments, showUserInfo, isShowReplyModal, reply, allPage, allNum, page, newComments } = this.state;
-        let randomIndex = Math.floor(Math.random() * (banners.length - 1) ) + 1,
-            header = banners[randomIndex] || {};
+        const { messageBanners, comments, showUserInfo, isShowReplyModal, reply, allPage, allNum, page, newComments } = this.state;
+        let randomIndex = Math.floor(Math.random() * (messageBanners.length - 1) ) + 1,
+            header = messageBanners[randomIndex] || {};
         return (
             <div className="blog-message-layout">
                 <div className="blog-message-header" style={{ backgroundImage: `url(//cdn.liayal.com/banner/pexels-photo-1096848.jpeg)` }} ref="mressageHeader" >
@@ -249,9 +249,9 @@ export default class Message extends Component {
                     <div className="blog-message-other fr">
                         <div className="blog-message-widget-box">
                             <div className="blog-message-widget-one">
-                                <img src={banners[0] ? banners[0].imgUrl : 'http://image.wufazhuce.com/Fu1qjJjsQ_wZ_3BR-utNJwUIGY-P'} alt=""/>
+                                <img src={messageBanners[0] ? messageBanners[0].imgUrl : 'http://image.wufazhuce.com/Fu1qjJjsQ_wZ_3BR-utNJwUIGY-P'} alt=""/>
                                 <div className="blog-message-widget-footer">
-                                    <p className="blog-message-widget-txt" >{ banners[0] ? banners[0].text : '懂的人会懂，感动的人会感动，无关的人，敬请错过。' }</p>
+                                    <p className="blog-message-widget-txt" >{ messageBanners[0] ? messageBanners[0].text : '懂的人会懂，感动的人会感动，无关的人，敬请错过。' }</p>
                                     { this.getDateDom() }
                                 </div>
                             </div>

@@ -146,13 +146,13 @@ let _Page = Router
         });
     })
     .get('message', async(ctx, next) => {
-        let banners = await getOneContent(ctx);
+        let messageBanners = await getOneContent(ctx);
         ctx.query = {
             articleid: "message666",
             size: 10
         };
         let commentsData = await getComments(ctx);
-        let ServerData = { banners, ...commentsData };
+        let ServerData = { messageBanners, ...commentsData };
 
         const html = ReactDOMServer.renderToString(
             <StaticRouter context={{}} location={ctx.req.url}>

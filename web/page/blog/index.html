@@ -44,6 +44,15 @@
     <link rel="apple-touch-icon" sizes="152x152" href="https://cdn.liayal.com/image/touch-icon-ipad.png">
     <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.liayal.com/image/touch-icon-iphone-retina.png">
     <link rel="apple-touch-icon" sizes="167x167" href="https://cdn.liayal.com/image/touch-icon-ipad-retina.png">
+    <!-- IE 下取消出入场动画 -->
+    <!--[if IE]>
+    <style>
+        .slide-appear,
+        .slide-enter {
+            opacity: 1 !important;
+        }
+    </style>
+    <![endif]-->
 </head>
 
 <body>
@@ -53,7 +62,8 @@
     <script type="text/javascript">
     var _SERVER_DATA = <%= htmlWebpackPlugin.options.script %>;
     </script>
-    <script src="<%= webpackConfig.output.publicPath %>lib/vendor.dll.js"></script>
+    <script  src="<%= webpackConfig.output.publicPath %>lib/react.dll.js"></script>
+    <script  src="<%= webpackConfig.output.publicPath %>lib/common.dll.js"></script>
     <% if (process.env.NODE_ENV == 'production') { %>
     <script defer src="https://hm.baidu.com/hm.js?a4dcb77ef428aa2097afcdb00559e283"></script>
     <% } %>
