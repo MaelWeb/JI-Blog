@@ -15,19 +15,13 @@ function createHappyPlugin(id, loaders) {
 module.exports = {
     mode: "production",
     entry: {
-        react: ['react', 'react-dom', "react-router-dom"],
-        common: ['axios', 'classnames', "moment"]
+        react: ['react', 'react-dom', "react-router-dom", "react-router", "prop-types"],
+        common: ['axios', 'classnames', "moment", 'core-js/es6/promise', 'core-js/es6/map', 'core-js/es6/set']
     },
     output: {
         path: outputPath,
         filename: 'lib/[name].dll.js',
         library: '[name]'
-    },
-    module: {
-        rules: [{
-            test: /\.(js|jsx)$/,
-            use: ['happypack/loader?id=happy-babel-js']
-        }]
     },
     plugins: [
         new webpack.optimize.ModuleConcatenationPlugin(),
