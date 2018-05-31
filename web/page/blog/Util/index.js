@@ -1,6 +1,7 @@
 import Moment from 'moment';
 Moment.locale('zh-cn');
 
+
 export function getTimeString(date) {
     let now = new Date(),
         nowDate = now.getDate(),

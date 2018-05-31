@@ -41,7 +41,18 @@ module.exports = {
             use: isDev ? ['style-loader', 'happypack/loader?id=happy-css'] : ["style-loader", MiniCssExtractPlugin.loader, {
                 loader: 'css-loader',
                 options: {
-                    minimize: true
+                    // minimize: {
+                    //     preset: ['default', {
+                    //         discardComments: {
+                    //             removeAll: true
+                    //         },
+                    //         autoprefixer: {
+                    //             browsers:["last 2 versions", "ie 8", "ie 9", "> 1%"]
+                    //         }
+                    //     }]
+                    // },
+                    minimize: false,
+                    importLoaders: 1
                 }
             }, {
                 loader: 'postcss-loader',
@@ -56,7 +67,18 @@ module.exports = {
             use: isDev ? ['style-loader', 'happypack/loader?id=happy-less'] : ["style-loader", MiniCssExtractPlugin.loader, {
                 loader: 'css-loader',
                 options: {
-                    minimize: true
+                    // minimize: {
+                    //     preset: ['default', {
+                    //         discardComments: {
+                    //             removeAll: true
+                    //         },
+                    //         autoprefixer: {
+                    //             browsers:["last 2 versions", "ie 8", "ie 9", "> 1%"]
+                    //         }
+                    //     }]
+                    // },
+                    minimize: false,
+                    importLoaders: 2
                 }
             }, {
                 loader: 'postcss-loader',
@@ -153,8 +175,7 @@ module.exports = {
             }
         }, {
             loader: 'less-loader',
-            query: {
-            }
+            query: {}
         }]),
         // createHappyPlugin('happy-font', [{
         //     loader: "file-loader",
