@@ -9,137 +9,392 @@
 
 <url>
   <loc>https://www.liayal.com/</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/travel</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/photoes</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/books</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.liayal.com/about</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <loc>https://www.liayal.com/message</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://www.liayal.com/article/5a96599bca0de01ec9713c43</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <loc>https://www.liayal.com/article/5b07d8dc4b90272bebb17a4b</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/article/5a957542ca0de01ec9713c41</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/article/5a7177acfb1bf64cecfdee9e</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/?tag=5a5d75c824f2803679a960e4</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/?tag=5a5dae6a24f2803679a960e6</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/?tag=5abe190ca6cf4e67bc05c9eb</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/?tag=5a4b637a76b2f863f44722ce</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/?tag=5a5d612724f2803679a960e3</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/?tag=5aa9d0f7a6cf4e67bc05c9e6</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/?tag=5ad211ca1a74553a6eabdb1e</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5ad216ff1a74553a6eabdb1f</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5acf0fbb1a74553a6eabdb1d</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5ac46c20a6cf4e67bc05c9f4</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5ac234d5a6cf4e67bc05c9f3</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5abde53da6cf4e67bc05c9ea</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5aa9dadca6cf4e67bc05c9e7</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5a96599bca0de01ec9713c43</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/article/5a910f97a00855248e5b7829</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/article/5a8fe995a00855248e5b7828</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/article/5a7d5415a00855248e5b7827</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/article/5a742f23de933c702896c61f</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/article/5a6ece2aeba8a1470c87f931</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/article/5a6c3c80efe3b54495ae168f</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/article/5a6b07137de5e93eee4137ca</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5a67137a851ee262f02019b9</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5a61b2251496a023e2be5a4a</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5a5d770924f2803679a960e5</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/about</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/article/5a60a5f71496a023e2be5a49</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/article/5a52e5235a235b73c6c1e33c</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/article/5a44b20c17080e1ca5f01bfd</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://www.liayal.com/article/5a5d770924f2803679a960e5</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <loc>https://www.liayal.com/article/5b07d9c64b90272bebb17a4c</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://www.liayal.com/article/5a67137a851ee262f02019b9</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <loc>https://www.liayal.com/article/5b07da104b90272bebb17a4d</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://www.liayal.com/article/5a61b2251496a023e2be5a4a</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <loc>https://www.liayal.com/article/5b07da614b90272bebb17a4e</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07db284b90272bebb17a4f</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07ddb94b90272bebb17a50</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07de064b90272bebb17a51</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07de4e4b90272bebb17a52</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07de7b4b90272bebb17a53</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07dff84b90272bebb17a54</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07e02e4b90272bebb17a55</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07e05d4b90272bebb17a56</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07e5bb4b90272bebb17a57</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07e6224b90272bebb17a58</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07e64c4b90272bebb17a59</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07e6824b90272bebb17a5a</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07e6ba4b90272bebb17a5b</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07e7014b90272bebb17a5c</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07e79f4b90272bebb17a5d</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07e9664b90272bebb17a5e</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07e9a44b90272bebb17a5f</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07e9f54b90272bebb17a60</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07ea1d4b90272bebb17a61</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07ea474b90272bebb17a62</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07ea7b4b90272bebb17a63</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07eb634b90272bebb17a64</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07eba54b90272bebb17a65</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07ebd64b90272bebb17a66</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07ec054b90272bebb17a67</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07ed224b90272bebb17a68</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07ee624b90272bebb17a69</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07efb44b90272bebb17a6a</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b07efdb4b90272bebb17a6b</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b08f27f912ad10f8b2d139f</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b08f2b2912ad10f8b2d13a0</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b08f2de912ad10f8b2d13a1</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b08f3a0912ad10f8b2d13a2</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b08f3d3912ad10f8b2d13a3</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b08f406912ad10f8b2d13a4</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b08f436912ad10f8b2d13a5</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://www.liayal.com/article/5b08f496912ad10f8b2d13a6</loc>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/article/5a40b81ae2d9ff1cf1258bc5</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://www.liayal.com/article/5a4b645276b2f863f44722cf</loc>
-  <lastmod>2018-03-02T01:28:07+00:00</lastmod>
+  <lastmod>2018-06-01T15:40:20+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 
