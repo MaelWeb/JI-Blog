@@ -5,6 +5,7 @@
 @import '../../components/ScrollToTop/index.less';
 @import '../../components/CommentInput/index.less';
 
+
 /** antd **/
 
 .anticon {
@@ -110,6 +111,7 @@
 
 
 
+
 /** antd end **/
 
 .blog-layout {
@@ -181,6 +183,18 @@
         .nav-list {
             transform: translateY(-200%);
         }
+
+        @media screen and (min-width: 421px) {
+            &:hover {
+                .menu {
+                    transform: translateY(-200%);
+                }
+
+                .nav-list {
+                    transform: translateY(0);
+                }
+            }
+        }
     }
 
     &.blog-article-header {
@@ -224,8 +238,8 @@
     }
 
     .menu {
-        width: .2rem;
-        height: .2rem;
+        width: .21rem;
+        height: .21rem;
         color: #fff;
         font-size: .1rem;
         cursor: pointer;
@@ -233,7 +247,7 @@
         border: 1px solid #212121;
         background-color: #212121;
         text-align: center;
-        line-height: .2rem;
+        line-height: .21rem;
         overflow: hidden;
         transition: all 1s;
         transform: translateY(-150%);
