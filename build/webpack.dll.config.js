@@ -20,8 +20,8 @@ module.exports = {
     },
     output: {
         path: outputPath,
-        filename: 'lib/[name].dll.js',
-        library: '[name]'
+        filename: 'lib/[name]_[hash:8].dll.js',
+        library: '[name]_[hash:8]'
     },
     optimization: {
         minimizer: [
@@ -51,7 +51,7 @@ module.exports = {
         new webpack.DllPlugin({
             context: path.resolve(__dirname, "../"),
             path: path.resolve(__dirname, './[name]-manifest.json'),
-            name: '[name]'
+            name: '[name]_[hash:8]'
         }),
         createHappyPlugin('happy-babel-js', [{
             loader: 'cache-loader',

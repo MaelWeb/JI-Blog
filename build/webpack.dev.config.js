@@ -6,6 +6,7 @@ const Html = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const outputPath = path.join(__dirname, '../dist/client/');
 const templateSrc = path.join(__dirname, '../web/page/');
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 
 // process.traceDeprecation = true;
 
@@ -46,6 +47,12 @@ module.exports = merge(baseWebpackConfig, {
             script: '<%- JSON.stringify(ServerData) %>',
             title: '<%= title || "游走在技术与艺术边缘地带的前端攻城狮" %>',
             chunks: ["blog"],
+        }),
+         // 插入dll库
+        new HtmlWebpackIncludeAssetsPlugin({
+            files: '*.html',
+            assets: [{ path: 'lib', glob: '*.dll.js', globPath: 'dist/client/lib/' }],
+            append: false
         }),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackHarddiskPlugin()

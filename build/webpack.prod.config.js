@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const baseWebpackConfig = require('./webpack.base.config');
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const Html = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const templateSrc = path.join(__dirname, '../web/page/');
@@ -68,6 +69,11 @@ module.exports = merge(baseWebpackConfig, {
                 removeComments: true,
                 collapseWhitespace: true
             }
+        }),
+        new HtmlWebpackIncludeAssetsPlugin({
+            files: '*.html',
+            assets: [{ path: 'lib', glob: '*.dll.js', globPath: 'dist/client/lib/' }],
+            append: false
         }),
         new webpack.optimize.ModuleConcatenationPlugin(),
         // new BundleAnalyzerPlugin()
