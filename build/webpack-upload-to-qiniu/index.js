@@ -24,6 +24,7 @@ class UploadToQiniuWebpackPlugin {
             qiniuSecretKey: 'qiniuSecretKey',
             qiniuBucket: 'qiniuBucket',
             qiniuZone: 'Zone_z0',
+            zoneDomain: '',
             uploadTaget: null, // targe to upload
             exclude: 'html',
             publicPath: ''
@@ -146,7 +147,7 @@ class UploadToQiniuWebpackPlugin {
             }
             fs.writeFile(path.resolve(failedUploadLog), JSON.stringify(this.failedObj), 'utf8', (err) => {
                 if (err) {
-                    debugFlag && console.error(err)
+                    console.error(err)
                 } else {
                     // console.log('失败日志已写入' + failedUploadLog + '，请运行 npm run upload2qiniu  failed 重新' + (this.allUploadIsSuccess ? '' : '上传') + (this.allRefreshIsSuccess ? '' : '刷新'))
                 }
@@ -160,4 +161,65 @@ class UploadToQiniuWebpackPlugin {
         });
 
     }
+
+    refreshInClound(needRefreshArr) {
+        let cdnManager = new qiniu.cdn.CdnManager(this.mac);
+        //  Can refresh 100 one time
+        needRefreshArr = _array.chunk(needRefreshArr, 100);
+        needRefreshArr.forEach((item, index) => {
+            item = item.map((it) => {
+                return this.options.zoneDomain + it.replace(this.options.path + '/', '')
+            });
+
+            cdnManager.refreshUrls(item, function(err, respBody, respInfo) {
+                if (err) {
+                    this.allRefreshIsSuccess = false
+                    this.failedObj.refreshArr = this.failedObj.refreshArr.concat(item.map(it => it.replace(this.options.zoneDomain, '')))
+                }
+                if (respInfo.statusCode == 200) {
+                    // let jsonBody = JSON.parse(respBody);
+                    // console.log(jsonBody);
+                }
+                if (index === needRefreshArr.length - 1) {
+                    this._writeLog()
+                }
+            });
+        })
+    }
+
+    uploadFilesByArr(arr) {
+        arr.forEach((path) => {
+            //要上传文件的本地路径
+            let filePath = path;
+
+            //上传到七牛后保存的文件名
+            let key = path.replace(originPath + '/', '');
+
+            //生成上传 Token
+            let token = uptoken(bucket, key);
+
+            //调用uploadFile上传
+            uploadFile(token, key, filePath);
+        })
+    }
+
+    readFilesFormDir(dir) {
+        return statPromise(dir).then((stats) => {
+            let ret;
+            if (stats.isDirectory()) {
+                ret = readdirPromise(dir).then((files) => {
+                    return Promise.all(files.map(file => readFilesFormDir(dir + '/' + file)))
+                }).then((paths) => {
+                    return [].concat(...paths)
+                })
+                ret = ret || []
+            } else if (stats.isFile() && !/\.html$/.test(dir)) {
+                ret = dir
+            } else {
+                ret = []
+            }
+            return ret
+        })
+    }
+}
 }
