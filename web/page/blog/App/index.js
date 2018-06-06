@@ -34,6 +34,7 @@ class App extends Component {
     componentDidUpdate(prevProps, prevState) {
         if ((this.props.location.pathname !== prevProps.location.pathname)) {
             window.scrollTo(0, 0);
+            window._hmt && _hmt.push(['_trackPageview', this.props.location.pathname]);
         }
 
         let titleMap = {
