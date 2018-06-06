@@ -8,6 +8,8 @@ const Html = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const templateSrc = path.join(__dirname, '../web/page/');
 const outputPath = path.join(__dirname, '../dist/client/');
+const UploadToQiniuWebpackPlugin = require('upload-to-qiniu-webpack-plugin');
+const config = require('../server/config');
 
 module.exports = merge(baseWebpackConfig, {
     devtool: false,
@@ -75,6 +77,13 @@ module.exports = merge(baseWebpackConfig, {
             append: false
         }),
         new webpack.optimize.ModuleConcatenationPlugin(),
+        new UploadToQiniuWebpackPlugin({
+            qiniuAccessKey: config.upload.ACCESS_KEY,
+            qiniuSecretKey: config.upload.SECRET_KEY,
+            qiniuBucket: 'hynal-static',
+            qiniuZone: 'Zone_z0',
+            uploadLogPath: __dirname
+        })
         // new BundleAnalyzerPlugin()
     ]
 });
