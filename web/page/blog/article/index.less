@@ -1,14 +1,22 @@
 .blog-article-layout {
     margin: 0 auto;
-    padding: .35rem 0;
+    padding: .4rem 0;
+    background-color: rgba(41, 94, 155, 0.4);
+
     .blog-article-body {
-        width: 65%;
         min-height: 70vh;
-        padding: .1rem;
-        margin: 0 auto;
         line-height: 1.6;
         word-wrap: break-word;
     }
+
+    .blog-article-layout-wrap {
+        margin: 0 auto;
+        padding: .2rem .3rem;
+        width: 65%;
+        max-width: 1280px;
+        background-color: #fff;
+    }
+
     .article-title {
         margin: -.1rem 0 .1rem;
         padding-bottom: 0;
@@ -35,14 +43,13 @@
     }
     .article-banner {
         position: relative;
+        margin: -.2rem -.3rem;
         height: 4.5rem;
         height: 68vh;
         background-color: #ccc;
-        .bg {
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-        }
+        background-size: cover;
+        background-position: center;
+
         &:before {
             position: absolute;
             top: 0;
@@ -52,6 +59,21 @@
             background-color: #212121;
             opacity: .1;
             content: ' ';
+        }
+
+        .article-banner-mask {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background-color:rgba(33, 33, 33, .2);
+        }
+
+        .article-title {
+            position: absolute;
+            top: 30%;
+            color: #fff;
+            font-size: .24rem;
+            width: 100%;
         }
     }
     .blog-article-body-loading {
@@ -89,25 +111,9 @@
             margin-bottom: 0;
         }
     }
-    &.blog-article-travel {
-        .article-title {
-            position: absolute;
-            bottom: .1rem;
-            margin: 0 0 0 20%;
-            padding: 0 .1rem;
-            width: 65%;
-            text-align: left;
-            color: #fff;
-            font-weight: 500;
-            z-index: 1;
-        }
-        .article-desc {
-            border-bottom: 1px solid #d7d7d7;
-        }
-    }
+
     .article-share-box {
-        margin: 0 auto;
-        width: 65%;
+        margin: .1rem auto;
         text-align: center;
         a {
             margin: .1rem;

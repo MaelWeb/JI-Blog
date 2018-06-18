@@ -71,13 +71,13 @@ export default class Article extends Component {
         let cls = ClassNames('blog-article-layout', { [`blog-article-${_article.category && _article.category.toLocaleLowerCase()}`]:  _article.category});
         return (
             <div className={cls} >
-                { _article.category == "TRAVEL" ? <div className="article-banner">
-                    <div className="bg" style={{backgroundImage: `url(${ _article.banner ? _article.banner : "//cdn.liayal.com/12027196.jpg" })`} } />
-                    <h2 className="article-title">{_article.title}</h2>
+            <div className="blog-article-layout-wrap">
+                { _article.category == "TRAVEL" ? <div className="article-banner" style={{backgroundImage: `url(${ _article.banner ? _article.banner : "//cdn.liayal.com/12027196.jpg" })`} }>
+                    <div className="article-banner-mask"> <h2 className="article-title tc">{_article.title}</h2></div>
                 </div> : null}
                 { article ? <article className='blog-article-body'>
                     { _article.category != "TRAVEL" ? <h2 className="article-title"><p><em>{_article.title}</em></p></h2> : null}
-                    <p className="article-desc">
+                    <p className="article-desc" hidden>
                         <span><Icon type='date' /> {Moment(_article.createTime).format('LL')}</span>
                         { _article.tags && _article.tags.length ? <span className="ml"><Icon type='cc-tag' /> {_article.tags.map( tag => tag.name + ' ')}</span> : null }
                         <span className="ml"><Icon type='visit' /> {_article.visited || 0}</span>
@@ -100,7 +100,7 @@ export default class Article extends Component {
                     </a>
                 </section>
                 <Comments articleid={params.id} commentsData={commentsData} />
-            </div>
+            </div></div>
         )
     }
 }

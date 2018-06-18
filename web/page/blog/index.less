@@ -137,12 +137,12 @@
     background-color: #fff;
     border-top: .04rem solid #212121;
     border-bottom: 1px solid #ccc;
-    transition: all .8s;
+    transition: all .6s;
     line-height: .22rem;
     overflow: hidden;
 
     .nav-list {
-        transition: all 1s;
+        transition: all .4s;
         transform: translateY(0);
         a {
             display: inline-block;
@@ -198,7 +198,7 @@
     }
 
     &.blog-article-header {
-        background-color: rgba(255, 255, 255, .5);
+        background-color: rgba(255, 255, 255, .8);
         border-bottom: none;
         box-shadow: none;
         .nav-list {
@@ -249,7 +249,7 @@
         text-align: center;
         line-height: .21rem;
         overflow: hidden;
-        transition: all 1s;
+        transition: all .4s;
         transform: translateY(-150%);
     }
 
@@ -422,7 +422,40 @@
 @import './Message/index.less';
 @import '~antd/lib/message/style/index.less';
 
-@media screen and (min-width: 1800px) {
+@media screen and (min-width: 1680px) {
+    .blog-articles-layout {
+        width: 60%;
+
+        .banners {
+            height: 4.8rem;
+            height: 50vh;
+        }
+
+        .banners-two {
+            height: 3.7rem;
+            .banner-item .text {
+                padding: .05rem .1rem;
+                font-size: .16rem;
+            }
+        }
+
+        .banners-three {
+            height: 4.5rem;
+            height: 41vh;
+            .left-col .text {
+                padding: .05rem .1rem;
+                font-size: .16rem;
+            }
+
+            .right-col .text {
+                padding: .03rem .05rem;
+            }
+
+            .right-col .banner-item {
+                font-size: .14rem;
+            }
+        }
+    }
     .blog-books-layout {
 
         .books-list {
@@ -431,6 +464,22 @@
             .blog-books-item {
                 width: 25%;
             }
+        }
+    }
+
+    .blog-header {
+        height: .45rem;
+        padding: .1rem .2rem;
+        font-size: .16rem;
+        .logo {
+            width: .7rem;
+        }
+    }
+
+    .blog-article-layout {
+        .article-banner {
+            height: 4.5rem;
+            height: 50vh;
         }
     }
 }
