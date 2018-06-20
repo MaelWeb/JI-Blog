@@ -422,64 +422,15 @@
 @import './Message/index.less';
 @import '~antd/lib/message/style/index.less';
 
-@media screen and (min-width: 1680px) {
-    .blog-articles-layout {
-        width: 60%;
-
-        .banners {
-            height: 4.8rem;
-            height: 50vh;
-        }
-
-        .banners-two {
-            height: 3.7rem;
-            .banner-item .text {
-                padding: .05rem .1rem;
-                font-size: .16rem;
-            }
-        }
-
-        .banners-three {
-            height: 4.5rem;
-            height: 41vh;
-            .left-col .text {
-                padding: .05rem .1rem;
-                font-size: .16rem;
-            }
-
-            .right-col .text {
-                padding: .03rem .05rem;
-            }
-
-            .right-col .banner-item {
-                font-size: .14rem;
-            }
-        }
-    }
-    .blog-books-layout {
-
-        .books-list {
-            width: 80%;
-
-            .blog-books-item {
-                width: 25%;
-            }
-        }
+@media screen and (min-width: 1367px) {
+    .page-main > [class*=layout] {
+        margin: 0 auto;
+        width: 1366px;
     }
 
-    .blog-header {
-        height: .45rem;
-        padding: .1rem .2rem;
-        font-size: .16rem;
-        .logo {
-            width: .7rem;
-        }
-    }
-
-    .blog-article-layout {
-        .article-banner {
-            height: 4.5rem;
-            height: 50vh;
+    .blog-footer {
+        .footer-content {
+            width: 1366px;
         }
     }
 }
