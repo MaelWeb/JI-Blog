@@ -75,7 +75,7 @@ export default class Message extends Component {
         Axios.get('/api/get/comments', {
             params: {
                 page: 1,
-                size: 10
+                size: 15
             }
         })
         .then( res => {

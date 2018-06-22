@@ -125,7 +125,7 @@ export default class CommentInput extends Component {
             <div className={ ClassNames("blog-comment-input", {[className]: className}) }>
                 <div className={ ClassNames("blog-comment-input-textarea", { focus: textareaFocus }) } >
                     <textarea id="JI_Comment_Input" rows="4" ref="commentText" onFocus={ () => { this.toggleFocus(true) } } onBlur={ () => { this.toggleFocus(false) } } ></textarea>
-                    { !textareaFocus  ? <span onClick={ this.placeholderClick  } className="blog-comment-input-textarea-placeholder">{placeholder}</span> : null}
+                    { !textareaFocus  ? <span onClick={ this.placeholderClick  } className="blog-comment-input-textarea-placeholder nowrapmulti">{placeholder}</span> : null}
                     <div className="send-box">
                         <button onClick={ this.toggleEmoji } ><Icon type='emoji' size="large" /></button>
                         <button onClick={ this.exportComment }><Icon size="large" type='send' /></button>

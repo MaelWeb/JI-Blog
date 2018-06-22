@@ -64,6 +64,10 @@ export default class Article extends Component {
         }
     }
 
+    commentDidUpdate() {
+        console.log(11);
+    }
+
     render() {
         let { article, commentsData } = this.state;
         const { match: {params} } = this.props;
@@ -71,17 +75,20 @@ export default class Article extends Component {
         let cls = ClassNames('blog-article-layout', { [`blog-article-${_article.category && _article.category.toLocaleLowerCase()}`]:  _article.category});
         return (
             <div className={cls} >
-            <div className="blog-article-layout-wrap">
-                { _article.category == "TRAVEL" ? <div className="article-banner" style={{backgroundImage: `url(${ _article.banner ? _article.banner : "//cdn.liayal.com/12027196.jpg" })`} }>
-                    <div className="article-banner-mask"> <h2 className="article-title tc">{_article.title}</h2></div>
-                </div> : null}
+            <div className="blog-article-layout-wrap width-limit">
+                <div className="article-banner">
+                    <img src={ _article.banner ? _article.banner : ( _article.category != "TRAVEL" ? "//cdn.liayal.com/2018062104.jpeg" : '//cdn.liayal.com/2018062102.jpg' )} alt="" className="banner"/>
+                    <div className="article-title-box">
+                        <h2 className="article-title tc">{_article.title}</h2>
+                        <p className="article-desc">
+                            <span><Icon type='date' /> {Moment(_article.createTime).format('LL')}</span>
+                            { _article.tags && _article.tags.length ? <span className="ml"><Icon type='cc-tag' /> {_article.tags.map( tag => tag.name + ' ')}</span> : null }
+                            <span className="ml"><Icon type='visit' /> {_article.visited || 0}</span>
+                        </p>
+                    </div>
+                </div>
                 { article ? <article className='blog-article-body'>
-                    { _article.category != "TRAVEL" ? <h2 className="article-title"><p><em>{_article.title}</em></p></h2> : null}
-                    <p className="article-desc" hidden>
-                        <span><Icon type='date' /> {Moment(_article.createTime).format('LL')}</span>
-                        { _article.tags && _article.tags.length ? <span className="ml"><Icon type='cc-tag' /> {_article.tags.map( tag => tag.name + ' ')}</span> : null }
-                        <span className="ml"><Icon type='visit' /> {_article.visited || 0}</span>
-                    </p>
+                    {/** _article.category != "TRAVEL" ? <h2 className="article-title"><p><em>{_article.title}</em></p></h2> : null **/}
                     <div className="article-content" dangerouslySetInnerHTML={ {__html: _article.htmlContent } } />
                     <div className='article-tips'>
                         <p>如非特别注明，文章皆为原创。</p>

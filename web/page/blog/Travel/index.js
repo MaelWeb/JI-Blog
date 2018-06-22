@@ -102,11 +102,11 @@ export default class Travel extends Component {
                         <p className="sub-title">{ travels[0] ? travels[0].abstract : '' }</p>
                     </div>: null}
                 </Link></div>
-                <div className="middle-text tc">
+                <div className="middle-text tc width-limit">
                     <h2>我从旅行中获得乐趣</h2>
                     <p>一个人，一条路，人在途中，心随景动，从起点，到尽头，也许快乐，或有时孤独，如果心在远方，只需勇敢前行，梦想自会引路，有多远，走多远，把足迹连成生命线。</p>
                 </div>
-                <Masonry className="travel-article-list">
+                <Masonry className="travel-article-list width-limit">
                     { travels.length ? travels.map( (article, index) => {
                         return index != 0 ? (
                                 <div className="article-item"  key={article.id} ><Link to={`/article/${article.id}`} >

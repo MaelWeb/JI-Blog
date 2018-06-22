@@ -9,7 +9,6 @@
     "build:dll": "webpack --config ./build/webpack.dll.config.js",
     "build": "npm run clean && cross-env NODE_ENV=production  webpack --config ./build/webpack.server.config.js && cross-env NODE_ENV=production webpack --config ./build/webpack.prod.config.js",
     "start": "pm2 start ./dist/server/server.js --watch",
-    "upload": "node ./build/upload2qiniu && npm run scp",
     "scp": "scp -r dist/ package.json root@118.126.82.201:~/blog",
     "analyz": "cross-env NODE_ENV=production npm_config_report=true npm run build",
     "clean": "rimraf dist/client/js dist/client/css dist/client/font dist/client/images"
