@@ -137,7 +137,7 @@
 
     .header-wrap {
         width: 100%;
-        // height: .35rem;
+        height: .35rem;
         padding: .05rem .2rem;
         background-color: #fff;
         border-top: .04rem solid #212121;
@@ -230,10 +230,12 @@
     }
 
     &.show-nav {
-        padding: .2rem;
-        height: 100%;
-        background-color: #212121;
-        color: #fff;
+        .header-wrap {
+            padding: .2rem;
+            height: 100%;
+            background-color: #212121;
+            color: #fff;
+        }
 
         .black {
             display: none;
