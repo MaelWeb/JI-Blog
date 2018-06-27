@@ -5,7 +5,7 @@
 ![](https://img.shields.io/badge/node-%3E%3D7.0.0-blue.svg) ![](https://img.shields.io/badge/mongodb-v3.4.10-blue.svg) ![](https://img.shields.io/badge/koa-v2.3.0-blue.svg) ![](https://img.shields.io/badge/antd-v3.1.3-blue.svg) ![](https://img.shields.io/badge/react-v16.0.0-blue.svg) ![](https://img.shields.io/badge/webpack-v4.10.2-blue.svg)
 ![](https://img.shields.io/travis/rust-lang/rust.svg) ![](https://img.shields.io/github/license/mashape/apistatus.svg)
 
-<img src="http://p1jovxa55.bkt.clouddn.com/blog_screen.jpg" />
+<img src="https://cdn.liayal.com/blog_screen.jpg" />
 
 
 ### 特性
