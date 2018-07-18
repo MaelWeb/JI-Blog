@@ -12,8 +12,8 @@ let config = {
         useMongoClient: true
     },
     upload: {
-        ACCESS_KEY: 'v6NxwNQtqVpK0Z51X0iq-YXv0Fo8qlFcVxnlYbO6',
-        SECRET_KEY: 'b5p89rqZeO8KJEjEvOp3Pk2fHtKEToE5PdSmQLRq'
+        ACCESS_KEY: 'v6NxwNQtqVpK0**********Fo8qlFcVxnlYbO6',
+        SECRET_KEY: 'b5p89rqZeO8K**********tKEToE5PdSmQLRq'
     },
     InvitationCode: "1111",
     wechat: {

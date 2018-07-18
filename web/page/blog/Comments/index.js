@@ -105,7 +105,7 @@ export default class Comments extends Component {
                 let resdata = res.data;
                 if (resdata.code  == 200) {
                     this.getComments(0);
-                    data.reply ? this.refs.replyInput.clearTextarea() : this.refs.commentInput.clearTextarea();
+                    resdata.reply ? this.refs.replyInput.clearTextarea() : this.refs.commentInput.clearTextarea();
                     this.setState({
                         showUserInfo: false,
                         isShowReplyModal: false,
@@ -130,7 +130,8 @@ export default class Comments extends Component {
 
     closeReplyModal = () => {
         this.setState({
-            isShowReplyModal: false
+            isShowReplyModal: false,
+            reply: null
         })
     }
 
@@ -165,13 +166,13 @@ export default class Comments extends Component {
             params: {
                 articleid: this.props.articleid,
                 page: page,
-                size: PageSize
+                size: 20
             }
         })
         .then( res => {
             let resData = res.data;
             this.setState({
-                commentsData: resdata
+                commentsData: resData
             })
         });
     }
