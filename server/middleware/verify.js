@@ -1,5 +1,7 @@
 import jwt from 'jsonwebtoken';
 import config from '../config/';
+
+
 export async function apiVerify(ctx, next) {
     const token = ctx.cookies.get('access_token');
     if (token === '') {

@@ -5,6 +5,7 @@ import koaStatic from 'koa-static';
 import views from 'koa-views';
 import path from 'path';
 import compress from 'koa-compress';
+import session from 'koa-session-minimal'
 
 import _Config from './config';
 import Router from './router';
@@ -59,6 +60,8 @@ App.use(views(path.resolve(process.cwd(), './dist/client'), {
 App.use(koaStatic(
     path.resolve(process.cwd(), './dist/client/')
 ));
+
+App.use(session());
 
 // 使用ctx.body解析中间件
 App.use(bodyParser());

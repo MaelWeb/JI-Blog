@@ -1,5 +1,8 @@
 import Superagent from 'superagent';
 import Cheerio from 'cheerio';
+import GeeTest from '../lib/geetest';
+import { os } from '../lib/utils';
+
 // import WechatService from '../middleware/wechat_service';
 // import config from '../config/';
 
@@ -9,7 +12,7 @@ export async function getOneContent(ctx) {
     let result = {
         code: 200,
         message: '',
-        data:[]
+        data: []
     };
 
     await Superagent.get("http://wufazhuce.com")
@@ -50,12 +53,40 @@ export async function pushToBaidu(ctx) {
 
     await Superagent.post(`http://data.zz.baidu.com/urls?site=www.liayal.com&token=kdDIO6Gl2EqQOofj`)
         .send(postData.url)
-        .then(function (res ){
-            result = res.text;
+        .then(function(res) {
+            result = res.body;
         });
 
     ctx.body = result;
     return result;
+}
+
+
+export async function geeTestRegister(ctx) {
+    let result = {
+        code: 200,
+        data: {},
+        message: '',
+    };
+
+    const clientType = os(ctx.request['user-agent']);
+
+    const gtConfig = await GeeTest.register({
+        ip_address: ctx.request.host,
+        client_type: clientType.isTablet || clientType.isAndroid || clientType.isPhone ? "h5" : "web"
+    });
+
+    if ( !gtConfig ) {
+        request.code = 500;
+    } else {
+        ctx.session.fallback = (gtConfig.code == 201) ? true : false;
+        result.data = gtConfig.data;
+        result.data['offline'] = (gtConfig.code == 201) ? true : false;
+    }
+
+    ctx.body = result;
+
+    return ctx.body;
 }
 
 // export async function wechatConfig(ctx) {

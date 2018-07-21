@@ -15,6 +15,10 @@ let config = {
         ACCESS_KEY: 'v6NxwNQtqVpK0**********Fo8qlFcVxnlYbO6',
         SECRET_KEY: 'b5p89rqZeO8K**********tKEToE5PdSmQLRq'
     },
+    geetest: {
+        ID: "108814b3c95**********dc8d988bc76d12",
+        KEY: "48b9103efc**********e6679ceabd6e08c"
+    },
     InvitationCode: "1111",
     wechat: {
         host: 'https://api.weixin.qq.com',
