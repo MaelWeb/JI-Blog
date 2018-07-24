@@ -62,11 +62,6 @@ export default class Article extends Component {
         if (article) {
             document.title = `${article.title}  - 「JI · 记小栈」`;
         }
-
-        Axios.get('/api/geetest/register')
-            .then( res => {
-                console.log(res);
-            })
     }
 
     commentDidUpdate() {

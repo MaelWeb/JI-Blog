@@ -16,8 +16,8 @@ let config = {
         SECRET_KEY: 'b5p89rqZeO8K**********tKEToE5PdSmQLRq'
     },
     geetest: {
-        ID: "108814b3c95**********dc8d988bc76d12",
-        KEY: "48b9103efc**********e6679ceabd6e08c"
+        ID: "108814b3c95d63******caf2dc8d988bc76d12",
+        KEY: "48b9103efcceee1******f1e6679ceabd6e08c"
     },
     InvitationCode: "1111",
     wechat: {

@@ -48,11 +48,11 @@ class App extends Component {
 
         document.title = titleMap[this.props.location.pathname] || '「JI · 记小栈」';
 
-        // if (process.env.NODE_ENV == 'production') {
+        if (process.env.NODE_ENV == 'production') {
             Axios.post('/api/push/baidu', {
                 url: window.location.href
             });
-        // }
+        }
     }
 
     render() {

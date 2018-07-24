@@ -45,8 +45,11 @@ export default class Comments extends Component {
         });
     }
 
+    componentDidMount() {
+    }
+
     preventDefault = (e) => {
-         e.preventDefault();
+        e.preventDefault();
     }
 
     exportComment = commentCont => {
@@ -79,14 +82,14 @@ export default class Comments extends Component {
             emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/g;
         const { reply, commentCont } = this.state;
 
-        if (!email || !name ) return message.info('填一下昵称和邮箱呗！');
+        if (!email || !name) return message.info('填一下昵称和邮箱呗！');
 
         if (!emailReg.test(email)) return message.info('邮箱格式不正确呀！');
 
-        window.localStorage.setItem('_liayal_user', JSON.stringify({name, email, site}));
+        window.localStorage.setItem('_liayal_user', JSON.stringify({ name, email, site }));
 
         this.saveComment({
-            user: {name, email, site},
+            user: { name, email, site },
             reply: reply ? reply.id : null,
             commentCont
         });
@@ -100,10 +103,10 @@ export default class Comments extends Component {
 
     saveComment(data) {
         const { articleid } = this.props;
-        Axios.post('/api/create/comment', {...data, articleid})
-            .then( res => {
+        Axios.post('/api/create/comment', { ...data, articleid })
+            .then(res => {
                 let resdata = res.data;
-                if (resdata.code  == 200) {
+                if (resdata.code == 200) {
                     this.getComments(0);
                     resdata.reply ? this.refs.replyInput.clearTextarea() : this.refs.commentInput.clearTextarea();
                     this.setState({
@@ -116,7 +119,7 @@ export default class Comments extends Component {
                     message.warning(resdata.message);
                 }
             })
-            .catch( err => {
+            .catch(err => {
                 message.warning('发布失败');
             })
     }
@@ -142,15 +145,15 @@ export default class Comments extends Component {
             createDate = createTime.getDate(),
             diff = now.getTime() - date;
         // 1分钟内
-        if (diff < 1000 * 60 ) {
+        if (diff < 1000 * 60) {
             return '刚刚';
         } else if (diff < 1000 * 60 * 60) {
             // 1小时内
             return `${Math.ceil(diff / (1000 * 60))}分钟前`;
-        } else if ( (diff < 1000 * 60 * 60 * 24) && (nowDate == createDate) ) {
+        } else if ((diff < 1000 * 60 * 60 * 24) && (nowDate == createDate)) {
             // 当天内
             return `今天 ${Moment(date).format('HH:mm')}`;
-        } else if (now.getYear() == createTime.getYear() ) {
+        } else if (now.getYear() == createTime.getYear()) {
             return Moment(date).format('MM-DD HH:mm');
         } else {
             return Moment(date).format('lll');
@@ -163,18 +166,18 @@ export default class Comments extends Component {
 
     getComments(page) {
         Axios.get('/api/get/comments', {
-            params: {
-                articleid: this.props.articleid,
-                page: page,
-                size: 20
-            }
-        })
-        .then( res => {
-            let resData = res.data;
-            this.setState({
-                commentsData: resData
+                params: {
+                    articleid: this.props.articleid,
+                    page: page,
+                    size: 20
+                }
             })
-        });
+            .then(res => {
+                let resData = res.data;
+                this.setState({
+                    commentsData: resData
+                })
+            });
     }
 
     render() {

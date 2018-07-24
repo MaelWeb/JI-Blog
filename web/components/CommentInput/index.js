@@ -5,6 +5,8 @@ import Icon from '../Icon';
 import ClassNames from 'classnames';
 import EmojiData from './data';
 import Emojify from '../Emoji';
+import Axios from 'axios';
+import { message } from 'antd';
 
 export default class CommentInput extends Component {
     constructor(props) {
@@ -24,12 +26,40 @@ export default class CommentInput extends Component {
     static defaultPropTypes = {
         exportComment: PropTypes.func,
         isShowBtn: PropTypes.boolen,
-        placeholder:PropTypes.string
+        placeholder: PropTypes.string
     };
 
     componentDidMount() {
         // this.textareaDom = document.getElementById(this.textareaId);
         this.textareaDom = ReactDOM.findDOMNode(this.refs.commentText);
+        Axios.get('/api/geetest/register')
+            .then(res => {
+                let resData = res.data;
+                if (resData.code == 200) {
+                    initGeetest({
+                        ...resData.data,
+                        product: 'bind'
+                    }, captchaObj => {
+                        this.geeTest = captchaObj;
+
+                        this.geeTest.onReady(function() {
+
+                            this.isGeeTestReady = true;
+
+                        }).onSuccess(() => {
+
+                            const commentCont = this.refs.commentText.value;
+                            this.props.exportComment(commentCont);
+
+                        }).onError(() => {
+
+                            message.warn("验证码报错叻，呆会儿再试吧");
+
+                        })
+                    })
+                }
+
+            })
     }
 
     addEmoji = (event) => {
@@ -48,13 +78,13 @@ export default class CommentInput extends Component {
     }
 
     //获取光标位置
-    getCaretPosition () {
+    getCaretPosition() {
         let CaretPos = 0;
         if (document.selection) {
             // IE Support
-            this.textareaDom.focus ();
-            let Sel = document.selection.createRange ();
-            Sel.moveStart ('character', -this.textareaDom.value.length);
+            this.textareaDom.focus();
+            let Sel = document.selection.createRange();
+            Sel.moveStart('character', -this.textareaDom.value.length);
             CaretPos = Sel.text.length;
         } else if (this.textareaDom.selectionStart || this.textareaDom.selectionStart == '0') {
             // Firefox support
@@ -65,10 +95,10 @@ export default class CommentInput extends Component {
     }
 
     //设置光标位置函数
-    setCaretPosition(pos){
-        if(this.textareaDom.setSelectionRange) {
+    setCaretPosition(pos) {
+        if (this.textareaDom.setSelectionRange) {
             this.textareaDom.focus();
-            this.textareaDom.setSelectionRange(pos,pos);
+            this.textareaDom.setSelectionRange(pos, pos);
         } else if (this.textareaDom.createTextRange) {
             var range = this.textareaDom.createTextRange();
             range.collapse(true);
@@ -98,8 +128,7 @@ export default class CommentInput extends Component {
     }
 
     exportComment = (event) => {
-        const commentCont = this.refs.commentText.value;
-        this.props.exportComment(commentCont);
+        this.geeTest.verify();
     }
 
     clearTextarea = () => {

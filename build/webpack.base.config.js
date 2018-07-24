@@ -75,7 +75,7 @@ module.exports = {
         },
     },
     externals: {
-        jquery: "$"
+        jquery: "$",
     },
     plugins: [
         new MiniCssExtractPlugin({
