@@ -12,8 +12,8 @@ let config = {
         useMongoClient: true
     },
     upload: {
-        ACCESS_KEY: 'v6NxwNQtqVpK0Z51X0iq-YXv0Fo8qlFcVxnlYbO6',
-        SECRET_KEY: 'b5p89rqZeO8KJEjEvOp3Pk2fHtKEToE5PdSmQLRq'
+        ACCESS_KEY: 'v6NxwNQtqVpK0Z******v0Fo8qlFcVxnlYbO6',
+        SECRET_KEY: 'b5p89rqZ******vOp3Pk2fHtKEToE5PdSmQLRq'
     },
    geetest: {
         ID: "108814b3c95d6*****3caf2dc8d988bc76d12",
