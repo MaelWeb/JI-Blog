@@ -12,12 +12,12 @@ let config = {
         useMongoClient: true
     },
     upload: {
-        ACCESS_KEY: 'v6NxwNQtqVpK0**********Fo8qlFcVxnlYbO6',
-        SECRET_KEY: 'b5p89rqZeO8K**********tKEToE5PdSmQLRq'
+        ACCESS_KEY: 'v6NxwNQtqVpK0Z51X0iq-YXv0Fo8qlFcVxnlYbO6',
+        SECRET_KEY: 'b5p89rqZeO8KJEjEvOp3Pk2fHtKEToE5PdSmQLRq'
     },
-    geetest: {
-        ID: "108814b3c95d63******caf2dc8d988bc76d12",
-        KEY: "48b9103efcceee1******f1e6679ceabd6e08c"
+   geetest: {
+        ID: "108814b3c95d6*****3caf2dc8d988bc76d12",
+        KEY: "48b9103e*****fcceee1f1e6679ceabd6e08c"
     },
     InvitationCode: "1111",
     wechat: {
