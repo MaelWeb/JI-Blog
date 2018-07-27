@@ -102,7 +102,7 @@ export default class Books extends Component {
     render() {
         const { books, isLoading, banner } = this.state;
         return (
-            <div className="blog-books-layout clearfix">
+            <div className="blog-books-layout clearfix width-limit">
                 <div className="blog-books-header" ref='bookHeader' >
                     <img src="//cdn.liayal.com/image/books_banner.jpg" alt=""/>
                     <div className="text-wrap">

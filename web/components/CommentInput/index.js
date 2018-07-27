@@ -6,7 +6,7 @@ import ClassNames from 'classnames';
 import EmojiData from './data';
 import Emojify from '../Emoji';
 import Axios from 'axios';
-import { message } from 'antd';
+import { Toast } from '../UI';
 
 export default class CommentInput extends Component {
     constructor(props) {
@@ -53,7 +53,7 @@ export default class CommentInput extends Component {
 
                         }).onError(() => {
 
-                            message.warn("验证码报错叻，呆会儿再试吧");
+                            Toast.warn("验证码报错叻，呆会儿再试吧");
 
                         })
                     })
@@ -128,7 +128,9 @@ export default class CommentInput extends Component {
     }
 
     exportComment = (event) => {
-        this.geeTest.verify();
+        const commentCont = this.refs.commentText.value;
+        if (!commentCont) return Toast.info("写点什么吧～")
+        // this.geeTest.verify();
     }
 
     clearTextarea = () => {

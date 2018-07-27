@@ -125,8 +125,8 @@ export default class Photo extends Component {
     render() {
         const { photoes, width, showPhotoView, currentPhotoIndex, isShowImageGallery, imageGalleryIndex, isLoading } = this.state;
         return(
-            <div className="blog-photo-layout">
-                <section className="photo-banner" ref='photoHeader' style={{backgroundImage: `url(${ photoes[0] && photoes[0].src || '//cdn.liayal.com/14506926.jpg'})`} } >
+            <div className="blog-photo-layout width-limit">
+                <section className="photo-banner header-banner" ref='photoHeader' style={{backgroundImage: `url(${ photoes[0] && photoes[0].src || '//cdn.liayal.com/14506926.jpg'})`} } >
                     <img src={ photoes[0] && photoes[0].src || '//cdn.liayal.com/14506926.jpg'} alt=""/>
                     <div className="photo-banner-info">
                         <p className="small" ><span>图记</span></p>

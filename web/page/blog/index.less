@@ -5,7 +5,6 @@
 @import '../../components/ScrollToTop/index.less';
 @import '../../components/CommentInput/index.less';
 
-
 /** antd **/
 
 .anticon {
@@ -108,56 +107,63 @@
     }
 }
 
-
-
-
-
 /** antd end **/
 
-.blog-layout {
+.page {
     height: auto;
     min-height: 5rem;
     padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
 }
 
 [class*=layout] {
-    padding: .1px;
-    min-height: calc(~"100vh - .32rem");
+    min-height: calc(~"100vh - 2.5rem");
 }
 
 .blog-header {
     position: fixed;
     top: 0;
-    font-size: .1rem;
+    width: 100%;
+    height: .5rem;
+    // font-size: .12rem;
     color: #212121;
     z-index: 2;
     overflow: hidden;
-    width: 100%;
-    height: .35rem;
     transition: all .6s;
 
     .header-wrap {
         width: 100%;
         height: 100%;
-        padding: .05rem .2rem;
+        padding: .12rem 0 .1rem;
         background-color: #fff;
-        border-top: .04rem solid #212121;
+        border-top: 4px solid #212121;
         border-bottom: 1px solid #ccc;
         transition: all .6s;
-        line-height: .22rem;
+        line-height: 1;
+    }
+
+    &.blog-artilces-header .header-wrap {
+        border-top: 4px solid transparent;
+        border-bottom: 1px solid transparent;
     }
 
     .nav-list {
         transition: all .4s;
         transform: translateY(0);
+        line-height: .22rem;
+        font-size: .16rem;
         a {
             display: inline-block;
-            padding: 0 .2rem;
+            padding: 0 .12rem;
 
             &:hover {
                 color: #d1a47d;
             }
         }
+    }
+
+    .nav-pc {
+        position: relative;
+        padding: 0 .2rem;
     }
 
     &.blog-travel-header,
@@ -191,27 +197,28 @@
         }
 
         .nav-list {
-            transform: translateY(-200%);
-        }
-
-        @media screen and (min-width: 421px) {
-            &:hover {
-                .menu {
-                    transform: translateY(-200%);
-                }
-
-                .nav-list {
-                    transform: translateY(0);
-                }
-            }
+            transform: translateY(-300%);
         }
     }
 
+    // @media screen and (min-width: 769px) {
+    //     &.blog-travel-header:hover,
+    //     &.blog-photoes-header:hover,
+    //     &.blog-message-header:hover {
+    //         .menu {
+    //             transform: translateY(-300%);
+    //         }
+
+    //         .nav-list {
+    //             transform: translateY(0);
+    //         }
+    //     }
+    // }
+
     &.blog-article-header {
         .header-wrap {
-            background-color: rgba(255, 255, 255, .8);
-            border-color: #212121;
-            border-bottom: none;
+            background-color: transparent;
+            border: none;
             box-shadow: none;
         }
 
@@ -261,6 +268,9 @@
     }
 
     .menu {
+        position: absolute;
+        right: .2rem;
+        top: 0;
         width: .21rem;
         height: .21rem;
         color: #fff;
@@ -273,7 +283,7 @@
         line-height: .21rem;
         overflow: hidden;
         transition: all .4s;
-        transform: translateY(-150%);
+        transform: translateY(-300%);
         box-sizing: border-box;
     }
 
@@ -284,7 +294,7 @@
     }
 
     .logo {
-        width: .6rem;
+        width: .8rem;
         display: block;
     }
 
@@ -298,7 +308,7 @@
         width: 40%;
         height: 0; // padding: .1rem;
         overflow: hidden; // opacity: 0;
-        transition: height 1s;
+        transition: height .6s;
         a {
             width: 100%;
             height: 20%;
@@ -333,10 +343,11 @@
 }
 
 .middle-text {
-    padding: .4rem 20%;
+    padding: .5rem 25% 1rem;
+    color: #4a3f29;
     h2 {
         font-size: .2rem;
-        color: #4c402a;
+        color: #493f35;
         line-height: 3;
         font-weight: bold;
     }
@@ -383,6 +394,15 @@
         font-size: .12rem;
         border-top: 1px solid #666;
     }
+}
+
+.header-banner {
+    padding-top: 49.6%;
+    // height: 6rem;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-color: #ccc;
 }
 
 
@@ -448,9 +468,13 @@
 @import '~antd/lib/message/style/index.less';
 
 @media screen and (min-width: 1560px) {
-   .width-limit {
+    .width-limit {
         margin: 0 auto;
         max-width: 1560px;
+    }
+
+    .blog-article-header .width-limit {
+        max-width: none;
     }
 
     .blog-books-layout .blog-books-header .text-wrap {
@@ -459,14 +483,8 @@
     }
 
     .blog-articles-layout {
-        .banners {
-            height: 5rem;
-            height: 60vh;
-        }
 
         .banners-two {
-            height: 3.7rem;
-            height: 30vh;
             .banner-item .text {
                 padding: .05rem .1rem;
                 font-size: .16rem;
@@ -474,8 +492,6 @@
         }
 
         .banners-three {
-            height: 4.5rem;
-            height: 40vh;
             .left-col .text {
                 padding: .05rem .1rem;
                 font-size: .16rem;
@@ -492,26 +508,22 @@
     }
 
     .blog-header {
-        font-size: .16rem;
-
-        .logo {
-            width: .7rem;
-        }
+        font-size: .16rem; // .logo {
+        //     width: .7rem;
+        // }
     }
-
 }
 
-@media screen and (max-width: 1560px) {
+@media screen and (max-width: 1366px) {
     .blog-articles-layout {
-        width: 80%;
 
-        .banners {
-            height: 3.8rem;
-            height: 60vh;
+        .banners,
+        .blog-tags,
+        .blog-articles-list {
+            width: 80%;
         }
 
         .banners-two {
-            height: 2.7rem;
             .banner-item .text {
                 padding: .05rem .1rem;
                 font-size: .16rem;
@@ -519,7 +531,6 @@
         }
 
         .banners-three {
-            height: 3.5rem;
             .left-col .text {
                 padding: .05rem .1rem;
                 font-size: .16rem;
@@ -532,37 +543,6 @@
             .right-col .banner-item {
                 font-size: .14rem;
             }
-        }
-    }
-
-    .blog-photo-layout {
-        .photo-banner {
-            height: 4rem;
-            height: 75vh;
-        }
-    }
-
-    .blog-article-layout {
-        .blog-article-layout-wrap {
-            width: 80%;
-        }
-
-        .article-content {
-            padding: 0 .75rem;
-            .image {
-                margin: .1rem -.75rem;
-        }
-
-            pre.prettyprint {
-                margin: 1em -.75rem;
-    }
-        }
-    }
-
-    .blog-travel-layout {
-        .traverl-header {
-            height: 4rem;
-            height: 75vh;
         }
     }
 
@@ -572,26 +552,12 @@
             line-height: 2;
         }
     }
-
-    .blog-header {
-        font-size: .14rem;
-
-        .logo {
-            width: .7rem;
-        }
-    }
 }
 
 @media screen and (max-width: 1024px) {
     .blog-articles-layout {
-        width: 80%;
-
-        .banners {
-            height: 3.5rem;
-        }
 
         .banners-two {
-            height: 2.2rem;
             .banner-item .text {
                 padding: .05rem .1rem;
                 font-size: .16rem;
@@ -599,7 +565,6 @@
         }
 
         .banners-three {
-            height: 3rem;
             .left-col .text {
                 padding: .05rem .1rem;
                 font-size: .16rem;
@@ -612,18 +577,6 @@
             .right-col .banner-item {
                 font-size: .14rem;
             }
-        }
-    }
-
-    .blog-travel-layout {
-        .traverl-header {
-            height: 3rem;
-        }
-    }
-
-    .blog-photo-layout {
-        .photo-banner {
-            height: 3rem;
         }
     }
 
@@ -644,25 +597,14 @@
 
     .blog-article-layout {
         .blog-article-layout-wrap {
-            width: 95%;
+            width: 80%;
         }
     }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 768px) {
 
     .blog-articles-layout {
-        .banners {
-            height: 3rem;
-        }
-
-        .banners-two {
-            height: 1.8rem;
-        }
-
-        .banners-three {
-            height: 2.4rem;
-        }
     }
 
     .blog-article-layout {
@@ -670,40 +612,27 @@
         background-color: #fff;
 
         .blog-article-layout-wrap {
-            width: 100%;
+            width: 90%;
         }
 
-        .article-content {
-            padding: 0 .8rem;
-            .image {
-                margin: .1rem -.8rem;
-        }
-
-            pre.prettyprint {
-                margin: 1em -.8rem;
-    }
+        .article-tips {
+            padding: .05rem .1rem;
         }
     }
 
     .blog-travel-layout {
-        .traverl-header {
-            height: 2.8rem;
-             :after {
-                bottom: -0.11rem;
-                padding: .03rem .06rem;
-                font-size: .2rem;
-            }
+        .traverl-header:after {
+            bottom: -0.11rem;
+            padding: .03rem .06rem;
+            font-size: .2rem;
         }
     }
 
     .blog-photo-layout {
-        .photo-banner {
-            height: 2.8rem;
-            &:after {
-                bottom: -0.11rem;
-                padding: .03rem .06rem;
-                font-size: .2rem;
-            }
+        .photo-banner:after {
+            bottom: -0.11rem;
+            padding: .03rem .06rem;
+            font-size: .2rem;
         }
     }
 
@@ -790,15 +719,19 @@
         }
     }
 
-    .blog-articles-layout {
-        width: 95%;
+    .header-banner {
+        padding-top: 0;
+        height: 2.4rem;
+    }
 
-        .banners {
-            height: 2rem;
+    .blog-articles-layout {
+        .banners,
+        .blog-tags,
+        .blog-articles-list {
+            width: 95%;
         }
 
         .banners-two {
-            height: 1.2rem;
             .banner-item .text {
                 padding: .01rem .03rem;
                 font-size: .14rem;
@@ -806,7 +739,6 @@
         }
 
         .banners-three {
-            height: 1.5rem;
             .left-col .text {
                 padding: .04rem .05rem;
                 font-size: .12rem;
@@ -829,27 +761,6 @@
     }
 
     .blog-article-layout {
-        .article-banner {
-            .article-title {
-                margin: .08rem 0;
-                font-size: .18rem;
-        }
-
-            .article-title-box {
-                padding: 0 .3rem;
-            }
-        }
-
-        .article-content {
-            padding: 0 .3rem;
-            .image {
-                margin: .1rem -.3rem;
-            }
-
-            pre.prettyprint {
-                margin: 1em -.3rem;
-            }
-            }
 
         .article-tips {
             padding: .05rem .3rem;
@@ -864,8 +775,7 @@
 
 
     .blog-travel-layout {
-        .traverl-header {
-            height: 2rem;
+        .travel-header {
             .aticle-info {
                 padding: .05rem .1rem;
                 width: 85%;
@@ -899,7 +809,7 @@
         .article-item {
             padding: .05rem;
             .article-title {
-                bottom: .08rem;
+                bottom: .15rem;
                 padding: 0 .1rem;
                 line-height: 1.4;
                 font-size: .1rem;
@@ -918,16 +828,6 @@
                 margin-bottom: .05rem;
                 font-size: .14rem;
             }
-        }
-    }
-
-    .blog-photo-layout {
-        .photo-banner {
-            height: 2rem;
-        }
-        .photo-list {
-            width: 90%;
-            padding: 0 1%;
         }
     }
 

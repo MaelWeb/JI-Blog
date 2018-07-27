@@ -7,7 +7,8 @@ import ClassNames from 'classnames';
 import CommentInput from '../../../components/CommentInput';
 import MessageItem from './message.js';
 import Masonry from 'react-masonry-component';
-import { message, Pagination } from 'antd';
+import { Pagination } from 'antd';
+import { Toast } from '../../../components/UI';
 import Icon from '../../../components/Icon';
 import { getTimeString } from '../Util';
 import Emojify from '../../../components/Emoji';
@@ -136,7 +137,7 @@ export default class Message extends Component {
             avatar: 'https://cdn.liayal.com/image/logo_min.png'
         } : window.localStorage.getItem('_liayal_user');
 
-        if (!commentCont) return message.info('你倒是写点什么啊！');
+        if (!commentCont) return Toast.info('你倒是写点什么啊！');
 
         if (user && commentCont) {
             this.saveComment({
@@ -159,9 +160,9 @@ export default class Message extends Component {
             emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/g;
         const { reply, commentCont } = this.state;
 
-        if (!email || !name ) return message.info('填一下昵称和邮箱呗！');
+        if (!email || !name ) return Toast.info('填一下昵称和邮箱呗！');
 
-        if (!emailReg.test(email)) return message.info('邮箱格式不正确呀！');
+        if (!emailReg.test(email)) return Toast.info('邮箱格式不正确呀！');
 
         window.localStorage.setItem('_liayal_user', JSON.stringify({name, email, site}));
 
@@ -194,11 +195,11 @@ export default class Message extends Component {
                         commentCont: null
                     });
                 } else {
-                    message.warning(resdata.message);
+                    Toast.warn(resdata.message);
                 }
             })
             .catch( err => {
-                message.warning('发布失败');
+                Toast.warn('发布失败');
             })
     }
 
@@ -232,8 +233,8 @@ export default class Message extends Component {
         let randomIndex = Math.floor(Math.random() * (messageBanners.length - 1) ) + 1,
             header = messageBanners[randomIndex] || {};
         return (
-            <div className="blog-message-layout">
-                <div className="blog-message-header" style={{ backgroundImage: `url(//cdn.liayal.com/banner/pexels-photo-1096848.jpeg)` }} ref="mressageHeader" >
+            <div className="blog-message-layout width-limit">
+                <div className="blog-message-header header-banner" style={{ backgroundImage: `url(//cdn.liayal.com/banner/pexels-photo-1096848.jpeg)` }} ref="mressageHeader" >
                     <div className="blog-message-header-input">
                         <CommentInput exportComment={ this.exportComment } placeholder={ header.text } ref='commentInput' />
                     </div>

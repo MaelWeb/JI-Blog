@@ -7,6 +7,7 @@ import Emojify from '../../../components/Emoji';
 import CommentInput from '../../../components/CommentInput';
 import Axios from 'axios';
 import { message, Pagination } from 'antd';
+import { Toast } from  '../../../components/UI';
 import { getTimeString } from '../Util';
 
 const emojiStyle = {
@@ -82,9 +83,9 @@ export default class Comments extends Component {
             emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/g;
         const { reply, commentCont } = this.state;
 
-        if (!email || !name) return message.info('填一下昵称和邮箱呗！');
+        if (!email || !name) return Toast.info('填一下昵称和邮箱呗！');
 
-        if (!emailReg.test(email)) return message.info('邮箱格式不正确呀！');
+        if (!emailReg.test(email)) return Toast.info('邮箱格式不正确呀！');
 
         window.localStorage.setItem('_liayal_user', JSON.stringify({ name, email, site }));
 
@@ -116,11 +117,11 @@ export default class Comments extends Component {
                         commentCont: null
                     });
                 } else {
-                    message.warning(resdata.message);
+                    Toast.warn(resdata.message);
                 }
             })
             .catch(err => {
-                message.warning('发布失败');
+                Toast.warn('发布失败');
             })
     }
 
