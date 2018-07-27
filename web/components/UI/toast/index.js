@@ -1,5 +1,5 @@
 import { tpl, position } from '../util';
-import './index.less';
+// import './index.less';
 
 const _tipsTpl = '<div class="toast toast-<%=type%> toast-dismissible tc" id="<%=id%>" >' +
         '<button type="button" class="close" hidden><span aria-hidden="true">×</span></button>' +
