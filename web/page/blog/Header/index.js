@@ -28,12 +28,12 @@ export default class Header extends Component {
         // })
     }
     preventDefault = (e) => {
-         e.preventDefault();
+        e.preventDefault();
     }
 
     showNacBox = (e) => {
         this.setState(prevState => {
-            return {showNav: !prevState.showNav}
+            return { showNav: !prevState.showNav }
         });
     }
 
@@ -43,34 +43,25 @@ export default class Header extends Component {
         let path = location.pathname.split('/');
         let hCls = ClassNames('blog-header', {
             'show-nav': showNav,
-             [`blog-${path[1]}-header`]: path[1],
-             'blog-artilces-header': !path[1]
+            [`blog-${path[1]}-header`]: path[1] && !showNav,
+            'blog-artilces-header': !path[1]
         });
         return (
             <header className={ hCls } ref="blogHeader" id='IdNav'>
-                <div className="header-wrap">
-                    <div className="nav-pc clearfix width-limit">
-                        <Icon type={ showNav ? "close" : "menu" } className='menu fr' onClick={ this.showNacBox } />
-                        <nav className="nav-list fr">
-                            <NavLink exact to='/'><span>文记</span></NavLink>
-                            <NavLink to='/travel'><span>游记</span></NavLink>
-                            <NavLink to='/photoes'><span>图记</span></NavLink>
-                            <NavLink to='/books'><span>阅记</span></NavLink>
-                            <NavLink to='/message'><span>留言</span></NavLink>
-                            {/*<NavLink to='/about'><span>关于</span></NavLink>*/}
-                        </nav>
-                        <Link className='fl' to='/'>
-                            <img className='logo black' src="//cdn.liayal.com/image/logo.png" alt="Logo"/>
-                            <img className='logo white' src="//cdn.liayal.com/image/logo_white.png" alt="Logo"/>
-                        </Link>
-                    </div>
-                    <nav className="nav-min tc" onClick={ this.showNacBox } >
+                <div className="header-wrap width-limit clearfix">
+                    <Icon type={ showNav ? "close" : "menu-circle" } className='menu fr' onClick={ this.showNacBox } />
+                    <nav className="nav-list fr" onClick={ this.showNacBox } >
                         <NavLink exact to='/'><span>文记</span></NavLink>
                         <NavLink to='/travel'><span>游记</span></NavLink>
                         <NavLink to='/photoes'><span>图记</span></NavLink>
                         <NavLink to='/books'><span>阅记</span></NavLink>
                         <NavLink to='/message'><span>留言</span></NavLink>
+                        {/*<NavLink to='/about'><span>关于</span></NavLink>*/}
                     </nav>
+                    <Link className='fl' to='/'>
+                        <img className='logo black' src="//cdn.liayal.com/image/logo.png" alt="Logo"/>
+                        <img className='logo white' src="//cdn.liayal.com/image/logo_white.png" alt="Logo"/>
+                    </Link>
                 </div>
             </header>
         )

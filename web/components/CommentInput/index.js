@@ -130,7 +130,7 @@ export default class CommentInput extends Component {
     exportComment = (event) => {
         const commentCont = this.refs.commentText.value;
         if (!commentCont) return Toast.info("写点什么吧～")
-        // this.geeTest.verify();
+        this.geeTest.verify();
     }
 
     clearTextarea = () => {
