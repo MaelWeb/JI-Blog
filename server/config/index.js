@@ -2,10 +2,10 @@ const path = require('path');
 let config = {
     port: process.env.PORT || 8080,
     mongodb: {
-        url: 'mongodb://root:mael147863@127.0.0.1:27017/blog'
+        url: 'mongodb://root:root@127.0.0.1:27017/koa-blog'
     },
     jwt: {
-        secret: 'MAELLIANG_BLOG' //默认
+        secret: 'test' //默认
     },
     mongodbSOptions: { //mongodb用户和密码
         authSource: "admin",
@@ -19,7 +19,7 @@ let config = {
         ID: "108814b3c95d6********c8d988bc76d12",
         KEY: "48b9103efcce********79ceabd6e08c"
     },
-    InvitationCode: "1123",
+    InvitationCode: "00000",
     wechat: {
         host: 'https://api.weixin.qq.com',
         appId: 'wx05c5964f92033acc',
