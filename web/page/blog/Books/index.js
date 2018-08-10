@@ -102,7 +102,7 @@ export default class Books extends Component {
     render() {
         const { books, isLoading, banner } = this.state;
         return (
-            <div className="blog-books-layout clearfix width-limit">
+            <div className="blog-books-layout clearfix ">
                 <div className="blog-books-header" ref='bookHeader' >
                     <img src="//cdn.liayal.com/image/books_banner.jpg" alt=""/>
                     <div className="text-wrap">
@@ -111,12 +111,12 @@ export default class Books extends Component {
                     </div>
                 </div>
 
-                <div className="middle-text tc width-limit">
+                <div className="middle-text tc ">
                     <h2>杂而不精的读者</h2>
                     <p>当我需要安静的时候，我想要一本书；当我安静的时候，我更想要一本书。不喜欢任何香水味，却惟独喜欢书香味。一本书，就是一个世界。躲进这个世界之中，就可以和当下的一切烦恼与琐碎隔离开来。</p>
                 </div>
 
-                <div className="books-list clearfix width-limit">
+                <div className="books-list clearfix ">
                     {books.length ? books.map( book =>
                         <div className="blog-books-item" key={book.id} >
                         <div className="books-wrap clearfix">

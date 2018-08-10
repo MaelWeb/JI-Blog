@@ -77,7 +77,7 @@ export default class Article extends Component {
         });
         return (
             <div className={cls} >
-            <div className="blog-article-layout-wrap width-limit">
+            <div className="blog-article-layout-wrap">
                 <h2 className="article-title"><p>
                     <em>{_article.title}</em>
                 </p></h2>

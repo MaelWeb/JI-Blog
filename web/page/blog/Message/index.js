@@ -233,7 +233,7 @@ export default class Message extends Component {
         let randomIndex = Math.floor(Math.random() * (messageBanners.length - 1) ) + 1,
             header = messageBanners[randomIndex] || {};
         return (
-            <div className="blog-message-layout width-limit">
+            <div className="blog-message-layout ">
                 <div className="blog-message-header header-banner" style={{ backgroundImage: `url(//cdn.liayal.com/banner/pexels-photo-1096848.jpeg)` }} ref="mressageHeader" >
                     <div className="blog-message-header-input">
                         <CommentInput exportComment={ this.exportComment } placeholder={ header.text } ref='commentInput' />

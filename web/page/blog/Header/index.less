@@ -111,7 +111,7 @@
     .header-menu {
         width: .25rem;
         height: .25rem;
-        padding: 0 .07rem;
+        padding: .06rem;
         background-color: #212121;
         color: #fff;
         cursor: pointer;
@@ -124,11 +124,38 @@
         flex-direction: column;
 
         span {
-            margin-bottom: .02rem;
-            height: 1px;
+            margin-bottom: 3px;
+            height: 2px;
             display: block;
             width: 100%;
             background-color: #fff;
+            transform: scaleY(.7) rotateZ(0);
+            opacity: 1;
+            transform-origin: 62% 200%;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        .short {
+            margin-left: 20%;
+            width: 80%;
+        }
+
+
+        &.close {
+            span:first-child {
+                transform: scaleY(.7) rotateZ(-135deg);
+            }
+
+            .short {
+                opacity: 0;
+            }
+
+            span:last-child {
+                transform: scaleY(.7) rotateZ(135deg);
+            }
         }
     }
 

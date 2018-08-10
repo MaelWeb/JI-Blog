@@ -138,7 +138,7 @@ export default class Articles extends Component {
     render() {
         const { articles, tags, curTagId, allNum, page, allPage } = this.state;
         return (
-            <div className="blog-articles-layout width-limit">
+            <div className="blog-articles-layout ">
                 { this.showBanners() }
                 <div className="blog-tags">
                     <Link to={{pathname: '/'}} onClick={ () => { this.getArticles(1, null) } } className={ classNames("tag", {'tag-active': !curTagId}) } >所有文章</Link>

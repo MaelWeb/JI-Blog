@@ -125,7 +125,7 @@ export default class Photo extends Component {
     render() {
         const { photoes, width, showPhotoView, currentPhotoIndex, isShowImageGallery, imageGalleryIndex, isLoading } = this.state;
         return(
-            <div className="blog-photo-layout width-limit">
+            <div className="blog-photo-layout ">
                 <section className="photo-banner header-banner" ref='photoHeader' style={{backgroundImage: `url(${ photoes[0] && photoes[0].src || '//cdn.liayal.com/14506926.jpg'})`} } >
                     <img src={ photoes[0] && photoes[0].src || '//cdn.liayal.com/14506926.jpg'} alt=""/>
                     <div className="photo-banner-info">
@@ -133,7 +133,7 @@ export default class Photo extends Component {
                         <h2>{photoes[0] && photoes[0].desc ? photoes[0].desc : '一起老去'}</h2>
                     </div>
                 </section>
-                <section className="middle-text tc width-limit">
+                <section className="middle-text tc ">
                     <h2>我以一种笨拙的方式拍照</h2>
                     <p>摄影是一种神奇的记录：照片记录了时间、风景、人物；可回放照片时才发现，原来它还记录了按下快门时的感触、思绪、心事……也许这就是为什么明明看到的是一张风景，却会让你想起谁</p>
                 </section>
@@ -150,7 +150,7 @@ export default class Photo extends Component {
                             if (width >= 1824){
                               columns = 5;
                             }
-                            return <div ref={measureRef} className="photo-list width-limit">
+                            return <div ref={measureRef} className="photo-list ">
                               <Gallery photos={ photoes.slice(1) } margin={ 4 } columns={columns} ImageComponent={ImageItem} onClick={ this.selectPhoto } />
                             </div>
                         }

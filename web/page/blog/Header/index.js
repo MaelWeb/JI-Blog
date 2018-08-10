@@ -48,8 +48,8 @@ export default class Header extends Component {
         });
         return (
             <header className={ hCls } ref="blogHeader" id='IdNav'>
-                <div className="header-wrap width-limit clearfix">
-                    <div className="header-menu fr">
+                <div className="header-wrap  clearfix">
+                    <div className="header-menu fr close">
                         <span></span>
                         <span className='short'></span>
                         <span></span>
