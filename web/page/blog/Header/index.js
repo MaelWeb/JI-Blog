@@ -49,12 +49,7 @@ export default class Header extends Component {
         return (
             <header className={ hCls } ref="blogHeader" id='IdNav'>
                 <div className="header-wrap  clearfix">
-                    <div className="header-menu fr close">
-                        <span></span>
-                        <span className='short'></span>
-                        <span></span>
-                    </div>
-                    {/* <Icon type={ showNav ? "close" : "menu-circle" } className='menu fr' onClick={ this.showNacBox } /> */}
+                    <Icon type={ showNav ? "cross-circle" : "black-menu" } className='menu fr' onClick={ this.showNacBox } />
                     <nav className="nav-list fr" onClick={ this.showNacBox } >
                         <NavLink exact to='/'><span>文记</span></NavLink>
                         <NavLink to='/travel'><span>游记</span></NavLink>

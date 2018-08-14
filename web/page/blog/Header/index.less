@@ -45,26 +45,6 @@
         // border-bottom: 1px solid #333;
     }
 
-    &.blog-travel-header,
-    &.blog-photoes-header,
-    &.blog-message-header {
-        background-color: transparent;
-        a {
-            color: #fff;
-        }
-
-        .black {
-            display: none;
-        }
-
-        .white {
-            display: inline-block;
-        }
-
-        .menu {
-            color: #fff;
-        }
-    }
 
     &.blog-article-header {
         .black {
@@ -106,63 +86,10 @@
         text-align: center;
         transition: all .4s;
         box-sizing: border-box;
-    }
 
-    .header-menu {
-        width: .25rem;
-        height: .25rem;
-        padding: .06rem;
-        background-color: #212121;
-        color: #fff;
-        cursor: pointer;
-        transition: all .4s;
-        box-sizing: border-box;
-        border-radius: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-
-        span {
-            margin-bottom: 3px;
-            height: 2px;
-            display: block;
-            width: 100%;
-            background-color: #fff;
-            transform: scaleY(.7) rotateZ(0);
-            opacity: 1;
-            transform-origin: 62% 200%;
-
-            &:last-child {
-                margin-bottom: 0;
-            }
+        &:before {
+            transition: all .8s;
         }
-
-        .short {
-            margin-left: 20%;
-            width: 80%;
-        }
-
-
-        &.close {
-            span:first-child {
-                transform: scaleY(.7) rotateZ(-135deg);
-            }
-
-            .short {
-                opacity: 0;
-            }
-
-            span:last-child {
-                transform: scaleY(.7) rotateZ(135deg);
-            }
-        }
-    }
-
-    .icon-close {
-        font-size: .24rem;
-        background-color: transparent;
-        border: none;
     }
 
     .logo {
@@ -172,6 +99,35 @@
 
     .white {
         display: none;
+    }
+
+    &.blog-travel-header,
+    &.blog-photoes-header,
+    &.blog-message-header {
+        background-color: transparent;
+        a {
+            color: #fff;
+        }
+
+        .black {
+            display: none;
+        }
+
+        .white {
+            display: inline-block;
+        }
+
+        .menu {
+            color: #fff;
+        }
+
+        .icon-black-menu:before {
+            content: "\e608";
+        }
+
+        .iocn-cross-circle:before {
+            content: "\e675";
+        }
     }
 
     @media screen and (max-width: 768px) {
