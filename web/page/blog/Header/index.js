@@ -32,6 +32,14 @@ export default class Header extends Component {
     }
 
     showNacBox = (e) => {
+        const { showNav } = this.state;
+
+        if ( showNav ) {
+            document.getElementById("IdNav").classList.remove("show-nav");
+        } else {
+            document.getElementById("IdNav").classList.add("show-nav");
+        }
+
         this.setState(prevState => {
             return { showNav: !prevState.showNav }
         });
@@ -42,8 +50,7 @@ export default class Header extends Component {
         const { location } = this.props;
         let path = location.pathname.split('/');
         let hCls = ClassNames('blog-header', {
-            'show-nav': showNav,
-            [`blog-${path[1]}-header`]: path[1] && !showNav,
+            [`blog-${path[1]}-header`]: path[1],
             'blog-artilces-header': !path[1]
         });
         return (
@@ -55,7 +62,7 @@ export default class Header extends Component {
                         <NavLink to='/travel'><span>游记</span></NavLink>
                         <NavLink to='/photoes'><span>图记</span></NavLink>
                         <NavLink to='/books'><span>阅记</span></NavLink>
-                        <NavLink to='/message'><span>留言</span></NavLink>
+                        <NavLink to='/message'><span>言记</span></NavLink>
                         {/*<NavLink to='/about'><span>关于</span></NavLink>*/}
                     </nav>
                     <Link className='fl' to='/'>

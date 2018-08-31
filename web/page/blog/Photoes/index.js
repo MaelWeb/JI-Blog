@@ -44,7 +44,7 @@ export default class Photo extends Component {
         this.headerDom = ReactDOM.findDOMNode(this.refs.photoHeader);
         this.blogNavDom = document.getElementById('IdNav');
 
-        this.blogNavDom.classList.add('blog-photo-header');
+        this.blogNavDom.classList.add('blog-photoes-header');
 
         window.addEventListener("scroll", this.onscroll, false);
     }
