@@ -32,6 +32,7 @@ export default class CommentInput extends Component {
     componentDidMount() {
         // this.textareaDom = document.getElementById(this.textareaId);
         this.textareaDom = ReactDOM.findDOMNode(this.refs.commentText);
+        const _this = this;
         Axios.get('/api/geetest/register')
             .then(res => {
                 let resData = res.data;
@@ -40,16 +41,16 @@ export default class CommentInput extends Component {
                         ...resData.data,
                         product: 'bind'
                     }, captchaObj => {
-                        this.geeTest = captchaObj;
+                        _this.geeTest = captchaObj;
 
-                        this.geeTest.onReady(function() {
+                        _this.geeTest.onReady(function() {
 
-                            this.isGeeTestReady = true;
+                            _this.isGeeTestReady = true;
 
                         }).onSuccess(() => {
 
                             const commentCont = this.refs.commentText.value;
-                            this.props.exportComment(commentCont);
+                            _this.props.exportComment(commentCont);
 
                         }).onError(() => {
 
@@ -131,7 +132,7 @@ export default class CommentInput extends Component {
         const commentCont = this.refs.commentText.value;
         if (!commentCont) return Toast.info("写点什么吧～");
 
-        if (this.geetest && this.geetest.verify ) return this.geeTest.verify();
+        if (this.geeTest && this.geeTest.verify ) return this.geeTest.verify();
 
         this.props.exportComment(commentCont);
     }
