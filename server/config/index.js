@@ -16,14 +16,14 @@ let config = {
         SECRET_KEY: 'b5p89rqZeO8KJEj*******2fHtKEToE5PdSmQLRq'
     },
    geetest: {
-        ID: "108814b3c95d63caf2dc8d988bc76d12",
-        KEY: "48b9103efcceee1f1e6679ceabd6e08c"
+        ID: "108814b3c95*******2dc8d988bc76d12",
+        KEY: "48b9103efc*******e6679ceabd6e08c"
     },
-    InvitationCode: "1123",
+    InvitationCode: "2222",
     wechat: {
         host: 'https://api.weixin.qq.com',
-        appId: 'wx05c5964f92033acc',
-        secret: '0cf16dbd475ac26d03a3e1a6d0db04e6'
+        appId: 'wx05c59***f92033acc',
+        secret: '0cf16dbd475ac***3a3e1a6d0db04e6'
     }
 }
 // 可在private.js定义自己私有的配置

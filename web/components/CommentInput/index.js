@@ -33,7 +33,7 @@ export default class CommentInput extends Component {
         // this.textareaDom = document.getElementById(this.textareaId);
         this.textareaDom = ReactDOM.findDOMNode(this.refs.commentText);
         const _this = this;
-        Axios.get('/api/geetest/register')
+        Axios.get('/api/geetest/register', { params: { _t: +new Date() }})
             .then(res => {
                 let resData = res.data;
                 if (resData.code == 200) {
