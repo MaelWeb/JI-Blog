@@ -60,7 +60,7 @@ export async function getAllArticles(ctx) {
     }
 
     if (!tag) {
-        articles = await Article.find(null, { title: 1, publish: 1, abstract: 1, createTime: 1, lastEditTime: -1, content: 1 })
+        articles = await Article.find(null, { title: 1, publish: 1, abstract: 1, createTime: 1,  content: 1 })
             .populate("tags")
             .sort({ createTime: -1 })
             .limit(pageSize)
@@ -75,7 +75,7 @@ export async function getAllArticles(ctx) {
         let _tag = tag.split(';');
         articles = await Article.find({
                 tags: { "$in": _tag },
-            }, { title: 1, publish: 1, abstract: 1, createTime: 1, lastEditTime: -1, content: 1 })
+            }, { title: 1, publish: 1, abstract: 1, createTime: 1, content: 1 })
             .populate("tags")
             .sort({ createTime: -1 })
             .limit(pageSize)
@@ -119,12 +119,11 @@ export async function getAllPublishArticles(ctx) {
         articles = await Article.find({
                 publish: true,
                 category
-            }, { title: 1, banner: 1, abstract: 1, createTime: 1, id: 1, lastEditTime: -1 })
-            .populate("tags")
+            }, { title: 1, banner: 1, abstract: 1, createTime: 1 })
             .sort({ createTime: -1 })
             .limit(pageSize)
             .skip(skip).catch(err => {
-                ctx.throw(500, '服务器内部错误')
+                ctx.throw(500, err)
             });
         allNum = await Article.find({
             publish: true,
@@ -138,8 +137,7 @@ export async function getAllPublishArticles(ctx) {
                 tags: { "$in": tagArr },
                 publish: true,
                 category
-            }, { title: 1, banner: 1, abstract: 1, createTime: 1, id: 1, lastEditTime: -1 })
-            .populate("tags")
+            }, { title: 1, banner: 1, abstract: 1, createTime: 1})
             .sort({ createTime: -1 })
             .limit(pageSize)
             .skip(skip).catch(err => {

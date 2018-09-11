@@ -5,7 +5,7 @@ let config = {
         url: 'mongodb://root:root@127.0.0.1:27017/koa-blog'
     },
     jwt: {
-        secret: 'MAELLIANG_BLOG' //默认
+        secret: 'test' //默认
     },
     mongodbSOptions: { //mongodb用户和密码
         authSource: "admin",

@@ -54,7 +54,7 @@ export async function getAllTags(ctx) {
         message: 'ok'
     };
 
-    const tags = await Tag.find()
+    const tags = await Tag.find({}, {__v: 0})
         .sort({ count: -1 })
         .catch(err => {
             result.code = 500;
