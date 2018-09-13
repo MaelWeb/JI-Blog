@@ -7,6 +7,7 @@
 @import '../../components/UI/index.less';
 
 
+
 /** antd **/
 
 .anticon {
@@ -115,6 +116,7 @@
 
 
 
+
 /** antd end **/
 
 .page {
@@ -190,55 +192,52 @@
     background-color: #ccc;
 }
 
-
-@keyframes fadeIn {
+@keyframes fadeInLeft {
     from {
         opacity: 0;
+        transform: translate3d(-20%, 0, 0);
     }
 
     to {
         opacity: 1;
+        transform: translate3d(0, 0, 0);
     }
 }
 
-.fadeIn {
-    animation: fadeIn .8s both;
+@keyframes fadeOutRight {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translate3d(20%, 0, 0);
+  }
 }
+
 
 // 进出场动画
 // 飞入
-.slide-appear {
-    // transform: translate3D(100%, 0, 0);
-    opacity: 0;
-    transition: all 400ms linear;
-
-    &.slide-appear-active {
-        opacity: 1; // transform: translate3D(0, 0, 0);
-    }
-}
-
 .slide-enter {
-    // transform: translate3D(100%, 0, 0);
-    opacity: 0;
-    transition: all 400ms linear;
 
     &.slide-enter-active {
-        opacity: 1; // transform: translate3D(0, 0, 0);
+        animation: fadeInLeft .5s ease both;
     }
 }
 
 // 向左滑出
 .slide-exit {
     position: absolute;
-    left: 0;
     top: 0;
-    opacity: 1;
-    transform: translate3D(0, 0, 0);
-    transition: all 350ms linear;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    z-index: 2;
+    background-color: #f8f8f8;
 
     &.slide-exit-active {
-        opacity: 0.01;
-        transform: translate3D(-100%, 0, 0);
+        animation: fadeOutRight .45s ease both;
     }
 }
 

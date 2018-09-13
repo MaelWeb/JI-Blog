@@ -59,12 +59,12 @@ class App extends Component {
         const { minHeight, InitData, reflow } = this.state;
         const { location, match } = this.props;
         const currentKey = location.pathname.split('/')[1] || '/';
-        const timeout = { enter: 400, exit: 350 };
+        const timeout = 500;
         return (
         <div className="page">
             <Header location={location} />
             <TransitionGroup className="page-main" component='main' id="main" >
-                <CSSTransition key={currentKey} timeout={timeout} classNames="slide" appear>
+                <CSSTransition key={currentKey} timeout={timeout} classNames="slide">
                     <Switch location={location}>
                         <Route path="/" exact={true} render={ props=> (<Articles {...props} {...InitData} />) } />
                         <Route path="/article/:id" render={ props=> (<Article {...props} {...InitData} />) } />
