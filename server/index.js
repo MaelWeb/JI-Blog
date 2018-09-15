@@ -9,6 +9,7 @@ import session from 'koa-session-minimal'
 
 import _Config from './config';
 import Router from './router';
+import Loadable from 'react-loadable';
 
 const App = new koa();
 
@@ -18,37 +19,6 @@ mongoose.Promise = Promise;
 mongoose.connect(_Config.mongodb.url, _Config.mongodbSOptions);
 mongoose.connection.on('error', console.error);
 
-// 开发环境启动webpack编译
-if (NODE_ENV == 'development') {
-    const webpack = require('webpack');
-    const { devMiddleware, hotMiddleware } = require('koa-webpack-middleware');
-    const devConfig = require('../build/webpack.dev.config');
-
-    const compiler = webpack(devConfig);
-    App.use(devMiddleware(compiler, {
-        // display no info to console (only warnings and errors)
-        noInfo: true,
-        // watch options (only lazy: false)
-        watchOptions: {
-            aggregateTimeout: 300,
-            poll: true,
-        },
-        // public path to bind the middleware to
-        // use the same as in webpack
-        publicPath: devConfig.output.publicPath,
-
-        // options for formating the statistics
-        stats: {
-            colors: true,
-            chunks: false
-        },
-        debug: true,
-        lazy: false,
-        historyApiFallback: true
-    }));
-    App.use(hotMiddleware(compiler));
-
-}
 
 // 配置服务端模板渲染引擎中间件
 App.use(views(path.resolve(process.cwd(), './dist/client'), {
@@ -71,7 +41,8 @@ App.use(compress());
 App.use(Router.routes())
     .use(Router.allowedMethods());
 
-
-App.listen(_Config.port, () => {
-    console.log(`\n[JI-Blog] start-quick is starting at port ${_Config.port}`);
-});
+Loadable.preloadAll().then(() => {
+    App.listen(_Config.port, () => {
+        console.log(`\n[JI-Blog] start-quick is starting at port ${_Config.port}`);
+    });
+})

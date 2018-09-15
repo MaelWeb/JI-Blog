@@ -2,16 +2,73 @@ import React, { Component } from 'react';
 import { Route, Link, Switch, withRouter } from 'react-router-dom';
 import { CSSTransition, TransitionGroup, CSSTransitionGroup } from 'react-transition-group';
 import Axios from 'axios';
+import Loadable from 'react-loadable';
 import ScrollToTop from '../../../components/ScrollToTop';
-import Articles from '../Articles';
-import Article from '../Article';
-import Photoes from '../Photoes';
-import About from '../About';
-import Travel from '../Travel';
-import Books from '../Books';
+// import Articles from '../Articles';
+const Articles = Loadable({
+    loader: () => import('../Articles'),
+    loading: () => null,
+    render(loaded, props) {
+        let Component = loaded.namedExport;
+        return <Component {...props}/>;
+    }
+});
+// import Article from '../Article';
+const Article = Loadable({
+    loader: () => import('../Article'),
+    loading: () => null,
+    render(loaded, props) {
+        let Component = loaded.namedExport;
+        return <Component {...props}/>;
+    }
+});
+// import Photoes from '../Photoes';
+const Photoes = Loadable({
+    loader: () => import('../Photoes'),
+    loading: () => null,
+    render(loaded, props) {
+        let Component = loaded.namedExport;
+        return <Component {...props}/>;
+    }
+});
+// import About from '../About';
+const About = Loadable({
+    loader: () => import('../About'),
+    loading: () => null,
+    render(loaded, props) {
+        let Component = loaded.namedExport;
+        return <Component {...props}/>;
+    }
+});
+// import Travel from '../Travel';
+const Travel = Loadable({
+    loader: () => import('../Travel'),
+    loading: () => null,
+    render(loaded, props) {
+        let Component = loaded.namedExport;
+        return <Component {...props}/>;
+    }
+});
+// import Books from '../Books';
+const Books = Loadable({
+    loader: () => import('../Books'),
+    loading: () => null,
+    render(loaded, props) {
+        let Component = loaded.namedExport;
+        return <Component {...props}/>;
+    }
+});
 import Header from '../Header';
 import Footer from '../Footer';
-import Message from '../Message';
+// import Message from '../Message';
+const Message = Loadable({
+    loader: () => import('../Message'),
+    loading: () => null,
+    render(loaded, props) {
+        let Component = loaded.namedExport;
+        return <Component {...props}/>;
+    }
+});
 
 class App extends Component {
     constructor(props) {

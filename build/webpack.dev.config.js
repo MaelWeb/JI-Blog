@@ -7,6 +7,7 @@ const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const outputPath = path.join(__dirname, '../dist/client/');
 const templateSrc = path.join(__dirname, '../web/page/');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
+const { ReactLoadablePlugin } = require('react-loadable/webpack');
 
 // process.traceDeprecation = true;
 
@@ -48,11 +49,14 @@ module.exports = merge(baseWebpackConfig, {
             title: '<%= title || "游走在技术与艺术边缘地带的前端攻城狮" %>',
             chunks: ["blog"],
         }),
-         // 插入dll库
+        // 插入dll库
         new HtmlWebpackIncludeAssetsPlugin({
             files: '*.html',
             assets: [{ path: 'lib', glob: '*.dll.js', globPath: 'dist/client/lib/' }],
             append: false
+        }),
+        new ReactLoadablePlugin({
+            filename: path.join(outputPath, './react-loadable.json'),
         }),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackHarddiskPlugin()

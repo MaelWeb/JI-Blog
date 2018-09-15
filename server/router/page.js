@@ -1,5 +1,6 @@
 import router from 'koa-router';
 import fs from 'fs';
+import path from 'path';
 import  htmlMinifier from 'html-minifier';
 import { pageVerify } from '../middleware/verify';
 import { getAllTags } from '../controllers/tags_ctr';
@@ -12,7 +13,10 @@ import { getBooks } from '../controllers/book_ctr';
 import ReactDOMServer from 'react-dom/server';
 import React from 'react';
 import { StaticRouter } from 'react-router';
+import Loadable from 'react-loadable';
+import { getBundles } from 'react-loadable/webpack';
 import App from '../../web/page/blog/App';
+
 
 const Router = new router();
 
@@ -24,14 +28,20 @@ let _Page = Router
         let tags = await getAllTags(ctx);
         let articleData = await getAllPublishArticles(ctx);
         let banners = await getBanners(ctx);
+        const stats = require(path.resolve(process.cwd(), './dist/client/react-loadable.json'));
 
         let ServerData = {tags, curTagId: ctx.query.tag, ...articleData, banners};
 
+        let modules = [];
         const html = ReactDOMServer.renderToString(
+             <Loadable.Capture report={moduleName => modules.push(moduleName)}>
             <StaticRouter context={{}} location={ctx.req.url}>
                 <App InitData={ServerData} />
             </StaticRouter>
-        )
+            </Loadable.Capture>
+        );
+        let bundles = getBundles(stats, modules);
+
 
         await ctx.render('blog', {
             html: htmlMinifier.minify(html, {
@@ -39,7 +49,8 @@ let _Page = Router
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '游走在技术与艺术边缘地带的前端攻城狮'
+            title: '游走在技术与艺术边缘地带的前端攻城狮',
+            bundles
         });
     })
     .get('article/:id', async(ctx, next) => {
