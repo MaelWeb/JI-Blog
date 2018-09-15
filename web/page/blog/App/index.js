@@ -7,67 +7,39 @@ import ScrollToTop from '../../../components/ScrollToTop';
 // import Articles from '../Articles';
 const Articles = Loadable({
     loader: () => import('../Articles'),
-    loading: () => null,
-    render(loaded, props) {
-        let Component = loaded.namedExport;
-        return <Component {...props}/>;
-    }
+    loading: () => null
 });
 // import Article from '../Article';
 const Article = Loadable({
     loader: () => import('../Article'),
-    loading: () => null,
-    render(loaded, props) {
-        let Component = loaded.namedExport;
-        return <Component {...props}/>;
-    }
+    loading: () => null
 });
 // import Photoes from '../Photoes';
 const Photoes = Loadable({
     loader: () => import('../Photoes'),
-    loading: () => null,
-    render(loaded, props) {
-        let Component = loaded.namedExport;
-        return <Component {...props}/>;
-    }
+    loading: () => null
 });
 // import About from '../About';
 const About = Loadable({
     loader: () => import('../About'),
-    loading: () => null,
-    render(loaded, props) {
-        let Component = loaded.namedExport;
-        return <Component {...props}/>;
-    }
+    loading: () => null
 });
 // import Travel from '../Travel';
 const Travel = Loadable({
     loader: () => import('../Travel'),
-    loading: () => null,
-    render(loaded, props) {
-        let Component = loaded.namedExport;
-        return <Component {...props}/>;
-    }
+    loading: () => null
 });
 // import Books from '../Books';
 const Books = Loadable({
     loader: () => import('../Books'),
-    loading: () => null,
-    render(loaded, props) {
-        let Component = loaded.namedExport;
-        return <Component {...props}/>;
-    }
+    loading: () => null
 });
 import Header from '../Header';
 import Footer from '../Footer';
 // import Message from '../Message';
 const Message = Loadable({
     loader: () => import('../Message'),
-    loading: () => null,
-    render(loaded, props) {
-        let Component = loaded.namedExport;
-        return <Component {...props}/>;
-    }
+    loading: () => null
 });
 
 class App extends Component {

@@ -16,7 +16,7 @@ import { StaticRouter } from 'react-router';
 import Loadable from 'react-loadable';
 import { getBundles } from 'react-loadable/webpack';
 import App from '../../web/page/blog/App';
-
+const stats = require('../../dist/server/react-loadable.json');
 
 const Router = new router();
 
@@ -28,7 +28,6 @@ let _Page = Router
         let tags = await getAllTags(ctx);
         let articleData = await getAllPublishArticles(ctx);
         let banners = await getBanners(ctx);
-        const stats = require(path.resolve(process.cwd(), './dist/client/react-loadable.json'));
 
         let ServerData = {tags, curTagId: ctx.query.tag, ...articleData, banners};
 

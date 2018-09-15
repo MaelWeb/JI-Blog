@@ -56,7 +56,7 @@ module.exports = merge(baseWebpackConfig, {
             append: false
         }),
         new ReactLoadablePlugin({
-            filename: path.join(outputPath, './react-loadable.json'),
+            filename: path.join(__dirname, '../dist/server/react-loadable.json'),
         }),
         new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackHarddiskPlugin()
