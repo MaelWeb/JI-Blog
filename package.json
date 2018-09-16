@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "nodemon --watch server --exec cross-env NODE_ENV=development  babel-node --plugins dynamic-import-node ./server/index.js",
     "dev:server": "nodemon --watch server --exec cross-env NODE_ENV=development  babel-node --plugins dynamic-import-node ./server/index.js",
-    "build:dll": "webpack --config ./build/webpack.dll.config.js",
-    "build": "npm run clean && cross-env NODE_ENV=production  webpack --config ./build/webpack.server.config.js && cross-env NODE_ENV=production webpack --config ./build/webpack.prod.config.js",
+    "build:dll": "rimraf dist/client/lib/*.dll.js && webpack --config ./build/webpack.dll.config.js",
+    "build": "npm run clean && cross-env NODE_ENV=production webpack --config ./build/webpack.prod.config.js && cross-env NODE_ENV=production  webpack --config ./build/webpack.server.config.js",
     "start": "pm2 start ./dist/server/server.js --watch",
     "scp": "scp -r dist/ package.json root@118.126.82.201:~/blog",
     "analyz": "cross-env NODE_ENV=production npm_config_report=true npm run build",
