@@ -93,7 +93,7 @@ export default class Articles extends Component {
         if (banners.length == 1)
             return (
                 <div className="banners">
-                    <div className="banner-item" style={ {backgroundImage: `url(${banners[0].url})`} }><a href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
+                    <div className="banner-item" style={ {backgroundImage: `url(${banners[0].url})`} }><a target="_blank" href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
                         <div className="text"><p className='ellipsis'>{banners[0].text}</p></div>
                     </a></div>
                 </div>
@@ -102,11 +102,11 @@ export default class Articles extends Component {
         if (banners.length == 2)
             return (
                 <div className="banners banners-two clearfix">
-                    <div className="banner-item fl" style={ {backgroundImage: `url(${banners[0].url})`} } ><a href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
+                    <div className="banner-item fl" style={ {backgroundImage: `url(${banners[0].url})`} } ><a target="_blank" href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
                         <img src={banners[0].url} hidden/>
                         <div className="text"><p className='ellipsis'>{banners[0].text}</p></div>
                     </a></div>
-                    <div className="banner-item fr" style={ {backgroundImage: `url(${banners[1].url})`} }><a href={banners[1].href ? banners[1].href : "javascript:void(0);"} >
+                    <div className="banner-item fr" style={ {backgroundImage: `url(${banners[1].url})`} }><a target="_blank" href={banners[1].href ? banners[1].href : "javascript:void(0);"} >
                         <img src={banners[1].url} hidden/>
                         <div className="text"><p className='ellipsis'>{banners[1].text}</p></div>
                     </a></div>
@@ -116,16 +116,16 @@ export default class Articles extends Component {
         if (banners.length == 3)
             return (
                 <div className="banners banners-three clearfix">
-                    <div className="left-col banner-item fl" style={ {backgroundImage: `url(${banners[0].url})`} } ><a href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
+                    <div className="left-col banner-item fl" style={ {backgroundImage: `url(${banners[0].url})`} } ><a target="_blank" href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
                         <img src={banners[0].url} hidden/>
                         <div className="text"><p className='ellipsis'>{banners[0].text}</p></div>
                     </a></div>
                     <div className="right-col fr">
-                        <div className="banner-item" style={ {backgroundImage: `url(${banners[1].url})`} }><a href={banners[1].href ? banners[1].href : "javascript:void(0);"} >
+                        <div className="banner-item" style={ {backgroundImage: `url(${banners[1].url})`} }><a target="_blank" href={banners[1].href ? banners[1].href : "javascript:void(0);"} >
                             <img src={banners[1].url} hidden/>
                             <div className="text"><p className='ellipsis'>{banners[1].text}</p></div>
                         </a></div>
-                        <div className="banner-item" style={ {backgroundImage: `url(${banners[2].url})`} }><a href={banners[2].href ? banners[2].href : "javascript:void(0);"} >
+                        <div className="banner-item" style={ {backgroundImage: `url(${banners[2].url})`} }><a target="_blank" href={banners[2].href ? banners[2].href : "javascript:void(0);"} >
                             <img src={banners[2].url} hidden/>
                             <div className="text"><p className='ellipsis'>{banners[2].text}</p></div>
                         </a></div>
