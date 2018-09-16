@@ -4,10 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "npm run clean && npm run dev:build-client && nodemon --ignore web/ --exec cross-env NODE_ENV=development  babel-node --plugins dynamic-import-node ./server/index.js",
-    "dev:build-client": "webpack --config ./build/webpack.dev.config.js",
-    "dev:build-server": "webpack --config ./build/webpack.server.config.js --watch",
-    "dev:server": "nodemon --watch dist/server --exec \"node dist/server/server.js\"",
+    "dev": "nodemon --watch server --exec cross-env NODE_ENV=development  babel-node --plugins dynamic-import-node ./server/index.js",
+    "dev:server": "nodemon --watch server --exec cross-env NODE_ENV=development  babel-node --plugins dynamic-import-node ./server/index.js",
     "build:dll": "webpack --config ./build/webpack.dll.config.js",
     "build": "npm run clean && cross-env NODE_ENV=production  webpack --config ./build/webpack.server.config.js && cross-env NODE_ENV=production webpack --config ./build/webpack.prod.config.js",
     "start": "pm2 start ./dist/server/server.js --watch",

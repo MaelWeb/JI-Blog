@@ -23,7 +23,7 @@ const Router = new router();
 let getHtml = (ctx, serverData = {}) => {
     let modules = [];
     const html = ReactDOMServer.renderToString(
-        <Loadable.Capture report={ moduleName => { console.log("moduleName", moduleName); return modules.push(moduleName)} }>
+        <Loadable.Capture report={ moduleName => modules.push(moduleName) }>
             <StaticRouter context={{}} location={ctx.req.url}>
                 <App InitData={serverData} />
             </StaticRouter>
@@ -42,11 +42,11 @@ let _Page = Router
         ctx.query.category = 'DEFAULT';
         ctx.query.page = 'HOME';
         ctx.query.pageSize = 20;
-        let tags = await getAllTags(ctx);
+        // let tags = await getAllTags(ctx);
         let articleData = await getAllPublishArticles(ctx);
         let banners = await getBanners(ctx);
 
-        let ServerData = {tags, curTagId: ctx.query.tag, ...articleData, banners};
+        let ServerData = {curTagId: ctx.query.tag, ...articleData, banners};
 
         let htmlObj = getHtml(ctx, ServerData);
 
@@ -56,7 +56,7 @@ let _Page = Router
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '游走在技术与艺术边缘地带的前端攻城狮',
+            title: '「JI · 记小栈」_游走在技术与艺术边缘地带的前端攻城狮',
             bundles: htmlObj.bundles
         });
     })
@@ -94,7 +94,7 @@ let _Page = Router
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '图记',
+            title: '「图记 · 记小栈」_游走在技术与艺术边缘地带的前端攻城狮',
             bundles: htmlObj.bundles
         });
     })
@@ -109,7 +109,7 @@ let _Page = Router
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '关于',
+            title: '「关于 · 记小栈」_游走在技术与艺术边缘地带的前端攻城狮',
             bundles: htmlObj.bundles
         });
     })
@@ -127,7 +127,7 @@ let _Page = Router
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '游记',
+            title: '「游记 · 记小栈」_游走在技术与艺术边缘地带的前端攻城狮',
             bundles: htmlObj.bundles
         });
     })
@@ -145,7 +145,7 @@ let _Page = Router
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '阅记',
+            title: '「阅记 · 记小栈」_游走在技术与艺术边缘地带的前端攻城狮',
             bundles: htmlObj.bundles
         });
     })
@@ -166,7 +166,7 @@ let _Page = Router
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '留言',
+            title: '「言记 · 记小栈」_游走在技术与艺术边缘地带的前端攻城狮',
             bundles: htmlObj.bundles
         });
     })

@@ -1,6 +1,6 @@
 .blog-articles-layout {
     margin: 0 auto;
-    padding-top: .5rem;
+    padding: .5rem 0;
     .banner-item {
         position: relative;
         font-size: .18rem;
@@ -83,7 +83,6 @@
     }
 
     .banners,
-    .blog-tags,
     .blog-articles-list {
         margin-left: auto;
         margin-right: auto;
@@ -91,20 +90,16 @@
     }
 
     .blog-tags {
-        margin-top: .2rem;
+        margin: .2rem auto .2rem;
         min-height: .3rem;
         padding-right: .2rem;
-        border-bottom: 2px solid rgba(19, 22, 27, .5);
         font-weight: 600;
         font-size: .14rem;
-        // display: inline-block;
-
+        color: #212121;
         .tag {
-            margin-right: .08rem;
-            padding: .05rem 0;
+            padding: .08rem .2rem .08rem 0;
             display: inline-block;
             cursor: pointer;
-            color: #555;
             line-height: 1;
 
             &:hover {
@@ -113,8 +108,8 @@
         }
 
         .tag-active {
-            color: #d1a47d;
             font-size: .18rem;
+            border-bottom: 2px solid #212121;
         }
     }
 

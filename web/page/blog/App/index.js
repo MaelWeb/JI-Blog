@@ -6,39 +6,39 @@ import Loadable from 'react-loadable';
 import ScrollToTop from '../../../components/ScrollToTop';
 // import Articles from '../Articles';
 const Articles = Loadable({
-    loader: () => import('../Articles'),
+    loader: () => import(/* webpackChunkName: "articles" */ '../Articles'),
     loading: () => null
 });
 // import Article from '../Article';
 const Article = Loadable({
-    loader: () => import('../Article'),
+    loader: () => import(/* webpackChunkName: "article" */ '../Article'),
     loading: () => null
 });
 // import Photoes from '../Photoes';
 const Photoes = Loadable({
-    loader: () => import('../Photoes'),
+    loader: () => import(/* webpackChunkName: "photos" */ '../Photoes'),
     loading: () => null
 });
 // import About from '../About';
 const About = Loadable({
-    loader: () => import('../About'),
+    loader: () => import(/* webpackChunkName: "about" */ '../About'),
     loading: () => null
 });
 // import Travel from '../Travel';
 const Travel = Loadable({
-    loader: () => import('../Travel'),
+    loader: () => import(/* webpackChunkName: "travel" */ '../Travel'),
     loading: () => null
 });
 // import Books from '../Books';
 const Books = Loadable({
-    loader: () => import('../Books'),
+    loader: () => import(/* webpackChunkName: "books" */ '../Books'),
     loading: () => null
 });
 import Header from '../Header';
 import Footer from '../Footer';
 // import Message from '../Message';
 const Message = Loadable({
-    loader: () => import('../Message'),
+    loader: () => import(/* webpackChunkName: "message" */ '../Message'),
     loading: () => null
 });
 

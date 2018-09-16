@@ -8,10 +8,9 @@ const PageSize = 20;
 export default class Articles extends Component {
     constructor(props) {
         super(props);
-        const { articles, tags, curTagId, allNum, page, banners, allPage } = props;
+        const { articles, curTagId, allNum, page, banners, allPage } = props;
         this.state = {
             articles,
-            tags,
             curTagId,
             allNum,
             page,
@@ -31,9 +30,9 @@ export default class Articles extends Component {
     componentDidMount() {
         const { articles, tags, banners } = this.state;
 
-        if (!articles.length || !tags.length || !banners.length) {
+        if (!articles.length || !banners.length) {
             this.getArticles(1, null);
-            this.getAllTags();
+            // this.getAllTags();
             this.getBanners();
         }
     }
@@ -136,17 +135,17 @@ export default class Articles extends Component {
     }
 
     render() {
-        const { articles, tags, curTagId, allNum, page, allPage } = this.state;
+        let { articles, tags, curTagId, allNum, page, allPage } = this.state;
         return (
             <div className="blog-articles-layout ">
                 { this.showBanners() }
                 <div className="blog-tags">
-                    <Link to={{pathname: '/'}} onClick={ () => { this.getArticles(1, null) } } className={ classNames("tag", {'tag-active': !curTagId}) } >所有文章</Link>
-                    { tags && tags.length ? tags.map( tag => (tag.count > 0) && <Link to={{pathname: '/', search: `?tag=${tag.id}`}} onClick={ () => { this.getArticles(1, tag.id) } } className={ classNames("tag", {'tag-active': curTagId == tag.id}) } key={tag.id} >{tag.name}</Link>) : null}
+                    <Link to={{pathname: '/'}}  className={ classNames("tag", {'tag-active': !curTagId}) } >所有文章</Link>
+                    {/* tags && tags.length ? tags.map( tag => (tag.count > 0) && <Link to={{pathname: '/', search: `?tag=${tag.id}`}} onClick={ () => { this.getArticles(1, tag.id) } } className={ classNames("tag", {'tag-active': curTagId == tag.id}) } key={tag.id} >{tag.name}</Link>) : null */}
                 </div>
                 <div className="blog-articles-list">
                     <ul>
-                        {articles && articles.length ? articles.map( (article, index)=> <li className="article-tiem" key={article.id}><Link to={`/article/${article.id}`} >
+                        {articles && articles.length ? articles.map( (article, index)=> <li className="article-tiem" key={article.id}><Link target="_blank" to={`/article/${article.id}`} >
                             <span className="article-num">{( index + 1)}</span>
                             <h3 className='nowrapmulti'>{article.title}</h3>
                         </Link></li>) : null}

@@ -9,6 +9,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const templateSrc = path.join(__dirname, '../web/page/');
 const outputPath = path.join(__dirname, '../dist/client/');
 const UploadToQiniuWebpackPlugin = require('upload-to-qiniu-webpack-plugin');
+const { ReactLoadablePlugin } = require('react-loadable/webpack');
 const config = require('../server/config');
 
 module.exports = merge(baseWebpackConfig, {
@@ -75,6 +76,9 @@ module.exports = merge(baseWebpackConfig, {
             files: '*.html',
             assets: [{ path: 'lib', glob: '*.dll.js', globPath: 'dist/client/lib/' }],
             append: false
+        }),
+        new ReactLoadablePlugin({
+            filename: path.join(__dirname, '../dist/server/react-loadable.json'),
         }),
         new webpack.optimize.ModuleConcatenationPlugin(),
         new UploadToQiniuWebpackPlugin({

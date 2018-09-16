@@ -10,22 +10,24 @@ import Loadable from 'react-loadable';
 
 let isFirstRender = true;
 
-// if(process.env.NODE_ENV == 'development' && module.hot && !isFirstRender ) {
-//     module.hot.accept('./App', () => {
-//         const NewApp = require('./App').default;
-//         ReactDOM.hydrate((
-//             <BrowserRouter >
-//                 <NewApp InitData={window._SERVER_DATA} />
-//           </BrowserRouter>
-//         ), document.getElementById('app'));
-//     });
-// } else {
-Loadable.preloadReady().then(() => {
-    ReactDOM.hydrate((
-        <BrowserRouter >
-            <App InitData={window._SERVER_DATA} />
-      </BrowserRouter>
-    ), document.getElementById('app'));
-});
-    // isFirstRender = false;
-// }
+if(process.env.NODE_ENV == 'development' && module.hot && !isFirstRender ) {
+    module.hot.accept('./App', () => {
+        const NewApp = require('./App').default;
+        Loadable.preloadReady().then(() => {
+            ReactDOM.hydrate((
+                <BrowserRouter >
+                    <NewApp InitData={window._SERVER_DATA} />
+              </BrowserRouter>
+            ), document.getElementById('app'));
+        });
+    });
+} else {
+    Loadable.preloadReady().then(() => {
+        ReactDOM.hydrate((
+            <BrowserRouter >
+                <App InitData={window._SERVER_DATA} />
+          </BrowserRouter>
+        ), document.getElementById('app'));
+    });
+    isFirstRender = false;
+}
