@@ -46,8 +46,9 @@ module.exports = merge(baseWebpackConfig, {
             template: path.join(templateSrc, '/blog/index.html'),
             html: '<%- html %>',
             script: '<%- JSON.stringify(ServerData) %>',
+            scriptTemp: '<% bundles && bundles.map( bundle => {%><script src="<%= bundle.publicPath %>"></script><% }) %>',
             title: '<%= title || "游走在技术与艺术边缘地带的前端攻城狮" %>',
-            chunks: ["blog"],
+            chunks: ["blog"]
         }),
         // 插入dll库
         new HtmlWebpackIncludeAssetsPlugin({

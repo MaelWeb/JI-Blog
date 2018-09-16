@@ -99,7 +99,11 @@ module.exports = {
             loader: 'babel-loader',
             query: {
                 // cacheDirectory: isDev,
-                presets: isDev ? ['react-hmre'] : []
+                presets: isDev ? ['react-hmre'] : [],
+                plugins: [
+                    'syntax-dynamic-import',
+                    "react-loadable/babel"
+                ],
             }
         }]),
         createHappyPlugin('happy-css', [{

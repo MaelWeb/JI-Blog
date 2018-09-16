@@ -19,7 +19,6 @@ mongoose.Promise = Promise;
 mongoose.connect(_Config.mongodb.url, _Config.mongodbSOptions);
 mongoose.connection.on('error', console.error);
 
-
 // 配置服务端模板渲染引擎中间件
 App.use(views(path.resolve(process.cwd(), './dist/client'), {
     extension: 'html',

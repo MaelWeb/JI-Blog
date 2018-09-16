@@ -65,7 +65,7 @@
     <script type="text/javascript">
     var _SERVER_DATA = <%- JSON.stringify(ServerData) %>;
     </script>
-    
+    <% bundles && bundles.map( bundle => {%><script src="<%= bundle.publicPath %>"></script><% }) %>
     
     <script src="https://static.liayal.com/lib/gt.js"></script>
 <script type="text/javascript" src="/lib/common_54951f66.dll.js"></script><script type="text/javascript" src="/lib/react_54951f66.dll.js"></script><script type="text/javascript" src="/js/blog.js"></script></body>

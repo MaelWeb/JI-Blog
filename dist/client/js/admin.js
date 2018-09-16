@@ -64,7 +64,7 @@
 /******/
 /******/ 	var hotApplyOnUpdate = true;
 /******/ 	// eslint-disable-next-line no-unused-vars
-/******/ 	var hotCurrentHash = "d506952c020131ce0d2b";
+/******/ 	var hotCurrentHash = "d746237fcae851ba13b2";
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule;
@@ -29224,29 +29224,24 @@ module.exports = defineProperty;
   !*** ../node_modules/lodash/_flatRest.js ***!
   \*******************************************/
 /*! no static exports found */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
+
+var flatten = __webpack_require__(/*! ./flatten */ "../node_modules/lodash/flatten.js"),
+    overRest = __webpack_require__(/*! ./_overRest */ "../node_modules/lodash/_overRest.js"),
+    setToString = __webpack_require__(/*! ./_setToString */ "../node_modules/lodash/_setToString.js");
 
 /**
- * This method returns the first argument it receives.
+ * A specialized version of `baseRest` which flattens the rest array.
  *
- * @static
- * @since 0.1.0
- * @memberOf _
- * @category Util
- * @param {*} value Any value.
- * @returns {*} Returns `value`.
- * @example
- *
- * var object = { 'a': 1 };
- *
- * console.log(_.identity(object) === object);
- * // => true
+ * @private
+ * @param {Function} func The function to apply a rest parameter to.
+ * @returns {Function} Returns the new function.
  */
-function identity(value) {
-  return value;
+function flatRest(func) {
+  return setToString(overRest(func, undefined, flatten), func + '');
 }
 
-module.exports = identity;
+module.exports = flatRest;
 
 
 /***/ }),
@@ -30164,6 +30159,39 @@ function findIndex(array, predicate, fromIndex) {
 }
 
 module.exports = findIndex;
+
+
+/***/ }),
+
+/***/ "../node_modules/lodash/flatten.js":
+/*!*****************************************!*\
+  !*** ../node_modules/lodash/flatten.js ***!
+  \*****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseFlatten = __webpack_require__(/*! ./_baseFlatten */ "../node_modules/lodash/_baseFlatten.js");
+
+/**
+ * Flattens `array` a single level deep.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Array
+ * @param {Array} array The array to flatten.
+ * @returns {Array} Returns the new flattened array.
+ * @example
+ *
+ * _.flatten([1, [2, [3, [4]], 5]]);
+ * // => [1, 2, [3, [4]], 5]
+ */
+function flatten(array) {
+  var length = array == null ? 0 : array.length;
+  return length ? baseFlatten(array, 1) : [];
+}
+
+module.exports = flatten;
 
 
 /***/ }),

@@ -65,9 +65,7 @@
     <script type="text/javascript">
     var _SERVER_DATA = <%= htmlWebpackPlugin.options.script %>;
     </script>
-    <% htmlWebpackPlugin.options.bundles && htmlWebpackPlugin.options.bundles.map( bundle => {%>
-    <script src="<%= bundle.publicPath %>"></script>
-    <% }) %>
+    <%= htmlWebpackPlugin.options.scriptTemp %>
     <% if (process.env.NODE_ENV == 'production') { %>
         <script defer src="https://hm.baidu.com/hm.js?a4dcb77ef428aa2097afcdb00559e283"></script>
     <% } %>

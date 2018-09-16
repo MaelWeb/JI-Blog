@@ -20,6 +20,23 @@ const stats = require('../../dist/server/react-loadable.json');
 
 const Router = new router();
 
+let getHtml = (ctx, serverData = {}) => {
+    let modules = [];
+    const html = ReactDOMServer.renderToString(
+        <Loadable.Capture report={ moduleName => { console.log("moduleName", moduleName); return modules.push(moduleName)} }>
+            <StaticRouter context={{}} location={ctx.req.url}>
+                <App InitData={serverData} />
+            </StaticRouter>
+        </Loadable.Capture>
+    );
+    let bundles = getBundles(stats, modules);
+
+    return {
+        html: html,
+        bundles: bundles.filter(bundle => bundle.file.endsWith('.js'))
+    }
+};
+
 let _Page = Router
     .get('/', async(ctx, next) => {
         ctx.query.category = 'DEFAULT';
@@ -31,25 +48,16 @@ let _Page = Router
 
         let ServerData = {tags, curTagId: ctx.query.tag, ...articleData, banners};
 
-        let modules = [];
-        const html = ReactDOMServer.renderToString(
-             <Loadable.Capture report={moduleName => modules.push(moduleName)}>
-            <StaticRouter context={{}} location={ctx.req.url}>
-                <App InitData={ServerData} />
-            </StaticRouter>
-            </Loadable.Capture>
-        );
-        let bundles = getBundles(stats, modules);
-
+        let htmlObj = getHtml(ctx, ServerData);
 
         await ctx.render('blog', {
-            html: htmlMinifier.minify(html, {
+            html: htmlMinifier.minify(htmlObj.html, {
                 removeComments: true,
                 collapseWhitespace: true
             }),
             ServerData,
             title: '游走在技术与艺术边缘地带的前端攻城狮',
-            bundles
+            bundles: htmlObj.bundles
         });
     })
     .get('article/:id', async(ctx, next) => {
@@ -63,54 +71,46 @@ let _Page = Router
             article: articleData.article,
             commentsData
         }
-
-        const html = ReactDOMServer.renderToString(
-            <StaticRouter context={{}} location={ctx.req.url}>
-                <App InitData={{...ServerData}} />
-            </StaticRouter>
-        )
+        let htmlObj = getHtml(ctx, ServerData);
 
         await ctx.render('blog', {
-            html: htmlMinifier.minify(html, {
+            html: htmlMinifier.minify(htmlObj.html, {
                 removeComments: true,
                 collapseWhitespace: true
             }),
             ServerData,
-            title: articleData.article.title
+            title: articleData.article.title,
+            bundles: htmlObj.bundles
         });
     })
     .get('photoes', async(ctx, next) => {
 
         let ServerData = await getPhotoes(ctx);
-
-        const html = ReactDOMServer.renderToString(
-            <StaticRouter context={{}} location={ctx.req.url}>
-                <App InitData={{...ServerData}} />
-            </StaticRouter>
-        )
+        let htmlObj = getHtml(ctx, ServerData);
 
         await ctx.render('blog', {
-            html: htmlMinifier.minify(html, {
+            html: htmlMinifier.minify(htmlObj.html, {
                 removeComments: true,
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '图记'
+            title: '图记',
+            bundles: htmlObj.bundles
         });
     })
     .get('about', async(ctx, next) => {
 
         let ServerData = {};
-
-        const html = '';
+        let htmlObj = getHtml(ctx, ServerData);
 
         await ctx.render('blog', {
-            html: htmlMinifier.minify(html, {
+            html: htmlMinifier.minify(htmlObj.html, {
                 removeComments: true,
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '关于'
+            title: '关于',
+            bundles: htmlObj.bundles
         });
     })
     .get('travel', async(ctx, next) => {
@@ -119,19 +119,16 @@ let _Page = Router
         const { articles, ...others } = articleData;
         let ServerData = {travels: articles, ...others};
 
-        const html = ReactDOMServer.renderToString(
-            <StaticRouter context={{}} location={ctx.req.url}>
-                <App InitData={{...ServerData}}/>
-            </StaticRouter>
-        )
+        let htmlObj = getHtml(ctx, ServerData);
 
         await ctx.render('blog', {
-            html: htmlMinifier.minify(html, {
+            html: htmlMinifier.minify(htmlObj.html, {
                 removeComments: true,
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '游记'
+            title: '游记',
+            bundles: htmlObj.bundles
         });
     })
     .get('books', async(ctx, next) => {
@@ -140,19 +137,16 @@ let _Page = Router
         let banners = await getBanners(ctx);
         let ServerData = { ...booksData, banner: banners[0]};
 
-        const html = ReactDOMServer.renderToString(
-            <StaticRouter context={{}} location={ctx.req.url}>
-                <App InitData={{...ServerData}}/>
-            </StaticRouter>
-        )
+        let htmlObj = getHtml(ctx, ServerData);
 
         await ctx.render('blog', {
-            html: htmlMinifier.minify(html, {
+            html: htmlMinifier.minify(htmlObj.html, {
                 removeComments: true,
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '阅记'
+            title: '阅记',
+            bundles: htmlObj.bundles
         });
     })
     .get('message', async(ctx, next) => {
@@ -164,19 +158,16 @@ let _Page = Router
         let commentsData = await getComments(ctx);
         let ServerData = { messageBanners, ...commentsData };
 
-        const html = ReactDOMServer.renderToString(
-            <StaticRouter context={{}} location={ctx.req.url}>
-                <App InitData={{...ServerData}}/>
-            </StaticRouter>
-        )
+        let htmlObj = getHtml(ctx, ServerData);
 
         await ctx.render('blog', {
-            html: htmlMinifier.minify(html, {
+            html: htmlMinifier.minify(htmlObj.html, {
                 removeComments: true,
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '留言'
+            title: '留言',
+            bundles: htmlObj.bundles
         });
     })
     .get('admin', pageVerify, async(ctx, next) => {

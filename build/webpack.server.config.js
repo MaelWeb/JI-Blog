@@ -9,7 +9,7 @@ const outputPath = path.join(__dirname, '../dist/server/');
 module.exports = {
     context: sourcePath,
     entry: '../server/index.js',
-    mode: "development",
+    mode: "production",
     output: {
         path: outputPath,
         filename: 'server.js'
