@@ -27,7 +27,7 @@ export async function getBanners(ctx) {
         message: 'ok'
     };
 
-    let banners = await Banner.find(filter, { href: 1, url: 1, text: 1}).sort({ createTime: -1 }).catch(err => {
+    let banners = await Banner.find(filter, { href: 1, url: 1, text: 1, page: 1, author: 1}).sort({ createTime: -1 }).catch(err => {
         result.code = 500;
         result.message = "服务器错误";
     });
