@@ -11,7 +11,8 @@
     "start": "pm2 start ./dist/server/server.js --watch",
     "scp": "scp -r dist/ package.json root@118.126.82.201:~/blog",
     "analyz": "cross-env NODE_ENV=production npm_config_report=true npm run build",
-    "clean": "rimraf dist/client/js dist/client/css dist/client/font dist/client/images"
+    "clean": "rimraf dist/client/js dist/client/css dist/client/font dist/client/images",
+    "eslint:fix": "eslint --fix"
   },
   "author": "",
   "license": "ISC",
@@ -70,6 +71,11 @@
     "css-mqpacker": "^6.0.2",
     "cssnano": "^4.1.0",
     "editor.md": "^1.5.0",
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-jsx-a11y": "^6.1.1",
+    "eslint-plugin-react": "^7.11.1",
     "eventsource-polyfill": "^0.9.6",
     "expose-loader": "^0.7.4",
     "extract-text-webpack-plugin": "^4.0.0-beta.0",
