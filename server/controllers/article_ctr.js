@@ -1,7 +1,5 @@
 import Article from '../models/article_model';
 
-a =1;
-
 export async function createArticle(ctx) {
     const formData = ctx.request.body;
     const createTime = new Date();
