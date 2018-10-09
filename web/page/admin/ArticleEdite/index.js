@@ -155,11 +155,10 @@ export default class AddArticle extends Component {
             this.context.showMessage(res.data.message);
             this.isPosting = false;
             if (res.data.code == 200) {
-                this.setState({
-                    aid: res.data.article.id
-                })
-                // this.state.markdownContent = params.content;
-                // this.props.history.replace({pathname: '/edit', search: `?aid=${res.data.article.id}`});
+                // this.setState({
+                //     aid: res.data.article.id
+                // })
+                this.props.history.replace({pathname: '/edit', search: `?aid=${res.data.article.id}`});
             }
         })
         .catch( err => {
