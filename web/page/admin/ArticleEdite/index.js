@@ -159,6 +159,7 @@ export default class AddArticle extends Component {
                 //     aid: res.data.article.id
                 // })
                 this.props.history.replace({pathname: '/edit', search: `?aid=${res.data.article.id}`});
+                this.getArticle(res.data.article.id);
             }
         })
         .catch( err => {
