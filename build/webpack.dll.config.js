@@ -16,7 +16,7 @@ module.exports = {
     mode: "production",
     entry: {
         react: ['react', 'react-dom', "react-router-dom", "react-router", "prop-types"],
-        common: ['axios', 'classnames', "moment", 'core-js/es6/promise', 'core-js/es6/map', 'core-js/es6/set']
+        common: ['axios', 'classnames', "dayjs", 'core-js/es6/promise', 'core-js/es6/map', 'core-js/es6/set']
     },
     output: {
         path: outputPath,

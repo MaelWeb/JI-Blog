@@ -1,0 +1,156 @@
+.blog-notfound {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #f8f8f8;
+    box-sizing: border-box;
+
+
+    .blog-mac {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        transform: translateY(-50%);
+    }
+
+    .blog-mac-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        padding: 34% 0 0 49%;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+        color: #212121;
+        background: url('https://cdn.liayal.com/404_20181103.jpg') center center / 70% no-repeat;
+
+        .blog-notfound-tips {
+            font-weight: bold;
+            font-size: .22rem;
+            box-sizing: border-box;
+        }
+
+        .blog-notfound-btn {
+            margin-top: .2rem;
+            font-size: .14rem;
+
+            a {
+                margin-right: .2rem;
+                display: inline-block;
+                border-bottom: 1px solid #333;
+
+                &:hover {
+                    animation: rubberBand 1s both;
+                }
+            }
+        }
+    }
+
+    .blog-mac-screen {
+        position: relative;
+        width: 60%;
+        padding-top: 36%;
+        margin: 0 auto;
+        border: 3px solid #000;
+        border-bottom-width: .2rem;
+        border-radius: .2rem .2rem .05rem .05rem;
+        box-sizing: border-box;
+        box-shadow: -1px -1px 1px 0px #9c9ea3;
+    }
+
+    .blog-mac-brand {
+        position: absolute;
+        bottom: -.2rem;
+        margin: 0;
+        width: 100%;
+        height: .2rem;
+        line-height: .2rem;
+        color: #fff;
+        font-size: .1rem;
+    }
+
+    .blog-mac-bottom {
+        position: relative;
+        width: 73%;
+        height: .15rem;
+        margin: 0 auto;
+        /*border-radius: 0 0 40px 40px / 0 0 5px 5px;*/
+        background: linear-gradient(to right, #606163, #8a8b8f);
+
+
+        &:before {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4%;
+            background: linear-gradient(to right, #ede6e1, #fff 25%, #464848 55%, #606163 100%);
+            z-index: 1;
+            content: '';
+        }
+
+
+        &:after {
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 6%;
+            background: linear-gradient(90deg, #8a8b8f, #c1c2c5 60%, #9b9ca0 75%, #c1c2c6 90%, #ede6e1);
+            z-index: 1;
+            content: '';
+        }
+
+        .blog-mac-open {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            margin-left: -6%;
+            content: "";
+            width: 12%;
+            height: .1rem;
+            border-bottom-right-radius: .18rem .1rem;
+            border-bottom-left-radius: .18rem .1rem;
+            background: rgba(70, 70, 71, .7);
+            box-shadow: 1px 1px 1px #444 inset;
+            overflow: hidden;
+
+            &:before {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 100%;
+                width: 10%;
+                background: linear-gradient(to right, #6e6c6d, rgba(70, 70, 71, .7));
+                z-index: 1;
+                content: '';
+            }
+
+
+            &:after {
+                position: absolute;
+                right: 0;
+                top: 0;
+                height: 100%;
+                width: 6%;
+                background: linear-gradient(to left, #fafcff, rgba(70, 70, 71, .7));
+                z-index: 1;
+                content: '';
+            }
+        }
+
+        .blog-mac-back {
+            position: absolute;
+            bottom: -.13rem;
+            content: "";
+            width: 100%;
+            height: .13rem;
+            background: linear-gradient(to bottom, #201f22, #000000);
+            border-bottom-right-radius: 1rem .13rem;
+            border-bottom-left-radius: 1rem .13rem;
+            display: block;
+        }
+    }
+
+}

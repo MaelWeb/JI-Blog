@@ -3,12 +3,12 @@ const nodeExternals = require('webpack-node-externals');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
 const path = require('path');
-const sourcePath = path.join(__dirname, '../server');
+const sourcePath = path.join(__dirname, '../src/server');
 const outputPath = path.join(__dirname, '../dist/server/');
 
 module.exports = {
     context: sourcePath,
-    entry: '../server/index.js',
+    entry: '../src/server/index.js',
     mode: "production",
     output: {
         path: outputPath,

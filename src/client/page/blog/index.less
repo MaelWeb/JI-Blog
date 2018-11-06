@@ -1,0 +1,626 @@
+@import '../../commonless/app.less';
+@import '../../commonless/animates.less';
+@import '../../components/ImageGallery/index.less';
+@import '../../components/Icon/iconfont.less';
+@import '../../components/ScrollToTop/index.less';
+@import '../../components/CommentInput/index.less';
+@import '../../components/UI/index.less';
+
+
+.page {
+    height: auto;
+    min-height: 5rem;
+    padding: constant(safe-area-inset-top) constant(safe-area-inset-right) constant(safe-area-inset-bottom) constant(safe-area-inset-left);
+}
+
+[class*=layout] {
+    min-height: calc(~"100vh - 2.5rem");
+}
+
+
+.middle-text {
+    padding: .5rem 25% 1rem;
+    color: #4a3f29;
+
+    h2 {
+        font-size: .2rem;
+        color: #493f35;
+        line-height: 3;
+        font-weight: bold;
+    }
+}
+
+.blog-footer {
+    padding: .1rem 0 .2rem;
+    font-size: .1rem;
+    background-color: #13161b;
+    color: #999;
+
+    h4 {
+        margin-bottom: .05rem;
+        font-size: .16rem;
+    }
+
+    & a {
+        color: inherit;
+        text-decoration: underline;
+    }
+
+    .footer-content {
+        margin: 0 auto .2rem;
+        width: 70%;
+    }
+
+    .footer-desc {
+        width: 50%;
+    }
+
+    .footer-about {
+        width: 20%;
+
+        a {
+            margin-right: .1rem;
+            font-size: .14rem;
+        }
+    }
+
+    .footer-statement {
+        margin: 0 auto;
+        padding: .05rem .1rem;
+        width: 3.5rem;
+        font-size: .12rem;
+        border-top: 1px solid #666;
+    }
+}
+
+.header-banner {
+    padding-top: 49.6%; // height: 6rem;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-color: #ccc;
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translate3d(-20%, 0, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fadeOutRight {
+    from {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translate3d(20%, 0, 0);
+    }
+}
+
+
+// 进出场动画
+// 飞入
+.slide-enter {
+
+    &.slide-enter-active {
+        animation: fadeInLeft .5s ease both;
+    }
+}
+
+// 向左滑出
+.slide-exit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    z-index: 2;
+    background-color: #f8f8f8;
+
+    &.slide-exit-active {
+        animation: fadeOutRight .45s ease both;
+    }
+}
+
+
+.dotting {
+    margin-left: 4px;
+    width: 10px;
+    min-height: 2px;
+    padding: 0 2px;
+    border-left: 2px solid currentColor;
+    border-right: 2px solid currentColor;
+    background-color: currentColor;
+    background-clip: content-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-animation: dot 2s infinite step-start;
+    animation: dot 2s infinite step-start;
+    display: inline-block !important;
+}
+
+@keyframes dot {
+
+    /* 1个点 */
+    33.33% {
+        border-right-color: transparent;
+        background-color: transparent;
+    }
+
+    /* 2个点 */
+    66.66% {
+        border-right-color: transparent;
+    }
+}
+
+@import './Header/index.less';
+@import './articles/articles.less';
+@import './article/index.less';
+@import './Photoes/index.less';
+@import './About/index.less';
+@import './Travel/index.less';
+@import './Books/index.less';
+@import './Comments/index.less';
+@import './Message/index.less';
+@import './NotFound/index.less';
+
+@media screen and (min-width: 1560px) {
+    .blog-books-layout .blog-books-header .text-wrap {
+        font-size: .16rem;
+        line-height: 2;
+    }
+
+    .blog-articles-layout {
+
+        .banners-two {
+            .banner-item .text {
+                padding: .05rem .1rem;
+                font-size: .16rem;
+            }
+        }
+
+        .banners-three {
+            .left-col .text {
+                padding: .05rem .1rem;
+                font-size: .16rem;
+            }
+
+            .right-col .text {
+                padding: .03rem .05rem;
+            }
+
+            .right-col .banner-item {
+                font-size: .14rem;
+            }
+        }
+    }
+
+    .blog-header {
+        font-size: .16rem;
+    }
+}
+
+@media screen and (max-width: 1025px) and (max-width: 1366px) {
+    .blog-articles-layout {
+
+        .banners,
+        .blog-tags,
+        .blog-articles-list {
+            width: 80%;
+        }
+
+        .banners-two {
+            .banner-item .text {
+                padding: .05rem .1rem;
+                font-size: .16rem;
+            }
+        }
+
+        .banners-three {
+            .left-col .text {
+                padding: .05rem .1rem;
+                font-size: .16rem;
+            }
+
+            .right-col .text {
+                padding: .03rem .05rem;
+            }
+
+            .right-col .banner-item {
+                font-size: .14rem;
+            }
+        }
+    }
+
+    .blog-books-layout {
+
+        .blog-books-header .text-wrap {
+            line-height: 2;
+        }
+    }
+}
+
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    .blog-articles-layout {
+
+        .banners-two {
+            .banner-item .text {
+                padding: .05rem .1rem;
+                font-size: .16rem;
+            }
+        }
+
+        .banners-three {
+            .left-col .text {
+                padding: .05rem .1rem;
+                font-size: .16rem;
+            }
+
+            .right-col .text {
+                padding: .03rem .05rem;
+            }
+
+            .right-col .banner-item {
+                font-size: .14rem;
+            }
+        }
+    }
+
+    .blog-books-layout {
+
+        .blog-books-header .text-wrap {
+            font-size: .12rem;
+            line-height: 1.8;
+        }
+
+        .books-list {
+
+            .blog-books-item {
+                width: 50%;
+            }
+        }
+    }
+
+    .blog-article-layout {
+        .blog-article-layout-wrap {
+            width: 80%;
+        }
+    }
+
+    .blog-notfound {
+        .blog-mac-screen {
+            width: 75%;
+            padding-top: 50%;
+        }
+
+        .blog-mac-bottom {
+            width: 88%;
+        }
+    }
+}
+
+
+@media screen and (max-width: 768px) {
+
+    .blog-article-layout {
+        padding: 0;
+        background-color: #fff;
+
+        .blog-article-layout-wrap {
+            width: 90%;
+        }
+
+        .article-tips {
+            padding: .05rem .1rem;
+        }
+    }
+
+    .blog-travel-layout {
+        .traverl-header:after {
+            bottom: -0.11rem;
+            padding: .03rem .06rem;
+            font-size: .2rem;
+        }
+    }
+
+    .blog-photo-layout {
+        .photo-banner:after {
+            bottom: -0.11rem;
+            padding: .03rem .06rem;
+            font-size: .2rem;
+        }
+    }
+
+    .blog-about {
+        .about-module {
+            width: 90%;
+        }
+    }
+
+    .blog-books-layout {
+
+        .blog-books-header .text-wrap {
+            font-size: .1rem;
+            line-height: 1.7;
+        }
+
+        .books-list {
+            width: 90%;
+
+            .blog-books-item {
+                width: 50%;
+            }
+        }
+    }
+
+    .blog-message-layout {
+
+        .blog-message-header-input {
+            width: 95%;
+            padding: .1rem;
+        }
+
+        .blog-message-other.fr,
+        .blog-message-list-wrap.fl {
+            float: none;
+        }
+
+        .blog-message-body {
+            padding: .05rem;
+        }
+
+        .blog-message-list {
+            margin-right: 0;
+            width: 100%;
+        }
+
+        .blog-message-other {
+            margin: .1rem 0;
+            width: 100%;
+        }
+
+        .blog-message-widget-up {
+
+            .blog-message-widge-list {
+                font-size: .14rem;
+            }
+
+            h5 {
+                font-size: .15rem;
+            }
+
+            h6 {
+                font-size: .14rem;
+            }
+        }
+    }
+
+
+    .blog-notfound {
+        height: auto;
+
+        .blog-mac {
+            position: static;
+            transform: translateY(0);
+        }
+
+        .blog-mac-screen {
+            padding: 36% 0;
+            width: 100%;
+            box-shadow: none;
+            border-radius: 0;
+        }
+
+        .blog-mac-content {
+            position: static;
+        }
+
+        .blog-mac-content {
+
+        }
+
+        .blog-mac-bottom,
+        .blog-mac-brand {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: 420px) {
+
+    .header-banner {
+        padding-top: 0;
+        height: 2.4rem;
+    }
+
+    .blog-articles-layout {
+
+        .banners,
+        .blog-tags,
+        .blog-articles-list {
+            width: 95%;
+        }
+
+        .banners-two {
+            .banner-item .text {
+                padding: .01rem .03rem;
+                font-size: .14rem;
+            }
+        }
+
+        .banners-three {
+            .left-col .text {
+                padding: .04rem .05rem;
+                font-size: .12rem;
+            }
+
+            .right-col .text {
+                padding: .02rem .03rem;
+            }
+
+            .right-col .banner-item {
+                font-size: .1rem;
+            }
+        }
+
+        .banner-item .text {
+            padding: .05rem .1rem;
+            line-height: 1.2;
+            font-size: .12rem;
+        }
+    }
+
+    .blog-article-layout {
+
+        .article-tips {
+            padding: .05rem .1rem;
+        }
+
+        .comment-reply-from {
+            width: 95%;
+            margin: 0;
+            transform: translate(-50%, -50%);
+        }
+    }
+
+
+    .blog-travel-layout {
+        .travel-header {
+            .aticle-info {
+                padding: .05rem .1rem;
+                width: 85%;
+                font-size: .12rem;
+            }
+
+            h2 {
+                font-size: .14rem;
+                .nowrapmulti;
+            }
+
+            .sub-title {
+                .nowrapmulti;
+            }
+
+            .small {
+                margin-bottom: .05rem;
+            }
+
+            &:after {
+                bottom: -0.11rem;
+                padding: .03rem .06rem;
+                font-size: .2rem;
+            }
+        }
+
+        .travel-article-list {
+            width: 98%;
+        }
+
+        .article-item {
+            padding: .05rem;
+
+            .article-title {
+                bottom: .15rem;
+                padding: 0 .1rem;
+                line-height: 1.4;
+                font-size: .1rem;
+            }
+        }
+    }
+
+    .blog-about {
+        padding: .5rem 3%;
+
+        .about-module {
+            margin-bottom: .4rem;
+            width: 100%;
+            font-size: .1rem;
+
+            h2 {
+                margin-bottom: .05rem;
+                font-size: .14rem;
+            }
+        }
+    }
+
+    .blog-books-layout {
+
+        .blog-books-header {
+            background-image: url("//cdn.liayal.com/image/books_banner.jpg");
+            height: 4rem;
+            overflow: hidden;
+            background-color: #ccc;
+            background-size: cover;
+            background-position: 49%;
+
+            img {
+                display: none;
+            }
+
+            .text-wrap {
+                top: 19%;
+                left: 33%;
+                width: 42%;
+                line-height: 2;
+            }
+        }
+
+        .books-list {
+            width: 95%;
+
+            .blog-books-item {
+                width: 100%;
+            }
+        }
+    }
+
+    .blog-message-layout {
+        .blog-message-header {
+            height: 4.5rem;
+            height: 61.8vh;
+        }
+
+        .comment-reply-from {
+            width: 90%;
+        }
+    }
+
+    .middle-text {
+        padding: .2rem 3% .4rem;
+
+        h2 {
+            font-size: .18rem;
+            line-height: 2.5;
+        }
+    }
+
+    .blog-footer {
+        font-size: .12rem;
+
+        .footer-content {
+            width: 90%;
+        }
+
+        .footer-desc,
+        .footer-about {
+            width: 100%;
+        }
+
+        .footer-about {
+            margin-top: .1rem;
+        }
+
+        .fr,
+        .fl {
+            float: none;
+        }
+    }
+}

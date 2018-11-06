@@ -4,7 +4,8 @@ module.exports = {
         "es6": true,
         "node": true
     },
-    "extends": "eslint:recommended",
+    // "extends": "eslint:recommended",
+    extends: ['airbnb', 'plugin:jest/recommended', 'jest-enzyme'],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -13,9 +14,15 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [
-        "react"
+        "react",
+        'babel',
+        'import',
+        'jsx-a11y',
+        'react',
+        'prettier'
     ],
     "rules": {
+         "prettier/prettier": "error",
         // allow debugger during development
         'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
         /*
@@ -216,7 +223,7 @@ module.exports = {
         'quote-props': ['error', 'as-needed'],
 
         // enforce the consistent use of either backticks, double, or single quotes
-        quotes: ['error', 'double'],
+        quotes: ['error', 'single'],
 
         // enforce consistent spacing before and after semicolons
         'semi-spacing': 'error',

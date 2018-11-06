@@ -5,7 +5,7 @@ const baseWebpackConfig = require('./webpack.base.config');
 const Html = require('html-webpack-plugin');
 const HtmlWebpackHarddiskPlugin = require('html-webpack-harddisk-plugin');
 const outputPath = path.join(__dirname, '../dist/client/');
-const templateSrc = path.join(__dirname, '../web/page/');
+const templateSrc = path.join(__dirname, '../src/client/page/');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 
 // process.traceDeprecation = true;
@@ -17,12 +17,12 @@ module.exports = merge(baseWebpackConfig, {
         admin: [
             'eventsource-polyfill',
             'webpack-hot-middleware/client',
-            '../web/page/admin/index.js',
+            './page/admin/index.js',
         ],
         blog: [
             'eventsource-polyfill',
             'webpack-hot-middleware/client',
-            '../web/page/blog/index.js',
+            './page/blog/index.js',
         ]
     },
     output: {

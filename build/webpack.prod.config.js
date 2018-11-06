@@ -6,17 +6,17 @@ const baseWebpackConfig = require('./webpack.base.config');
 const HtmlWebpackIncludeAssetsPlugin = require('html-webpack-include-assets-plugin');
 const Html = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const templateSrc = path.join(__dirname, '../web/page/');
+const templateSrc = path.join(__dirname, '../src/client/page/');
 const outputPath = path.join(__dirname, '../dist/client/');
 const UploadToQiniuWebpackPlugin = require('upload-to-qiniu-webpack-plugin');
-const config = require('../server/config');
+const config = require('../src/server/config');
 
 module.exports = merge(baseWebpackConfig, {
     devtool: false,
     mode: "production",
     entry: {
-        admin: '../web/page/admin/index.js',
-        blog: '../web/page/blog/index.js'
+        admin: './page/admin/index.js',
+        blog: './page/blog/index.js'
     },
     output: {
         path: outputPath,
@@ -77,13 +77,13 @@ module.exports = merge(baseWebpackConfig, {
             append: false
         }),
         new webpack.optimize.ModuleConcatenationPlugin(),
-        new UploadToQiniuWebpackPlugin({
-            qiniuAccessKey: config.upload.ACCESS_KEY,
-            qiniuSecretKey: config.upload.SECRET_KEY,
-            qiniuBucket: 'hynal-static',
-            qiniuZone: 'Zone_z0',
-            uploadLogPath: __dirname
-        })
-        // new BundleAnalyzerPlugin()
+        // new UploadToQiniuWebpackPlugin({
+        //     qiniuAccessKey: config.upload.ACCESS_KEY,
+        //     qiniuSecretKey: config.upload.SECRET_KEY,
+        //     qiniuBucket: 'hynal-static',
+        //     qiniuZone: 'Zone_z0',
+        //     uploadLogPath: __dirname
+        // })
+        new BundleAnalyzerPlugin()
     ]
 });

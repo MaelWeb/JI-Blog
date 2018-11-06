@@ -6,7 +6,7 @@ const os = require('os');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin');
 const chalk = require('chalk');
 const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
-const sourcePath = path.join(__dirname, '../web');
+const sourcePath = path.join(__dirname, '../src/client/');
 const nodeModules = path.resolve(__dirname, '../node_modules');
 
 const isDev = !!(process.env.NODE_ENV != 'production');
@@ -71,7 +71,7 @@ module.exports = {
             nodeModules
         ],
         alias: {
-            Components: path.join(__dirname, '../web/components/')
+            Components: path.join(__dirname, '../src/client/components/')
         },
     },
     externals: {
