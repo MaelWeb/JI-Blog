@@ -51,26 +51,26 @@ export default class ImageGallery extends Component {
     }
 
     preventDefault = (e) => {
-         e.preventDefault();
+        e.preventDefault();
     }
 
     close = () => {
         this.setState({
-            isShow:false
+            isShow: false
         })
     }
 
     _onSliding = () => {
-       const { isTransitioning } = this.state;
+        const { isTransitioning } = this.state;
         window.setTimeout(() => {
             if (isTransitioning) {
-                this.setState({isTransitioning: !isTransitioning});
+                this.setState({ isTransitioning: !isTransitioning });
             }
         }, this.props.slideDuration);
     };
 
     slideToIndex = (index, event) => {
-        const {currentIndex, isTransitioning} = this.state;
+        const { currentIndex, isTransitioning } = this.state;
 
         if (!isTransitioning) {
 
@@ -89,7 +89,7 @@ export default class ImageGallery extends Component {
                 isTransitioning: nextIndex !== currentIndex,
                 offsetPercentage: 0,
                 style: {
-                  transition: `all ${this.props.slideDuration}ms ease-out`
+                    transition: `all ${this.props.slideDuration}ms ease-out`
                 }
             }, this._onSliding);
         }
@@ -104,8 +104,8 @@ export default class ImageGallery extends Component {
     }
 
     _getSlideStyle = (index) => {
-        const {currentIndex, offsetPercentage} = this.state;
-        const {images} = this.props;
+        const { currentIndex, offsetPercentage } = this.state;
+        const { images } = this.props;
         const baseTranslateX = -100 * currentIndex;
         const totalSlides = images.length - 1;
 
@@ -117,7 +117,7 @@ export default class ImageGallery extends Component {
                 // make the last slide the slide before the first
                 translateX = -100 + offsetPercentage;
             } else if (currentIndex === totalSlides && index === 0) {
-            // make the first slide the slide after the last
+                // make the first slide the slide after the last
                 translateX = 100 + offsetPercentage;
             }
         }
@@ -150,7 +150,7 @@ export default class ImageGallery extends Component {
           or last slide to show up during our transition
         */
         return !this._slideIsTransitioning(index) ||
-          (this._ignoreIsTransitioning() && !this._isFirstOrLastSlide(index));
+            (this._ignoreIsTransitioning() && !this._isFirstOrLastSlide(index));
     }
 
     _slideIsTransitioning(index) {
@@ -183,8 +183,17 @@ export default class ImageGallery extends Component {
         const notGoingFromLastToFirst = !(previousIndex === totalSlides && currentIndex === 0);
 
         return slidingMoreThanOneSlideLeftOrRight &&
-          notGoingFromFirstToLast &&
-          notGoingFromLastToFirst;
+            notGoingFromFirstToLast &&
+            notGoingFromLastToFirst;
+    }
+
+
+    getSrcSet(src) {
+        return [
+            `https://${src}?imageMogr2/auto-orient/thumbnail/750x/strip/interlace/1/quality/80/ 750w`,
+            `https://${src}?imageMogr2/auto-orient/thumbnail/1125x/strip/interlace/1/quality/80/ 1125w`,
+            `https://${src}?imageMogr2/auto-orient/thumbnail/1560x/strip/interlace/1/quality/80/ 1560w`
+        ].join(',')
     }
 
 
@@ -198,7 +207,7 @@ export default class ImageGallery extends Component {
                 let slideStyle = this._getSlideStyle(index);
                 slides.push(
                     (<div className='image-gallery-slide' style={ Object.assign(slideStyle, this.state.style) } key={index} >
-                        <img src={img.src}/>
+                        <img src={img.src} srcSet={ this.getSrcSet(img.origin) } />
                     </div>)
                 );
             }
@@ -210,13 +219,13 @@ export default class ImageGallery extends Component {
     render() {
         const { isShow, currentIndex } = this.state;
         const { images } = this.props;
-        return(
+        return (
             <div className="mael-image-gallery" hidden={!isShow} >
                 <Icon type='close' onClick={ this.close } />
                 <Toucher className="image-gallery-swipe" onSwipeRight={ this.slideLeft } onSwipeLeft={ this.slideRight } >
                     <div className="image-gallery-arrow arrow-left" onClick={ this.slideLeft } ><Icon type='bold-arrow-left' /></div>
                     <div className="image-gallery-slides">
-                        { this.getSlides() }
+                        { isShow ? this.getSlides() : null}
                     </div>
                     <div className="image-gallery-arrow arrow-right" onClick={ this.slideRight } ><Icon type='bold-arrow-right' /></div>
                 </Toucher>

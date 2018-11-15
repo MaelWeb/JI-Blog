@@ -3,8 +3,9 @@ import { Link } from 'react-router-dom';
 import Pagination from '../../../components/UI/pagination';
 import Axios from 'axios';
 import classNames from 'classnames';
+import { getImgSrcSet } from '../Util';
 
-const PageSize = 2;
+const PageSize = 10;
 export default class Articles extends Component {
     constructor(props) {
         super(props);
@@ -93,7 +94,8 @@ export default class Articles extends Component {
         if (banners.length == 1)
             return (
                 <div className="banners">
-                    <div className="banner-item" style={ {backgroundImage: `url(${banners[0].url})`} }><a target="_blank" href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
+                    <div className="banner-item"><a target="_blank" href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
+                        <img src={banners[0].url} className="img-object-fit" srcSet={getImgSrcSet(banners[0].url, 375)}/>
                         <div className="text"><p className='ellipsis'>{banners[0].text}</p></div>
                     </a></div>
                 </div>
@@ -102,12 +104,12 @@ export default class Articles extends Component {
         if (banners.length == 2)
             return (
                 <div className="banners banners-two clearfix">
-                    <div className="banner-item fl" style={ {backgroundImage: `url(${banners[0].url})`} } ><a target="_blank" href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
-                        <img src={banners[0].url} hidden/>
+                    <div className="banner-item fl" ><a target="_blank" href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
+                        <img src={banners[0].url} className="img-object-fit" srcSet={getImgSrcSet(banners[0].url, 180)}/>
                         <div className="text"><p className='ellipsis'>{banners[0].text}</p></div>
                     </a></div>
-                    <div className="banner-item fr" style={ {backgroundImage: `url(${banners[1].url})`} }><a target="_blank" href={banners[1].href ? banners[1].href : "javascript:void(0);"} >
-                        <img src={banners[1].url} hidden/>
+                    <div className="banner-item fr"><a target="_blank" href={banners[1].href ? banners[1].href : "javascript:void(0);"} >
+                        <img src={banners[1].url} className="img-object-fit" srcSet={getImgSrcSet(banners[1].url, 180)}/>
                         <div className="text"><p className='ellipsis'>{banners[1].text}</p></div>
                     </a></div>
                 </div>
@@ -116,17 +118,17 @@ export default class Articles extends Component {
         if (banners.length == 3)
             return (
                 <div className="banners banners-three clearfix">
-                    <div className="left-col banner-item fl" style={ {backgroundImage: `url(${banners[0].url})`} } ><a target="_blank" href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
-                        <img src={banners[0].url} hidden/>
+                    <div className="left-col banner-item fl" ><a target="_blank" href={banners[0].href ? banners[0].href : "javascript:void(0);"} >
+                        <img src={banners[0].url} className="img-object-fit" srcSet={getImgSrcSet(banners[0].url, 180)}/>
                         <div className="text"><p className='ellipsis'>{banners[0].text}</p></div>
                     </a></div>
                     <div className="right-col fr">
-                        <div className="banner-item" style={ {backgroundImage: `url(${banners[1].url})`} }><a target="_blank" href={banners[1].href ? banners[1].href : "javascript:void(0);"} >
-                            <img src={banners[1].url} hidden/>
+                        <div className="banner-item"><a target="_blank" href={banners[1].href ? banners[1].href : "javascript:void(0);"} >
+                            <img src={banners[1].url} className="img-object-fit" srcSet={getImgSrcSet(banners[1].url, 180)}/>
                             <div className="text"><p className='ellipsis'>{banners[1].text}</p></div>
                         </a></div>
-                        <div className="banner-item" style={ {backgroundImage: `url(${banners[2].url})`} }><a target="_blank" href={banners[2].href ? banners[2].href : "javascript:void(0);"} >
-                            <img src={banners[2].url} hidden/>
+                        <div className="banner-item"><a target="_blank" href={banners[2].href ? banners[2].href : "javascript:void(0);"} >
+                            <img src={banners[2].url} className="img-object-fit" srcSet={getImgSrcSet(banners[2].url, 180)}/>
                             <div className="text"><p className='ellipsis'>{banners[2].text}</p></div>
                         </a></div>
                     </div>

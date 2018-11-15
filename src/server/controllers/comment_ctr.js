@@ -8,23 +8,23 @@ export async function creactComment(ctx) {
 
     if (!user) {
         return ctx.body = {
-      code: 400,
-      message: "缺少用户信息"
-    };
+            code: 400,
+            message: "缺少用户信息"
+        };
     }
 
     if (!user.email || !emailReg.test(user.email)) {
         return ctx.body = {
-      code: 400,
-      message: "缺少用户邮箱或邮箱格式不正确"
-    };
+            code: 400,
+            message: "缺少用户邮箱或邮箱格式不正确"
+        };
     }
 
     if (!commentCont) {
         return ctx.body = {
-      code: 400,
-      message: "评论信息不能为空"
-    };
+            code: 400,
+            message: "评论信息不能为空"
+        };
     }
 
     const newComment = new Comment({
@@ -37,8 +37,8 @@ export async function creactComment(ctx) {
     });
 
     await Comment.populate(result, { path: 'reply' }, (err, res) => {
-    result = res;
-  });
+        result = res;
+    });
 
     ctx.body = {
         code: 200,
@@ -55,7 +55,6 @@ export async function getComments(ctx) {
     const articleid = null;
 
     let skip = 0;
-
     let allNum = 0;
 
     let allPage = 0;
@@ -96,8 +95,7 @@ export async function getComments(ctx) {
 
     allPage = allNum ? Math.ceil(allNum / size) : 0;
 
-    ctx
-    && (ctx.body = {
+    ctx && (ctx.body = {
         code: 200,
         comments,
         allPage,

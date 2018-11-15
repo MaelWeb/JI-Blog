@@ -19,7 +19,7 @@ const Router = new router();
 const _Page = Router.get('/', async (ctx, next) => {
   ctx.query.category = "DEFAULT";
   ctx.query.page = "HOME";
-  ctx.query.pageSize = 2;
+  ctx.query.pageSize = 10;
 
   const tagsPromise = getAllTags(ctx);
     const articlesPromise = getAllPublishArticles(ctx);

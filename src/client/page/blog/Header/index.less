@@ -2,7 +2,7 @@
     position: fixed;
     top: 0;
     width: 100%;
-    height: .5rem;
+    height: .54rem;
     border-top: 4px solid transparent;
     padding: .12rem .1rem .1rem;
     border-bottom: 1px solid transparent;
@@ -25,18 +25,44 @@
         max-width: 0;
         height: 100%;
         transition: all .4s;
-        line-height: .22rem;
+        line-height: .24rem;
         font-size: .16rem;
         overflow: hidden;
 
         a {
+            position: relative;
             display: inline-block;
-            padding: 0 .12rem;
+            margin: 0 .12rem;
             transition: all .8s;
             transform: translateX(500%);
 
+            &:after {
+                position: absolute;
+                bottom: -4px;
+                right: 0;
+                width: 0;
+                height: 2px;
+                background-color: currentColor;
+                content: '';
+                transition: all .3s cubic-bezier(.37, 0, .21, 1.02);
+            }
+
             &:hover {
-                color: #d1a47d;
+                // color: #d1a47d;
+
+                &:after {
+                    left: 0;
+                    right: auto;
+                    width: 100%;
+                }
+            }
+
+            &.active {
+
+                // color: #d1a47d !important;
+                &:after {
+                    width: 100%;
+                }
             }
         }
     }
@@ -73,10 +99,6 @@
         }
     }
 
-    a.active {
-        color: #d1a47d !important;
-    }
-
     .menu {
         // position: absolute;
         // right: .2rem;
@@ -93,18 +115,19 @@
         }
     }
 
-    @menu-icon-bg: #212121;
-    @menu-icon-width: 30px;
-    @menu-icon-color: #fff;
+    @menu-icon-white: #fff;
+    @menu-icon-width: 32px;
+    @menu-icon-color: #212121;
 
     .menu-icon {
         position: relative;
-        padding: 7px;
+        padding: 6px;
         width: @menu-icon-width;
         height: @menu-icon-width;
         display: inline-block;
-        background-color: @menu-icon-bg;
+        // background-color: @menu-icon-bg;
         border-radius: @menu-icon-width;
+        border: 1px solid @menu-icon-color;
         box-sizing: border-box;
         cursor: pointer;
 
@@ -136,7 +159,7 @@
         }
 
         span:nth-child(4) {
-            left: @menu-icon-width * .36;
+            left: @menu-icon-width * .34;
             width: @menu-icon-width * .4;
         }
 
@@ -193,16 +216,20 @@
         }
 
         .menu-icon {
-            color: #fff;
+            border-color: @menu-icon-white;
+
+            span {
+                background-color: @menu-icon-white;
+            }
         }
 
-        .icon-black-menu:before {
-            content: "\e608";
-        }
+        // .icon-black-menu:before {
+        //     content: "\e608";
+        // }
 
-        .icon-cross-circle:before {
-            content: "\e675";
-        }
+        // .icon-cross-circle:before {
+        //     content: "\e675";
+        // }
     }
 
 

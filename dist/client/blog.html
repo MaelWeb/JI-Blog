@@ -46,8 +46,9 @@
     <link rel="apple-touch-icon" sizes="152x152" href="//cdn.liayal.com/image/touch-icon-ipad.png">
     <link rel="apple-touch-icon" sizes="180x180" href="//cdn.liayal.com/image/touch-icon-iphone-retina.png">
     <link rel="apple-touch-icon" sizes="167x167" href="//cdn.liayal.com/image/touch-icon-ipad-retina.png">
-    <!-- IE 下取消出入场动画 -->
+    <!-- IE 下取消出入场动画, object-fit  兼容-->
     <!--[if IE]>
+    <link rel="stylesheet" type="text/css" href="https://static.liayal.com/polyfill.object-fit.min.css">
     <style>
         .slide-appear,
         .slide-enter {
@@ -67,6 +68,17 @@
     </script>
     
             <script src="https://static.liayal.com/lib/gt.js"></script>
+
+    <!--[if IE]>
+    <script src="https://static.liayal.com/polyfill.object-fit.min.js"></script>
+    <script>
+        objectFit.polyfill({
+            selector: '.img-object-fit',
+            fittype: 'cover',
+            disableCrossDomain: 'true'
+        });
+    </script>>
+    <![endif]-->
 <script type="text/javascript" src="/lib/common_ffbe42e9.dll.js"></script><script type="text/javascript" src="/lib/react_ffbe42e9.dll.js"></script><script type="text/javascript" src="/js/blog.js"></script></body>
 
 </html>

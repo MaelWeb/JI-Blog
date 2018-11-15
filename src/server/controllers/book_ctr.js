@@ -1,7 +1,7 @@
 import Book from '../models/book_model';
 
 export async function createBook(ctx) {
-    let postData = ctx.request.body;
+    const postData = ctx.request.body;
 
     const result = {
         code: 200,
@@ -73,16 +73,16 @@ export async function deleteBook(ctx) {
     let id = ctx.params.id;
 
     const book = await Book.findByIdAndRemove(id).catch(err => {
-    if (err.name === "CastError") {
-      return (ctx.body = {
+        if (err.name === "CastError") {
+            return (ctx.body = {
                 code: 400,
                 message: "书籍不存在或已删除"
             });
-    }
+        }
         return ctx.body = {
-      code: 500,
+            code: 500,
             message: "服务器内部错误"
-    };
+        };
     });
     ctx.body = {
         code: 200,
@@ -95,19 +95,19 @@ export async function updateBook(ctx) {
     const postData = ctx.request.body;
 
     const book = await Book.findByIdAndUpdate(id, { $set: postData }).catch(
-    err => {
-      if (err.name === "CastError") {
-        return (ctx.body = {
-          code: 400,
-                message: 'Banner不存在或已删除',
+        err => {
+            if (err.name === "CastError") {
+                return ctx.body = {
+                    code: 400,
+                    message: 'Banner不存在或已删除',
+                };
+            }
+            return ctx.body = {
+                code: 500,
+                message: "服务器内部错误"
             };
-      }
-      return ctx.body = {
-      code: 500,
-            message: "服务器内部错误"
-    };
-    }
-  );
+        }
+    );
 
     ctx.body = {
         code: 200,

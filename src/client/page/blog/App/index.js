@@ -39,8 +39,8 @@ class App extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.props.location.pathname !== prevProps.location.pathname) {
             window.scrollTo(0, 0);
-            window._hmt
-        && _hmt.push(['_trackPageview', this.props.location.pathname]);
+            window._hmt &&
+                _hmt.push(['_trackPageview', this.props.location.pathname]);
         }
 
         const titleMap = {
@@ -53,13 +53,14 @@ class App extends Component {
             "/": '游走在技术与艺术边缘地带的前端攻城狮 - 「JI · 记小栈」'
         };
 
-        document.title =      titleMap[this.props.location.pathname] || '「JI · 记小栈」';
+        document.title = titleMap[this.props.location.pathname] || '「JI · 记小栈」';
 
         if (process.env.NODE_ENV == 'production') {
             Axios.post('/api/push/baidu', {
                 url: window.location.href
             });
         }
+
     }
 
     render() {
@@ -69,31 +70,41 @@ class App extends Component {
         const timeout = 500;
         return (
             <div className="page">
-        <Header location={location} />
-        <TransitionGroup className="page-main" component="main" id="main">
+                <Header location={location} />
+                <TransitionGroup className="page-main" component="main" id="main">
                     <CSSTransition key={currentKey} timeout={timeout} classNames="slide">
-            <Switch location={location}>
+                        <Switch location={location}>
                             <Route
-                path="/"
-                exact
-                render={props => <Articles {...props} {...InitData} />}
-                          <Route path="/article/:id" render={props => <Article {...props} {...InitData} />} />
-                          <Route
-                path="/photoes"
-                render={props => <Photoes {...props} {...InitData} />}
-                          <Route path="/message" render={props => <Message {...props} {...InitData} />} />
-                          <Route path="/travel" render={props => <Travel {...props} {...InitData} />} />
-                          <Route
-                path="/books"
-                render={props => <Books {...props} {...InitData} />}
-                          <Route path="/about" render={props => <About {...props} {...InitData} />} />
-                          <Route path="/none" render={props => <NotFound {...props} />} />
-            </Switch>
-          </CSSTransition>
+                                path="/"
+                                exact
+                                render={ props => <Articles {...props} {...InitData} /> } />
+                            <Route
+                                path="/article/:id"
+                                render={ props => <Article {...props} {...InitData} /> } />
+                            <Route
+                                path="/photoes"
+                                render={props => <Photoes {...props} {...InitData} />} />
+                            <Route
+                                path="/message"
+                                render={props => <Message {...props} {...InitData} />} />
+                            <Route
+                                path="/travel"
+                                render={props => <Travel {...props} {...InitData} />} />
+                            <Route
+                                path="/books"
+                                render={ props => <Books {...props} {...InitData} />} />
+                            <Route
+                                path="/about"
+                                render={props => <About {...props} {...InitData} />} />
+                            <Route
+                                path="/none"
+                                render={props => <NotFound {...props} />} />
+                        </Switch>
+                    </CSSTransition>
                 </TransitionGroup>
-        <ScrollToTop />
-        <Footer />
-      </div>
+                <ScrollToTop />
+                <Footer />
+            </div>
         );
     }
 }

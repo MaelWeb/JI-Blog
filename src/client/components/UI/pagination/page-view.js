@@ -25,16 +25,16 @@ const PageView = props => {
     return (
         <li className={cssClassName}>
             <a
-        onClick={onClick}
-        role="button"
+                onClick={onClick}
+                role="button"
                 className={linkClassName}
-        href={href}
-        tabIndex="0"
-        aria-label={ariaLabel}
+                href={href}
+                tabIndex="0"
+                aria-label={ariaLabel}
                 aria-current={ariaCurrent}
-        onKeyPress={onClick}
-      >
-        >{props.page}
+                onKeyPress={onClick}
+            >
+                {props.page}
             </a>
         </li>
     );

@@ -4,11 +4,11 @@ import { uploadToQiniu, deleteFileInQiniu } from './qiniu_ctrl';
 export async function addPhoto(ctx) {
     const postData = ctx.request.body;
 
-    const result = await Photo.create(postData).catch(
-    err =>
-      (ctx.body = {
-        code: 500,
-        message: '服务器内部错误',
+    const result = await Photo.create(postData).catch(err => {
+        ctx.body = {
+            code: 500,
+            message: '服务器内部错误',
+        }
     });
 
     ctx.body = {
@@ -25,14 +25,14 @@ export async function updatePhoto(ctx) {
         err => {
             if (err.name === 'CastError') {
                 return ctx.body = {
-          code: 400,
-          message: "相片不存在"
-        };
+                    code: 400,
+                    message: "相片不存在"
+                };
             } else {
                 return ctx.body = {
-          code: 500,
-          message: "服务器内部错误"
-        };
+                    code: 500,
+                    message: "服务器内部错误"
+                };
             }
         },
     );
@@ -87,23 +87,23 @@ export async function deletePhoto(ctx) {
     let id = ctx.params.id;
 
     const photo = await Photo.findByIdAndRemove(id).catch(err => {
-    if (err.name === "CastError") {
-      return (ctx.body = {
-        code: 400,
-        message: '图片不存在或已删除'
-      });
-    }
+        if (err.name === "CastError") {
+            return (ctx.body = {
+                code: 400,
+                message: '图片不存在或已删除'
+            });
+        }
         return ctx.body = {
-      code: 500,
-      message: '服务器内部错误'
+            code: 500,
+            message: '服务器内部错误'
         };
 
-  });
+    });
 
     deleteFileInQiniu(photo.key);
 
     return ctx.body = {
-    code: 200,
-    message: "删除成功"
-  };
+        code: 200,
+        message: "删除成功"
+    };
 }

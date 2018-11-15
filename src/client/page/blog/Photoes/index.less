@@ -1,12 +1,16 @@
 .blog-photo-layout {
     padding-bottom: .4rem;
+
     .photo-banner {
 
         img {
-            margin: 0 auto;
-            width: auto;
-            max-width: 100%;
-            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            overflow: hidden;
         }
 
         &:after {
@@ -42,9 +46,11 @@
             padding: 0 .3rem;
             margin: 0 auto;
         }
+
         .small {
             margin-bottom: .1rem;
             font-size: .1rem;
+
             span {
                 padding-bottom: .04rem;
                 border-bottom: .02rem solid #fff;
@@ -59,8 +65,14 @@
     }
 
     .photo-list {
-        width: 92%;
+        width: 90%;
         margin: 0 auto;
+
+        // &:hover {
+        //     img {
+        //         filter: grayscale(90%);
+        //     }
+        // }
     }
 
     .photo-item {
@@ -69,40 +81,91 @@
         cursor: pointer;
         overflow: hidden;
         float: left;
-
-        img {
-            display: block;
-            transition: transform .135s cubic-bezier(0.0, 0.0, 0.2, 1), opacity linear .15s;
-        }
-
-        &:hover .photo-item-desc {
-            opacity: 1;
-        }
-
-        .photo-item-desc {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, .3);
-            color: #fff;
-            opacity: 0;
-            transition: all .8s;
-
-            p {
-                position: absolute;
-                left: 50%;
-                top: 50%;
-                transform: translate(-50%, -50%);
-            }
-        }
+        background-size: cover;
+        background-position: 50%;
+        --photoboxOverlay: rgba(0, 0, 0, .6);
 
         .img-loading {
             margin: .4rem 0;
             font-size: .2rem;
         }
+
+        .photo-item-box {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-item-img {
+            display: block;
+        }
+
+        .photo-item-box:before {
+            content: "";
+        }
+
+        .photo-item-img {
+            transition: transform calc(~'var(--photoboxAnimationDuration, .8s) / 2') cubic-bezier(0.71, 0.05, 0.29, 0.9);
+            will-change: transform;
+            transform: scale(1) rotate(0);
+        }
+
+        .photo-item-box:before {
+            width: 0;
+            height: 0;
+            padding: 25%;
+
+            background-color: var(--photoboxOverlay, rgba(0, 0, 0, .8));
+            border-radius: 50%;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 2;
+
+            transition: transform calc(~'var(--photoboxAnimationDuration, .8s) / 2') ease;
+            will-change: transform;
+            transform: translate(-50%, -50%) scale(0);
+        }
+
+
+        .photo-item-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 95%;
+            text-align: center;
+
+            opacity: 0;
+            transition: opacity calc(~'var(--photoboxAnimationDuration, .8s) / 4') cubic-bezier(0.71, 0.05, 0.29, 0.9), transform calc(~'var(--photoboxAnimationDuration, .8s) / 4') cubic-bezier(0.71, 0.05, 0.29, 0.9);
+            will-change: opacity, transform;
+
+            color: #fff;
+            font-weight: 600;
+            transform: translate(-50%, 200%);
+            z-index: 3;
+
+        }
+
+        &:hover {
+            .photo-item-img {
+                transform: scale(1.2) rotate(5deg);
+            }
+
+            .photo-item-box:before {
+                transform: translate(-50%, -50%) scale(4);
+                transition-duration: var(--photoboxAnimationDuration, .8s);
+            }
+
+            .photo-item-label {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+                transition-duration: calc(~'var(--photoboxAnimationDuration, .8s) / 2');
+                transition-delay: calc(~'var(--photoboxAnimationDuration, .8s) / 4');
+            }
+        }
+
     }
+
 
     .loading {
         margin: .2rem auto;

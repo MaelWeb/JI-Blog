@@ -8,7 +8,7 @@ import ImageGallery from '../../../components/ImageGallery';
 import ImageItem from './imageItem.js';
 import Icon from '../../../components/Icon';
 import {IMG_URL, IMG_QUERY} from '../../../config/';
-
+import { getImgSrcSet } from '../Util';
 
 export default class Photo extends Component {
     constructor(props) {
@@ -106,9 +106,9 @@ export default class Photo extends Component {
         if (allphoto && allphoto.length) {
             allphoto.map( photo => {
                 let newPho = {
-                    src: `${IMG_URL}${photo.key}${IMG_QUERY}`,
-                    original: `${IMG_URL}${photo.key}${IMG_QUERY}`,
-                    thumbnail: `${IMG_URL}${photo.key}${IMG_QUERY}`,
+                    src: `${IMG_URL}${photo.key}?imageMogr2/auto-orient/thumbnail/1280x/strip/interlace/1/quality/80/`,
+                    origin: `${IMG_URL}${photo.key}`,
+                    srcSet: getImgSrcSet(`${IMG_URL}${photo.key}`, 150),
                     width: photo.width,
                     height: photo.height,
                     desc: photo.desc
@@ -126,8 +126,12 @@ export default class Photo extends Component {
         const { photoes, width, showPhotoView, currentPhotoIndex, isShowImageGallery, imageGalleryIndex, isLoading } = this.state;
         return(
             <div className="blog-photo-layout ">
-                <section className="photo-banner header-banner" ref='photoHeader' style={{backgroundImage: `url(${ photoes[0] && photoes[0].src || '//cdn.liayal.com/14506926.jpg'})`} } >
-                    <img src={ photoes[0] && photoes[0].src || '//cdn.liayal.com/14506926.jpg'} alt=""/>
+                <section className="photo-banner header-banner" ref='photoHeader'>
+                    <img
+                        src={ photoes[0] && photoes[0].src || '//cdn.liayal.com/14506926.jpg'}
+                        srcSet={getImgSrcSet(photoes[0] && photoes[0].src, 375)}
+                        className="img-object-fit"
+                        alt=""/>
                     <div className="photo-banner-info">
                         <p className="small" ><span>图记</span></p>
                         <h2>{photoes[0] && photoes[0].desc ? photoes[0].desc : '一起老去'}</h2>
@@ -151,7 +155,7 @@ export default class Photo extends Component {
                               columns = 5;
                             }
                             return <div ref={measureRef} className="photo-list ">
-                              <Gallery photos={ photoes.slice(1) } margin={ 4 } columns={columns} ImageComponent={ImageItem} onClick={ this.selectPhoto } />
+                              <Gallery photos={ photoes.slice(1) } margin={ 2 } columns={columns} ImageComponent={ImageItem} onClick={ this.selectPhoto } />
                             </div>
                         }
                     }

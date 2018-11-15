@@ -19,6 +19,26 @@
             line-height: 1;
         }
 
+        a {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            display: block;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+            object-fit: cover;
+            overflow: hidden;
+        }
+
         .aticle-info {
             position: absolute;
             top: 61.8%;
@@ -50,12 +70,20 @@
     .travel-article-list {
         margin: 0 auto;
         width: 76%;
+        column-count: 2;
+        column-gap: 0;
     }
 
     .article-item {
-        width: 50%;
+        position: relative;
+        width: 100%;
         padding: .1rem;
         display: inline-block;
+        vertical-align: top;
+
+        a, img {
+            display: block;
+        }
 
         .article-title {
             position: absolute;

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 const Footer = props => (
-<footer className='blog-footer'>
+    <footer className='blog-footer'>
         <div className="footer-content clearfix ">
             <div className="footer-desc fl">
                 <h4>记小栈</h4>
@@ -16,4 +16,6 @@ const Footer = props => (
         </div>
         <p className='footer-statement tc'> © 2017 Code & Design by Mael.Lia, All rights reserved</p>
     </footer>
-)export default Footer;
+);
+
+export default Footer;

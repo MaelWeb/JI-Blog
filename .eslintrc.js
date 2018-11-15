@@ -4,8 +4,8 @@ module.exports = {
         "es6": true,
         "node": true
     },
-    // "extends": "eslint:recommended",
-    extends: ['airbnb', 'plugin:jest/recommended', 'jest-enzyme'],
+    "extends": "eslint:recommended",
+    // extends: ['airbnb', 'plugin:jest/recommended', 'jest-enzyme'],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -18,11 +18,9 @@ module.exports = {
         'babel',
         'import',
         'jsx-a11y',
-        'react',
-        'prettier'
+        'react'
     ],
     "rules": {
-         "prettier/prettier": "error",
         // allow debugger during development
         'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0,
         /*
