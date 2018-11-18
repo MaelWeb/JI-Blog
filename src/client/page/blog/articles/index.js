@@ -149,7 +149,7 @@ export default class Articles extends Component {
                     <ul>
                         {articles && articles.length ? articles.map( (article, index)=> <li className="article-tiem" key={article.id}><Link target="_blank" to={`/article/${article.id}`} >
                             <span className="article-num">{( index + 1)}</span>
-                            <h3 className='nowrapmulti'>{article.title}</h3>
+                            <h3 className='nowrapmulti title'>{article.title}</h3>
                         </Link></li>) : null}
                     </ul>
                 </div>

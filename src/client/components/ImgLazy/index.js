@@ -12,7 +12,7 @@ const ImgLazy = props => {
         ...others
     } = props;
     return (
-        <LazyLoad height="100%" once placeholder={placeholder} {...others}><img src={src} width={width} height={height} className={className} style={style} /></LazyLoad>
+        <LazyLoad height="100%" once placeholder={placeholder} ><img src={src} className={className} style={style} {...others} /></LazyLoad>
     );
 };
 

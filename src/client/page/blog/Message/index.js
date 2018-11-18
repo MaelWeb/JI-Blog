@@ -10,7 +10,7 @@ import Masonry from 'react-masonry-component';
 import Pagination from '../../../components/UI/pagination';
 import { Toast } from '../../../components/UI';
 import Icon from '../../../components/Icon';
-import { getTimeString } from '../Util';
+import { getTimeString, getImgSrcSet } from '../Util';
 import Emojify from '../../../components/Emoji';
 
 const emojiStyle = {
@@ -234,7 +234,8 @@ export default class Message extends Component {
             header = messageBanners[randomIndex] || {};
         return (
             <div className="blog-message-layout ">
-                <div className="blog-message-header header-banner" style={{ backgroundImage: `url(//cdn.liayal.com/banner/pexels-photo-1096848.jpeg)` }} ref="mressageHeader" >
+                <div className="blog-message-header header-banner" ref="mressageHeader" >
+                    <img src="//cdn.liayal.com/banner/pexels-photo-1096848.jpeg?imageMogr2/auto-orient/thumbnail/1024x/strip/interlace/1/quality/80/" srcSet={ getImgSrcSet('//cdn.liayal.com/banner/pexels-photo-1096848.jpeg', 375) } alt=""/>
                     <div className="blog-message-header-input">
                         <CommentInput exportComment={ this.exportComment } placeholder={ header.text } ref='commentInput' />
                     </div>

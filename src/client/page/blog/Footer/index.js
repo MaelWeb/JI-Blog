@@ -10,7 +10,7 @@ const Footer = props => (
             <div className="footer-about fr">
                 <h4>关于</h4>
                 <div>
-                    <p><a href="https://www.liayal.com/about">关于记</a><a href="https://github.com/MaelWeb">Github</a></p>
+                    <p><a href="/about">关于记</a><a href="https://github.com/MaelWeb">Github</a></p>
                 </div>
             </div>
         </div>

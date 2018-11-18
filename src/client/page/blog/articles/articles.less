@@ -146,6 +146,13 @@
             vertical-align: middle;
             height: .55rem;
             cursor: pointer;
+
+            &:hover {
+                animation-name: wobble-horizontal;
+                animation-duration: 1s;
+                animation-timing-function: ease-in-out;
+                animation-iteration-count: 1;
+            }
         }
 
         a {

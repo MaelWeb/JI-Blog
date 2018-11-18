@@ -83,7 +83,7 @@ const _Page = Router.get('/', async (ctx, next) => {
       }),
             ServerData,
       title: articleData.article.title
-        ? `「 JI · 记小栈」_${articleData.article.title}`
+        ? `${articleData.article.title}_「 JI · 记小栈」`
         : "当前文章不存在哦"
     });
     })

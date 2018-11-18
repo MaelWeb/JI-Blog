@@ -1,5 +1,6 @@
 .blog-travel-layout {
     padding-bottom: .4rem;
+
     .traverl-header {
 
         &:after {
@@ -81,22 +82,40 @@
         display: inline-block;
         vertical-align: top;
 
-        a, img {
+        a,
+        img {
             display: block;
         }
 
-        .article-title {
+        .article-info {
             position: absolute;
             bottom: .2rem;
             left: 0;
             padding: 0 .15rem;
             width: 100%;
             color: #fff;
+            transition: all 1s;
+        }
+
+        .article-title {
             font-weight: 600;
+        }
+
+        .article-abstract {
+            height: 0;
+            font-size: .12rem;
+            transition: all 1s;
+            overflow: hidden;
         }
 
         small {
             font-weight: normal;
+        }
+
+        &:hover {
+            .article-abstract {
+                height: .16rem;
+            }
         }
     }
 

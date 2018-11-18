@@ -111,7 +111,10 @@ export default class Travel extends Component {
                         return index != 0 ? (
                                 <div className="article-item"  key={article.id} ><Link to={`/article/${article.id}`} >
                                     <img src={ `${article.banner}?imageMogr2/auto-orient/thumbnail/1024x/strip/interlace/1/quality/80/` || '//cdn.liayal.com/14506926.jpg'} alt="" srcSet={getImgSrcSet(article.banner, 180)}/>
-                                    <p className="article-title">{article.title} <small>{ Moment(article.createTime).format('MM月DD日')}</small></p>
+                                    <div className="article-info">
+                                        <p className="article-title">{article.title} <small>{ Moment(article.createTime).format('MM月DD日')}</small></p>
+                                        <p className="article-abstract ellipsis">{article.abstract}</p>
+                                    </div>
                                 </Link></div>
                         ) : null
                     }) : null }

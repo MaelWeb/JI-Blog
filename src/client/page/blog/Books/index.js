@@ -105,7 +105,7 @@ export default class Books extends Component {
         return (
             <div className="blog-books-layout clearfix ">
                 <div className="blog-books-header" ref='bookHeader' >
-                    <img src="//cdn.liayal.com/image/books_banner.jpg??imageMogr2/auto-orient/thumbnail/1024x/strip/interlace/1/quality/80/" srcSet={ getImgSrcSet('//cdn.liayal.com/image/books_banner.jpg', 375) } alt=""/>
+                    <img src="//cdn.liayal.com/image/books_banner.jpg?imageMogr2/auto-orient/thumbnail/1024x/strip/interlace/1/quality/80/" srcSet={ getImgSrcSet('//cdn.liayal.com/image/books_banner.jpg', 375) } alt=""/>
                     <div className="text-wrap">
                         <p><span style={{background: "#B6BABD"}} >{banner.text[0]}</span>{banner.text[1]}</p>
                         <div className='tr author'><a href={ banner.href || "javascript:void(0);"} target="_blank">—— 《{banner.author}》</a></div>
