@@ -4,7 +4,7 @@
     width: 100%;
     height: .54rem;
     border-top: 4px solid transparent;
-    padding: .12rem .1rem .1rem;
+    padding: .12rem .2rem .1rem;
     border-bottom: 1px solid transparent;
     transition: all .6s;
     color: #212121;
@@ -18,7 +18,6 @@
         width: 100%;
         height: 100%;
         line-height: 1;
-        padding: 0 .1rem;
     }
 
     .nav-list {
@@ -191,6 +190,7 @@
 
     .logo {
         width: .8rem;
+        min-height: 100%;
         display: block;
     }
 
@@ -216,6 +216,8 @@
         }
 
         .menu-icon {
+            margin-top: -.02rem;
+            transform: scale(.8);
             border-color: @menu-icon-white;
 
             span {
@@ -249,10 +251,11 @@
             transition: height .6s;
             color: #fff;
             float: none;
+            box-sizing: content-box;
 
             a {
                 width: 100%;
-                height: 20%;
+                height: 19%;
                 color: inherit;
                 font-size: .24rem;
                 display: table;
@@ -262,6 +265,7 @@
                 &.active {
                     color: #d1a47d;
                 }
+
             }
 
             span {
@@ -280,6 +284,7 @@
                 border-top: 1px solid #3e4247;
                 border-bottom: 1px solid #3e4247;
                 display: none;
+                z-index: 1;
             }
         }
 
@@ -295,13 +300,18 @@
                 display: none;
             }
 
-            .menu {
-                color: #fff;
+            .menu-icon {
+
+                border-color: @menu-icon-white;
+
+                span {
+                    background-color: @menu-icon-white;
+                }
             }
 
             .nav-list {
                 max-width: inherit;
-                height: 80%;
+                height: 82%;
 
                 &:after {
                     display: block;

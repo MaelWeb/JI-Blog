@@ -1,6 +1,6 @@
 .blog-books-layout {
     padding-top: .6rem;
-    background: #fffff9;
+    // background: #fffff9;
 
     .blog-books-header {
         position: relative;
@@ -43,6 +43,7 @@
         padding: .13rem;
         width: 33.3%;
         float: left;
+        transition: all .3s ease-out;
 
         .cover {
             float: left;
@@ -103,18 +104,44 @@
         }
 
         .read-btn {
+            position: relative;
             display: inline-block;
             font-size: .13rem;
-            color: #fff;
+            color: #825d5b;
             padding: .04rem .12rem;
             margin-bottom: 0;
+            border-radius: 0;
             line-height: 1.1;
-            background-color: #825d5b;
             border: 1px solid #825d5b;
-            border-radius: .02rem;
             cursor: pointer;
             vertical-align: middle;
             text-decoration: none;
+            transition: color .3s ease-out;
+            transform: perspective(1px) translateZ(0);
+
+            &:before {
+                position: absolute;
+                z-index: -1;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #825d5b;
+                transform: scaleX(0);
+                transform-origin: 0 50%;
+                transition: transform .3s ease-out;
+                content: "";
+            }
+
+            &:hover {
+                border-radius: .02rem;
+                color: #fff;
+
+                &:before {
+                    transform: scaleX(1);
+                }
+
+            }
         }
 
         .reading {
@@ -128,15 +155,23 @@
             font-size: .1rem;
             transform: rotateZ(45deg);
         }
+
+        &:hover {
+            transform: scale(1.02);
+            .books-wrap {
+                background-color: #fffff9;
+                box-shadow: 0 0 4px 2px #d1a47d;
+            }
+        }
     }
 
     .books-wrap {
         position: relative;
         height: 1.7rem;
         padding: .1rem;
-        background-color: #fff;
         border: 1px solid #f2f2eb;
         overflow: hidden;
+        box-sizing: border-box;
     }
 
     .loading {

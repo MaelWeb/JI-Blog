@@ -16,84 +16,84 @@ import App from '../../client/page/blog/App';
 
 const Router = new router();
 
-const _Page = Router.get('/', async (ctx, next) => {
-  ctx.query.category = "DEFAULT";
-  ctx.query.page = "HOME";
-  ctx.query.pageSize = 10;
+const _Page = Router
+    .get('/', async (ctx, next) => {
+        ctx.query.category = "DEFAULT";
+        ctx.query.page = "HOME";
+        ctx.query.pageSize = 10;
 
-  const tagsPromise = getAllTags(ctx);
-    const articlesPromise = getAllPublishArticles(ctx);
-    const bannersPromise = getBanners(ctx);
+        const tagsPromise = getAllTags(ctx);
+        const articlesPromise = getAllPublishArticles(ctx);
+        const bannersPromise = getBanners(ctx);
 
-  const tags = await tagsPromise;
-    const articleData = await articlesPromise;
-  const banners = await bannersPromise;
+        const tags = await tagsPromise;
+        const articleData = await articlesPromise;
+        const banners = await bannersPromise;
 
-    const ServerData = {
-        tags,
-        curTagId: ctx.query.tag,
-        ...articleData,
-        banners,
-    };
+        const ServerData = {
+            tags,
+            curTagId: ctx.query.tag,
+            ...articleData,
+            banners,
+        };
 
-  const html = ReactDOMServer.renderToString(
-        <StaticRouter context={{}} location={ctx.req.url}>
-            <App InitData={ServerData} />
-    </StaticRouter>,
-  );
+        const html = ReactDOMServer.renderToString(
+            <StaticRouter context={{}} location={ctx.req.url}>
+                <App InitData={ServerData} />
+        </StaticRouter>,
+        );
 
-  await ctx.render("blog", {
-    html: htmlMinifier.minify(html, {
-      removeComments: true,
-      collapseWhitespace: true
-    }),
-    ServerData,
-    title: "「JI · 记小栈」_游走在技术与艺术边缘地带的前端攻城狮"
-  });
-})
-  .get("article/:id", async (ctx, next) => {
-    if (!ctx.params.id) ctx.redirect("/");
-    ctx.query.filter = "web";
+        await ctx.render("blog", {
+            html: htmlMinifier.minify(html, {
+                removeComments: true,
+                collapseWhitespace: true
+            }),
+            ServerData,
+            title: '游走在技术与艺术边缘地带的前端攻城狮 - 「JI · 记小栈」'
+        });
+    })
+    .get("article/:id", async (ctx, next) => {
+        if (!ctx.params.id) ctx.redirect("/");
+        ctx.query.filter = "web";
 
-    const articlePromise = getArticle(ctx);
-    const commentsPromise = getComments(ctx);
+        const articlePromise = getArticle(ctx);
+        const commentsPromise = getComments(ctx);
 
-    const articleData = await articlePromise;
-    const commentsData = await commentsPromise;
+        const articleData = await articlePromise;
+        const commentsData = await commentsPromise;
 
-    if (articleData.article.code === 400) {
-      return ctx.redirect("/none");
-    }
+        if (articleData.article.code === 400) {
+            return ctx.redirect("/none");
+        }
 
-    const ServerData = {
-      article: articleData.article,
-      commentsData
-    };
+        const ServerData = {
+            article: articleData.article,
+            commentsData
+        };
 
-    const html = ReactDOMServer.renderToString(
+        const html = ReactDOMServer.renderToString(
             <StaticRouter context={{}} location={ctx.req.url}>
                 <App InitData={{ ...ServerData }} />
-      </StaticRouter>,
-    );
+            </StaticRouter>,
+        );
 
-    await ctx.render("blog", {
-      html: htmlMinifier.minify(html, {
-        removeComments: true,
-        collapseWhitespace: true
-      }),
+        await ctx.render("blog", {
+            html: htmlMinifier.minify(html, {
+                removeComments: true,
+                collapseWhitespace: true
+            }),
             ServerData,
-      title: articleData.article.title
-        ? `${articleData.article.title}_「 JI · 记小栈」`
-        : "当前文章不存在哦"
-    });
+            title: articleData.article.title ?
+                `${articleData.article.title}_「 JI · 记小栈」` : "当前文章不存在哦"
+        });
     })
     .get('photoes', async (ctx, next) => {
         const ServerData = await getPhotoes(ctx);
 
         const html = ReactDOMServer.renderToString(
-      <StaticRouter context={{}} location={ctx.req.url}>
-              <App InitData={{ ...ServerData }} />
-      </StaticRouter>
+            <StaticRouter context={{}} location={ctx.req.url}>
+                <App InitData={{ ...ServerData }} />
+            </StaticRouter>
         );
 
         await ctx.render('blog', {
@@ -102,13 +102,17 @@ const _Page = Router.get('/', async (ctx, next) => {
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '「图记 · 记小栈」_游走在技术与艺术边缘地带的前端攻城狮'
+            title: '图记  - 「JI · 记小栈」'
         });
     })
     .get('about', async (ctx, next) => {
         let ServerData = {};
 
-        const html = '';
+        const html = ReactDOMServer.renderToString(
+            <StaticRouter context={{}} location={ctx.req.url}>
+                <App InitData={{ ...ServerData }} />
+            </StaticRouter>
+        );
 
         await ctx.render('blog', {
             html: htmlMinifier.minify(html, {
@@ -116,7 +120,7 @@ const _Page = Router.get('/', async (ctx, next) => {
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '「关于 · 记小栈」_游走在技术与艺术边缘地带的前端攻城狮'
+            title: '关于  - 「JI · 记小栈」'
         });
     })
     .get('travel', async (ctx, next) => {
@@ -127,8 +131,8 @@ const _Page = Router.get('/', async (ctx, next) => {
         const ServerData = { travels: articles, ...others };
 
         const html = ReactDOMServer.renderToString(
-      <StaticRouter context={{}} location={ctx.req.url}>
-              <App InitData={{ ...ServerData }} />
+            <StaticRouter context={{}} location={ctx.req.url}>
+                <App InitData={{ ...ServerData }} />
             </StaticRouter>
         );
 
@@ -138,7 +142,7 @@ const _Page = Router.get('/', async (ctx, next) => {
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '「游记 · 记小栈」_游走在技术与艺术边缘地带的前端攻城狮'
+            title: '游记  - 「JI · 记小栈」'
         });
     })
     .get('books', async (ctx, next) => {
@@ -153,7 +157,7 @@ const _Page = Router.get('/', async (ctx, next) => {
 
         const html = ReactDOMServer.renderToString(
             <StaticRouter context={{}} location={ctx.req.url}>
-        <App InitData={{ ...ServerData }} />
+                <App InitData={{ ...ServerData }} />
             </StaticRouter>
         );
 
@@ -163,7 +167,7 @@ const _Page = Router.get('/', async (ctx, next) => {
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '「阅记 · 记小栈」_游走在技术与艺术边缘地带的前端攻城狮'
+            title: '阅记  - 「JI · 记小栈」'
         });
     })
     .get('message', async (ctx, next) => {
@@ -181,7 +185,7 @@ const _Page = Router.get('/', async (ctx, next) => {
         const ServerData = { messageBanners, ...commentsData };
 
         const html = ReactDOMServer.renderToString(
-      <StaticRouter context={{}} location={ctx.req.url}>
+            <StaticRouter context={{}} location={ctx.req.url}>
                 <App InitData={{ ...ServerData }} />
             </StaticRouter>
         );
@@ -192,7 +196,7 @@ const _Page = Router.get('/', async (ctx, next) => {
                 collapseWhitespace: true
             }),
             ServerData,
-            title: '「言记 · 记小栈」_游走在技术与艺术边缘地带的前端攻城狮'
+            title: '言记  - 「JI · 记小栈」'
         });
     })
     .get('none', async (ctx, next) => {

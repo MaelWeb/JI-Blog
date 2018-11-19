@@ -17,6 +17,7 @@ import Header from '../Header';
 import Footer from '../Footer';
 import Message from '../Message';
 import NotFound from '../NotFound';
+import Loader from '../Loader';
 
 class App extends Component {
     constructor(props) {
@@ -70,6 +71,7 @@ class App extends Component {
         const timeout = 500;
         return (
             <div className="page">
+                <Loader />
                 <Header location={location} />
                 <TransitionGroup className="page-main" component="main" id="main">
                     <CSSTransition key={currentKey} timeout={timeout} classNames="slide">

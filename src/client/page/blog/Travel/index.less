@@ -99,9 +99,25 @@
 
         .article-title {
             font-weight: 600;
+            display: inline-block;
+
+            position: relative;
+
+            &:after {
+                position: absolute;
+                bottom: -2px;
+                left: 0;
+                width: 0;
+                height: 1px;
+                overflow: hidden;
+                background-color: #fff;
+                transition: width 1s ease-in;
+                content: '';
+            }
         }
 
         .article-abstract {
+            margin-top: 2px;
             height: 0;
             font-size: .12rem;
             transition: all 1s;
@@ -115,6 +131,10 @@
         &:hover {
             .article-abstract {
                 height: .16rem;
+            }
+
+            .article-title:after {
+                width: 100%;
             }
         }
     }

@@ -72,7 +72,7 @@ export default class Header extends Component {
                         <NavLink to='/message'><span>言记</span></NavLink>
                         {/*<NavLink to='/about'><span>关于</span></NavLink>*/}
                     </nav>
-                    <Link className='fl' to='/'>
+                    <Link className='fl logo' to='/'>
                         <img className='logo black' src="//cdn.liayal.com/image/logo.png" alt="Logo"/>
                         <img className='logo white' src="//cdn.liayal.com/image/logo_white.png" alt="Logo"/>
                     </Link>
