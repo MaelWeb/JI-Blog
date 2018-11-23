@@ -2,7 +2,7 @@ const path = require('path');
 let config = {
     port: process.env.PORT || 8080,
     mongodb: {
-        url: 'mongodb://root:root@127.0.0.1:27017/koa-blog'
+        url: 'mongodb://root:mael147863@118.126.82.201:27017/blog'
     },
     jwt: {
         secret: "test" //默认
@@ -12,8 +12,8 @@ let config = {
         useMongoClient: true
     },
     upload: {
-        ACCESS_KEY: 'v6NxwNQtqVpK0Z*****YXv0Fo8qlFcVxnlYbO6',
-        SECRET_KEY: 'b5p89rqZeO8KJE*****3Pk2fHtKEToE5PdSmQLRq'
+        ACCESS_KEY: 'v6NxwNQtqVpK0Z51X0iq-YXv0Fo8qlFcVxnlYbO6',
+        SECRET_KEY: 'b5p89rqZeO8KJEjEvOp3Pk2fHtKEToE5PdSmQLRq'
     },
    geetest: {
         ID: "108814b3c95d6*****3caf2dc8d988bc76d12",
