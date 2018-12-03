@@ -52,8 +52,8 @@ export async function uploadToQiniu(ctx, params = {}) {
     const putExtra = new QiNiu.form_up.PutExtra();
 
     return new Promise((resolve, reject) => {
-        busboy.on("file", (fieldname, file, filename, encoding, mimetype) => {
-            // console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype);
+        busboy.on("file", (fieldname, file, filename, encoding, mimetype, ...other) => {
+            // console.log('File [' + fieldname + ']: filename: ' + filename + ', encoding: ' + encoding + ', mimetype: ' + mimetype, other);
 
             file.on('data', data => {
                 // console.log('File [' + fieldname + '] got ' + data.length + ' bytes');
@@ -63,7 +63,8 @@ export async function uploadToQiniu(ctx, params = {}) {
             file.on('end', () => {
                 // console.log('File [' + fieldname + '] Finished');
                 let time = +new Date();
-                let key = params.prefix ? `${params.prefix}${md5(time)}` : md5(time);
+                let formate = mimetype.split('/')[1] || '';
+                let key = params.prefix ? `${params.prefix}${md5(time)}.${formate}` : `${md5(time)}.${formate}`;
                 // 获取上传token
                 const UPLOAD_TOKEN = getToken(params.bucket || null);
 

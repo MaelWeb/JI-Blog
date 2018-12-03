@@ -51,7 +51,8 @@
     "react-photo-gallery": "^6.2.1",
     "react-router-dom": "^4.3.1",
     "react-transition-group": "^2.4.0",
-    "superagent": "^3.8.0"
+    "superagent": "^3.8.0",
+    "trackjs": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",
