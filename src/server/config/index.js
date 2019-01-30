@@ -13,7 +13,7 @@ let config = {
     },
     upload: {
         ACCESS_KEY: 'v6NxwNQtqVpK0Z5*****YXv0Fo8qlFcVxnlYbO6',
-        SECRET_KEY: 'b5p89rqZeO8KJEj*****Pk2fHtKEToE5PdSmQLRq'
+        SECRET_KEY: 'b5p89rqZeO8KJEj*****2fHtKEToE5PdSmQLRq'
     },
    geetest: {
         ID: "108814b3c95d6*****3caf2dc8d988bc76d12",
@@ -22,8 +22,8 @@ let config = {
     InvitationCode: "1111",
     wechat: {
         host: 'https://api.weixin.qq.com',
-        appId: 'wx05c5*****92033acc',
-        secret: '0cf16db*****3a3e1a6d0db04e6'
+        appId: 'wx05c59*****033acc',
+        secret: '0cf16dbd*****a3e1a6d0db04e6'
     }
 }
 // 可在private.js定义自己私有的配置

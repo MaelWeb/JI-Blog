@@ -84,7 +84,7 @@ export default class Article extends Component {
                     <div className="article-content" dangerouslySetInnerHTML={ {__html: _article.htmlContent } } />
                     <div className='article-tips'>
                         <p className="article-desc">
-                            <span>写于 {Moment(_article.createTime).format('LL')}</span>
+                            <span>写于 {Moment(_article.createTime).format('YYYY MM-DD')}</span>
                             { _article.tags && _article.tags.length ? <span className="ml"><Icon type='cc-tag' /> {_article.tags.map( tag => tag.name + ' ')}</span> : null }
                             <span className="ml"><Icon type='visit' /> {_article.visited || 0}</span>
                         </p>

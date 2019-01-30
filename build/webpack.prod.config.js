@@ -77,13 +77,13 @@ module.exports = merge(baseWebpackConfig, {
             append: false
         }),
         new webpack.optimize.ModuleConcatenationPlugin(),
-        // new UploadToQiniuWebpackPlugin({
-        //     qiniuAccessKey: config.upload.ACCESS_KEY,
-        //     qiniuSecretKey: config.upload.SECRET_KEY,
-        //     qiniuBucket: 'hynal-static',
-        //     qiniuZone: 'Zone_z0',
-        //     uploadLogPath: __dirname
-        // })
-        new BundleAnalyzerPlugin()
+        new UploadToQiniuWebpackPlugin({
+            qiniuAccessKey: config.upload.ACCESS_KEY,
+            qiniuSecretKey: config.upload.SECRET_KEY,
+            qiniuBucket: 'hynal-static',
+            qiniuZone: 'Zone_z0',
+            uploadLogPath: __dirname
+        }),
+        // new BundleAnalyzerPlugin();
     ]
 });
