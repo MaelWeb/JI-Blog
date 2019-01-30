@@ -9,6 +9,7 @@
     "build:dll": "rimraf dist/client/lib/*.dll.js && webpack --config ./build/webpack.dll.config.js",
     "build:client": "npm run clean && cross-env NODE_ENV=production webpack --config ./build/webpack.prod.config.js",
     "build:server": "cross-env NODE_ENV=production  webpack --config ./build/webpack.server.config.js",
+    "build": "npm run build:server && npm run build:client",
     "start": "pm2 start ./dist/server/server.js --watch",
     "scp:client": "scp -r dist/client package.json root@118.126.82.201:~/blog/dist",
     "scp:server": "scp -r dist/server package.json root@118.126.82.201:~/blog/dist",

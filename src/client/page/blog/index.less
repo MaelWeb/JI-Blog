@@ -14,7 +14,7 @@
 }
 
 [class*=layout] {
-    min-height: calc(~"100vh - 2.5rem");
+    min-height: calc(~"100vh - 3rem");
 }
 
 
@@ -164,7 +164,7 @@
 @import './Header/index.less';
 @import './articles/articles.less';
 @import './article/index.less';
-@import './Photoes/index.less';
+@import './Photos/index.less';
 @import './About/index.less';
 @import './Travel/index.less';
 @import './Books/index.less';
@@ -599,6 +599,17 @@
         h2 {
             font-size: .18rem;
             line-height: 2.5;
+        }
+    }
+
+    .blog-header {
+        padding: .06rem .08rem .05rem;
+        .header-wrap {
+            padding: .02rem 0;
+        }
+
+        .logo {
+            width: 1rem;
         }
     }
 

@@ -30,7 +30,7 @@ import {
 } from '../controllers/qiniu_ctrl';
 import {
     addPhoto,
-    getPhotoes,
+    getPhotos,
     updatePhoto,
     deletePhoto
 } from '../controllers/photo_ctrl';
@@ -69,7 +69,7 @@ const _Api = Router.get('/signout', ctx => {
     .get('/get/comments', getComments)
     .get('/get/article/:id', getArticle)
     .get('/one', getOneContent)
-    .get('/get/photoes', getPhotoes)
+    .get('/get/photos', getPhotos)
     .get('/get/userinfo', apiVerify, getUserInfo)
     .get('/get/banners', getBanners)
     .get('/get/books', getBooks)

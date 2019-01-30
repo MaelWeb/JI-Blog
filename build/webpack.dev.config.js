@@ -17,12 +17,12 @@ module.exports = merge(baseWebpackConfig, {
         admin: [
             'eventsource-polyfill',
             'webpack-hot-middleware/client',
-            './page/admin/index.js',
+            './client/page/admin/index.js',
         ],
         blog: [
             'eventsource-polyfill',
             'webpack-hot-middleware/client',
-            './page/blog/index.js',
+            './client/page/blog/index.js',
         ]
     },
     output: {

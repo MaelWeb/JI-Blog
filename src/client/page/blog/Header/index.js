@@ -67,7 +67,7 @@ export default class Header extends Component {
                     <nav className="nav-list fr" onClick={ this.showNacBox } >
                         <NavLink exact to='/'><span>文记</span></NavLink>
                         <NavLink to='/travel'><span>游记</span></NavLink>
-                        <NavLink to='/photoes'><span>图记</span></NavLink>
+                        <NavLink to='/photos'><span>图记</span></NavLink>
                         <NavLink to='/books'><span>阅记</span></NavLink>
                         <NavLink to='/message'><span>言记</span></NavLink>
                         {/*<NavLink to='/about'><span>关于</span></NavLink>*/}

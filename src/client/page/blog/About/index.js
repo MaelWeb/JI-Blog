@@ -49,6 +49,6 @@ export default class About extends Component {
                     <img src="//cdn.liayal.com/image/tv.jpg?imageMogr2/auto-orient/thumbnail/1024x/strip/interlace/1/quality/80/" alt="" srcSet={ getImgSrcSet('//cdn.liayal.com/image/tv.jpg', 375) }/>
                 </div>
             </div>
-        )
+        );
     }
 }

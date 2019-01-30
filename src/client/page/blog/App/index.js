@@ -9,7 +9,7 @@ import Axios from 'axios';
 import ScrollToTop from '../../../components/ScrollToTop';
 import Articles from '../Articles';
 import Article from '../Article';
-import Photoes from '../Photoes';
+import Photos from '../Photos';
 import About from '../About';
 import Travel from '../Travel';
 import Books from '../Books';
@@ -29,7 +29,7 @@ class App extends Component {
     }
 
     componentDidMount() {
-        if (process.env.NODE_ENV == 'production') {
+        if (process.env.NODE_ENV === 'production') {
             Axios.post('/api/push/baidu', {
                 url: window.location.href
             });
@@ -44,23 +44,22 @@ class App extends Component {
         }
 
         const titleMap = {
-            "/travel": '游记  - 「JI · 记小栈」',
-            "/books": '阅记  - 「JI · 记小栈」',
-            "/photoes": '图记  - 「JI · 记小栈」',
-            "/about": '关于  - 「JI · 记小栈」',
-            "/message": '言记  - 「JI · 记小栈」',
-            "/none": '404  - 「JI · 记小栈」',
-            "/": '游走在技术与艺术边缘地带的前端攻城狮 - 「JI · 记小栈」'
+            '/travel': '游记  - 「JI · 记小栈」',
+            '/books': '阅记  - 「JI · 记小栈」',
+            '/photos': '图记  - 「JI · 记小栈」',
+            '/about': '关于  - 「JI · 记小栈」',
+            '/message': '言记  - 「JI · 记小栈」',
+            '/none': '404  - 「JI · 记小栈」',
+            '/': '游走在技术与艺术边缘地带的前端攻城狮 - 「JI · 记小栈」'
         };
 
         document.title = titleMap[this.props.location.pathname] || '「JI · 记小栈」';
 
-        if (process.env.NODE_ENV == 'production') {
+        if (process.env.NODE_ENV === 'production') {
             Axios.post('/api/push/baidu', {
                 url: window.location.href
             });
         }
-
     }
 
     render() {
@@ -82,8 +81,8 @@ class App extends Component {
                                 path="/article/:id"
                                 render={ props => <Article {...props} {...InitData} /> } />
                             <Route
-                                path="/photoes"
-                                render={props => <Photoes {...props} {...InitData} />} />
+                                path="/photos"
+                                render={props => <Photos {...props} {...InitData} />} />
                             <Route
                                 path="/message"
                                 render={props => <Message {...props} {...InitData} />} />

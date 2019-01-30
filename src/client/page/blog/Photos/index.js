@@ -2,21 +2,22 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Axios from 'axios';
 import ClassNames from 'classnames';
-import Gallery from 'react-photo-gallery';
-import Measure from 'react-measure';
+// import Gallery from 'react-photo-gallery';
+// import Measure from 'react-measure';
+import GooglePhotos from '../../../components/GooglePhotos'
 import ImageGallery from '../../../components/ImageGallery';
 import ImageItem from './imageItem.js';
-import Icon from '../../../components/Icon';
+import { Icon } from '../../../components/Icon';
 import {IMG_URL, IMG_QUERY} from '../../../config/';
 import { getImgSrcSet } from '../Util';
 
 export default class Photo extends Component {
     constructor(props) {
         super(props)
-        const { photoes, page, allPage } = props;
-        let photoSrcs = this.addSrc(photoes);
+        const { photos, page, allPage } = props;
+        let photoSrcs = this.addSrc(photos);
         this.state = {
-           photoes: photoSrcs,
+           photos: photoSrcs,
            allPage,
            page,
            showPhotoView: false,
@@ -28,14 +29,14 @@ export default class Photo extends Component {
     }
 
     static defaultProps = {
-        photoes: [],
+        photos: [],
         page: 1,
         allPage: 0
     };
 
     componentWillMount() {
-        const { photoes } = this.state;
-        if (!photoes.length)
+        const { photos } = this.state;
+        if (!photos.length)
             this.getPhotos(1);
     }
 
@@ -44,7 +45,7 @@ export default class Photo extends Component {
         this.headerDom = ReactDOM.findDOMNode(this.refs.photoHeader);
         this.blogNavDom = document.getElementById('IdNav');
 
-        this.blogNavDom.classList.add('blog-photoes-header');
+        this.blogNavDom.classList.add('blog-photos-header');
 
         window.addEventListener("scroll", this.onscroll, false);
     }
@@ -54,14 +55,14 @@ export default class Photo extends Component {
         this.setState({
             isLoading: true
         });
-        Axios.get('/api/get/photoes', {params:{page}})
+        Axios.get('/api/get/photos', {params:{page}})
             .then( res => {
-                let photoSrcs = this.addSrc(res.data.photoes);
+                let photoSrcs = this.addSrc(res.data.photos);
                 this.setState(preState => {
-                    let photoes = preState.photoes.concat(photoSrcs)
+                    let photos = preState.photos.concat(photoSrcs)
                     return {
                         page,
-                        photoes,
+                        photos,
                         allPage: res.data.allPage,
                         isLoading: false
                     }
@@ -77,9 +78,9 @@ export default class Photo extends Component {
                 || 0;
 
         if (_scrollTop >= (this.headerDom.offsetHeight - this.blogNavDom.offsetHeight)) {
-            this.blogNavDom.classList.remove('blog-photoes-header');
+            this.blogNavDom.classList.remove('blog-photos-header');
         } else {
-            this.blogNavDom.classList.add('blog-photoes-header');
+            this.blogNavDom.classList.add('blog-photos-header');
         }
 
         const { page, allPage } = this.state;
@@ -90,7 +91,7 @@ export default class Photo extends Component {
 
     componentWillUnmount() {
         window.removeEventListener("scroll", this.onscroll);
-        this.blogNavDom.classList.remove('blog-photoes-header');
+        this.blogNavDom.classList.remove('blog-photos-header');
     }
 
     selectPhoto = (e, data) => {
@@ -101,7 +102,7 @@ export default class Photo extends Component {
     }
 
     addSrc(allphoto) {
-        let photoes = [],
+        let photos = [],
             banner = [];
         if (allphoto && allphoto.length) {
             allphoto.map( photo => {
@@ -111,37 +112,38 @@ export default class Photo extends Component {
                     srcSet: getImgSrcSet(`${IMG_URL}${photo.key}`, 150),
                     width: photo.width,
                     height: photo.height,
-                    desc: photo.desc
+                    desc: photo.desc,
+                    aspectRatio: photo.width / photo.height,
                 };
 
-                photoes.push(newPho);
+                photos.push(newPho);
             })
         }
 
-        return photoes;
+        return photos;
     }
 
 
     render() {
-        const { photoes, width, showPhotoView, currentPhotoIndex, isShowImageGallery, imageGalleryIndex, isLoading } = this.state;
+        const { photos, width, showPhotoView, currentPhotoIndex, isShowImageGallery, imageGalleryIndex, isLoading } = this.state;
         return(
             <div className="blog-photo-layout ">
                 <section className="photo-banner header-banner" ref='photoHeader'>
                     <img
-                        src={ photoes[0] && photoes[0].src || '//cdn.liayal.com/14506926.jpg'}
-                        srcSet={getImgSrcSet(photoes[0] && photoes[0].src, 375)}
+                        src={ photos[0] && photos[0].src || '//cdn.liayal.com/14506926.jpg'}
+                        srcSet={getImgSrcSet(photos[0] && photos[0].src, 375)}
                         className="img-object-fit"
                         alt=""/>
                     <div className="photo-banner-info">
                         <p className="small" ><span>图记</span></p>
-                        <h2>{photoes[0] && photoes[0].desc ? photoes[0].desc : '一起老去'}</h2>
+                        <h2>{photos[0] && photos[0].desc ? photos[0].desc : '一起老去'}</h2>
                     </div>
                 </section>
                 <section className="middle-text tc ">
                     <h2>我以一种笨拙的方式拍照</h2>
                     <p>摄影是一种神奇的记录：照片记录了时间、风景、人物；可回放照片时才发现，原来它还记录了按下快门时的感触、思绪、心事……也许这就是为什么明明看到的是一张风景，却会让你想起谁</p>
                 </section>
-               <Measure bounds onResize={(contentRect) => this.setState({ width: contentRect.bounds.width  })}>
+               {/*<Measure bounds onResize={(contentRect) => this.setState({ width: contentRect.bounds.width  })}>
                     {
                         ({ measureRef  }) => {
                             let columns = 2;
@@ -155,13 +157,14 @@ export default class Photo extends Component {
                               columns = 5;
                             }
                             return <div ref={measureRef} className="photo-list ">
-                              <Gallery photos={ photoes.slice(1) } margin={ 2 } columns={columns} ImageComponent={ImageItem} onClick={ this.selectPhoto } />
+                              <Gallery photos={ photos.slice(1) } margin={ 2 } columns={columns} ImageComponent={ImageItem} onClick={ this.selectPhoto } />
                             </div>
                         }
                     }
-                </Measure>
+                </Measure>*/}
+                <GooglePhotos className='photo-list' imageData={photos} ImageComponent={ImageItem} onClick={ this.selectPhoto } />
                 { isLoading ? <p className="loading">加载中...</p> : null}
-                <ImageGallery images={ photoes.slice(1) } isShow={isShowImageGallery} startIndex={imageGalleryIndex} />
+                <ImageGallery images={ photos.slice(1) } isShow={isShowImageGallery} startIndex={imageGalleryIndex} />
             </div>
         )
     }

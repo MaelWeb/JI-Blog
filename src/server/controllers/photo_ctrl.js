@@ -13,7 +13,7 @@ export async function addPhoto(ctx) {
 
     ctx.body = {
         code: 200,
-        photoes: result
+        photos: result
     };
 }
 
@@ -43,7 +43,7 @@ export async function updatePhoto(ctx) {
     };
 }
 
-export async function getPhotoes(ctx) {
+export async function getPhotos(ctx) {
     let query = ctx.query;
 
 
@@ -59,7 +59,7 @@ export async function getPhotoes(ctx) {
         skip = size * (page - 1);
     }
 
-    let photoes = await Photo.find()
+    let photos = await Photo.find()
         .limit(size)
         .skip(skip)
         .sort({ isBanner: -1, createTime: -1 })
@@ -69,14 +69,14 @@ export async function getPhotoes(ctx) {
 
     ctx.body = {
         code: 200,
-        photoes,
+        photos,
         allNum,
         page,
         allPage: Math.ceil(allNum / size)
     };
 
     return {
-        photoes,
+        photos,
         allNum,
         page,
         allPage: Math.ceil(allNum / size)

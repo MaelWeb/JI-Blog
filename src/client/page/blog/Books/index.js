@@ -122,7 +122,7 @@ export default class Books extends Component {
                         <div className="blog-books-item" key={book.id} >
                         <div className="books-wrap clearfix">
                             <div className="cover">
-                                <img src={book.img} alt=""/>
+                                <img src={book.img} srcSet={ getImgSrcSet(book.img, 100) } alt=""/>
                             </div>
                             <div className="info">
                                 <h4 className="title">{book.title}</h4>

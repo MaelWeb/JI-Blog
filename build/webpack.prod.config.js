@@ -15,8 +15,8 @@ module.exports = merge(baseWebpackConfig, {
     devtool: false,
     mode: "production",
     entry: {
-        admin: './page/admin/index.js',
-        blog: './page/blog/index.js'
+        admin: './client/page/admin/index.js',
+        blog: './client/page/blog/index.js'
     },
     output: {
         path: outputPath,

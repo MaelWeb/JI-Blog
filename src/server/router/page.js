@@ -7,7 +7,7 @@ import { StaticRouter } from "react-router";
 import { pageVerify } from "../middleware/verify";
 import { getAllTags } from "../controllers/tags_ctr";
 import { getAllPublishArticles, getArticle } from "../controllers/article_ctr";
-import { getPhotoes } from "../controllers/photo_ctrl";
+import { getPhotos } from "../controllers/photo_ctrl";
 import { getComments } from "../controllers/comment_ctr";
 import { getOneContent } from "../controllers/common_ctr";
 import { getBanners } from "../controllers/banner_ctr";
@@ -87,8 +87,8 @@ const _Page = Router
                 `${articleData.article.title}_「 JI · 记小栈」` : "当前文章不存在哦"
         });
     })
-    .get('photoes', async (ctx, next) => {
-        const ServerData = await getPhotoes(ctx);
+    .get('photos', async (ctx, next) => {
+        const ServerData = await getPhotos(ctx);
 
         const html = ReactDOMServer.renderToString(
             <StaticRouter context={{}} location={ctx.req.url}>

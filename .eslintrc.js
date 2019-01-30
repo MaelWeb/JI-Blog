@@ -4,7 +4,7 @@ module.exports = {
         "es6": true,
         "node": true
     },
-    "extends": "eslint:recommended",
+    // "extends": "eslint:recommended",
     // extends: ['airbnb', 'plugin:jest/recommended', 'jest-enzyme'],
     "parserOptions": {
         "ecmaFeatures": {

@@ -8,7 +8,7 @@ const outputPath = path.join(__dirname, '../dist/server/');
 
 module.exports = {
     context: sourcePath,
-    entry: '../src/server/index.js',
+    entry: './index.js',
     mode: "production",
     output: {
         path: outputPath,
