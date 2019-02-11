@@ -203,8 +203,8 @@ export default class ArticleManege extends Component {
     render() {
         const { articles, page, allNum, pageSize, isCategoryModalShow, articleToExport, category } = this.state;
         return(
-            <Layout className="article-manage-layout">
-                <Header className='article-manage-header clearfix' >
+            <Layout className="article-manage-layout" style={{height: '100%',}}>
+                <Header className='article-manage-header clearfix'>
                     <h3>文章管理</h3><Link to="/edit" className='fr'><Button icon="plus" >写文章</Button></Link>
                 </Header>
                 <Content className="article-manage-content">

@@ -184,7 +184,7 @@ export default class BannerSetting extends Component {
     render() {
         const {imageUrl, imageUpUrl, text, href, banners, book, title} = this.state;
         return (
-            <Layout className="banner-setting-layout">
+            <Layout className="banner-setting-layout" style={{height: '100%',}} >
                 <Header className='banner-setting-header clearfix' >
                     <h3>头图设置</h3>
                 </Header>

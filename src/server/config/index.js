@@ -2,27 +2,27 @@ const path = require('path');
 let config = {
     port: process.env.PORT || 8080,
     mongodb: {
-        url: 'mongodb://root:root@127.0.0.1:27017/koa-blog'
+        url: 'mongodb://root:mael147863@127.0.0.1:27017/koa-blog'
     },
     jwt: {
-        secret: "test" //默认
+        secret: '1111' //默认
     },
     mongodbSOptions: { //mongodb用户和密码
         authSource: "admin",
         useMongoClient: true
     },
     upload: {
-        ACCESS_KEY: 'v6NxwNQtqVpK0Z5*****YXv0Fo8qlFcVxnlYbO6',
-        SECRET_KEY: 'b5p89rqZeO8KJEj*****2fHtKEToE5PdSmQLRq'
+        ACCESS_KEY: 'v6NxwNQtqVpK******Xv0Fo8qlFcVxnlYbO6',
+        SECRET_KEY: 'b5p89rqZeO8KJ*****p3Pk2fHtKEToE5PdSmQLRq'
     },
    geetest: {
-        ID: "108814b3c95d6*****3caf2dc8d988bc76d12",
-        KEY: "48b9103e*****fcceee1f1e6679ceabd6e08c"
+        ID: "108814b3c95******c8d988bc76d12",
+        KEY: "48b9103efc*****6679ceabd6e08c"
     },
-    InvitationCode: "1111",
+    InvitationCode: "33333",
     wechat: {
         host: 'https://api.weixin.qq.com',
-        appId: 'wx05c59*****033acc',
+        appId: 'wx05c596****033acc',
         secret: '0cf16dbd*****a3e1a6d0db04e6'
     }
 }

@@ -71,7 +71,7 @@ export default class UserInfo extends Component {
     render() {
         const { userInfo, showModal } = this.state;
         return (
-            <Layout className ="userinfo-layout" >
+            <Layout className ="userinfo-layout" style={{height: '100%',}}>
                 <Header className = 'userinfo-header clearfix' >
                     <h3>账号设置</h3><Button className='fr logout' onClick={ this.logout } >退出登录</Button>
                 </Header>

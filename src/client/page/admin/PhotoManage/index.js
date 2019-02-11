@@ -18,7 +18,7 @@ export default class ArticleManege extends Component {
             fileList: [],
             file: null,
             desc: '',
-            photoes: [],
+            photos: [],
             one:[],
             uploadRvent: null,
             addPhotoStatus: false,
@@ -34,7 +34,7 @@ export default class ArticleManege extends Component {
     };
 
     componentWillMount() {
-        this.getPhotoes(1);
+        this.getPhotos(1);
         this.getOne();
     }
 
@@ -44,9 +44,9 @@ export default class ArticleManege extends Component {
         })
     }
 
-    getPhotoes(_page) {
+    getPhotos(_page) {
         const { pageSize, page } = this.state;
-        Axios.get('/api/get/photoes', {
+        Axios.get('/api/get/photos', {
             params: {
                 page: _page || page,
                 size: pageSize
@@ -54,7 +54,7 @@ export default class ArticleManege extends Component {
         })
         .then(res => {
             let resData = res.data;
-            let photoes = resData.photoes.map(img => {
+            let photos = resData.photos.map(img => {
                 return {
                     imgUrl: `${IMG_URL}${img.key}?${IMG_QUERY}`,
                     key: img.key,
@@ -63,7 +63,7 @@ export default class ArticleManege extends Component {
                     isBanner: img.isBanner || false
                 }
             });
-            this.setState({photoes, page: _page, allPage: resData.allPage, allNum: resData.allNum})
+            this.setState({photos, page: _page, allPage: resData.allPage, allNum: resData.allNum})
         })
     }
 
@@ -105,7 +105,7 @@ export default class ArticleManege extends Component {
     addToPhoto = () => {
         const { fileList, desc } = this.state;
 
-        let photoes = fileList.map( file => {
+        let photos = fileList.map( file => {
             const { response } = file;
             if ( file.status == 'done')
                 return {
@@ -118,21 +118,21 @@ export default class ArticleManege extends Component {
         })
 
 
-        if (!photoes.length) return;
+        if (!photos.length) return;
 
-        Axios.post('/api/add/photo', photoes)
+        Axios.post('/api/add/photo', photos)
             .then( res => {
                 let resData = res.data;
                 if (resData.code == 200) {
-                    this.getPhotoes()
+                    this.getPhotos()
                     this.setState({fileList: []})
                 }
             })
     }
 
     setToBanner = (photoIndex) => {
-        const { photoes } = this.state;
-        let photo = photoes[photoIndex],
+        const { photos } = this.state;
+        let photo = photos[photoIndex],
             isBanner = photo.isBanner;
 
         if (photo.id)
@@ -140,8 +140,8 @@ export default class ArticleManege extends Component {
                 .then( res => {
                     let resData = res.data;
                     if ( resData.code == 200) {
-                        photoes[photoIndex].isBanner = !isBanner;
-                        this.setState({photoes});
+                        photos[photoIndex].isBanner = !isBanner;
+                        this.setState({photos});
                     } else {
                         this.context.showMessage(resData.message);
                     }
@@ -180,7 +180,7 @@ export default class ArticleManege extends Component {
             .then( res => {
                 this.context.showMessage(res.data.message);
                 if (res.data.code == 200) {
-                    this.getPhotoes();
+                    this.getPhotos();
                 }
             })
             .catch( err => {
@@ -189,13 +189,13 @@ export default class ArticleManege extends Component {
     }
 
     changePage = page => {
-        this.getPhotoes(page);
+        this.getPhotos(page);
     }
 
     render() {
-        const { previewVisible, previewImage, addPhotoStatus, fileList, photoes, one, pageSize, page, allNum, allPage } = this.state;
-        let data = photoes.length ? photoes : one;
-        return ( <Layout className = "photo-manage-layout" >
+        const { previewVisible, previewImage, addPhotoStatus, fileList, photos, one, pageSize, page, allNum, allPage } = this.state;
+        let data = photos.length ? photos : one;
+        return ( <Layout className = "photo-manage-layout" style={{height: '100%',}}>
                 <Header className = 'photo-manage-header clearfix' >
                     <h3> 图 集 </h3>
                     <div  className='fr'><Button icon='plus' onClick={ this.showAddPhoto } >添加图片</Button></div>

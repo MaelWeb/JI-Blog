@@ -175,7 +175,7 @@ export default class ComponentsManege extends Component {
     render() {
         const { comments, page, allNum, pageSize, isRepeatModalShow, respondent } = this.state;
         return(
-            <Layout className="comments-manage-layout">
+            <Layout className="comments-manage-layout" style={{height: '100%',}}>
                 <Header className='comments-manage-header clearfix' >
                     <h3>评论管理</h3>
                 </Header>

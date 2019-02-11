@@ -417,7 +417,7 @@ export default class AddArticle extends Component {
         const { query } = this.context;
 
         return(
-            <Layout className="add-article-layout">
+            <Layout className="add-article-layout" style={{height: '100%',}}>
                 <Header className='add-article-header clearfix' >
                     <h3><Link to="/"><Icon type="home"/> </Link> / <span>文章编辑</span></h3>
                     <div className={classNames("article-title tc", {'creat-pr': !query.aid && !aid})}><input type="text" placeholder='新增文章标题' className="article-title-input tc" onChange={ this.titleInputChange } value={articleTitle} /></div>

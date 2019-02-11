@@ -218,7 +218,7 @@ export default class BooksManage extends Component {
     render() {
         const {imageUrl, imageUpUrl, desc, href, books, title, author, allPage, allNum, page, pageSize} = this.state;
         return (
-            <Layout className="books-manage-layout">
+            <Layout className="books-manage-layout" style={{height: '100%',}}>
                 <Header className='books-manage-header clearfix' >
                     <h3>图书管理</h3>
                 </Header>
