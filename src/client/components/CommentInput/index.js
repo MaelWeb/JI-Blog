@@ -30,6 +30,7 @@ export default class CommentInput extends Component {
     };
 
     componentDidMount() {
+        document.querySelectorAll('.geetest_panel').forEach( dom => dom.remove());
         // this.textareaDom = document.getElementById(this.textareaId);
         this.textareaDom = ReactDOM.findDOMNode(this.refs.commentText);
         const _this = this;

@@ -3,3 +3,4 @@ node_modules
 .cache--happypack
 dist/
 package-lock.json
+src/server/config/

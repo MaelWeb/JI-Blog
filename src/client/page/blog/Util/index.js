@@ -25,7 +25,7 @@ export function getTimeString(date) {
     if (now.getYear() == createTime.getYear()) {
         return Moment(date).format('MM-DD HH:mm');
     }
-    return Moment(date).format('lll');
+    return Moment(date).format('MM-DD YYYY');
 }
 
 /**

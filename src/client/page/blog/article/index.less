@@ -65,7 +65,8 @@
     }
 
     .article-tips {
-        margin-top: .3rem;
+        position: relative;
+        margin-top: 1rem;
         padding: .05rem .2rem;
         font-size: .12rem;
         background-color: #fafafa;
@@ -77,6 +78,17 @@
 
         p.article-desc {
             margin: .1rem 0;
+        }
+
+        &:before {
+            position: absolute;
+            top: -.392rem;
+            left: 50%;
+            margin-left: -.5rem;
+            width: 1rem;
+            height: 2px;
+            background-color: #555;
+            content: '';
         }
     }
 

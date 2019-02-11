@@ -84,7 +84,7 @@ export default class Article extends Component {
                     <div className="article-content" dangerouslySetInnerHTML={ {__html: _article.htmlContent } } />
                     <div className='article-tips'>
                         <p className="article-desc">
-                            <span>写于 {Moment(_article.createTime).format('YYYY MM-DD')}</span>
+                            <span>写于 {Moment(_article.createTime).format('YYYY年MM月DD日')}</span>
                             { _article.tags && _article.tags.length ? <span className="ml"><Icon type='cc-tag' /> {_article.tags.map( tag => tag.name + ' ')}</span> : null }
                             <span className="ml"><Icon type='visit' /> {_article.visited || 0}</span>
                         </p>
@@ -93,13 +93,13 @@ export default class Article extends Component {
                     </div>
                 </article> : <ArticleLoading />}
                 <section className='article-share-box'>
-                    <a href={`https://service.weibo.com/share/share.php?url=${encodeURIComponent(`https://www.liayal.com/article/${_article.id}`)}&title=${encodeURIComponent(_article.title)}&pic=${encodeURIComponent(_article.banner || '')}&appkey=${WEIBOKEY}` } className="share-icon">
+                    <a href={`https://service.weibo.com/share/share.php?url=${encodeURIComponent(`https://www.liayal.com/article/${_article.id}`)}&title=${encodeURIComponent(_article.title)}&pic=${encodeURIComponent(_article.banner || '')}&appkey=${WEIBOKEY}` } className="share-icon" title="share on weibo">
                         <Icon type="weibo" />
                     </a>
-                    <a href={ `http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${encodeURIComponent(`https://www.liayal.com/article/${_article.id}`)}&title=${encodeURIComponent(_article.title)}&desc=${encodeURIComponent(_article.abstract)}&summary=${encodeURIComponent(_article.abstract)}&site=${encodeURIComponent('//hynal.com')}` } className="share-icon">
+                    <a href={ `http://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=${encodeURIComponent(`https://www.liayal.com/article/${_article.id}`)}&title=${encodeURIComponent(_article.title)}&desc=${encodeURIComponent(_article.abstract)}&summary=${encodeURIComponent(_article.abstract)}&site=${encodeURIComponent('//hynal.com')}` } className="share-icon" title="share on qzone">
                         <Icon type="qzone" />
                     </a>
-                    <a href={ `http://shuo.douban.com/!service/share?href=${encodeURIComponent(`https://www.liayal.com/article/${_article.id}`)}&name=${encodeURIComponent(_article.title)}&text=${encodeURIComponent(_article.abstract)}&image=${encodeURIComponent(_article.banner || '')}&starid=0&aid=0&style=11` } className="share-icon">
+                    <a href={ `http://shuo.douban.com/!service/share?href=${encodeURIComponent(`https://www.liayal.com/article/${_article.id}`)}&name=${encodeURIComponent(_article.title)}&text=${encodeURIComponent(_article.abstract)}&image=${encodeURIComponent(_article.banner || '')}&starid=0&aid=0&style=11` } className="share-icon" title="share on douban">
                         <Icon type="douban" />
                     </a>
                 </section>
