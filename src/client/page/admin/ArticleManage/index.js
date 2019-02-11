@@ -120,7 +120,7 @@ export default class ArticleManege extends Component {
         } else if (now.getYear() == createTime.getYear() ) {
             return Moment(date).format('MM-DD HH:mm');
         } else {
-            return Moment(date).format('Y-MM-DD');
+            return Moment(date).format('YYYY-MM-DD');
         }
     }
 
