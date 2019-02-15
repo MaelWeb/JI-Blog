@@ -14,7 +14,7 @@ const Footer = props => (
                 </div>
             </div>
         </div>
-        <p className='footer-statement tc'> © 2017 Code & Design by Mael.Lia, All rights reserved</p>
+        <p className='footer-statement tc'> © 2017-2019 Code & Design by Mael.Lia, All rights reserved</p>
     </footer>
 );
 
