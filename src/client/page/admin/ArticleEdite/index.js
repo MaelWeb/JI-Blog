@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Layout, Button, Icon, Tag, Input, Modal, Breadcrumb, Spin, Radio, Upload, message} from 'antd';
+import { Layout, Button, Icon, Tag, Input, Modal, Breadcrumb, Spin, Radio, Upload, message } from 'antd';
 import EditorMD from 'Components/EditorMd';
-import {IMG_URL, IMG_QUERY} from '../../../config/';
+import { IMG_URL, IMG_QUERY } from '../../../config';
 import PropTypes from 'prop-types';
 import Axios from 'axios';
 import classNames from 'classnames';
@@ -49,7 +49,7 @@ export default class AddArticle extends Component {
         }
 
         Axios.get('/api/get/alltags')
-            .then( res => {
+            .then(res => {
                 this.setState({
                     tags: res.data.tags
                 })
@@ -59,12 +59,12 @@ export default class AddArticle extends Component {
 
     async getArticle(id) {
         return Axios.get(`/api/get/article/${id}`)
-            .then( res => {
+            .then(res => {
                 let article = res.data.article;
                 this.setState({
                     articleAbstract: article.abstract,
                     articleTitle: article.title,
-                    selectedTags: article.tags.map(tag => tag.id ),
+                    selectedTags: article.tags.map(tag => tag.id),
                     markdownContent: article.content,
                     category: article.category,
                     isPublish: article.publish,
@@ -80,7 +80,7 @@ export default class AddArticle extends Component {
             selectedTags.filter(t => t !== tag.id);
 
         this.setState({ selectedTags: nextSelectedTags });
-        Axios.post('/api/update/tag/count', {id: tag.id, type: checked ? 1 : -1});
+        Axios.post('/api/update/tag/count', { id: tag.id, type: checked ? 1 : -1 });
     }
 
     showInput = () => {
@@ -118,7 +118,7 @@ export default class AddArticle extends Component {
         //     banner = images[0] || '';
         // }
 
-        if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
+        if (!articleTitle) return this.context.showMessage('请输入文章标题');
 
         let params = {
             title: articleTitle,
@@ -132,7 +132,7 @@ export default class AddArticle extends Component {
 
 
         if (!articleAbstract) {
-           return ModalConfirm({
+            return ModalConfirm({
                 title: '尚未添加文章摘要，是否添加?',
                 okText: "添加",
                 cancelText: "不添加",
@@ -152,26 +152,26 @@ export default class AddArticle extends Component {
         this.isPosting = true;
         const hide = message.loading('文章创建中...', 0);
         Axios.post('/api/create/article', params)
-        .then( res => {
-            hide();
-            this.context.showMessage(res.data.message);
-            this.isPosting = false;
-            if (res.data.code == 200) {
-                // this.setState({
-                //     aid: res.data.article.id
-                // })
-                this.props.history.replace({pathname: '/edit', search: `?aid=${res.data.article.id}`});
-                this.getArticle(res.data.article.id);
-            }
-        })
-        .catch( err => {
-            hide();
-            this.context.showMessage(err);
-            this.isPosting = false;
-        })
+            .then(res => {
+                hide();
+                this.context.showMessage(res.data.message);
+                this.isPosting = false;
+                if (res.data.code == 200) {
+                    // this.setState({
+                    //     aid: res.data.article.id
+                    // })
+                    this.props.history.replace({ pathname: '/edit', search: `?aid=${res.data.article.id}` });
+                    this.getArticle(res.data.article.id);
+                }
+            })
+            .catch(err => {
+                hide();
+                this.context.showMessage(err);
+                this.isPosting = false;
+            })
     }
 
-    saveArticle = ()=> {
+    saveArticle = () => {
         const { articleTitle, selectedTags, aid, banner } = this.state;
         const { query } = this.context;
 
@@ -179,7 +179,7 @@ export default class AddArticle extends Component {
             articleHtml = this.editor.getHTML(),
             articleAbstract = this.state.articleAbstract;
 
-        if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
+        if (!articleTitle) return this.context.showMessage('请输入文章标题');
 
         let params = {
             title: articleTitle,
@@ -193,13 +193,13 @@ export default class AddArticle extends Component {
         this.isPosting = true;
         const hide = message.loading('文章保存中...', 0);
         Axios.post(`/api/update/article/${query.aid || aid}`, params)
-            .then( res => {
+            .then(res => {
                 this.isPosting = false;
                 hide();
                 let resData = res.data;
                 message.info(resData.message);
             })
-            .catch( err => {
+            .catch(err => {
                 hide();
                 message.warning(resData.message);
                 this.isPosting = false;
@@ -232,8 +232,8 @@ export default class AddArticle extends Component {
         let isCreate = tags.filter(t => t.name === inputValue);
         if (isCreate.length) {
 
-            if ( selectedTags.indexOf(isCreate[0].id) == -1 ) {
-                Axios.post('/api/update/tag/count', {id: tag.id, type: 1});
+            if (selectedTags.indexOf(isCreate[0].id) == -1) {
+                Axios.post('/api/update/tag/count', { id: tag.id, type: 1 });
                 this.setState({
                     inputVisible: false,
                     selectedTags: [...selectedTags, isCreate[0].id],
@@ -257,7 +257,7 @@ export default class AddArticle extends Component {
                     inputValue: '',
                 })
             })
-            .catch( err => {
+            .catch(err => {
                 this.context.showMessage(err);
             })
     }
@@ -307,7 +307,7 @@ export default class AddArticle extends Component {
             articleHtml = this.editor.getHTML(),
             articleAbstract = this.state.articleAbstract;
 
-        if ( !articleTitle ) return this.context.showMessage('请输入文章标题');
+        if (!articleTitle) return this.context.showMessage('请输入文章标题');
 
         let params = {
             title: articleTitle,
@@ -318,15 +318,15 @@ export default class AddArticle extends Component {
             banner
         };
 
-        Axios.post(`/api/publish/article/${query.aid || aid}`, {category, ...params})
-            .then( res => {
+        Axios.post(`/api/publish/article/${query.aid || aid}`, { category, ...params })
+            .then(res => {
                 this.context.showMessage(res.data.message);
                 this.setState({
                     isCategoryModalShow: false,
                     isPublish: res.data.code == 200 ? true : false
                 });
             })
-            .catch( err => {
+            .catch(err => {
                 this.context.showMessage('服务器错误');
             })
     }
@@ -336,13 +336,13 @@ export default class AddArticle extends Component {
         const { aid, category } = this.state;
 
         Axios.post(`/api/recall/article/${query.aid || aid}`)
-            .then( res => {
+            .then(res => {
                 this.context.showMessage(res.data.message);
                 this.setState({
                     isPublish: res.data.code == 200 ? false : true
                 });
             })
-            .catch( err => {
+            .catch(err => {
                 this.context.showMessage('服务器错误');
             })
     }
@@ -416,33 +416,34 @@ export default class AddArticle extends Component {
         const { selectedTags, inputVisible, inputValue, tags, isAbstractModalShow, articleAbstract, articleTitle, markdownContent, aid, isCategoryModalShow, category, isPublish, banner, isBannerModalShow, newBanner } = this.state;
         const { query } = this.context;
 
-        return(
-            <Layout className="add-article-layout" style={{height: '100%',}}>
+        return (
+            <Layout className="add-article-layout" style={{ height: '100%', }}>
                 <Header className='add-article-header clearfix' >
-                    <h3><Link to="/"><Icon type="home"/> </Link> / <span>文章编辑</span></h3>
-                    <div className={classNames("article-title tc", {'creat-pr': !query.aid && !aid})}><input type="text" placeholder='新增文章标题' className="article-title-input tc" onChange={ this.titleInputChange } value={articleTitle} /></div>
-                    { query.aid || aid ? <Button.Group>
-                        <Button onClick={ this.saveArticle } >
+                    <h3><Link to="/"><Icon type="home" /> </Link> / <span>文章编辑</span></h3>
+                    <div className={classNames("article-title tc", { 'creat-pr': !query.aid && !aid })}><input type="text" placeholder='新增文章标题' className="article-title-input tc" onChange={this.titleInputChange} value={articleTitle} /></div>
+                    {query.aid || aid ? <Button.Group>
+                        <Button onClick={this.saveArticle} >
                             <Icon type="save" />保存
                         </Button>
-                        { isPublish ? <Button onClick={ this.recallArticle } >
+                        {isPublish ? <Button onClick={this.recallArticle} >
                             撤回<Icon type="rollback" />
-                        </Button> : <Button onClick={ this.showExportModal } >
-                            发布<Icon type="export" />
-                        </Button>}
-                    </Button.Group> : <div className="single-btn"><Button onClick={ this.createArticle } >
-                            <Icon type="file" />创建
+                        </Button> : <Button onClick={this.showExportModal} >
+                                发布<Icon type="export" />
+                            </Button>}
+                    </Button.Group> : <div className="single-btn"><Button onClick={this.createArticle} >
+                        <Icon type="file" />创建
                         </Button></div>}
                 </Header>
                 <Content>
-                    <div className="tags-wrap">标签：{
+                    <div className="tags-wrap">
+                    <span>标签：</span> <div className='tags-list'> {
                         tags.map(tag => (
-                          <CheckableTag
-                            key={tag.id}
-                            checked={selectedTags.indexOf(tag.id) > -1}
-                            onChange={checked => this.tagChange(tag, checked)}>
-                            {tag.name}
-                          </CheckableTag>
+                            <CheckableTag
+                                key={tag.id}
+                                checked={selectedTags.indexOf(tag.id) > -1}
+                                onChange={checked => this.tagChange(tag, checked)}>
+                                {tag.name}
+                            </CheckableTag>
                         ))}
                         {inputVisible && (
                             <Input
@@ -453,30 +454,33 @@ export default class AddArticle extends Component {
                                 value={inputValue}
                                 onChange={this.handleInputChange}
                                 onBlur={this.handleInputBlur}
-                                onPressEnter={this.handleInputConfirm}/>
+                                onPressEnter={this.handleInputConfirm} />
                         )}
                         {!inputVisible && <Button size="small" type="dashed" onClick={this.showInput}>+ New Tag</Button>}
-                        <Button className="fr" type="primary" size="small" icon="pushpin-o" ghost onClick={ this.showModal }>{ articleAbstract ? '修改摘要' : '添加摘要'}</Button>
-                        <Button className="fr add-banner" type="primary" size="small" icon="picture" ghost onClick={ this.showBannerModal }>{ banner ? '修改头图' : '添加头图'}</Button>
+                        </div>
+                        <div className='button-wrap'>
+                            <Button className="fr" type="primary" size="small" icon="pushpin-o" ghost onClick={this.showModal}>{articleAbstract ? '修改摘要' : '添加摘要'}</Button>
+                            <Button className="fr add-banner" type="primary" size="small" icon="picture" ghost onClick={this.showBannerModal}>{banner ? '修改头图' : '添加头图'}</Button>
+                        </div>
                     </div>
-                    { query.aid &&  ( markdownContent ? <EditorMD config={{markdown: markdownContent, height: '100%'}} ref={ this.saveEditorRef } /> : <Spin size="large" className='spiner'/>)}
-                    { !query.aid ? <EditorMD config={{ markdown: '### 请开始你的表演' ,height: '100%'}} ref={ this.saveEditorRef } /> : null}
+                    {query.aid && (markdownContent ? <EditorMD config={{ markdown: markdownContent, height: '100%' }} ref={this.saveEditorRef} /> : <Spin size="large" className='spiner' />)}
+                    {!query.aid ? <EditorMD config={{ markdown: '### 请开始你的表演', height: '100%' }} ref={this.saveEditorRef} /> : null}
                 </Content>
                 <Modal
                     title="添加摘要"
                     visible={isAbstractModalShow}
                     onOk={this.articleAbstractOk}
-                    mask={ false }
+                    mask={false}
                     onCancel={this.articleAbstractCancle}>
-                    <TextArea placeholder="这里添加文章的摘要;确认才保存，取消不保存当次更改" autosize={{ minRows: 4,}} ref={ this.saveTextAreaRef }  defaultValue={articleAbstract} />
+                    <TextArea placeholder="这里添加文章的摘要;确认才保存，取消不保存当次更改" autosize={{ minRows: 4, }} ref={this.saveTextAreaRef} defaultValue={articleAbstract} />
                 </Modal>
                 <Modal
                     title="选择发布板块"
                     visible={isCategoryModalShow}
                     onOk={this.exportModalOk}
-                    mask={ false }
+                    mask={false}
                     onCancel={this.exportModalCancle}>
-                    <RadioGroup onChange={this.onRadioChange} value={ category }>
+                    <RadioGroup onChange={this.onRadioChange} value={category}>
                         <Radio value='DEFAULT'>首页</Radio>
                         <Radio value='TRAVEL' >游记</Radio>
                     </RadioGroup>
@@ -484,24 +488,24 @@ export default class AddArticle extends Component {
                 <Modal
                     title="Banner设置"
                     visible={isBannerModalShow}
-                    mask={ false }
-                    onOk={ this.bannerModalOk }
+                    mask={false}
+                    onOk={this.bannerModalOk}
                     onCancel={this.bannerModalCancle}>
                     <div className="add-article-banner-box">
                         <Upload
                             className="avatar-uploader"
-                            accept = "image/*"
-                            action = "/api/fileupload"
-                            data = { { prefix: 'article/' } }
+                            accept="image/*"
+                            action="/api/fileupload"
+                            data={{ prefix: 'article/' }}
                             showUploadList={false}
-                            onChange={ this.uploadHandleChange }
-                          >
+                            onChange={this.uploadHandleChange}
+                        >
                             {
-                              (banner || newBanner) ?
-                                <img src={ newBanner ? `${IMG_URL}${newBanner}` : banner } alt="" className="avatar" /> :
-                                <Icon type="plus" className="avatar-uploader-trigger" />
+                                (banner || newBanner) ?
+                                    <img src={newBanner ? `${IMG_URL}${newBanner}` : banner} alt="" className="avatar" /> :
+                                    <Icon type="plus" className="avatar-uploader-trigger" />
                             }
-                          </Upload>
+                        </Upload>
                     </div>
                 </Modal>
             </Layout>

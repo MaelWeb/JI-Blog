@@ -5,25 +5,25 @@ let config = {
         url: 'mongodb://root:root@127.0.0.1:27017/koa-blog'
     },
     jwt: {
-        secret: '1111' //默认
+        secret: "test" //默认
     },
     mongodbSOptions: { //mongodb用户和密码
         authSource: "admin",
         useMongoClient: true
     },
     upload: {
-        ACCESS_KEY: 'v6NxwNQtqVpK*****8qlFcVxnlYbO6',
-        SECRET_KEY: 'b5p89rqZeO8K*****Op3Pk2fHtKEToE5PdSmQLRq'
+        ACCESS_KEY: 'v6NxwNQtqVpK0*****YXv0Fo8qlFcVxnlYbO6',
+        SECRET_KEY: 'b5p89rqZeO8K*****p3Pk2fHtKEToE5PdSmQLRq'
     },
    geetest: {
-        ID: "108814b3c95*****f2dc8d988bc76d12",
-        KEY: "48b9103efcc*****1e6679ceabd6e08c"
+        ID: "108814b3c95d6*****3caf2dc8d988bc76d12",
+        KEY: "48b9103e*****fcceee1f1e6679ceabd6e08c"
     },
-    InvitationCode: "*****",
+    InvitationCode: "1111",
     wechat: {
         host: 'https://api.weixin.qq.com',
-        appId: 'wx05c5*****f92033acc',
-        secret: '0cf16dbd*****d03a3e1a6d0db04e6'
+        appId: 'wx05c5*****92033acc',
+        secret: '0cf16dbd4*****03a3e1a6d0db04e6'
     }
 }
 // 可在private.js定义自己私有的配置
