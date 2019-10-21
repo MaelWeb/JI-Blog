@@ -12,6 +12,9 @@ const Footer = props => (
                 <div>
                     <p><a href="/about">关于记</a><a href="https://github.com/MaelWeb">Github</a></p>
                 </div>
+                <div>
+                    <p><a href="https://cdn.liayal.com/image/gh_4493411dfefa_344.jpg">记小栈小程序</a></p>
+                </div>
             </div>
         </div>
         <p className='footer-statement tc'> © 2017-2019 Code & Design by Mael.Lia, All rights reserved</p>

@@ -9,26 +9,41 @@ export default class Header extends Component {
         super(props)
 
         this.state = {
-            showNav: false
+            showNav: false,
+            show: true,
         }
     }
 
     componentDidMount() {
+        this.scrollTop = 0;
         this.dom = ReactDOM.findDOMNode(this.refs.blogHeader);
         this.dom.addEventListener('touchmove', this.preventDefault);
-        // window && (window.onscroll = (e) => {
-        //     e = e || window.event;
 
-        //     let _scroll = document.documentElement.scrollTop || document.body.scrollTop;
-        //     if (_scroll >= this.dom.offsetHeight) {
-        //         this.dom.classList.add('header-hide');
-        //     } else {
-        //         this.dom.classList.remove('header-hide');
-        //     }
-        // })
+        window.addEventListener('scroll', this.onScroll, false);
     }
+
+    componentWillUnmount () {
+        window.removeEventListener('scroll', this.onScroll);
+    }
+
     preventDefault = (e) => {
         e.preventDefault();
+    }
+
+    onScroll = (e) => {
+        let scrollTop =  window.pageYOffset
+                || (document.documentElement && document.documentElement.scrollTop)
+                || document.body.scrollTop
+                || 0;
+        const navHeight = document.querySelector('#IdNav').offsetHeight
+        const { showWhenScrollTo = navHeight } = this.props
+        const diff =  scrollTop - this.scrollTop
+        if ( (scrollTop >= showWhenScrollTo) && (diff > 0) ) {
+            this.setState({show: false})
+        } else if (!this.state.show) {
+            this.setState({show: true})
+        }
+        this.scrollTop = scrollTop;
     }
 
     showNacBox = (e) => {
@@ -46,12 +61,14 @@ export default class Header extends Component {
     }
 
     render() {
-        const { showNav } = this.state;
+        const { showNav, show } = this.state;
         const { location } = this.props;
         let path = location.pathname.split('/');
-        let hCls = ClassNames('blog-header', {
+        let hCls = ClassNames('blog-header animated', {
             [`blog-${path[1]}-header`]: path[1],
-            'blog-artilces-header': !path[1]
+            'blog-artilces-header': !path[1],
+            fadeInDown: show,
+            fadeOutUp: !show
         });
         return (
             <header className={ hCls } ref="blogHeader" id='IdNav'>

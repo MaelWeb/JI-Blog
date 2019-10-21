@@ -14,7 +14,6 @@ module.exports = {
         "sourceType": "module"
     },
     "plugins": [
-        "react",
         'babel',
         'import',
         'jsx-a11y',

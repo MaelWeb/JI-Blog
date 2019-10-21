@@ -90,7 +90,7 @@ export default class Article extends Component {
                         </p>
                         <p>如非特别注明，文章皆为原创。</p>
                         <p><b>转载请注明出处：</b> <a href={`https://www.liayal.com/article/${_article.id}`}>{`https://www.liayal.com/article/${_article.id}`}</a></p>
-                        <p className='article-ad'>寒冬时节，我司依然招人，感兴趣点<a href='https://www.liayal.com/article/5c6d0889c0ab13505eeefab1'>这里</a></p>
+                        <p className='article-ad'>记小栈小程序上线啦～搜索<strong>【记小栈】</strong>或<strong><a href="https://cdn.liayal.com/image/gh_4493411dfefa_344.jpg">【点击扫码】</a></strong>体验</p>
                     </div>
                 </article> : <ArticleLoading />}
                 <section className='article-share-box'>

@@ -3,7 +3,6 @@ import { Route, Link, Switch, withRouter } from 'react-router-dom';
 import {
     CSSTransition,
     TransitionGroup,
-    CSSTransitionGroup,
 } from 'react-transition-group';
 import Axios from 'axios';
 import ScrollToTop from '../../../components/ScrollToTop';
