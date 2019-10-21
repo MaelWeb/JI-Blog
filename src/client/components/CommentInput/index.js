@@ -55,7 +55,7 @@ export default class CommentInput extends Component {
 
                         }).onError(() => {
 
-                            Toast.warn("验证码报错叻，呆会儿再试吧");
+                            // Toast.warn("验证码报错叻，呆会儿再试吧");
 
                         })
                     })
