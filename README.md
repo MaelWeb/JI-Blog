@@ -7,13 +7,6 @@
 
 <img src="https://cdn.liayal.com/blog_screen.jpg" />
 
-#### 「JI · 记小栈」小程序已上线
-
-欢迎扫码体验
-<img src="https://cdn.liayal.com/image/gh_4493411dfefa_344.jpg" />
-
-[「JI · 记小栈」小程序 项目](https://github.com/MaelWeb/JI-Blog-Weapp)
-
 ### 特性
 - ES6 + 语法，通过 async, await 解决calkback
 - 全站 React
@@ -45,6 +38,14 @@ npm run dev:start
 ```code
 npm run build
 ```
+
+### 「JI · 记小栈」小程序已上线
+
+欢迎扫码体验
+
+<img src="https://cdn.liayal.com/image/gh_4493411dfefa_344.jpg" />
+
+[「JI · 记小栈」小程序 项目](https://github.com/MaelWeb/JI-Blog-Weapp)
 
 ### License
 The MIT License.
