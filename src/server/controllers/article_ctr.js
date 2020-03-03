@@ -1,22 +1,23 @@
-import Article from "../models/article_model";
+import Article from '../models/article_model';
+import ToWxml from '../lib/towxml'
 
 export async function createArticle(ctx) {
     const formData = ctx.request.body;
     const createTime = new Date();
     const lastEditTime = new Date();
-    if (formData.title == "") {
+    if (formData.title == '') {
         return (ctx.body = {
             code: 400,
             message: '标题不能为空'
         });
     }
-    if (formData.content == "") {
+    if (formData.content == '') {
         return (ctx.body = {
             code: 400,
             message: '文章内容不能为空'
         });
     }
-    if (formData.htmlContent == "") {
+    if (formData.htmlContent == '') {
         return (ctx.body = {
             code: 400,
             message: 'HTML文本为空'
@@ -26,14 +27,16 @@ export async function createArticle(ctx) {
         ...formData,
         createTime,
         lastEditTime,
-        author: ctx.cookies.get("uid"),
+        author: ctx.cookies.get('uid'),
     });
 
     let createResult = await article.save().catch(err => {
-        ctx.throw(500, "服务器内部错误");
+        ctx.throw(500, '服务器内部错误');
     });
 
-    await Article.populate(createResult, { path: "tags" }, (err, result) => {
+    await Article.populate(createResult, {
+        path: 'tags'
+    }, (err, result) => {
         createResult = result;
         // console.log(result)
     });
@@ -60,47 +63,55 @@ export async function getAllArticles(ctx) {
 
     if (!tag) {
         articles = await Article.find(null, {
-                title: 1,
-                publish: 1,
-                abstract: 1,
-                createTime: 1,
-                content: 1
-            })
+            title: 1,
+            publish: 1,
+            abstract: 1,
+            createTime: 1,
+            content: 1
+        })
             .populate('tags')
-            .sort({ createTime: -1 })
+            .sort({
+                createTime: -1
+            })
             .limit(pageSize)
             .skip(skip)
             .catch(err => {
-                ctx.throw(500, "服务器内部错误");
+                ctx.throw(500, '服务器内部错误');
             });
         allNum = await Article.count().catch(err => {
-            ctx.throw(500, "服务器内部错误");
+            ctx.throw(500, '服务器内部错误');
         });
     } else {
         // console.log(tagArr)
-        let _tag = tag.split(";");
+        let _tag = tag.split(';');
         articles = await Article.find({
-                tags: { $in: _tag },
-            }, {
-                title: 1,
-                publish: 1,
-                abstract: 1,
-                createTime: 1,
-                content: 1
-            })
+            tags: {
+                $in: _tag
+            },
+        }, {
+            title: 1,
+            publish: 1,
+            abstract: 1,
+            createTime: 1,
+            content: 1
+        })
             .populate('tags')
-            .sort({ createTime: -1 })
+            .sort({
+                createTime: -1
+            })
             .limit(pageSize)
             .skip(skip)
             .catch(err => {
-                ctx.throw(500, "服务器内部错误");
+                ctx.throw(500, '服务器内部错误');
             });
         allNum = await Article.find({
-                tags: { $in: _tag },
-            })
+            tags: {
+                $in: _tag
+            },
+        })
             .count()
             .catch(err => {
-                ctx.throw(500, "服务器内部错误");
+                ctx.throw(500, '服务器内部错误');
             });
     }
 
@@ -138,53 +149,61 @@ export async function getAllPublishArticles(ctx) {
 
     if (!tag) {
         articles = await Article.find({
-                publish: true,
-                category,
-            }, {
-                title: 1,
-                banner: 1,
-                abstract: 1,
-                createTime: 1
+            publish: true,
+            category,
+        }, {
+            title: 1,
+            banner: 1,
+            abstract: 1,
+            createTime: 1
+        })
+            .sort({
+                createTime: -1
             })
-            .sort({ createTime: -1 })
             .limit(pageSize)
             .skip(skip)
             .catch(err => {
                 ctx.throw(500, err);
             });
         allNum = await Article.find({
-                publish: true,
-                category,
-            })
+            publish: true,
+            category,
+        })
             .count()
             .catch(err => {
-                ctx.throw(500, "服务器内部错误");
+                ctx.throw(500, '服务器内部错误');
             });
     } else {
-        let tagArr = tag.split(";");
+        let tagArr = tag.split(';');
         articles = await Article.find({
-                tags: { '$in': tagArr },
-                publish: true,
-                category,
-            }, {
-                title: 1,
-                banner: 1,
-                abstract: 1,
-                createTime: 1
+            tags: {
+                '$in': tagArr
+            },
+            publish: true,
+            category,
+        }, {
+            title: 1,
+            banner: 1,
+            abstract: 1,
+            createTime: 1
+        })
+            .sort({
+                createTime: -1
             })
-            .sort({ createTime: -1 })
             .limit(pageSize)
             .skip(skip)
             .catch(err => {
-                ctx.throw(500, "服务器内部错误");
+                ctx.throw(500, '服务器内部错误');
             });
         allNum = await Article.find({
-                tags: { $in: tagArr },
-                category,
-            })
+            tags: {
+                $in: tagArr
+            },
+            category,
+        })
             .count()
             .catch(err => {
-                ctx.throw(500, "服务器内部错误");
+                ctx.throw(500, '服务器内部错误');
             });
     }
 
@@ -219,29 +238,31 @@ export async function getTopArticles(ctx) {
     }
 
     articles = await Article.find({
-            publish: true,
-        }, {
-            title: 1,
-            banner: 1,
-            abstract: 1,
-            createTime: 1,
-            id: 1,
-            lastEditTime: -1
-        })
+        publish: true,
+    }, {
+        title: 1,
+        banner: 1,
+        abstract: 1,
+        createTime: 1,
+        id: 1,
+        lastEditTime: -1
+    })
         .populate('tags')
-        .sort({ visited: -1 })
+        .sort({
+            visited: -1
+        })
         .limit(pageSize)
         .skip(skip)
         .catch(err => {
-            ctx.throw(500, "服务器内部错误");
+            ctx.throw(500, '服务器内部错误');
         });
 
     allNum = await Article.find({
-            publish: true,
-        })
+        publish: true,
+    })
         .count()
         .catch(err => {
-            ctx.throw(500, "服务器内部错误");
+            ctx.throw(500, '服务器内部错误');
         });
 
     allPage = Math.ceil(allNum / pageSize);
@@ -267,19 +288,19 @@ export async function modifyArticle(ctx) {
     const id = ctx.params.id;
     const postData = ctx.request.body;
 
-    if (postData.title == "") {
+    if (postData.title == '') {
         return (ctx.body = {
             code: 400,
             message: '标题不能为空'
         });
     }
-    if (postData.content == "") {
+    if (postData.content == '') {
         return (ctx.body = {
             code: 400,
             message: '文章内容不能为空'
         });
     }
-    if (postData.htmlContent == "") {
+    if (postData.htmlContent == '') {
         return (ctx.body = {
             code: 400,
             message: 'HTML文本为空'
@@ -289,9 +310,11 @@ export async function modifyArticle(ctx) {
             ctx.throw(400, '标签不能为空')
         } */
 
-    const article = await Article.findByIdAndUpdate(id, { $set: postData }).catch(
+    const article = await Article.findByIdAndUpdate(id, {
+        $set: postData
+    }).catch(
         err => {
-            if (err.name === "CastError") {
+            if (err.name === 'CastError') {
                 return (ctx.body = {
                     code: 400,
                     message: '文章不存在或已删除'
@@ -306,13 +329,15 @@ export async function modifyArticle(ctx) {
     );
     ctx.body = {
         code: 200,
-        message: "保存成功"
+        message: '保存成功'
     };
 }
 
 export async function getArticle(ctx) {
     const id = ctx.params.id;
-    const { filter } = ctx.query;
+    const {
+        filter
+    } = ctx.query;
     let projection = {};
 
     if (filter == 'web') {
@@ -342,26 +367,41 @@ export async function getArticle(ctx) {
             message: '请求参数错误'
         });
     }
-    const article = await Article.findByIdAndUpdate(
-            id, { $inc: { visited: 1 } }, { projection }
-        )
+    let article = await Article.findByIdAndUpdate(
+        id, {
+            $inc: {
+                visited: 1
+            }
+        }, {
+            projection
+        }
+    )
         .populate('tags')
         .catch(err => {
             if (err.name === 'CastError') {
                 return ctx.body = {
                     code: 400,
-                    message: "文章不存在或已删除"
+                    message: '文章不存在或已删除'
                 }
             }
             return ctx.body = {
                 code: 500,
-                message: "服务器内部错误"
+                message: '服务器内部错误'
             }
 
         });
+
+    article = article.toJSON({
+        getters: true
+    })
+    const {
+        content,
+        ...others
+    } = article;
     ctx.body = {
         code: 200,
-        article: article,
+        article: others,
+        wxml: ToWxml(article.content, 'markdown'),
     };
 
     return ctx.body;
@@ -373,18 +413,18 @@ export async function deleteArticle(ctx) {
         if (err.name === 'CastError') {
             return ctx.body = {
                 code: 400,
-                message: "文章不存在或已删除"
+                message: '文章不存在或已删除'
             }
         }
         return ctx.body = {
             code: 500,
-            message: "服务器内部错误"
+            message: '服务器内部错误'
         }
 
     });
     ctx.body = {
         code: 200,
-        message: "删除成功"
+        message: '删除成功'
     };
 }
 
@@ -392,47 +432,52 @@ export async function publishArticle(ctx) {
     const id = ctx.params.id;
     const postData = ctx.request.body;
     const article = await Article.findByIdAndUpdate(id, {
-        $set: { publish: true, ...postData }
+        $set: {
+            publish: true,
+            ...postData
+        }
     }).catch(err => {
         if (err.name === 'CastError') {
             return ctx.body = {
                 code: 400,
-                message: "文章不存在或已删除"
+                message: '文章不存在或已删除'
             }
         }
         return ctx.body = {
             code: 500,
-            message: "服务器内部错误"
+            message: '服务器内部错误'
         }
 
     });
 
     ctx.body = {
         code: 200,
-        message: "发布成功"
+        message: '发布成功'
     };
 }
 
 export async function hideArticle(ctx) {
     const id = ctx.params.id;
     const article = await Article.findByIdAndUpdate(id, {
-        $set: { publish: false }
+        $set: {
+            publish: false
+        }
     }).catch(err => {
         if (err.name === 'CastError') {
             return ctx.body = {
                 code: 400,
-                message: "文章不存在或已删除"
+                message: '文章不存在或已删除'
             }
         }
         return ctx.body = {
             code: 500,
-            message: "服务器内部错误"
+            message: '服务器内部错误'
         }
 
     });
 
     ctx.body = {
         code: 200,
-        message: "撤回成功"
+        message: '撤回成功'
     };
 }
