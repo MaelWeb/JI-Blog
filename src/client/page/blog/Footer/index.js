@@ -18,7 +18,7 @@ const Footer = props => (
             </div>
         </div>
         <p className='footer-statement tc'> © 2017-2019 Code & Design by Mael.Lia, All rights reserved. </p>
-        <a class="tc" style={ { fontSize: '10px', display: 'block' } } href="http://www.beian.miit.gov.cn/">沪ICP备18001547号</a>
+        <a className="tc" style={ { fontSize: '10px', display: 'block' } } href="http://www.beian.miit.gov.cn/">沪ICP备18001547号</a>
     </footer>
 );
 

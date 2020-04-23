@@ -1,5 +1,5 @@
 import Article from '../models/article_model';
-import ToWxml from '../lib/towxml'
+import ToWxml from '../lib/towxml';
 
 export async function createArticle(ctx) {
     const formData = ctx.request.body;
@@ -27,7 +27,7 @@ export async function createArticle(ctx) {
         ...formData,
         createTime,
         lastEditTime,
-        author: ctx.cookies.get('uid'),
+        author: ctx.cookies.get('uid')
     });
 
     let createResult = await article.save().catch(err => {
@@ -63,12 +63,12 @@ export async function getAllArticles(ctx) {
 
     if (!tag) {
         articles = await Article.find(null, {
-            title: 1,
-            publish: 1,
-            abstract: 1,
-            createTime: 1,
-            content: 1
-        })
+                title: 1,
+                publish: 1,
+                abstract: 1,
+                createTime: 1,
+                content: 1
+            })
             .populate('tags')
             .sort({
                 createTime: -1
@@ -85,16 +85,16 @@ export async function getAllArticles(ctx) {
         // console.log(tagArr)
         let _tag = tag.split(';');
         articles = await Article.find({
-            tags: {
-                $in: _tag
-            },
-        }, {
-            title: 1,
-            publish: 1,
-            abstract: 1,
-            createTime: 1,
-            content: 1
-        })
+                tags: {
+                    $in: _tag
+                }
+            }, {
+                title: 1,
+                publish: 1,
+                abstract: 1,
+                createTime: 1,
+                content: 1
+            })
             .populate('tags')
             .sort({
                 createTime: -1
@@ -105,10 +105,10 @@ export async function getAllArticles(ctx) {
                 ctx.throw(500, '服务器内部错误');
             });
         allNum = await Article.find({
-            tags: {
-                $in: _tag
-            },
-        })
+                tags: {
+                    $in: _tag
+                }
+            })
             .count()
             .catch(err => {
                 ctx.throw(500, '服务器内部错误');
@@ -122,7 +122,7 @@ export async function getAllArticles(ctx) {
         articles,
         allPage,
         allNum,
-        page,
+        page
     };
 
     return {
@@ -149,14 +149,14 @@ export async function getAllPublishArticles(ctx) {
 
     if (!tag) {
         articles = await Article.find({
-            publish: true,
-            category,
-        }, {
-            title: 1,
-            banner: 1,
-            abstract: 1,
-            createTime: 1
-        })
+                publish: true,
+                category
+            }, {
+                title: 1,
+                banner: 1,
+                abstract: 1,
+                createTime: 1
+            })
             .sort({
                 createTime: -1
             })
@@ -166,9 +166,9 @@ export async function getAllPublishArticles(ctx) {
                 ctx.throw(500, err);
             });
         allNum = await Article.find({
-            publish: true,
-            category,
-        })
+                publish: true,
+                category
+            })
             .count()
             .catch(err => {
                 ctx.throw(500, '服务器内部错误');
@@ -176,17 +176,17 @@ export async function getAllPublishArticles(ctx) {
     } else {
         let tagArr = tag.split(';');
         articles = await Article.find({
-            tags: {
-                '$in': tagArr
-            },
-            publish: true,
-            category,
-        }, {
-            title: 1,
-            banner: 1,
-            abstract: 1,
-            createTime: 1
-        })
+                tags: {
+                    '$in': tagArr
+                },
+                publish: true,
+                category
+            }, {
+                title: 1,
+                banner: 1,
+                abstract: 1,
+                createTime: 1
+            })
             .sort({
                 createTime: -1
             })
@@ -196,11 +196,11 @@ export async function getAllPublishArticles(ctx) {
                 ctx.throw(500, '服务器内部错误');
             });
         allNum = await Article.find({
-            tags: {
-                $in: tagArr
-            },
-            category,
-        })
+                tags: {
+                    $in: tagArr
+                },
+                category
+            })
             .count()
             .catch(err => {
                 ctx.throw(500, '服务器内部错误');
@@ -214,7 +214,7 @@ export async function getAllPublishArticles(ctx) {
         articles,
         allPage,
         allNum,
-        page,
+        page
     };
 
     return {
@@ -238,15 +238,15 @@ export async function getTopArticles(ctx) {
     }
 
     articles = await Article.find({
-        publish: true,
-    }, {
-        title: 1,
-        banner: 1,
-        abstract: 1,
-        createTime: 1,
-        id: 1,
-        lastEditTime: -1
-    })
+            publish: true
+        }, {
+            title: 1,
+            banner: 1,
+            abstract: 1,
+            createTime: 1,
+            id: 1,
+            lastEditTime: -1
+        })
         .populate('tags')
         .sort({
             visited: -1
@@ -258,8 +258,8 @@ export async function getTopArticles(ctx) {
         });
 
     allNum = await Article.find({
-        publish: true,
-    })
+            publish: true
+        })
         .count()
         .catch(err => {
             ctx.throw(500, '服务器内部错误');
@@ -272,7 +272,7 @@ export async function getTopArticles(ctx) {
         articles,
         allPage,
         allNum,
-        page,
+        page
     };
 
     return {
@@ -340,7 +340,16 @@ export async function getArticle(ctx) {
     } = ctx.query;
     let projection = {};
 
-    if (filter == 'web') {
+    if (filter == 'weapp') {
+        projection = {
+            title: 1,
+            content: 1,
+            abstract: 1,
+            banner: 1,
+            visited: 1,
+            category: 1
+        };
+    } else {
         projection = {
             title: 1,
             htmlContent: 1,
@@ -349,15 +358,6 @@ export async function getArticle(ctx) {
             visited: 1,
             category: 1,
             createTime: 1
-        };
-    } else if (filter == 'weapp') {
-        projection = {
-            title: 1,
-            content: 1,
-            abstract: 1,
-            banner: 1,
-            visited: 1,
-            category: 1
         };
     }
 
@@ -368,41 +368,47 @@ export async function getArticle(ctx) {
         });
     }
     let article = await Article.findByIdAndUpdate(
-        id, {
-            $inc: {
-                visited: 1
+            id, {
+                $inc: {
+                    visited: 1
+                }
+            }, {
+                projection
             }
-        }, {
-            projection
-        }
-    )
+        )
         .populate('tags')
         .catch(err => {
             if (err.name === 'CastError') {
                 return ctx.body = {
                     code: 400,
                     message: '文章不存在或已删除'
-                }
+                };
             }
             return ctx.body = {
                 code: 500,
                 message: '服务器内部错误'
-            }
+            };
 
         });
 
     article = article.toJSON({
         getters: true
-    })
+    });
+
     const {
         content,
         ...others
     } = article;
-    ctx.body = {
+
+    const body = {
         code: 200,
-        article: others,
-        wxml: ToWxml(article.content, 'markdown'),
+        article: others
     };
+
+    if (filter === 'weapp') {
+        body.wxml = ToWxml(article.content, 'markdown');
+    }
+    ctx.body = body;
 
     return ctx.body;
 }
@@ -414,12 +420,12 @@ export async function deleteArticle(ctx) {
             return ctx.body = {
                 code: 400,
                 message: '文章不存在或已删除'
-            }
+            };
         }
         return ctx.body = {
             code: 500,
             message: '服务器内部错误'
-        }
+        };
 
     });
     ctx.body = {
@@ -441,12 +447,12 @@ export async function publishArticle(ctx) {
             return ctx.body = {
                 code: 400,
                 message: '文章不存在或已删除'
-            }
+            };
         }
         return ctx.body = {
             code: 500,
             message: '服务器内部错误'
-        }
+        };
 
     });
 
@@ -467,12 +473,12 @@ export async function hideArticle(ctx) {
             return ctx.body = {
                 code: 400,
                 message: '文章不存在或已删除'
-            }
+            };
         }
         return ctx.body = {
             code: 500,
             message: '服务器内部错误'
-        }
+        };
 
     });
 
