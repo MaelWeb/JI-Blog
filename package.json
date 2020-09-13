@@ -41,7 +41,7 @@
     "koa-static": "^4.0.3",
     "koa-views": "^6.1.1",
     "md5": "^2.2.1",
-    "mongoose": "^4.13.17",
+    "mongoose": "^5.9.27",
     "qiniu": "^7.2.1",
     "react": "^16.5.0",
     "react-addons-css-transition-group": "^15.6.2",
